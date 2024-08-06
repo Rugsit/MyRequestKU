@@ -21,6 +21,10 @@ public class MainApplication extends Application {
         FXRouter.when("hello", viewPath + "hello-view.fxml");
         FXRouter.when("login", viewPath + "login-page.fxml");
         FXRouter.when("register", viewPath + "register-page.fxml");
+        FXRouter.when("admin-manage-staff", viewPath + "admin-page-manage-staff.fxml");
+        FXRouter.when("admin-manage-users", viewPath + "admin-page-manage-users.fxml");
+        FXRouter.when("admin-manage-faculty-department", viewPath + "admin-page-manage-faculty-department.fxml");
+
     }
 
     public static void main(String[] args) {

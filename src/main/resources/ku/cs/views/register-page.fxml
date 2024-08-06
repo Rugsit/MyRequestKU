@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@../style/login-register-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.RegisterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@../styles/login-register-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.RegisterController">
    <children>
       <Button layoutX="697.0" layoutY="558.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="386.0" styleClass="loginButton" text="สร้างบัญชีผู้ใช้">
          <font>
@@ -21,7 +21,7 @@
       </Button>
       <ImageView fitHeight="698.0" fitWidth="581.0" layoutX="116.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/logo/side-bar-ku.png" />
+            <Image url="@../../../images/logos/side-bar-ku.png" />
          </image>
       </ImageView>
       <Label layoutX="697.0" layoutY="55.0" text="สร้างบัญชีผู้ใช้">
@@ -47,7 +47,7 @@
                <graphic>
                   <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/icon/eyeIcon.png" />
+                        <Image url="@../../../images/icons/eyeIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -66,7 +66,7 @@
                <graphic>
                   <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/icon/eyeIcon.png" />
+                        <Image url="@../../../images/icons/eyeIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -86,7 +86,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/icon/backIcon.png" />
+                  <Image url="@../../../images/icons/back-icon.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />

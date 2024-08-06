@@ -41,4 +41,14 @@ public class LoginController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    protected void goToAdminManage() {
+        try {
+            FXRouter.goTo("admin-manage-users");
+        } catch (
+                IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

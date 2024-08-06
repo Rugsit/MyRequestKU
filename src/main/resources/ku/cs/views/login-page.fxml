@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@../style/login-register-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@../styles/login-register-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.LoginController">
    <children>
       <ImageView fitHeight="698.0" fitWidth="581.0" layoutX="116.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/logo/side-bar-ku.png" />
+            <Image url="@../../../images/logos/side-bar-ku.png" />
          </image>
       </ImageView>
       <Label layoutX="697.0" layoutY="115.0" text="เข้าสู่ระบบ">
@@ -45,12 +45,12 @@
          <graphic>
             <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/icon/eyeIcon.png" />
+                  <Image url="@../../../images/icons/eyeIcon.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="selectAdminRoleButton" layoutX="1118.0" layoutY="193.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="128.0" styleClass="loginButton" text="ผู้ดูแลระบบ" visible="false">
+      <Button fx:id="selectAdminRoleButton" layoutX="1118.0" layoutY="193.0" mnemonicParsing="false" onAction="#goToAdminManage" prefHeight="37.0" prefWidth="128.0" styleClass="loginButton" text="ผู้ดูแลระบบ" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
