@@ -99,7 +99,7 @@
             </VBox>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" styleClass="imagePane">
                <image>
-                  <Image url="@../../../images/logos/login-register-ku.png" />
+                  <Image url="@../../../images/logos/side-bar-ku-logo.png" />
                </image>
             </ImageView>
             <Pane layoutX="11.0" layoutY="85.0" prefHeight="17.0" prefWidth="266.0" styleClass="imagePane" />

@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="698.0" fitWidth="581.0" layoutX="116.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/logos/side-bar-ku.png" />
+            <Image url="@../../../images/logos/login-register-ku.png" />
          </image>
       </ImageView>
       <Label layoutX="697.0" layoutY="115.0" text="เข้าสู่ระบบ">
@@ -70,7 +70,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="selectStudentRoleButton" layoutX="1118.0" layoutY="388.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="128.0" styleClass="loginButton" text="นิสิต" visible="false">
+      <Button fx:id="selectStudentRoleButton" layoutX="1118.0" layoutY="388.0" mnemonicParsing="false" onAction="#onStudentButtonClicked" prefHeight="37.0" prefWidth="128.0" styleClass="loginButton" text="นิสิต" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

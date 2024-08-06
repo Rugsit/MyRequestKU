@@ -95,7 +95,7 @@
             <Pane layoutX="11.0" layoutY="101.0" prefHeight="1.0" prefWidth="266.0" styleClass="imagePane" />
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" styleClass="imagePane">
                <image>
-                  <Image url="@../../../images/logos/login-register-ku.png" />
+                  <Image url="@../../../images/logos/side-bar-ku-logo.png" />
                </image>
             </ImageView>
             <Label layoutX="62.0" layoutY="633.0" text="นายเมมโมรี่โฟม รักนอน">
