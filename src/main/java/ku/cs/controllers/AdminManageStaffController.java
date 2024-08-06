@@ -25,4 +25,14 @@ public class AdminManageStaffController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    protected void goToUserProfile() {
+        try {
+            FXRouter.goTo("user-profile");
+        } catch (
+                IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

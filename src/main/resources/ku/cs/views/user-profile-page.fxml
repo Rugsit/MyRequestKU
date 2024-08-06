@@ -4,20 +4,15 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #F8F8F8;" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AdminManageFacultyController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@../styles/user-profile-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.UserProfileController">
    <children>
       <Pane prefHeight="718.0" prefWidth="292.0" style="-fx-background-color: #FFFFFF;">
          <children>
@@ -59,7 +54,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToAdminManageStaff" prefHeight="79.0" prefWidth="430.0" text="  จัดการข้อมูลคณะหรือ&#10;  ภาควิชา">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToAdminManageFaculty" prefHeight="79.0" prefWidth="430.0" text="  จัดการข้อมูลคณะหรือ&#10;  ภาควิชา">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -97,12 +92,12 @@
                   </Button>
                </children>
             </VBox>
+            <Pane layoutX="11.0" layoutY="101.0" prefHeight="1.0" prefWidth="266.0" styleClass="imagePane" />
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" styleClass="imagePane">
                <image>
                   <Image url="@../../../images/logos/login-register-ku.png" />
                </image>
             </ImageView>
-            <Pane layoutX="11.0" layoutY="85.0" prefHeight="17.0" prefWidth="266.0" styleClass="imagePane" />
             <Label layoutX="62.0" layoutY="633.0" text="นายเมมโมรี่โฟม รักนอน">
                <font>
                   <Font name="System Bold" size="16.0" />
@@ -116,93 +111,87 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Button layoutX="82.0" layoutY="513.0" mnemonicParsing="false" onAction="#goToUserProfile" styleClass="profileButton">
-               <graphic>
-                  <ImageView fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" styleClass="profileImage">
-                     <image>
-                        <Image url="@../../../images/users/side-bar-profile.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-               </graphic>
-            </Button>
          </children>
       </Pane>
-      <Label layoutX="332.0" layoutY="20.0" text="จัดการข้อมูลคณะหรือภาควิชา">
+      <Label layoutX="317.0" layoutY="29.0" text="ข้อมูลผู้ใช้">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="1138.0" layoutY="648.0" mnemonicParsing="false" styleClass="edit" text="  แก้ไข">
-         <graphic>
-            <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/icons/pencil-icon.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <TabPane layoutX="353.0" layoutY="90.0" prefHeight="546.0" prefWidth="894.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="300.0" tabMinHeight="50.0" tabMinWidth="400.0">
-        <tabs>
-          <Tab text="คณะ">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="534.0" prefWidth="855.0">
-                     <children>
-                        <TableView prefHeight="470.0" prefWidth="869.0">
-                           <columns>
-                              <TableColumn prefWidth="169.59998166561127" text="คณะ" />
-                              <TableColumn prefWidth="201.5999755859375" text="รหัสคณะ" />
-                              <TableColumn prefWidth="498.3999328613281" />
-                           </columns>
-                        </TableView>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="ภาควิชา">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="455.0" prefWidth="874.0">
-                     <children>
-                        <TableView prefHeight="470.0" prefWidth="869.0">
-                           <columns>
-                              <TableColumn prefWidth="318.39990842342377" text="ภาควิชา" />
-                              <TableColumn prefWidth="315.2000427246094" text="คณะที่สังกัด" />
-                              <TableColumn prefWidth="237.5999755859375" text="รหัสภาควิชา" />
-                           </columns>
-                        </TableView>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-      <HBox alignment="CENTER_LEFT" layoutX="832.0" layoutY="21.0" prefHeight="52.0" prefWidth="220.0" styleClass="searchHBox">
+      <Pane layoutX="413.0" layoutY="151.0" prefHeight="422.0" prefWidth="737.0" styleClass="cardUserProfile">
          <children>
-            <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+            <Label layoutX="236.0" layoutY="30.0" text="นายรักษิต รุ่งรัตนไชย">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="210.0" fitWidth="152.0" layoutX="33.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/icons/search-icon.png" />
+                  <Image url="@../../../images/users/card-profile.png" />
                </image>
             </ImageView>
-            <TextField prefHeight="50.0" prefWidth="140.0" promptText="ค้นหา" styleClass="searchTextField">
+            <Label layoutX="237.0" layoutY="121.0" text="ชื่อผู้ใช้:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="319.0" layoutY="121.0" text="Sleepman">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="321.0" layoutY="189.0" text="pwd.Sleepman">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="54.0" fitWidth="51.0" layoutX="236.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/default-key-icon.png" />
+               </image>
+            </ImageView>
+            <Line endX="358.0" layoutX="329.0" layoutY="99.0" startX="-86.79998779296875" stroke="#9f9f9f" />
+            <ImageView fitHeight="35.0" fitWidth="38.0" layoutX="243.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/key-icon.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="321.0" layoutY="265.0" text="XXXXXXXXXXX">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="490.0" layoutY="269.0" styleClass="editPassword" text="แก้ไขรหัสผ่าน" textFill="#ff2828">
                <font>
                   <Font size="18.0" />
                </font>
-               <HBox.margin>
-                  <Insets left="5.0" />
-               </HBox.margin>
-            </TextField>
+            </Label>
+            <Label layoutX="61.0" layoutY="245.0" styleClass="editPassword" text="แก้ไขรูปภาพ" textFill="#ff2828">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="570.0" layoutY="46.0" styleClass="editPassword" text="แก้ไขชื่อ-นามสกุล" textFill="#ff2828">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </HBox>
-      <Button alignment="BASELINE_LEFT" layoutX="1059.0" layoutY="21.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="188.0" styleClass="addFacultyButton" text="  เพิ่มคณะ/ภาค">
+      </Pane>
+      <Button layoutX="82.0" layoutY="513.0" mnemonicParsing="false" styleClass="profileButton">
          <graphic>
-            <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" styleClass="profileImage">
                <image>
-                  <Image url="@../../../images/icons/add-icon.png" />
+                  <Image url="@../../../images/users/side-bar-profile.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
    </children>
 </AnchorPane>

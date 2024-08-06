@@ -1,0 +1,47 @@
+* {
+    -fx-text-fill: #374957;
+}
+.root {
+    -fx-background-color: #F8F8F8;
+}
+
+Button {
+    -fx-background-color: transparent;
+}
+
+Button:hover {
+    -fx-background-color: #EBEBEB;
+}
+
+.imagePane {
+    -fx-border-color: #DBDBDB;
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1 0;
+}
+
+.userChooseButton{
+    -fx-background-color: #E7E7E7;
+    -fx-background-radius: 0;
+}
+
+.signOut {
+    -fx-underline: true;
+    -fx-text-fill: #2C67FF;
+}
+
+.cardUserProfile {
+    -fx-background-color: white; /* สีพื้นหลังของ Pane */
+    -fx-background-radius: 30;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 13, 0, 0, 1); /* เอฟเฟกต์เงา */
+}
+
+.editPassword {
+    -fx-cursor: hand;
+    -fx-text-fill: #2C67FF;
+    -fx-underline: true;
+}
+
+.profileButton:hover {
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}

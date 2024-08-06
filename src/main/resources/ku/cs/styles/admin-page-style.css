@@ -106,3 +106,8 @@ Button:hover {
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
+
+.profileButton:hover {
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}

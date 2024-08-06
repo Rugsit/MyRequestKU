@@ -103,14 +103,6 @@
                </image>
             </ImageView>
             <Pane layoutX="11.0" layoutY="95.0" prefHeight="7.0" prefWidth="266.0" styleClass="imagePane" />
-            <ImageView fitHeight="99.0" fitWidth="99.0" layoutX="94.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true" styleClass="profileImage">
-               <image>
-                  <Image url="@../../../images/users/side-bar-profile.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
             <Label layoutX="62.0" layoutY="633.0" text="นายเมมโมรี่โฟม รักนอน">
                <font>
                   <Font name="System Bold" size="16.0" />
@@ -124,6 +116,18 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
+            <Button layoutX="82.0" layoutY="513.0" mnemonicParsing="false" onAction="#goToUserProfile" styleClass="profileButton">
+               <graphic>
+                  <ImageView fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" styleClass="profileImage">
+                     <image>
+                        <Image url="@../../../images/users/side-bar-profile.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </Pane>
       <Label layoutX="332.0" layoutY="20.0" text="จัดการข้อมูลเจ้าหน้าที่">
