@@ -51,4 +51,13 @@ public class LoginController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    private void onStudentButtonClicked(){
+        try{
+            FXRouter.goTo("student-requests");
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
 }

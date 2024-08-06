@@ -21,7 +21,7 @@
       </Button>
       <ImageView fitHeight="698.0" fitWidth="581.0" layoutX="116.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/logos/side-bar-ku.png" />
+            <Image url="@../../../images/logos/login-register-ku.png" />
          </image>
       </ImageView>
       <Label layoutX="697.0" layoutY="55.0" text="สร้างบัญชีผู้ใช้">
