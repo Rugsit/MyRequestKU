@@ -48,7 +48,7 @@
       </Pane>
       <Pane layoutY="513.0" prefHeight="207.0" prefWidth="292.0" style="-fx-background-color: FFFFFF;">
          <children>
-            <Circle fx:id="tabProfilePicCircle" fill="DODGERBLUE" layoutX="146.0" layoutY="47.0" radius="41.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="TabProfilePic" />
+            <Circle fx:id="tabProfilePicCircle" fill="DODGERBLUE" layoutX="146.0" layoutY="47.0" onMouseClicked="#onSideProfileClicked" radius="41.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="TabProfilePic" />
             <Label fx:id="tabAccountNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="97.0" maxWidth="250.0" prefWidth="250.0" styleClass="SideBarAccountName" text="Label" textAlignment="CENTER">
                <font>
                   <Font size="16.0" />

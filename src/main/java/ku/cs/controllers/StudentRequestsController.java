@@ -53,4 +53,12 @@ public class StudentRequestsController {
         tabAccountNameLabel.setText("นายเมมโมรี่โฟม รักนอน");
     }
 
+    @FXML
+    public void onSideProfileClicked(){
+        try{
+            FXRouter.goTo("student-profile");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

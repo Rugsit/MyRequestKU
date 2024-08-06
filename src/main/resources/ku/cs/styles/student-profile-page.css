@@ -1,0 +1,56 @@
+.RequestTabButton {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #374957;
+}
+
+.RequestTabButton:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #EBEBEB;
+}
+
+.ProfileCard {
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 13, 0, 0, 1);
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+
+.SideBarAccountName {
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+.LogoutText {
+    -fx-underline: true;
+}
+
+.LogoutText:hover{
+    -fx-cursor: hand;
+}
+
+.StudentName {
+    -fx-text-fill: #374957;
+    -fx-font-weight: bold;
+}
+
+#profileCardInfo {
+    -fx-text-fill: #374957;
+}
+
+.TabProfilePic:hover {
+    -fx-cursor: hand;
+}
+
+.editPasswordButton{
+    -fx-background-color: #FF4E4E;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-pref-width: 126;
+    -fx-pref-height: 30;
+}
+
+.editPasswordButton:hover{
+    -fx-cursor: hand;
+}
