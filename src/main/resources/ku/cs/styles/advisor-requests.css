@@ -1,17 +1,17 @@
 .signOut {
     -fx-underline: true;
-    -fx-text-fill: #0000FF;
+    -fx-text-fill: #0000FF
 }
 
 .manageStudentTab {
-    -fx-background-color: #EBEBEB;
-}
-
-.manageRequestTab {
     -fx-background-color: #FFFFFF;
 }
 
-.manageRequestTab:hover {
+.manageStudentTab:hover {
     -fx-cursor: hand;
+    -fx-background-color: #EBEBEB
+}
+
+.manageRequestTab {
     -fx-background-color: #EBEBEB
 }

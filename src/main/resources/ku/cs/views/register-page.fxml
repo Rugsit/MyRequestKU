@@ -47,7 +47,7 @@
                <graphic>
                   <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/icons/eyeIcon.png" />
+                        <Image url="@../../../images/icons/eye-icon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -66,7 +66,7 @@
                <graphic>
                   <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/icons/eyeIcon.png" />
+                        <Image url="@../../../images/icons/eye-icon.png" />
                      </image>
                   </ImageView>
                </graphic>

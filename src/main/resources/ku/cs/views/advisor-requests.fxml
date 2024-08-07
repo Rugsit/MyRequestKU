@@ -17,13 +17,13 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #F8F8F8;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AdvisorStudentListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #F8F8F8;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AdvisorRequestsController">
    <children>
       <Pane prefHeight="718.0" prefWidth="292.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <VBox layoutX="-2.0" layoutY="102.0" prefHeight="169.0" prefWidth="292.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="70.0" prefWidth="434.0" styleClass="manageStudentTab" text="จัดการนิสิตในที่ปรึกษา">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToStudentList" prefHeight="70.0" prefWidth="434.0" styleClass="manageStudentTab" text="จัดการนิสิตในที่ปรึกษา">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -41,7 +41,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onMainButtonClick" prefHeight="75.0" prefWidth="330.0" styleClass="manageRequestTab" text="  จัดการคำร้องที่รออนุมัติ">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="75.0" prefWidth="330.0" styleClass="manageRequestTab" text="  จัดการคำร้องที่รออนุมัติ">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -82,7 +82,7 @@
             <Circle fx:id="imageCircle" fill="DODGERBLUE" layoutX="143.0" layoutY="578.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
          </children>
       </Pane>
-      <Label layoutX="332.0" layoutY="20.0" text="รายชื่อนิสิตในความดูแล">
+      <Label layoutX="332.0" layoutY="20.0" text="ใบคำร้อง">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
@@ -107,15 +107,17 @@
             <Insets left="10.0" />
          </padding>
       </HBox>
-      <TableView layoutX="322.0" layoutY="120.0" prefHeight="454.0" prefWidth="896.0">
-        <columns>
-          <TableColumn prefWidth="267.1999816894531" text="ชื่อ" />
-          <TableColumn prefWidth="249.5999755859375" text="รหัสนิสิต" />
-        </columns>
+      <TableView layoutX="332.0" layoutY="130.0" prefHeight="454.0" prefWidth="896.0">
+         <columns>
+            <TableColumn prefWidth="200.79995727539062" text="ชื่อ" />
+            <TableColumn prefWidth="148.79998779296875" text="วันที่ยื่นคำร้อง" />
+            <TableColumn prefWidth="186.4000244140625" text="ประเภทคำร้อง" />
+            <TableColumn prefWidth="359.99993896484375" text="สถานะคำร้อง" />
+         </columns>
       </TableView>
    </children>
    <stylesheets>
-      <URL value="@../styles/advisor-main-ui.css" />
-      <URL value="@../styles/advisor-main-ui.css" />
+      <URL value="@../styles/advisor-requests.css" />
+      <URL value="@../styles/advisor-requests.css" />
    </stylesheets>
 </AnchorPane>
