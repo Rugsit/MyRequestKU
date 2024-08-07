@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.department.RequestListController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="720.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" width="266.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8f8f8" height="724.0" layoutX="265.0" layoutY="-3.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" width="1017.0" />
+      <Label fx:id="pageTitleLabel" layoutX="308.0" layoutY="34.0" text="จัดการคำร้อง">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="topSideImageView" fitHeight="62.0" fitWidth="216.0" layoutX="24.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/logos/side-bar-ku-logo.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="requestSideButton" alignment="BASELINE_LEFT" layoutX="33.0" layoutY="155.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="ใบคำร้อง" textAlignment="CENTER">
+         <font>
+            <Font name="PrintAble4U Regular" size="24.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/pages/department/sidebar/request-list.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="nisitManagementSideButton" alignment="BASELINE_LEFT" layoutX="33.0" layoutY="225.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="จัดการนิสิต" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="PrintAble4U Regular" size="24.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/pages/department/sidebar/nisit-management.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="approverManagementSideButton" alignment="BASELINE_LEFT" layoutX="33.0" layoutY="365.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="จัดการผู้อนุมัติ" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="PrintAble4U Regular" size="24.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/pages/department/sidebar/approver-management.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="nisitAdvisorManagementSideButton" alignment="BASELINE_LEFT" layoutX="33.0" layoutY="295.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="จัดการที่ปรึกษานิสิต" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="PrintAble4U Regular" size="24.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/pages/department/sidebar/nisit-advisor-management.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TableView fx:id="requestTableView" layoutX="319.0" layoutY="146.0" prefHeight="522.0" prefWidth="910.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn prefWidth="75.0" text="C3" />
+            <TableColumn prefWidth="75.0" text="C4" />
+            <TableColumn prefWidth="75.0" text="C5" />
+        </columns>
+      </TableView>
+      <TextField fx:id="seachTextField" layoutX="910.0" layoutY="40.0" prefHeight="59.0" prefWidth="317.0">
+         <font>
+            <Font name="PrintAble4U Regular" size="30.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

@@ -60,7 +60,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="selectDepartmentStaffRoleButton" layoutX="1118.0" layoutY="291.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="128.0" styleClass="loginButton" text="เจ้าหน้าที่ภาควิชา" visible="false">
+      <Button fx:id="selectDepartmentStaffRoleButton" layoutX="1118.0" layoutY="291.0" mnemonicParsing="false" onAction="#goToDepartmentManage" prefHeight="37.0" prefWidth="128.0" styleClass="loginButton" text="เจ้าหน้าที่ภาควิชา" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

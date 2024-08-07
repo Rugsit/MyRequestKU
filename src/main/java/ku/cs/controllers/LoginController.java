@@ -70,4 +70,12 @@ public class LoginController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML protected void goToDepartmentManage() {
+        try {
+            FXRouter.goTo("department-staff-request-list");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
