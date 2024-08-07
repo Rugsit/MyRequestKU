@@ -1,3 +1,6 @@
+* {
+    -fx-font-family: PrintAble4U;
+}
 .RequestTabButton {
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #374957;

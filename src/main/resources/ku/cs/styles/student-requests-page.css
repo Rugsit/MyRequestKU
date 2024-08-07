@@ -1,3 +1,6 @@
+* {
+    -fx-font-family: PrintAble4U;
+}
 .RequestsTable .column-header-background {
     -fx-background-color: transparent;
     -fx-border-width: 0;

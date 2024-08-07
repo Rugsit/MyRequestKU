@@ -1,3 +1,6 @@
+* {
+    -fx-font-family: PrintAble4U;
+}
 .signOut {
     -fx-underline: true;
     -fx-text-fill: #0000FF;
