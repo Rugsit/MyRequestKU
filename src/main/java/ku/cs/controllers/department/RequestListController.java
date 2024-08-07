@@ -3,9 +3,12 @@ package ku.cs.controllers.department;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import ku.cs.controllers.department.components.DefaultLabel;
 import ku.cs.controllers.department.components.RouteButton;
+import ku.cs.controllers.department.components.SquareImage;
 import ku.cs.models.Request;
 import ku.cs.services.FXRouter;
 
@@ -15,16 +18,22 @@ public class RequestListController {
     @FXML private Label pageTitleLabel;
 
     @FXML private ImageView topSideImageView;
+    @FXML private VBox routeButtonVBox;
     @FXML private Button requestSideButton;
     @FXML private Button nisitManagementSideButton;
     @FXML private Button approverManagementSideButton;
     @FXML private Button nisitAdvisorManagementSideButton;
-//    private final String BASE_COLOR = "#EBEBEB";
+
+    @FXML private VBox userProfileVBox;
+    @FXML private ImageView userProfileImageView;
+    @FXML private Button logoutButton;
+
+    @FXML private TextField seachTextField;
+    @FXML private TableView<Request> requestTableView;
+
     private final String BASE_COLOR = "#FFFFFF";
     private final String HOVER_COLOR = "#a6a6a6";
     private final String BASE_LABEL_COLOR = DefaultLabel.DEFAULT_LABEL_COLOR;
-    @FXML private TextField seachTextField;
-    @FXML private TableView<Request> requestTableView;
     private final String DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
     private final String FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
 
@@ -33,6 +42,8 @@ public class RequestListController {
         initLabel();
         initSidebar();
         initTableView();
+        Image image = new Image(getClass().getResourceAsStream("/images/profile-test.png"));
+        new SquareImage(userProfileImageView,image).setClipImage(100,100);
 
     }
     private void initLabel() {
@@ -43,6 +54,8 @@ public class RequestListController {
         new RouteButton(nisitAdvisorManagementSideButton,"department-staff-nisit-advisor-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
         new RouteButton(nisitManagementSideButton,"department-staff-nisit-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
         new RouteButton(approverManagementSideButton,"department-staff-approver-list",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
+        new RouteButton(logoutButton,"login",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
+
     }
     private void initTableView(){
         requestTableView.getColumns().clear();
