@@ -39,7 +39,7 @@ public class RequestListController {
         new DefaultLabel(pageTitleLabel);
     }
     private void initSidebar(){
-        new RouteButton(requestSideButton,"department-staff-request",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
+        new RouteButton(requestSideButton,"department-staff-request-list",HOVER_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
         new RouteButton(nisitAdvisorManagementSideButton,"department-staff-nisit-advisor-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
         new RouteButton(nisitManagementSideButton,"department-staff-nisit-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
         new RouteButton(approverManagementSideButton,"department-staff-approver-list",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
