@@ -13,6 +13,7 @@
 }
 
 .RequestsTable {
+    -fx-font-size: 16;
     -fx-border-color: transparent;
     -fx-background-color: transparent ;
 }
@@ -20,6 +21,7 @@
 .RequestTabButton {
     -fx-background-color: #EBEBEB;
     -fx-text-fill: #374957;
+    -fx-font-size: 18;
 }
 .RequestTabButton:hover{
     -fx-cursor: hand;
@@ -27,11 +29,15 @@
 
 .SideBarAccountName {
     -fx-font-weight: bold;
+    -fx-font-size: 18;
+    -fx-alignment: center;
     -fx-text-fill: #000000;
 }
 
 .LogoutText {
     -fx-underline: true;
+    -fx-font-size: 18;
+    -fx-alignment: center;
 }
 .LogoutText:hover{
     -fx-cursor: hand;
@@ -41,7 +47,7 @@
     -fx-background-color: #374957;
     -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
-    -fx-font-size: 14;
+    -fx-font-size: 18;
     -fx-padding: 3;
     -fx-text-alignment: center right;
 }

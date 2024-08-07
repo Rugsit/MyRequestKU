@@ -19,7 +19,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #F8F8F8;" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AdminManageStaffController">
    <children>
-      <Pane prefHeight="718.0" prefWidth="292.0" style="-fx-background-color: #FFFFFF;">
+      <Pane prefHeight="718.0" prefWidth="292.0" style="-fx-background-color: #FFFFFF;" styleClass="tabName">
          <children>
             <VBox layoutY="106.0" prefHeight="299.0" prefWidth="292.0">
                <children>
@@ -103,12 +103,12 @@
                </image>
             </ImageView>
             <Pane layoutX="11.0" layoutY="95.0" prefHeight="7.0" prefWidth="266.0" styleClass="imagePane" />
-            <Label layoutX="62.0" layoutY="633.0" text="นายเมมโมรี่โฟม รักนอน">
+            <Label layoutX="21.0" layoutY="633.0" maxWidth="250.0" prefWidth="250.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="102.0" layoutY="658.0" styleClass="signOut" text="ออกจากระบบ">
+            <Label layoutX="21.0" layoutY="660.0" maxWidth="250.0" prefWidth="250.0" styleClass="signOut" text="ออกจากระบบ">
                <font>
                   <Font size="16.0" />
                </font>

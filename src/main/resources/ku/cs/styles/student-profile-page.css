@@ -4,6 +4,7 @@
 .RequestTabButton {
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #374957;
+    -fx-font-size: 18;
 }
 
 .RequestTabButton:hover{
@@ -22,10 +23,14 @@
 .SideBarAccountName {
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
+    -fx-font-size: 18;
+    -fx-alignment: center;
 }
 
 .LogoutText {
     -fx-underline: true;
+    -fx-font-size: 18;
+    -fx-alignment: center;
 }
 
 .LogoutText:hover{
@@ -35,6 +40,7 @@
 .StudentName {
     -fx-text-fill: #374957;
     -fx-font-weight: bold;
+    -fx-font-size: 32;
 }
 
 #profileCardInfo {

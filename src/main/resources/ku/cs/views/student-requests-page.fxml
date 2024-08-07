@@ -54,7 +54,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="105.0" layoutY="122.0" styleClass="LogoutText" text="ออกจากระบบ" textFill="#2c67ff">
+            <Label layoutX="21.0" layoutY="124.0" maxWidth="250.0" prefWidth="250.0" styleClass="LogoutText" text="ออกจากระบบ" textFill="#2c67ff">
                <font>
                   <Font size="16.0" />
                </font>
@@ -100,17 +100,17 @@
             <Image url="@../../../images/icons/rejected-icon.png" />
          </image>
       </ImageView>
-      <Label fx:id="requestsNumberLabel" layoutX="358.0" layoutY="653.0" text="requestsNum">
+      <Label fx:id="requestsNumberLabel" layoutX="358.0" layoutY="655.0" text="requestsNum">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="approvedNumberLabel" layoutX="507.0" layoutY="653.0" text="approvedNum">
+      <Label fx:id="approvedNumberLabel" layoutX="507.0" layoutY="655.0" text="approvedNum">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="rejectedNumberLabel" layoutX="665.0" layoutY="653.0" text="rejectedNum">
+      <Label fx:id="rejectedNumberLabel" layoutX="665.0" layoutY="655.0" text="rejectedNum">
          <font>
             <Font size="18.0" />
          </font>
