@@ -4,18 +4,34 @@
 
 .signOut {
     -fx-underline: true;
-    -fx-text-fill: #0000FF
+    -fx-text-fill: #0000FF;
+    -fx-font-size: 18;
+    -fx-alignment: center;
+}
+
+.tabName{
+    -fx-font-size: 18;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
 }
 
 .manageStudentTab {
     -fx-background-color: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-padding: 3;
 }
 
 .manageStudentTab:hover {
     -fx-cursor: hand;
-    -fx-background-color: #EBEBEB
+    -fx-background-color: #EBEBEB;
 }
 
 .manageRequestTab {
-    -fx-background-color: #EBEBEB
+    -fx-background-color: #EBEBEB;
+    -fx-font-size: 18;
+    -fx-padding: 3;
+}
+
+.requestsTable {
+    -fx-font-size: 18;
 }

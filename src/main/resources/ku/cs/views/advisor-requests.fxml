@@ -41,7 +41,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="75.0" prefWidth="330.0" styleClass="manageRequestTab" text="  จัดการคำร้องที่รออนุมัติ">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="75.0" prefWidth="330.0" styleClass="manageRequestTab" text="จัดการคำร้องที่รออนุมัติ">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -66,12 +66,12 @@
                   <Image url="@../../../images/logos/side-bar-ku-logo.png" />
                </image>
             </ImageView>
-            <Label layoutX="62.0" layoutY="633.0" text="นายเมมโมรี่โฟม รักนอน">
+            <Label alignment="CENTER" layoutX="19.0" layoutY="633.0" maxWidth="250.0" prefWidth="250.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="102.0" layoutY="658.0" styleClass="signOut" text="ออกจากระบบ">
+            <Label layoutX="19.0" layoutY="658.0" maxWidth="250.0" prefWidth="250.0" styleClass="signOut" text="ออกจากระบบ">
                <font>
                   <Font size="16.0" />
                </font>
@@ -107,7 +107,7 @@
             <Insets left="10.0" />
          </padding>
       </HBox>
-      <TableView layoutX="332.0" layoutY="130.0" prefHeight="454.0" prefWidth="896.0">
+      <TableView layoutX="332.0" layoutY="130.0" prefHeight="454.0" prefWidth="896.0" styleClass="requestsTable">
          <columns>
             <TableColumn prefWidth="200.79995727539062" text="ชื่อ" />
             <TableColumn prefWidth="148.79998779296875" text="วันที่ยื่นคำร้อง" />

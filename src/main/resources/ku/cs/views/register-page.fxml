@@ -76,7 +76,7 @@
       <TextField layoutX="696.0" layoutY="361.0" prefHeight="50.0" prefWidth="190.0" promptText="ชื่อ" styleClass="loginTextField" />
       <TextField layoutX="892.0" layoutY="361.0" prefHeight="50.0" prefWidth="190.0" promptText="นามสกุล" styleClass="loginTextField" />
       <TextField layoutX="697.0" layoutY="419.0" prefHeight="50.0" prefWidth="386.0" promptText="รหัสนักศึกษา" styleClass="loginTextField" />
-      <TextField layoutX="697.0" layoutY="477.0" prefHeight="50.0" prefWidth="386.0" promptText="รหัสนักศึกษอีเมลของมหาวิทยาลัย @ku.th" styleClass="loginTextField" />
+      <TextField layoutX="697.0" layoutY="477.0" prefHeight="50.0" prefWidth="386.0" promptText="อีเมลของมหาวิทยาลัย @ku.th" styleClass="loginTextField" />
       <Button layoutX="909.0" layoutY="125.0" mnemonicParsing="false" onAction="#goToLogin" styleClass="registerLabel" text="เข้าสู่ระบบ">
          <font>
             <Font size="18.0" />
