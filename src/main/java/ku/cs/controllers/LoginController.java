@@ -60,4 +60,14 @@ public class LoginController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    protected void goToAdvisorManage() {
+        try {
+            FXRouter.goTo("advisor-students");
+        } catch (
+                IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
