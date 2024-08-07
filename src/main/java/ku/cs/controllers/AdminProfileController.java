@@ -5,7 +5,7 @@ import ku.cs.services.FXRouter;
 
 import java.io.IOException;
 
-public class UserProfileController {
+public class AdminProfileController {
     @FXML
     protected void goToAdminManageStaff() {
         try {
@@ -32,6 +32,15 @@ public class UserProfileController {
             FXRouter.goTo("admin-manage-users");
         } catch (
                 IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    protected void onLogoutClicked() {
+        try {
+            FXRouter.goTo("login");
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

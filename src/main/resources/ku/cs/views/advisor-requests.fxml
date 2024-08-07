@@ -71,7 +71,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="19.0" layoutY="658.0" maxWidth="250.0" prefWidth="250.0" styleClass="signOut" text="ออกจากระบบ">
+            <Label layoutX="19.0" layoutY="658.0" maxWidth="250.0" onMouseClicked="#onLogoutClicked" prefWidth="250.0" styleClass="signOut" text="ออกจากระบบ">
                <font>
                   <Font size="16.0" />
                </font>

@@ -8,6 +8,8 @@
 
 Button {
     -fx-background-color: transparent;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
 }
 
 Button:hover {
@@ -28,6 +30,9 @@ Button:hover {
 .signOut {
     -fx-underline: true;
     -fx-text-fill: #2C67FF;
+    -fx-font-weight: normal;
+    -fx-font-size: 18;
+    -fx-alignment: center;
 }
 
 .cardUserProfile {
@@ -45,4 +50,10 @@ Button:hover {
 .profileButton:hover {
     -fx-cursor: hand;
     -fx-background-color: transparent;
+}
+
+.tabName {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
 }

@@ -25,6 +25,15 @@ public class AdvisorStudentListController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    protected void onLogoutClicked() {
+        try {
+            FXRouter.goTo("login");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 

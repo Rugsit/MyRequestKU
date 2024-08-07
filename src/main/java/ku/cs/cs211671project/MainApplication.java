@@ -31,7 +31,7 @@ public class MainApplication extends Application {
         FXRouter.when("admin-manage-staff", viewPath + "admin-page-manage-staff.fxml");
         FXRouter.when("admin-manage-users", viewPath + "admin-page-manage-users.fxml");
         FXRouter.when("admin-manage-faculty-department", viewPath + "admin-page-manage-faculty-department.fxml");
-        FXRouter.when("user-profile", viewPath + "user-profile-page.fxml");
+        FXRouter.when("user-profile", viewPath + "admin-profile-page.fxml");
         FXRouter.when("student-requests", viewPath + "student-requests-page.fxml");
         FXRouter.when("student-profile", viewPath + "student-profile-page.fxml");
         FXRouter.when("advisor-requests", viewPath + "advisor-requests.fxml");
