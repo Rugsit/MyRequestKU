@@ -1,0 +1,72 @@
+* {
+    -fx-text-fill: #374957;
+    -fx-font-family: PrintAble4U;
+}
+
+.root {
+ -fx-background-color: #FFFFFF;
+}
+
+.registerLabel {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-text-fill: #2C67FF;
+    -fx-underline: true;
+    -fx-font-size: 18;
+}
+
+.loginTextField {
+    -fx-font-weight: 500;
+    -fx-font-size: 18;
+    -fx-prompt-text-fill: #909090;
+    -fx-background-color: #F3F3F3;
+    -fx-background-radius: 5;
+}
+
+.loginTextField:focused{
+    -fx-border-color: #374957;
+    -fx-border-radius: 5;
+}
+
+.passwordTextField {
+    -fx-background-radius: 5;
+}
+
+.seenPasswordButton {
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-background-color: #F3F3F3;
+    -fx-background-radius: 0 5 5 0;
+}
+
+.saveDataCheckBox {
+    -fx-text-fill: #374957;
+    -fx-font-size: 18px;
+}
+
+.saveDataCheckBox:selected .box {
+    -fx-background-color: #374957;
+    -fx-border-color: transparent;
+}
+
+.saveDataCheckBox .box {
+    -fx-cursor: hand;
+    -fx-background-color: #F3F3F3;
+    -fx-border-color: transparent;
+}
+
+.saveDataCheckBox:selected .box .mark {
+    -fx-background-color: white;
+}
+
+.loginButton {
+    -fx-background-color: #374957;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-font-size: 18;
+}
+
+.backButton {
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
