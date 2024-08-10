@@ -1,6 +1,8 @@
 package ku.cs.controllers.department.components;
 
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.Button;
@@ -8,7 +10,8 @@ import javafx.scene.control.Button;
 import java.util.List;
 
 public class DefaultButton {
-    @FXML protected Button button;
+    protected Button button;
+    protected ImageView imageView;
     protected String buttonName;
     protected String baseColorHex;
     protected String hoverColorHex;
@@ -79,6 +82,33 @@ public class DefaultButton {
         button.setOnMouseClicked(e -> {
             System.out.println(buttonName + "clicked!");
         });
+    }
+    public void setText(String text){
+        button.setText(text);
+    }
+    public void setText(String text,double fontSize,FontWeight fontWeight){
+        String fontName = getAvailableFont(DEFAULT_FONT);
+        Font newFont = Font.font(fontName,fontWeight,fontSize);
+        button.setFont(newFont);
+        button.setText(text);
+    }
+    public void setImage(Image image,double width,double height){
+        if(button.getGraphic() == null){
+            imageView = new ImageView();
+            imageView.setPreserveRatio(true);
+            imageView.setSmooth(true);
+            button.setGraphic(imageView);
+        }
+        imageView.setFitWidth(width);
+        imageView.setFitHeight(height);
+//        imageView.setImage(image);
+        new SquareImage(imageView,image);
+    }
+    public void setButtonSize(double width,double height){
+        button.setPrefSize(width, height);
+    }
+    public Button getButton(){
+        return button;
     }
 
 

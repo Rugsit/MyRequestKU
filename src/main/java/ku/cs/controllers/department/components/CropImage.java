@@ -24,7 +24,7 @@ public class CropImage extends DefaultImage{
         double cropHeight = (int)(height/viewHeight) * viewHeight;
 //        System.out.println("view " + viewWidth + " " + viewWidth);
 //        System.out.println("crop " + cropWidth + " " + cropHeight);
-        if(viewWidth > viewWidth){
+        if(viewWidth > width){
             cropWidth = width;
         }
         if(viewHeight > height){
