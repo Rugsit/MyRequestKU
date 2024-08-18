@@ -43,9 +43,9 @@ public class SidebarController {
         String nisitAdvisorManageIconPath = iconPath + "nisit-advisor-management.png";
 
         navListLayout.addRouteButton("ใบคำร้อง","department-staff-request-list",HOVER_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,requestIconPath);
-        navListLayout.addRouteButton("จัดการนิสิต","department-staff-nisit-advisor-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,nisitManageIconPath);
-        navListLayout.addRouteButton("จัดการผู้อนุมัติ","department-staff-nisit-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,aprroverManageIconPath);
-        navListLayout.addRouteButton("จัดการที่ปรึกษานิสิต","department-staff-approver-list",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,nisitAdvisorManageIconPath);
+        navListLayout.addRouteButton("จัดการนิสิต","department-staff-nisit-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,nisitManageIconPath);
+        navListLayout.addRouteButton("จัดการผู้อนุมัติ","department-staff-approver-list",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,aprroverManageIconPath);
+        navListLayout.addRouteButton("จัดการที่ปรึกษานิสิต","department-staff-nisit-advisor-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,nisitAdvisorManageIconPath);
         navListLayout.setMount(0,150);
 
         Image userImage = new Image(getClass().getResourceAsStream("/images/profile-test.png"));

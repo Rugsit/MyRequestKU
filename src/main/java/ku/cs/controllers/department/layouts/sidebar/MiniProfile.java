@@ -1,6 +1,5 @@
 package ku.cs.controllers.department.layouts.sidebar;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,7 +32,7 @@ public class MiniProfile {
         new SquareImage(profileImage,image).setClipImage(1000,1000);
         new DefaultLabel(profileName).setText(name,24, FontWeight.BOLD);
         this.logoutButton = new RouteButton("login",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
-        this.logoutButton.chnageText("ออกจากระบบ",18,FontWeight.NORMAL);
+        this.logoutButton.changeText("ออกจากระบบ",18,FontWeight.NORMAL);
 
         vBox.getChildren().addAll(profileImage,profileName,logoutButton);
         initStyle();

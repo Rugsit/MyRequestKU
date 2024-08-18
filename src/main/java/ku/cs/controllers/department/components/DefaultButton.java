@@ -1,5 +1,6 @@
 package ku.cs.controllers.department.components;
 
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
@@ -88,10 +89,16 @@ public class DefaultButton extends Button {
     }
     private void handleHoverEvent(){
         button.setOnMouseEntered(
-                (e -> changeColor(hoverColorHex))
+                (e -> {
+                    changeColor(hoverColorHex);
+                    button.setCursor(Cursor.HAND);
+                })
         );
         button.setOnMouseExited(
-                (e -> changeColor(baseColorHex))
+                (e -> {
+                    changeColor(baseColorHex);
+                    button.setCursor(Cursor.DEFAULT);
+                })
         );
     }
     protected void handleClickEvent(){
@@ -99,10 +106,10 @@ public class DefaultButton extends Button {
             System.out.println(buttonName + "clicked!");
         });
     }
-    public void chnageText(String text){
+    public void changeText(String text){
         button.setText(text);
     }
-    public void chnageText(String text, double fontSize, FontWeight fontWeight){
+    public void changeText(String text, double fontSize, FontWeight fontWeight){
         String fontName = getAvailableFont(DEFAULT_FONT);
         Font newFont = Font.font(fontName,fontWeight,fontSize);
         button.setFont(newFont);

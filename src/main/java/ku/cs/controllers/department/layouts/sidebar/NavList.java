@@ -56,7 +56,7 @@ public class NavList {
                 hoverColorHex,
                 baseLabelColorHex
         );
-        newButton.chnageText(buttonText,fontSize,fontWeight);
+        newButton.changeText(buttonText,fontSize,fontWeight);
         newButton.setButtonSize(navButtonWidth,navButtonHeight);
         newButton.changeBackgroundRadius(15);
 
