@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
-import ku.cs.controllers.department.components.DefaultLabel;
 import ku.cs.controllers.department.components.RouteButton;
 
 public class NavList {
@@ -22,7 +21,7 @@ public class NavList {
         this.vboxWidth = width;
         this.vboxHeight = height;
         this.navButtonWidth = width * 0.85;
-        initVBox(width,height);
+        initVBox(this.vboxWidth,this.vboxHeight);
     }
     private void initVBox(double width, double height) {
         vBox = new VBox();
@@ -51,23 +50,22 @@ public class NavList {
             String iconImagePath
 
     ){
-        Button newButton = new Button();
-        RouteButton routeButton = new RouteButton(newButton,
+        RouteButton newButton = new RouteButton(
                 routeName,
                 baseColorHex,
                 hoverColorHex,
                 baseLabelColorHex
         );
-        routeButton.setText(buttonText,fontSize,fontWeight);
-        routeButton.setButtonSize(navButtonWidth,navButtonHeight);
-        routeButton.changeBackgroundRadius(15);
+        newButton.chnageText(buttonText,fontSize,fontWeight);
+        newButton.setButtonSize(navButtonWidth,navButtonHeight);
+        newButton.changeBackgroundRadius(15);
 
         Image iconImage = new Image(getClass().getResourceAsStream(iconImagePath));
-        routeButton.setImage(iconImage,40,40);
+        newButton.setImage(iconImage,40,40);
 
         newButton.setStyle(newButton.getStyle() + "-fx-alignment: BASELINE-LEFT;");
 
-        vBox.getChildren().add(routeButton.getButton());
+        vBox.getChildren().add(newButton.getButton());
 
     }
     public void setMount(double x,double y){

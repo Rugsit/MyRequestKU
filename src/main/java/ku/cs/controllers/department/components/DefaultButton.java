@@ -1,6 +1,5 @@
 package ku.cs.controllers.department.components;
 
-import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
@@ -9,7 +8,7 @@ import javafx.scene.control.Button;
 
 import java.util.List;
 
-public class DefaultButton {
+public class DefaultButton extends Button {
     protected Button button;
     protected ImageView imageView;
     protected String buttonName;
@@ -19,13 +18,30 @@ public class DefaultButton {
     protected final String DEFAULT_FONT;
     protected final String FALLBACK_FONT;
 
+    public DefaultButton(String baseColorHex,String hoverColorHex,String baseLabelColorHex){
+        this.button = this;
+        this.baseColorHex = baseColorHex;
+        this.hoverColorHex = hoverColorHex;
+        this.buttonName = button.getId();
+        this.baseLabelColor = baseLabelColorHex;
+
+        this.DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
+        this.FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
+
+        setFont(DEFAULT_FONT);
+        changeColor(baseColorHex);
+        changeLabelColor(baseLabelColorHex);
+
+        handleHoverEvent();
+        handleClickEvent();
+    }
     public DefaultButton(Button button,String baseColorHex,String hoverColorHex,String baseLabelColorHex){
         this.button = button;
         this.baseColorHex = baseColorHex;
         this.hoverColorHex = hoverColorHex;
         this.buttonName = button.getId();
         this.baseLabelColor = baseLabelColorHex;
-        
+
         this.DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
         this.FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
 
@@ -83,10 +99,10 @@ public class DefaultButton {
             System.out.println(buttonName + "clicked!");
         });
     }
-    public void setText(String text){
+    public void chnageText(String text){
         button.setText(text);
     }
-    public void setText(String text,double fontSize,FontWeight fontWeight){
+    public void chnageText(String text, double fontSize, FontWeight fontWeight){
         String fontName = getAvailableFont(DEFAULT_FONT);
         Font newFont = Font.font(fontName,fontWeight,fontSize);
         button.setFont(newFont);

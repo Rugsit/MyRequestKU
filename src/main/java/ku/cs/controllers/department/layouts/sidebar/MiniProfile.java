@@ -14,7 +14,7 @@ public class MiniProfile {
     private final VBox vBox;
     private final ImageView profileImage;
     private final Label profileName;
-    private final Button logoutButton;
+    private final RouteButton logoutButton;
 
     private final String BASE_COLOR = "transparent";
     private final String HOVER_COLOR = "#a6a6a6";
@@ -29,11 +29,11 @@ public class MiniProfile {
         profileImage.setFitHeight(100);
 
         this.profileName = new Label();
-        this.logoutButton = new Button();
 
         new SquareImage(profileImage,image).setClipImage(1000,1000);
         new DefaultLabel(profileName).setText(name,24, FontWeight.BOLD);
-        new RouteButton(logoutButton,"login",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR).setText("ออกจากระบบ",18,FontWeight.NORMAL);
+        this.logoutButton = new RouteButton("login",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
+        this.logoutButton.chnageText("ออกจากระบบ",18,FontWeight.NORMAL);
 
         vBox.getChildren().addAll(profileImage,profileName,logoutButton);
         initStyle();
@@ -41,9 +41,7 @@ public class MiniProfile {
     private void initStyle(){
         vBox.setStyle("-fx-alignment: center; -fx-spacing: 5");
     }
-    public void mount() {
-        double x = 0;
-        double y = 460;
+    public void mount(double x, double y) {
         vBox.setLayoutX(x);
         vBox.setLayoutY(y);
     }
