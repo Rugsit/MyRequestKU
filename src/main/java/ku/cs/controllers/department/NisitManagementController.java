@@ -60,19 +60,19 @@ public class NisitManagementController {
         String buttonColor = editable ? "#ABFFA4" : "#FFA4A4";
         String buttonHoverColor = editable ? "#80BF7A" : "#E19494";
         String buttonLabelColor = editable ? "#000000" : "#000000";
-        String buttonLabel = editable ? "Save" : "Edit";
+        String buttonLabel = editable ? "บันทึก" : "แก้ไข";
 
         nisitEditorVBox.getChildren().forEach(node -> {
             if(node instanceof HBox){
                 HBox hbox = (HBox) node;
                 if(hbox.getChildren().get(0) instanceof TextField){
                     VBox.setMargin(hbox,new Insets(30,0,0,0));
-                    hbox.setSpacing(10);
+                    hbox.setSpacing(20);
                     hbox.getChildren().forEach(child->{
                         if(child instanceof TextField){
                             TextField textField = (TextField) child;
                             textField.setStyle("-fx-background-color: "+backgroundColor+";"
-                            +"-fx-background-radius: 10");
+                            +"-fx-background-radius: 15");
                             textField.setEditable(editable);
                         }
                     });
