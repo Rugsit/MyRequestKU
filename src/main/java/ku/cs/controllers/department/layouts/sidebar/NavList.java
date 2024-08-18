@@ -1,5 +1,7 @@
 package ku.cs.controllers.department.layouts.sidebar;
 
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -11,19 +13,34 @@ public class NavList {
     private VBox vBox;
     private double fontSize = 24;
     private FontWeight fontWeight = FontWeight.NORMAL;
-    private  double navButtonWidth = 220;
+    private double vboxWidth;
+    private double vboxHeight;
+    private double navButtonWidth;
     private double navButtonHeight = 50;
 
     public NavList(double width, double height) {
+        this.vboxWidth = width;
+        this.vboxHeight = height;
+        this.navButtonWidth = width * 0.85;
         initVBox(width,height);
-        setVBoxStyle();
     }
     private void initVBox(double width, double height) {
         vBox = new VBox();
         vBox.setPrefSize(width, height);
     }
     private void setVBoxStyle(){
-        vBox.setStyle("-fx-alignment: CENTER; -fx-spacing: 30");
+        vBox.setStyle("-fx-alignment: CENTER;");
+        double marginTop = 0;
+        int nodeSize = vBox.getChildren().size();
+        double space =  (vboxHeight - ((nodeSize * navButtonHeight) + marginTop))/(nodeSize-1) * 0.5;
+        for(int i = 0;i < vBox.getChildren().size();i++){
+            Node node  = vBox.getChildren().get(i);
+            if(node instanceof Button && i == 0){
+                VBox.setMargin(node, new Insets(marginTop,0,0,0));
+            }else{
+                VBox.setMargin(node, new Insets(space,0,0,0));
+            }
+        }
     }
     public void addRouteButton(
             String buttonText,
@@ -54,6 +71,7 @@ public class NavList {
 
     }
     public void setMount(double x,double y){
+        setVBoxStyle();
         vBox.setLayoutX(x);
         vBox.setLayoutY(y);
     }
