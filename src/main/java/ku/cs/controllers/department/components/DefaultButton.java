@@ -36,7 +36,7 @@ public class DefaultButton extends Button {
         handleHoverEvent();
         handleClickEvent();
     }
-    public DefaultButton(Button button,String baseColorHex,String hoverColorHex,String baseLabelColorHex){
+    public DefaultButton    (Button button,String baseColorHex,String hoverColorHex,String baseLabelColorHex){
         this.button = button;
         this.baseColorHex = baseColorHex;
         this.hoverColorHex = hoverColorHex;
@@ -87,7 +87,7 @@ public class DefaultButton extends Button {
     public void changeLabelColor(String colorHex){
         button.setStyle(button.getStyle() + "-fx-text-fill: " + colorHex + ";");
     }
-    private void handleHoverEvent(){
+    protected void handleHoverEvent(){
         button.setOnMouseEntered(
                 (e -> {
                     changeColor(hoverColorHex);
