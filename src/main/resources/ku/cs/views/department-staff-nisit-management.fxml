@@ -24,7 +24,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Button>
-      <VBox fx:id="nisitTableVBox" layoutX="48.0" layoutY="110.0" prefHeight="557.0" prefWidth="821.0">
+      <VBox fx:id="nisitTableVBox" layoutX="48.0" layoutY="110.0" prefHeight="557.0" prefWidth="635.0">
          <children>
             <HBox fx:id="tableHeaderHBox" alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="806.0">
                <children>
@@ -52,18 +52,9 @@
             </TableView>
          </children>
       </VBox>
-      <VBox fx:id="nisitEditorVBox" alignment="TOP_CENTER" layoutX="872.0" layoutY="115.0" prefHeight="606.0" prefWidth="404.0">
+      <VBox fx:id="nisitEditorVBox" alignment="TOP_CENTER" layoutX="703.0" layoutY="115.0" prefHeight="600.0" prefWidth="560.0">
          <children>
             <ImageView fx:id="nisitImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="404.0">
-               <children>
-                  <TextField fx:id="nisitNameTextField" prefHeight="35.0" prefWidth="314.0" text="ชื่อนามากุล">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </HBox>
          </children>
       </VBox>
       <Button fx:id="addNisitButton" layoutX="1091.0" layoutY="39.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="155.0" text="เพิ่มนิสิต">

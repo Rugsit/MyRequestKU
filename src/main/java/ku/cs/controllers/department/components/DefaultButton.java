@@ -1,14 +1,17 @@
 package ku.cs.controllers.department.components;
 
-import javafx.fxml.FXML;
+import javafx.scene.Cursor;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.Button;
 
 import java.util.List;
 
-public class DefaultButton {
-    @FXML protected Button button;
+public class DefaultButton extends Button {
+    protected Button button;
+    protected ImageView imageView;
     protected String buttonName;
     protected String baseColorHex;
     protected String hoverColorHex;
@@ -16,13 +19,30 @@ public class DefaultButton {
     protected final String DEFAULT_FONT;
     protected final String FALLBACK_FONT;
 
-    public DefaultButton(Button button,String baseColorHex,String hoverColorHex,String baseLabelColorHex){
+    public DefaultButton(String baseColorHex,String hoverColorHex,String baseLabelColorHex){
+        this.button = this;
+        this.baseColorHex = baseColorHex;
+        this.hoverColorHex = hoverColorHex;
+        this.buttonName = button.getId();
+        this.baseLabelColor = baseLabelColorHex;
+
+        this.DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
+        this.FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
+
+        setFont(DEFAULT_FONT);
+        changeColor(baseColorHex);
+        changeLabelColor(baseLabelColorHex);
+
+        handleHoverEvent();
+        handleClickEvent();
+    }
+    public DefaultButton    (Button button,String baseColorHex,String hoverColorHex,String baseLabelColorHex){
         this.button = button;
         this.baseColorHex = baseColorHex;
         this.hoverColorHex = hoverColorHex;
         this.buttonName = button.getId();
         this.baseLabelColor = baseLabelColorHex;
-        
+
         this.DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
         this.FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
 
@@ -67,18 +87,51 @@ public class DefaultButton {
     public void changeLabelColor(String colorHex){
         button.setStyle(button.getStyle() + "-fx-text-fill: " + colorHex + ";");
     }
-    private void handleHoverEvent(){
+    protected void handleHoverEvent(){
         button.setOnMouseEntered(
-                (e -> changeColor(hoverColorHex))
+                (e -> {
+                    changeColor(hoverColorHex);
+                    button.setCursor(Cursor.HAND);
+                })
         );
         button.setOnMouseExited(
-                (e -> changeColor(baseColorHex))
+                (e -> {
+                    changeColor(baseColorHex);
+                    button.setCursor(Cursor.DEFAULT);
+                })
         );
     }
     protected void handleClickEvent(){
         button.setOnMouseClicked(e -> {
             System.out.println(buttonName + "clicked!");
         });
+    }
+    public void changeText(String text){
+        button.setText(text);
+    }
+    public void changeText(String text, double fontSize, FontWeight fontWeight){
+        String fontName = getAvailableFont(DEFAULT_FONT);
+        Font newFont = Font.font(fontName,fontWeight,fontSize);
+        button.setFont(newFont);
+        button.setText(text);
+    }
+    public void setImage(Image image,double width,double height){
+        if(button.getGraphic() == null){
+            imageView = new ImageView();
+            imageView.setPreserveRatio(true);
+            imageView.setSmooth(true);
+            button.setGraphic(imageView);
+        }
+        imageView.setFitWidth(width);
+        imageView.setFitHeight(height);
+//        imageView.setImage(image);
+        new SquareImage(imageView,image);
+    }
+    public void setButtonSize(double width,double height){
+        button.setPrefSize(width, height);
+    }
+    public Button getButton(){
+        return button;
     }
 
 
