@@ -1,0 +1,37 @@
+* {
+    -fx-text-fill: #374957;
+}
+
+.v-box-request {
+    -fx-padding: 30 0 0 0;
+}
+
+.v-box-request:hover {
+    -fx-background-color: #EBEBEB;
+    -fx-cursor: hand;
+    -fx-background-radius: 10;
+}
+
+.v-box-request-img {
+}
+
+.header {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+}
+
+.type-request {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+
+.details-request {
+    -fx-font-size: 18px;
+    -fx-margin: 50px;
+}
+
+.caution {
+    -fx-font-size: 18px;
+    -fx-text-fill: #FF5D5D;
+}

@@ -1,0 +1,39 @@
+* {
+    -fx-text-fill: #374957;
+    -fx-font-family: PrintAble4U;
+}
+
+Button {
+    -fx-background-color: transparent;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+Button:hover {
+    -fx-background-color: #EBEBEB;
+}
+
+.imagePane {
+    -fx-border-color: #DBDBDB;
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1 0;
+}
+
+.userChooseButton{
+    -fx-background-color: #E7E7E7;
+    -fx-background-radius: 0;
+}
+
+.signOut {
+    -fx-underline: true;
+    -fx-text-fill: #2C67FF;
+    -fx-font-size: 18;
+    -fx-alignment: center;
+    -fx-font-weight: normal;
+}
+
+.tabName {
+    -fx-alignment: center;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
