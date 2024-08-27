@@ -80,5 +80,10 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Label fx:id="aboutUsLabel" layoutX="1143.0" layoutY="679.0" onMouseClicked="#onAboutUsLabelClicked" text="เกี่ยวกับทีมของเรา">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
