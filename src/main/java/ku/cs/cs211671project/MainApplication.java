@@ -10,6 +10,8 @@ import ku.cs.services.FXRouter;
 import java.io.IOException;
 
 public class MainApplication extends Application {
+    public static final double windowWidth = 1280;
+    public static final double windowHeight = 720;
     @Override
     public void start(Stage stage) throws IOException {
         String fontsPath = "/fonts/";
@@ -17,10 +19,10 @@ public class MainApplication extends Application {
         Font.loadFont(getClass().getResourceAsStream(fontsPath + "PrintAble4U Bold ver 1.00.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream(fontsPath + "PrintAble4U Italic ver 1.00.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream(fontsPath + "PrintAble4U Bold Italic ver 1.00.ttf"), 12);
-        FXRouter.bind(this, stage, "CS211 Project", 1280, 720);
+        FXRouter.bind(this, stage, "CS211 Project", windowWidth, windowHeight);
         configRoutes();
 
-        FXRouter.goTo("login");
+        FXRouter.goTo("department-staff-request-list");
     }
     private void configRoutes() {
         String viewPath = "ku/cs/views/";

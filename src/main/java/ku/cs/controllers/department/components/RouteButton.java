@@ -8,6 +8,10 @@ import java.io.IOException;
 public class RouteButton extends DefaultButton {
     private String routeName;
 
+    public RouteButton(String routeName,String baseColorHex, String hoverColorHex, String baseLabelColorHex) {
+        super(baseColorHex, hoverColorHex, baseLabelColorHex);
+        this.routeName = routeName;
+    }
     public RouteButton(Button button, String routeName,String baseColorHex, String hoverColorHex, String baseLabelColorHex) {
         super(button, baseColorHex, hoverColorHex, baseLabelColorHex);
         this.routeName = routeName;

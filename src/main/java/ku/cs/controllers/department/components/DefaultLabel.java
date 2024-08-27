@@ -49,5 +49,11 @@ public class DefaultLabel {
     public void setText(String text){
         label.setText(text);
     }
+    public void setText(String text,double fontSize,FontWeight fontWeight){
+        String fontName = getAvailableFont(DEFAULT_FONT);
+        Font newFont = Font.font(fontName,fontWeight,fontSize);
+        label.setFont(newFont);
+        label.setText(text);
+    }
 }
 

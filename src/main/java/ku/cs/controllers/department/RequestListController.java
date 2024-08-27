@@ -5,16 +5,19 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import ku.cs.controllers.department.components.DefaultLabel;
 import ku.cs.controllers.department.components.RouteButton;
 import ku.cs.controllers.department.components.SquareImage;
+import ku.cs.controllers.department.layouts.sidebar.SidebarController;
 import ku.cs.models.Request;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
 
 public class RequestListController {
+    @FXML private AnchorPane mainAnchorPane;
     @FXML private Label pageTitleLabel;
 
     @FXML private ImageView topSideImageView;
@@ -44,6 +47,11 @@ public class RequestListController {
         initTableView();
         Image image = new Image(getClass().getResourceAsStream("/images/profile-test.png"));
         new SquareImage(userProfileImageView,image).setClipImage(100,100);
+
+
+        mainAnchorPane.getChildren().add(new SidebarController().getVBox());
+
+
 
     }
     private void initLabel() {
