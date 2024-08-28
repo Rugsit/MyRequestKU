@@ -44,6 +44,9 @@ public class MainApplication extends Application {
         FXRouter.when("department-staff-nisit-advisor-management", viewPath + "department-staff-nisit-advisor-management.fxml");
         FXRouter.when("department-staff-nisit-management", viewPath + "department-staff-nisit-management.fxml");
 
+        FXRouter.when("choose-request-form", viewPath + "choose-request-form-page.fxml");
+
+
 
 
     }

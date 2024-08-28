@@ -1,0 +1,88 @@
+* {
+    -fx-text-fill: #374957;
+    -fx-font-family: PrintAble4U;
+}
+
+.header {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+}
+
+.require {
+    -fx-font-size: 30px;
+}
+
+.scroll-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-font-size: 20px;
+}
+
+.scroll-bar {
+    -fx-background-color: white;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #374957;
+    -fx-background-radius: 5px;
+}
+
+.vbox-in-scroll-pane {
+    -fx-background-color: white;
+}
+
+.radio-button .radio{
+    -fx-cursor: hand;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+    -fx-background-color: #F2F2F2;
+    -fx-border-color: transparent;
+}
+
+.check-box .box {
+    -fx-cursor: hand;
+    -fx-pref-height: 20px;
+    -fx-pref-width: 20px;
+    -fx-background-color: #F2F2F2;
+    -fx-border-color: transparent;
+}
+
+.text-field{
+    -fx-border-radius: 5;
+    -fx-font-weight: 500;
+    -fx-font-size: 18;
+    -fx-background-color: #F2F2F2;
+    -fx-background-radius: 5;
+}
+
+.text-field:focused {
+    -fx-border-color: #374957;
+    -fx-border-width: 1px;
+}
+
+.caution {
+    -fx-text-fill: #FF5D5D;
+}
+
+.text-area {
+    -fx-background-color: #F2F2F2;
+    -fx-border-width: 0px;
+    -fx-border-radius: 5px;
+}
+
+.text-area .content {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.text-area:focused {
+    -fx-border-color: #374957;
+    -fx-border-width: 1px;
+}
+
+.create-form-button {
+    -fx-cursor: hand;
+    -fx-padding: 15px;
+    -fx-text-fill: white;
+    -fx-background-color: #49A267;
+}
