@@ -65,8 +65,3 @@
     -fx-cursor: hand;
     -fx-font-size: 18;
 }
-
-.backButton {
-    -fx-cursor: hand;
-    -fx-background-color: transparent;
-}
