@@ -62,7 +62,7 @@ public class LoginController {
     @FXML
     private void onStudentButtonClicked(){
         try{
-            FXRouter.goTo("student-requests");
+            FXRouter.goTo("student-page");
         } catch (IOException e){
             throw new RuntimeException(e);
         }
@@ -82,15 +82,6 @@ public class LoginController {
         try {
             FXRouter.goTo("department-staff-request-list");
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    protected void onAboutUsLabelClicked() {
-        try {
-            FXRouter.goTo("about-us");
-        } catch (IOException e){
             throw new RuntimeException(e);
         }
     }

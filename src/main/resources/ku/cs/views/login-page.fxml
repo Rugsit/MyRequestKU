@@ -80,7 +80,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="aboutUsLabel" layoutX="1143.0" layoutY="679.0" onMouseClicked="#onAboutUsLabelClicked" text="เกี่ยวกับทีมของเรา">
+      <Label fx:id="aboutUsLabel" layoutX="843.0" layoutY="580.0" text="คู่มือการใช้งาน">
          <font>
             <Font size="18.0" />
          </font>
