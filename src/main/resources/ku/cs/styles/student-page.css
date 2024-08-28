@@ -1,0 +1,34 @@
+* {
+    -fx-font-family: PrintAble4U;
+}
+.RequestTabButton {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #374957;
+    -fx-font-size: 18;
+}
+
+.RequestTabButton:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #EBEBEB;
+}
+
+.TabProfilePic:hover {
+    -fx-cursor: hand;
+}
+
+.aboutUsText {
+    -fx-alignment: center;
+}
+
+.SideBarAccountName {
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+    -fx-font-size: 18;
+    -fx-alignment: center;
+}
+
+.LogoutText {
+    -fx-underline: true;
+    -fx-font-size: 18;
+    -fx-alignment: center;
+}

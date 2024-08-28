@@ -18,31 +18,6 @@
     -fx-background-color: transparent ;
 }
 
-.RequestTabButton {
-    -fx-background-color: #EBEBEB;
-    -fx-text-fill: #374957;
-    -fx-font-size: 18;
-}
-.RequestTabButton:hover{
-    -fx-cursor: hand;
-}
-
-.SideBarAccountName {
-    -fx-font-weight: bold;
-    -fx-font-size: 18;
-    -fx-alignment: center;
-    -fx-text-fill: #000000;
-}
-
-.LogoutText {
-    -fx-underline: true;
-    -fx-font-size: 18;
-    -fx-alignment: center;
-}
-.LogoutText:hover{
-    -fx-cursor: hand;
-}
-
 .CreateRequestButton {
     -fx-background-color: #374957;
     -fx-text-fill: #FFFFFF;
@@ -53,9 +28,5 @@
 }
 
 .CreateRequestButton:hover{
-    -fx-cursor: hand;
-}
-
-.TabProfilePic:hover {
     -fx-cursor: hand;
 }
