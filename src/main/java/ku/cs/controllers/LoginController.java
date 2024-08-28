@@ -78,4 +78,14 @@ public class LoginController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    protected void goToFacultyManage() {
+        try {
+            FXRouter.goTo("faculty-requests");
+        } catch (
+                IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

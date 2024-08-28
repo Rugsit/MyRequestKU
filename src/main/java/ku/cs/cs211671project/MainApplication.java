@@ -22,7 +22,7 @@ public class MainApplication extends Application {
         FXRouter.bind(this, stage, "CS211 Project", windowWidth, windowHeight);
         configRoutes();
 
-        FXRouter.goTo("department-staff-request-list");
+        FXRouter.goTo("login");
     }
     private void configRoutes() {
         String viewPath = "ku/cs/views/";
@@ -46,6 +46,9 @@ public class MainApplication extends Application {
         FXRouter.when("department-staff-nisit-management", viewPath + "department-staff-nisit-management.fxml");
 
 
+        // Faculty
+        FXRouter.when("faculty-requests", viewPath + "faculty-requests.fxml");
+        FXRouter.when("faculty-approver", viewPath + "faculty-approver.fxml");
     }
 
     public static void main(String[] args) {
