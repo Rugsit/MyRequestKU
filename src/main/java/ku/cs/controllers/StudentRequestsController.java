@@ -13,8 +13,6 @@ import java.io.IOException;
 
 
 public class StudentRequestsController {
-    @FXML Circle tabProfilePicCircle;
-    @FXML Label tabAccountNameLabel;
     @FXML Label requestsNumberLabel;
     @FXML Label approvedNumberLabel;
     @FXML Label rejectedNumberLabel;
@@ -45,28 +43,9 @@ public class StudentRequestsController {
 
     // TODO: fetch data from datasource instead
     private void showInfo(){
-        Image profilePic = new Image(getClass().getResourceAsStream("/images/users/side-bar-profile.png"));
-        tabProfilePicCircle.setFill(new ImagePattern(profilePic));
         requestsNumberLabel.setText("0");
         approvedNumberLabel.setText("0");
         rejectedNumberLabel.setText("0");
-        tabAccountNameLabel.setText("นายเมมโมรี่โฟม รักนอน");
     }
 
-    @FXML
-    public void onSideProfileClicked(){
-        try{
-            FXRouter.goTo("student-profile");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    protected void onLogoutClicked() {
-        try {
-            FXRouter.goTo("login");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

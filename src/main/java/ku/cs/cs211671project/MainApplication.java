@@ -34,8 +34,7 @@ public class MainApplication extends Application {
         FXRouter.when("admin-manage-users", viewPath + "admin-page-manage-users.fxml");
         FXRouter.when("admin-manage-faculty-department", viewPath + "admin-page-manage-faculty-department.fxml");
         FXRouter.when("user-profile", viewPath + "admin-profile-page.fxml");
-        FXRouter.when("student-requests", viewPath + "student-requests-page.fxml");
-        FXRouter.when("student-profile", viewPath + "student-profile-page.fxml");
+        FXRouter.when("student-page", viewPath + "student-page.fxml");
         FXRouter.when("advisor-requests", viewPath + "advisor-requests.fxml");
         FXRouter.when("advisor-students", viewPath + "advisor-students.fxml");
         //Department
@@ -44,6 +43,10 @@ public class MainApplication extends Application {
         FXRouter.when("department-staff-approver-list", viewPath + "department-staff-approver-list.fxml");
         FXRouter.when("department-staff-nisit-advisor-management", viewPath + "department-staff-nisit-advisor-management.fxml");
         FXRouter.when("department-staff-nisit-management", viewPath + "department-staff-nisit-management.fxml");
+
+        FXRouter.when("choose-request-form", viewPath + "choose-request-form-page.fxml");
+
+
 
 
         // Faculty

@@ -1,0 +1,42 @@
+* {
+    -fx-text-fill: #374957;
+    -fx-font-family: PrintAble4U;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.v-box-request {
+    -fx-padding: 30 0 0 0;
+}
+
+.v-box-request:hover {
+    -fx-background-color: #EBEBEB;
+    -fx-cursor: hand;
+    -fx-background-radius: 10;
+}
+
+.v-box-request-img {
+}
+
+.header {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+}
+
+.type-request {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+
+.details-request {
+    -fx-font-size: 20px;
+    -fx-margin: 50px;
+}
+
+.caution {
+    -fx-font-size: 20px;
+    -fx-text-fill: #FF5D5D;
+}
