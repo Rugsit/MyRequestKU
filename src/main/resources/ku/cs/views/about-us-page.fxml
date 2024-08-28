@@ -20,7 +20,7 @@
          <children>
             <ImageView fx:id="tanaananImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/team-members/Tanaanan.png" />
+                  <Image url="@../../../images/team-members/tanaanan.png" />
                </image>
             </ImageView>
             <Label stylesheets="@../styles/about-us-style.css" text="ธนอนันท์ เฉลิมพันธิ์">
@@ -44,7 +44,7 @@
          <children>
             <ImageView fx:id="rugsitImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/team-members/Rugsit.png" />
+                  <Image url="@../../../images/team-members/rugsit.png" />
                </image>
             </ImageView>
             <Label layoutY="144.0" stylesheets="@../styles/about-us-style.css" text="รักษิต รุ่งรัตนไชย">
@@ -68,7 +68,7 @@
          <children>
             <ImageView fx:id="narakornImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/team-members/Narakorn.png" />
+                  <Image url="@../../../images/team-members/narakorn.png" />
                </image>
             </ImageView>
             <Label stylesheets="@../styles/about-us-style.css" text="นรากร ธนาพรภักดี">
@@ -92,7 +92,7 @@
          <children>
             <ImageView fx:id="sirisukImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/team-members/Sirisuk.png" />
+                  <Image url="@../../../images/team-members/sirisuk.png" />
                </image>
             </ImageView>
             <Label stylesheets="@../styles/about-us-style.css" text="ศิริสุข ทานธรรม">

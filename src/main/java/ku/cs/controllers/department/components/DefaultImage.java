@@ -2,7 +2,6 @@ package ku.cs.controllers.department.components;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Rectangle;
 
 public class DefaultImage {
 
@@ -31,13 +30,6 @@ public class DefaultImage {
     }
     public void removeImage(){
         setImage(null);
-    }
-
-    public void makeImageCircle() {
-        Rectangle clip = new Rectangle(imageView.getFitWidth(),imageView.getFitHeight());
-        clip.setArcWidth(imageView.getImage().getWidth());
-        clip.setArcHeight(imageView.getImage().getHeight());
-        imageView.setClip(clip);
     }
 
 }

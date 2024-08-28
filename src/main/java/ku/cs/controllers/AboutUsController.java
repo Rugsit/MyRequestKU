@@ -2,13 +2,9 @@ package ku.cs.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import ku.cs.controllers.department.components.DefaultImage;
-import ku.cs.controllers.department.components.CropImage;
-import ku.cs.controllers.department.components.DefaultLabel;
-import ku.cs.controllers.department.components.RouteButton;
+import ku.cs.controllers.department.components.*;
 
 public class AboutUsController {
     @FXML private ImageView tanaananImageView;
@@ -29,18 +25,10 @@ public class AboutUsController {
         Image rugsit = new Image(getClass().getResourceAsStream("/images/team-members/rugsit.png"));
         Image sirisuk = new Image(getClass().getResourceAsStream("/images/team-members/sirisuk.png"));
         Image narakorn = new Image(getClass().getResourceAsStream("/images/team-members/narakorn.png"));
-        DefaultImage tanaananImage = new DefaultImage(tanaananImageView);
-        DefaultImage rugsitImage = new DefaultImage(rugsitImageView);
-        DefaultImage sirisukImage = new DefaultImage(sirisukImageView);
-        DefaultImage narakornImage = new DefaultImage(narakornImageView);
-        tanaananImage.setImage(tanaanan);
-        rugsitImage.setImage(rugsit);
-        sirisukImage.setImage(sirisuk);
-        narakornImage.setImage(narakorn);
-        tanaananImage.makeImageCircle();
-        rugsitImage.makeImageCircle();
-        sirisukImage.makeImageCircle();
-        narakornImage.makeImageCircle();
+        CircleImage tanaananImage = new CircleImage(tanaananImageView, tanaanan);
+        CircleImage rugsitImage = new CircleImage(rugsitImageView, rugsit);
+        CircleImage sirisukImage = new CircleImage(sirisukImageView, sirisuk);
+        CircleImage narakornImage = new CircleImage(narakornImageView, narakorn);
     }
 }
 
