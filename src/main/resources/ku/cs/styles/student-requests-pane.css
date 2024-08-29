@@ -1,6 +1,10 @@
 * {
     -fx-font-family: PrintAble4U;
 }
+.header {
+    -fx-font-size: 48px;
+}
+
 .RequestsTable .column-header-background {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -13,7 +17,7 @@
 }
 
 .RequestsTable {
-    -fx-font-size: 16;
+    -fx-font-size: 20px;
     -fx-border-color: transparent;
     -fx-background-color: transparent ;
 }
@@ -22,7 +26,7 @@
     -fx-background-color: #374957;
     -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
-    -fx-font-size: 18;
+    -fx-font-size: 20px;
     -fx-padding: 3;
     -fx-text-alignment: center right;
 }
