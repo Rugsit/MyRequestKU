@@ -28,13 +28,27 @@ public class ChooseRequestFromController {
 
     @FXML
     public void onGeneralRequestVBoxClick() {
-        System.out.println("test");
         try {
             String viewPath = "/ku/cs/views/general-request-form-pane.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
             GeneralRequestFormController controller = fxmlLoader.getController();
+            controller.setBorderPane(this.borderPane);
+            borderPane.setCenter(pane);
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+    }
+
+    @FXML
+    public void onRegisterRequestVBoxClick() {
+        try {
+            String viewPath = "/ku/cs/views/register-request-form-pane.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            RegisterRequestFormController controller = fxmlLoader.getController();
             controller.setBorderPane(this.borderPane);
             borderPane.setCenter(pane);
         } catch (IOException e) {

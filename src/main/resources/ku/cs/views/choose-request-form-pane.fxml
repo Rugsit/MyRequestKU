@@ -61,7 +61,7 @@
                         <Insets left="5.0" right="5.0" top="20.0" />
                      </HBox.margin>
                   </Line>
-                  <VBox alignment="TOP_CENTER" prefHeight="548.0" prefWidth="310.0" styleClass="v-box-request">
+                  <VBox alignment="TOP_CENTER" onMouseClicked="#onRegisterRequestVBoxClick" prefHeight="548.0" prefWidth="310.0" styleClass="v-box-request">
                      <children>
                         <ImageView fitHeight="59.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" styleClass="v-box-request-img">
                            <image>

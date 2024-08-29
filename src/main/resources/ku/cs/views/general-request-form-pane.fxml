@@ -19,7 +19,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" stylesheets="@../styles/general-request-form-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.GeneralRequestFormController">
    <children>
       <ScrollPane layoutX="38.0" layoutY="91.0" prefHeight="563.0" prefWidth="900.0">
@@ -172,7 +171,7 @@
                   </VBox>
                   <VBox alignment="BOTTOM_RIGHT">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="create-form-button" text="สร้างใบคำร้อง">
+                        <Button mnemonicParsing="false" onAction="#onCreateGeneralForm" styleClass="create-form-button" text="สร้างใบคำร้อง">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

@@ -1,13 +1,14 @@
 package ku.cs.controllers;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import ku.cs.models.GeneralRequestForm;
 
 import java.io.IOException;
 
@@ -63,6 +64,52 @@ public class GeneralRequestFormController {
     @FXML
     public BorderPane borderPane;
 
+    @FXML
+    public void initialize() {
+        bindCheckBox(lostRadio, degreeCerCheckBox);
+        bindCheckBox(damagedRadio, degreeCerCheckBox);
+
+        bindCheckBox(oldThaiNameTextFeild, changeNameCheckBox);
+        bindCheckBox(newThaiNameTextFeild, changeNameCheckBox);
+        bindCheckBox(oldEngNameTextFeild, changeNameCheckBox);
+        bindCheckBox(newEngNameTextFeild, changeNameCheckBox);
+
+        bindCheckBox(oldThaiSurNameTextFeild, surNameCheckBox);
+        bindCheckBox(newThaiSurNameTextFeild, surNameCheckBox);
+        bindCheckBox(oldEngSurNameTextFeild, surNameCheckBox);
+        bindCheckBox(newEngSurNameTextFeild, surNameCheckBox);
+
+        bindCheckBox(otherTextArea, otherCheckBox);
+    }
+
+    private void bindCheckBox(Control control, CheckBox checkBox) {
+        if (control instanceof TextField) {
+            TextField controlNew = (TextField) control;
+            controlNew.disableProperty().bind(Bindings.not(checkBox.selectedProperty()));
+            controlNew.disableProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue) {
+                    controlNew.setText("");
+                }
+            });
+        } else if (control instanceof RadioButton) {
+            RadioButton controlNew = (RadioButton) control;
+            controlNew.disableProperty().bind(Bindings.not(checkBox.selectedProperty()));
+            controlNew.disableProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue) {
+                    controlNew.setSelected(false);
+                }
+            });
+        } else if (control instanceof TextArea) {
+            TextArea controlNew = (TextArea) control;
+            controlNew.disableProperty().bind(Bindings.not(checkBox.selectedProperty()));
+            controlNew.disableProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue) {
+                    controlNew.setText("");
+                }
+            });
+        }
+    }
+
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }
@@ -81,4 +128,48 @@ public class GeneralRequestFormController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    public void onCreateGeneralForm() {
+        GeneralRequestForm generalRequestForm = new GeneralRequestForm();
+        try {
+            generalRequestForm.setTel(telTextField.getText());
+            if (degreeCerCheckBox.isSelected()) {
+                if (lostRadio.isSelected()) {
+                    generalRequestForm.setDegreeCertificateLost(true);
+                } else {
+                    generalRequestForm.setDegreeCertificateDamage(true);
+                }
+            } else if (changeNameCheckBox.isSelected()) {
+                generalRequestForm.setOldThaiName(oldThaiNameTextFeild.getText());
+                generalRequestForm.setNewThaiName(newThaiNameTextFeild.getText());
+                generalRequestForm.setOldEngName(oldEngNameTextFeild.getText());
+                generalRequestForm.setNewEngName(newEngNameTextFeild.getText());
+            } else if (surNameCheckBox.isSelected()) {
+                generalRequestForm.setOldThaiSurName(oldThaiSurNameTextFeild.getText());
+                generalRequestForm.setNewThaiSurName(newThaiSurNameTextFeild.getText());
+                generalRequestForm.setOldEngSurName(oldEngSurNameTextFeild.getText());
+                generalRequestForm.setNewEngSurName(newEngSurNameTextFeild.getText());
+            } else if (otherCheckBox.isSelected()) {
+                generalRequestForm.setOthers(otherTextArea.getText());
+            }
+        } catch (IllegalArgumentException e) {
+            try {
+                System.out.println("Handle error");
+                Stage stage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/error-page.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                ErrorGeneralRequestFormController controller = fxmlLoader.getController();
+                controller.setStage(stage);
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-page-style.css").toExternalForm());
+                stage.setScene(scene);
+                stage.setTitle("Error");
+                stage.show();
+
+            } catch (IOException ee) {
+                System.out.println("Error: " + ee.getMessage());
+            }
+        }
+    }
+
 }

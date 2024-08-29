@@ -1,0 +1,30 @@
+* {
+    -fx-font-family: PrintAble4U;
+}
+
+.header {
+    -fx-font-size: 40px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-text-fill: #374957;
+}
+
+.desc {
+    -fx-font-size: 30px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-text-fill: #626262;
+}
+
+.agreeButton {
+    -fx-cursor: hand;
+    -fx-font-size: 30px;
+    -fx-background-color: #313834;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+}
+
+.line {
+    -fx-stroke: #DBDBDB;
+    -fx-stroke-width: 2px;
+}
