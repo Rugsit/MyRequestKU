@@ -12,21 +12,21 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" style="-fx-background-color: F8F8F8;" stylesheets="@../styles/student-requests-pane.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.StudentRequestsController">
    <children>
-      <Label layoutX="44.0" layoutY="41.0" styleClass="header" text="จัดการคำร้อง">
+      <Label layoutX="29.0" layoutY="33.0" styleClass="header" text="จัดการคำร้อง">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <TextField layoutX="608.0" layoutY="57.0" prefHeight="40.0" prefWidth="178.0" promptText="Search" styleClass="searchTextField" />
-      <TableView fx:id="requestListTableView" layoutX="29.0" layoutY="117.0" prefHeight="510.0" prefWidth="931.0" styleClass="RequestsTable">
+      <TextField layoutX="536.0" layoutY="31.0" prefHeight="52.0" prefWidth="220.0" promptText="Search" styleClass="searchTextField" />
+      <TableView fx:id="requestListTableView" layoutX="28.0" layoutY="105.0" prefHeight="510.0" prefWidth="931.0" styleClass="RequestsTable">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <Button alignment="BASELINE_LEFT" layoutX="794.0" layoutY="57.0" mnemonicParsing="false" onAction="#onCreateFromClick" prefHeight="40.0" prefWidth="130.0" styleClass="CreateRequestButton" text="สร้างใบคำร้อง">
+      <Button alignment="BASELINE_LEFT" layoutX="771.0" layoutY="32.0" mnemonicParsing="false" onAction="#onCreateFromClick" prefHeight="50.0" prefWidth="188.0" styleClass="CreateRequestButton" text=" สร้างใบคำร้อง">
          <graphic>
-            <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" styleClass="createRequestButtonIcon">
+            <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" styleClass="createRequestButtonIcon">
                <image>
                   <Image url="@../../../images/icons/create-request-icon.png" />
                </image>

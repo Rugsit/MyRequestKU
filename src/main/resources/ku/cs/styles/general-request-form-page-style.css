@@ -6,6 +6,7 @@
 .header {
     -fx-font-size: 48px;
     -fx-font-weight: bold;
+    -fx-alignment: center;
 }
 
 .require {
