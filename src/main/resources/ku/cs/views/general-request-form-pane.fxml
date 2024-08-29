@@ -16,71 +16,12 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../styles/general-request-form-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.GeneralRequestFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" stylesheets="@../styles/general-request-form-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.GeneralRequestFormController">
    <children>
-      <Pane prefHeight="718.0" prefWidth="292.0" style="-fx-background-color: #FFFFFF;" styleClass="tabName" stylesheets="@../styles/side-bar-style.css">
-         <children>
-            <VBox layoutY="106.0" prefHeight="299.0" prefWidth="292.0">
-               <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="70.0" prefWidth="434.0" text="  ใบคำร้องทั้งหมด">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../images/icons/requests-icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="5.0" />
-                     </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-               </children>
-            </VBox>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" styleClass="imagePane">
-               <image>
-                  <Image url="@../../../images/logos/side-bar-ku-logo.png" />
-               </image>
-            </ImageView>
-            <Pane layoutX="11.0" layoutY="95.0" prefHeight="7.0" prefWidth="266.0" styleClass="imagePane" />
-            <Label layoutX="21.0" layoutY="633.0" maxWidth="250.0" prefWidth="250.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="21.0" layoutY="660.0" maxWidth="250.0" onMouseClicked="#onLogoutClicked" prefWidth="250.0" styleClass="signOut" text="ออกจากระบบ">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Label>
-            <Button layoutX="82.0" layoutY="513.0" mnemonicParsing="false" onAction="#goToUserProfile" styleClass="profileButton">
-               <graphic>
-                  <ImageView fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" styleClass="profileImage">
-                     <image>
-                        <Image url="@../../../images/users/side-bar-profile.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-      </Pane>
-      <ScrollPane layoutX="338.0" layoutY="102.0" prefHeight="563.0" prefWidth="900.0">
+      <ScrollPane layoutX="38.0" layoutY="91.0" prefHeight="563.0" prefWidth="900.0">
          <content>
             <VBox prefHeight="900.0" prefWidth="838.0" styleClass="vbox-in-scroll-pane">
                <children>
@@ -139,17 +80,17 @@
                            </VBox.margin>
                         </Label>
                         <GridPane prefHeight="97.0" prefWidth="835.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="418.199951171875" minWidth="10.0" prefWidth="66.80001220703124" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="779.1999389648438" minWidth="10.0" prefWidth="234.40004882812502" />
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="418.199951171875" minWidth="10.0" prefWidth="66.80001220703124" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="779.1999389648438" minWidth="10.0" prefWidth="234.40004882812502" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="779.1999389648438" minWidth="10.0" prefWidth="60.20001220703125" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="779.1999389648438" minWidth="10.0" prefWidth="234.40004882812502" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="779.1999389648438" minWidth="10.0" prefWidth="224.19999999999993" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <children>
                               <Label text="จาก" />
                               <Label text="From" GridPane.rowIndex="1" />
@@ -223,13 +164,14 @@
                         <CheckBox fx:id="otherCheckBox" mnemonicParsing="false" text="อื่น ๆ (ระบุ)">
                            <VBox.margin>
                               <Insets bottom="10.0" />
-                           </VBox.margin></CheckBox>
+                           </VBox.margin>
+                        </CheckBox>
                         <TextArea fx:id="otherTextArea" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </VBox>
                   <VBox alignment="BOTTOM_RIGHT">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="create-form-button" text="สร้างใบคำร้อง">
+                        <Button mnemonicParsing="false" onAction="#onCreateGeneralForm" styleClass="create-form-button" text="สร้างใบคำร้อง">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -250,8 +192,8 @@
             <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </ScrollPane>
-      <Label layoutX="685.0" layoutY="34.0" styleClass="header" text="ใบคำร้องทั่วไป" />
-      <ImageView fitHeight="50.0" fitWidth="45.0" layoutX="1206.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <Label layoutX="385.0" layoutY="33.0" styleClass="header" text="ใบคำร้องทั่วไป" />
+      <ImageView fitHeight="50.0" fitWidth="45.0" layoutX="914.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/icons/back-icon.png" />
          </image>

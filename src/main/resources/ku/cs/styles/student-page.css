@@ -4,7 +4,7 @@
 .RequestTabButton {
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #374957;
-    -fx-font-size: 18;
+    -fx-font-size: 24px;
 }
 
 .RequestTabButton:hover{
@@ -23,12 +23,12 @@
 .SideBarAccountName {
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
-    -fx-font-size: 18;
+    -fx-font-size: 20px;
     -fx-alignment: center;
 }
 
 .LogoutText {
     -fx-underline: true;
-    -fx-font-size: 18;
+    -fx-font-size: 20px;
     -fx-alignment: center;
 }

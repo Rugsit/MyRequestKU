@@ -1,10 +1,15 @@
 package ku.cs.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import ku.cs.services.FXRouter;
@@ -17,7 +22,7 @@ public class StudentRequestsController {
     @FXML Label approvedNumberLabel;
     @FXML Label rejectedNumberLabel;
     @FXML TableView requestListTableView;
-
+    @FXML BorderPane borderPane;
 
     // TODO: fetch data from datasource instead
     public void initialize() {
@@ -46,6 +51,26 @@ public class StudentRequestsController {
         requestsNumberLabel.setText("0");
         approvedNumberLabel.setText("0");
         rejectedNumberLabel.setText("0");
+    }
+
+    @FXML
+    public void onCreateFromClick() {
+        try {
+            String viewPath = "/ku/cs/views/choose-request-form-pane.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            ChooseRequestFromController controller = fxmlLoader.getController();
+            controller.setBorderPane(this.borderPane);
+            borderPane.setCenter(pane);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void setBorderPane(BorderPane borderPane) {
+        this.borderPane = borderPane;
     }
 
 }

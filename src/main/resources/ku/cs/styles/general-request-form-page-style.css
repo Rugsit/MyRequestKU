@@ -6,6 +6,7 @@
 .header {
     -fx-font-size: 48px;
     -fx-font-weight: bold;
+    -fx-alignment: center;
 }
 
 .require {
@@ -39,12 +40,24 @@
     -fx-border-color: transparent;
 }
 
+.radio-button:focused .radio {
+    -fx-border-width: 1px;
+    -fx-border-color: #374957;
+    -fx-border-radius: 100;
+}
+
 .check-box .box {
     -fx-cursor: hand;
     -fx-pref-height: 20px;
     -fx-pref-width: 20px;
     -fx-background-color: #F2F2F2;
     -fx-border-color: transparent;
+}
+
+.check-box:focused .box {
+    -fx-border-width: 1px;
+    -fx-border-color: #374957;
+    -fx-border-radius: 5px;
 }
 
 .text-field{
