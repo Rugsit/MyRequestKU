@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import ku.cs.controllers.department.components.DefaultLabel;
 import ku.cs.services.FXRouter;
 
@@ -23,7 +25,7 @@ public class LoginController {
         DefaultLabel aboutUs = new DefaultLabel(aboutUsLabel);
     }
     @FXML
-    protected void OnLoginButtonClick() {
+    protected void onLoginButtonClick() {
         if (userNameTextField.getText().trim().equalsIgnoreCase("debug")) {
             selectAdminRoleButton.setVisible(true);
             selectFacultyStaffRoleButton.setVisible(true);
@@ -93,6 +95,13 @@ public class LoginController {
         } catch (
                 IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    protected void onKeyPressed(KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER){
+            onLoginButtonClick();
         }
     }
 }

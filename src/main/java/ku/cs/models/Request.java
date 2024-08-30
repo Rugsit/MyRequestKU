@@ -1,19 +1,37 @@
 package ku.cs.models;
 
+import ku.cs.models.user.User;
+import ku.cs.models.user.exceptions.UserException;
+
+import java.util.UUID;
+
 public class Request {
+    private UUID uuid;
+    private UUID ownerUUID;
     private String name;
+    private String nisitId;
     private String timeStamp;
     private String date;
-    private String nisitId;
     private String requestType;
     private String statusNow;
     private String statusNext;
 
     public Request(String name, String timeStamp, String date, String nisitId, String requestType, String statusNow, String statusNext){
+//        User user = null;
+//        String[] nameArray = name.split(" ");
+//        try {
+////            System.out.println(nameArray[0]+nameArray[1]);
+//            user = new User("6610402230","b6610402230","student",nameArray[0],nameArray[1],"2004-11-29","sirisuk.t@ku.th","123456789");
+//            this.name = user.getName();
+//            this.nisitId = user.getID();
+//        } catch (UserException e){
+//            e.printStackTrace();
+//        }
+
         this.name = name;
+        this.nisitId = nisitId;
         this.timeStamp = timeStamp;
         this.date = date;
-        this.nisitId = nisitId;
         this.requestType = requestType;
         this.statusNow = statusNow;
         this.statusNext = statusNext;

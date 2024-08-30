@@ -3,6 +3,8 @@ module ku.cs {
     requires javafx.fxml;
     requires java.desktop;
     requires java.sql;
+    requires bcrypt;
+    requires java.management;
 
 
     opens ku.cs.cs211671project to javafx.fxml;
@@ -19,4 +21,6 @@ module ku.cs {
 
     exports ku.cs.models;
     opens ku.cs.models to javafx.base;
+    exports ku.cs.models.user;
+    opens ku.cs.models.user to javafx.base;
 }
