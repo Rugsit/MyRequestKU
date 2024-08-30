@@ -60,5 +60,16 @@ public class UserList implements Serializable {
         return users.toString();
     }
 
+//    public static void main(String[] args) {
+//        UserList users = new UserList();
+//        try {
+//            users.addUser("6610402230", "b6610402230", "student", "Sirisuk", "Tharntham", "2004-11-29", "sirisuk.t@ku.th", "123456789");
+//            users.addUser("6610402078", "b6610402078", "faculty", "Tanaanan", "Chalermpan", "2004-09-26", "tanaanan.c@ku.th", "123456789");
+//        } catch (Exception e){
+//            System.out.println("Error : " + e);
+//        }
+//
+//    }
+
 
 }

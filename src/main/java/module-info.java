@@ -5,6 +5,7 @@ module ku.cs {
     requires java.sql;
     requires bcrypt;
     requires java.management;
+    requires java.naming;
 
 
     opens ku.cs.cs211671project to javafx.fxml;

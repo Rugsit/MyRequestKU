@@ -32,7 +32,9 @@ public class User implements Identifiable, Serializable {
     private final String[] AVAILABLE_ROLES = new String[]{
             "admin",
             "advisor",
-            "student"
+            "student",
+            "faculty",
+            "department"
     };
 
     public User(String id,
@@ -77,7 +79,7 @@ public class User implements Identifiable, Serializable {
         User s3 = new User(s1.uuid.toString(),"6610402230","b6610402230","student","Sirisuk","Tharntham","2004-1129","sirisuk.t@ku.th",s1.password);
         System.out.println(s1);//NEW
         System.out.println(s2);//READER
-        System.out.println(s3);//TEST EXCEPTION
+        //System.out.println(s3);//TEST EXCEPTION
     }
 
     //GETTER

@@ -35,7 +35,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <PasswordField layoutX="697.0" layoutY="318.0" prefHeight="50.0" prefWidth="386.0" promptText="รหัสผ่าน">
+      <PasswordField fx:id="passwordTextField" layoutX="697.0" layoutY="318.0" prefHeight="50.0" prefWidth="386.0" promptText="รหัสผ่าน">
          <styleClass>
             <String fx:value="loginTextField" />
             <String fx:value="passwordTextField" />
