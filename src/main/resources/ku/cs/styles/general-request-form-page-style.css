@@ -10,13 +10,13 @@
 }
 
 .require {
-    -fx-font-size: 30px;
+    -fx-font-size: 32px;
 }
 
 .scroll-pane {
     -fx-background-color: white;
     -fx-background-radius: 5px;
-    -fx-font-size: 20px;
+    -fx-font-size: 24px;
 }
 
 .scroll-bar {
@@ -63,7 +63,7 @@
 .text-field{
     -fx-border-radius: 5;
     -fx-font-weight: 500;
-    -fx-font-size: 18;
+    -fx-font-size: 20px;
     -fx-background-color: #F2F2F2;
     -fx-background-radius: 5;
 }
@@ -98,4 +98,11 @@
     -fx-padding: 15px;
     -fx-text-fill: white;
     -fx-background-color: #49A267;
+}
+
+.next-form-button {
+    -fx-cursor: hand;
+    -fx-padding: 15px;
+    -fx-text-fill: white;
+    -fx-background-color: #5C6997;
 }

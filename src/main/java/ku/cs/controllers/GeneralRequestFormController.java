@@ -7,12 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.GeneralRequestForm;
 
 import java.io.IOException;
 
 public class GeneralRequestFormController {
+
+    @FXML
+    private Stage currentErrorStage;
     @FXML
     private CheckBox changeNameCheckBox;
 
@@ -135,41 +139,51 @@ public class GeneralRequestFormController {
         try {
             generalRequestForm.setTel(telTextField.getText());
             if (degreeCerCheckBox.isSelected()) {
+                if (!lostRadio.isSelected() && !damagedRadio.isSelected()) {
+                    throw new IllegalArgumentException("ใบแทนปริญญาบัตรคุณต้องเลือก ชำรุด หรือ สูญหาย");
+                }
                 if (lostRadio.isSelected()) {
                     generalRequestForm.setDegreeCertificateLost(true);
                 } else {
                     generalRequestForm.setDegreeCertificateDamage(true);
                 }
-            } else if (changeNameCheckBox.isSelected()) {
+            } if (changeNameCheckBox.isSelected()) {
                 generalRequestForm.setOldThaiName(oldThaiNameTextFeild.getText());
                 generalRequestForm.setNewThaiName(newThaiNameTextFeild.getText());
                 generalRequestForm.setOldEngName(oldEngNameTextFeild.getText());
                 generalRequestForm.setNewEngName(newEngNameTextFeild.getText());
-            } else if (surNameCheckBox.isSelected()) {
+            } if (surNameCheckBox.isSelected()) {
                 generalRequestForm.setOldThaiSurName(oldThaiSurNameTextFeild.getText());
                 generalRequestForm.setNewThaiSurName(newThaiSurNameTextFeild.getText());
                 generalRequestForm.setOldEngSurName(oldEngSurNameTextFeild.getText());
                 generalRequestForm.setNewEngSurName(newEngSurNameTextFeild.getText());
-            } else if (otherCheckBox.isSelected()) {
+            } if (otherCheckBox.isSelected()) {
                 generalRequestForm.setOthers(otherTextArea.getText());
             }
         } catch (IllegalArgumentException e) {
             try {
-                System.out.println("Handle error");
-                Stage stage = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/error-page.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                ErrorGeneralRequestFormController controller = fxmlLoader.getController();
-                controller.setStage(stage);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-page-style.css").toExternalForm());
-                stage.setScene(scene);
-                stage.setTitle("Error");
-                stage.show();
-
+                if (currentErrorStage == null || !currentErrorStage.isShowing()) {
+                    currentErrorStage = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/error-page.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+                    ErrorGeneralRequestFormController errorGeneralRequestFormController = fxmlLoader.getController();
+                    errorGeneralRequestFormController.setErrorMessage(e.getMessage());
+                    ErrorGeneralRequestFormController controller = fxmlLoader.getController();
+                    controller.setStage(this.currentErrorStage);
+                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-page-style.css").toExternalForm());
+                    currentErrorStage.setScene(scene);
+                    currentErrorStage.initModality(Modality.APPLICATION_MODAL);
+                    currentErrorStage.setTitle("Error");
+                    currentErrorStage.show();
+                }
             } catch (IOException ee) {
-                System.out.println("Error: " + ee.getMessage());
+                System.err.println("Error: " + ee.getMessage());
             }
         }
+    }
+
+    public void setErrorStage(Stage currentErrorStage) {
+        this.currentErrorStage = currentErrorStage;
     }
 
 }

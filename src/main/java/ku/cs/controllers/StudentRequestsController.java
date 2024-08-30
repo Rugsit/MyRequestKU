@@ -1,8 +1,10 @@
 package ku.cs.controllers;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
@@ -23,6 +26,8 @@ public class StudentRequestsController {
     @FXML Label rejectedNumberLabel;
     @FXML TableView requestListTableView;
     @FXML BorderPane borderPane;
+    @FXML
+    Button createRequestFormButton;
 
     // TODO: fetch data from datasource instead
     public void initialize() {

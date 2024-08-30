@@ -26,17 +26,17 @@
 }
 
 .type-request {
-    -fx-font-size: 28px;
+    -fx-font-size: 30px;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
 }
 
 .details-request {
-    -fx-font-size: 20px;
+    -fx-font-size: 24px;
     -fx-margin: 50px;
 }
 
 .caution {
-    -fx-font-size: 20px;
+    -fx-font-size: 24px;
     -fx-text-fill: #FF5D5D;
 }

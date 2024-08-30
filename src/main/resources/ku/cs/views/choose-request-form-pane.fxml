@@ -50,7 +50,7 @@
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </Label>
-                        <Label prefHeight="85.0" prefWidth="259.0" styleClass="caution" text="**นิสิตอาจต้องกรอกใบคำร้องหลายใบ&#10;ต่อ ๆ กันหากคำขอต้องการใบคำร้อง&#10;เพิ่มเติม" />
+                        <Label prefHeight="85.0" prefWidth="259.0" styleClass="caution" text="**นิสิตอาจต้องกรอกใบคำร้อง&#10;หลายใบต่อ ๆ กันหากคำขอต้อง&#10;การใบคำร้องเพิ่มเติม" />
                      </children>
                      <HBox.margin>
                         <Insets />
@@ -81,7 +81,7 @@
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </Label>
-                        <Label prefHeight="54.0" prefWidth="259.0" styleClass="caution" text="**นิสิตอาจต้องอัพโหลดเอกสารเพิ่มเติม&#10;หากคำขอต้องการเอกสารเพิ่มเติม" />
+                        <Label prefHeight="77.0" prefWidth="259.0" styleClass="caution" text="**นิสิตอาจต้องอัพโหลดเอกสาร&#10;เพิ่มเติมหากคำขอต้องการเอกสาร&#10;เพิ่มเติม" />
                      </children>
                      <HBox.margin>
                         <Insets />

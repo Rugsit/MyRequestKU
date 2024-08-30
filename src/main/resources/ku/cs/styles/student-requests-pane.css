@@ -19,7 +19,7 @@
 }
 
 .RequestsTable {
-    -fx-font-size: 20px;
+    -fx-font-size: 24px;
     -fx-border-color: transparent;
     -fx-background-color: transparent ;
 }
@@ -28,11 +28,22 @@
     -fx-background-color: #374957;
     -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
-    -fx-font-size: 20px;
+    -fx-font-size: 24px;
     -fx-padding: 3;
     -fx-text-alignment: center right;
 }
 
 .CreateRequestButton:hover{
     -fx-cursor: hand;
+}
+
+.searchHBox {
+    -fx-border-color: #C7C8C8;
+}
+
+.searchTextField {
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+    -fx-prompt-text-fill: #909090;
+    -fx-background-color: transparent;
 }
