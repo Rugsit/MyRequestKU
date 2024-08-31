@@ -259,6 +259,10 @@ public class User implements Identifiable, Serializable {
         }
         return false;
     }
+    @Override
+    public int hashCode(){
+        return this.uuid.hashCode();
+    }
 
     @Override
     public String toString() {

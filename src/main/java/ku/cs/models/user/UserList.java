@@ -1,16 +1,22 @@
 package ku.cs.models.user;
 
+import com.sun.source.tree.Tree;
 import ku.cs.models.user.exceptions.UserException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
 
 public class UserList implements Serializable {
-    private ArrayList<User> users;
+    private HashSet<User> users;
     public UserList() {
-        users = new ArrayList<>();
+        users = new HashSet<>();
     }
 
+    public static void main(String[] args) {
+        UserList users = new UserList();
+        System.out.println(users.hashCode());
+
+    }
     public void addUser(String id,
                    String username,
                    String role,
@@ -52,7 +58,23 @@ public class UserList implements Serializable {
         }
         return null;
     }
-    public ArrayList<User> getUsers(){
+
+    public boolean haveUser(User user){
+        return users.contains(user);
+    }
+    public User findUserByObject(User user){
+        if(user != null){
+            if(haveUser(user)){
+                for(User u : users){
+                    if(u.equals(user))
+                        return u;
+                }
+            }
+        }
+        return null;
+
+    }
+    public HashSet<User> getUsers(){
         return users;
     }
     @Override
