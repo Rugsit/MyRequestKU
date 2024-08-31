@@ -65,3 +65,9 @@
     -fx-cursor: hand;
     -fx-font-size: 18;
 }
+
+.warningLabel{
+    -fx-text-fill : red;
+    -fx-cursor: hand;
+    -fx-font-size: 18;
+}

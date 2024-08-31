@@ -4,6 +4,7 @@ import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
 import javax.naming.AuthenticationException;
+import javax.swing.plaf.IconUIResource;
 
 public class AuthenticationController {
     private UserList users = new UserList();
@@ -41,9 +42,19 @@ public class AuthenticationController {
         return null;
     }
 
+    public boolean isUserInDatasource(String username){
+        for (User existUser : users.getUsers()){
+            if(existUser.getUsername().equalsIgnoreCase(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 //    public static void main(String[] args) {
 //        AuthenticationController authController = new AuthenticationController();
-//
+//        boolean isUserFound = authController.isUserInDatasource("b7610402078");
+//        System.out.println(isUserFound);
 //        try {
 //            UserList users = authController.hardCodeDatasource();
 //            System.out.println("Users in the list: " + users.getUsers());
@@ -59,6 +70,6 @@ public class AuthenticationController {
 //        } catch (AuthenticationException e) {
 //            System.out.println("Authentication failed: " + e.getMessage());
 //        }
-//    }
-}
+    }
+//}
 

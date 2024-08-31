@@ -85,5 +85,10 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="695.0" layoutY="442.0" prefHeight="27.0" prefWidth="386.0" styleClass="warningLabel" text="ErrorLabel" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
