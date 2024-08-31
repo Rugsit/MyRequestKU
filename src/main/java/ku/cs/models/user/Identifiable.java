@@ -15,7 +15,7 @@ public interface Identifiable {
     String getName();
     String getFirstname();
     String getLastname();
-    Date getBirthdate();
+    Date getLastLogin();
     String getEmail();
     //Identify method
     Boolean isUUID(UUID uuid);
