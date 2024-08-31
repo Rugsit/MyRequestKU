@@ -3,14 +3,10 @@ package ku.cs.models.user;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import ku.cs.models.user.exceptions.*;
 
-import javax.management.relation.Role;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.UUID;
 
 import static ku.cs.services.utils.StringCompare.*;
@@ -23,7 +19,7 @@ public class User implements Identifiable, Serializable {
 
     private String firstname;
     private String lastname;
-    private Date birthdate;
+    private Date lastLogin;
     private String email;
     private String avatar;
 
@@ -40,11 +36,11 @@ public class User implements Identifiable, Serializable {
                 String role,
                 String firstname,
                 String lastname,
-                String birthdate,
+                String lastLogin,
                 String email,
                 String password) throws UserException {
         //Constructor for New User
-        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, birthdate, email, null);
+        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, null, "none");
         setPassword(password);
     }
     public User(String uuid,
@@ -53,9 +49,10 @@ public class User implements Identifiable, Serializable {
                 String role,
                 String firstname,
                 String lastname,
-                String birthdate,
+                String lastLogin,
                 String email,
-                String password) throws UserException{
+                String password,
+                String avatar) throws UserException{
         //Contructor for DataSource Reader
         if(uuid == null) throw new UUIDException("UUID must not be null");
         this.uuid = UUID.fromString(uuid);
@@ -64,17 +61,17 @@ public class User implements Identifiable, Serializable {
         setRole(role);
         setFirstname(firstname);
         setLastname(lastname);
-        setBirthdate(birthdate);
+        setLastLogin(lastLogin);
         setEmail(email);
-        this.avatar = null;
+        setAvatar(avatar);
         this.password = password;
     }
 
     public static void main(String[] args) throws Exception {
         //TEST
         User s1 = new User("6610402230","b6610402230","student","Sirisuk","Tharntham","2004-11-29","sirisuk.t@ku.th","123456789");
-        User s2 = new User(s1.uuid.toString(),"6610402230","b6610402230","student","Sirisuk","Tharntham","2004-11-29","sirisuk.t@ku.th",s1.password);
-        User s3 = new User(s1.uuid.toString(),"6610402230","b6610402230","student","Sirisuk","Tharntham","2004-1129","sirisuk.t@ku.th",s1.password);
+        User s2 = new User(s1.uuid.toString(),"6610402230","b6610402230","student","Sirisuk","Tharntham","2004-11-29","sirisuk.t@ku.th",s1.password,"");
+        User s3 = new User(s1.uuid.toString(),"6610402230","b6610402230","student","Sirisuk","Tharntham","2004-1129","sirisuk.t@ku.th",s1.password,"");
         System.out.println(s1);//NEW
         System.out.println(s2);//READER
         System.out.println(s3);//TEST EXCEPTION
@@ -112,8 +109,8 @@ public class User implements Identifiable, Serializable {
         return this.lastname;
     }
     @Override
-    public Date getBirthdate() {
-        return this.birthdate;
+    public Date getLastLogin() {
+        return this.lastLogin;
     }
     @Override
     public String getEmail(){
@@ -139,7 +136,7 @@ public class User implements Identifiable, Serializable {
         if(!isAlphaNumberic(username)) throw new UsernameException("Username must be alphanumeric");
         if(haveSpace(username))throw new UsernameException("Username must not contain spaces");
         if(username.length() > 30) throw new UsernameException("Username must be equal or less than 30 characters");
-        this.username = username.trim().toLowerCase();
+        this.username = username.trim();
     }
 
     public void setRole(String role) throws RoleException{
@@ -166,14 +163,14 @@ public class User implements Identifiable, Serializable {
         if(lastname == null) throw new NameException("Lastname must not be null");
         if(!isAplha(lastname)) throw new NameException("Lastname must be alphabet");
         if(haveSpace(lastname)) throw new NameException("Lastname must not contain spaces");
-        this.lastname = lastname;
+        this.lastname = lastname.trim().toLowerCase();
     }
 
-    public void setBirthdate(String dateString) throws DateException {
+    public void setLastLogin(String dateString) throws DateException {
         if(dateString == null) throw new DateException("dateString must not be null");
         Date date = formatToDate(DATE_FORMAT,dateString);
 //        if(date == null) throw new DateException("Invalid " + DATE_FORMAT + "format dateString");
-        this.birthdate = date;
+        this.lastLogin = date;
     }
 
     public void setEmail(String email) throws EmailException{
@@ -262,7 +259,7 @@ public class User implements Identifiable, Serializable {
 
     @Override
     public String toString() {
-        String dateString = dateToFormatString(DATE_FORMAT,birthdate);
+        String dateString = dateToFormatString(DATE_FORMAT, lastLogin);
         return uuid.toString() + "," +
                 id + "," +
                 username + "," +
@@ -271,6 +268,7 @@ public class User implements Identifiable, Serializable {
                 lastname + "," +
                 dateString + "," +
                 email + "," +
-                password;
+                password + "," +
+                avatar;
     }
 }
