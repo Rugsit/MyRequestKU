@@ -3,13 +3,8 @@ package ku.cs.services;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 
-import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.nio.ReadOnlyBufferException;
-import java.nio.file.AccessDeniedException;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -30,22 +25,31 @@ public class ImageDatasource{
         }
     }
 
-    private void checkIfFileExisted(String fileName){
+    private String checkIfFileExisted(String fileName){
         String filePath = imageDirectory + File.separator + fileName;
         File file = new File(filePath);
-        if(!file.exists()){
-            try{
-                file.createNewFile();
-            } catch (IOException e){
-                System.out.println("Error creating file");
-            }
+        if (!file.exists()){
+           return null;
         }
+        return filePath;
     }
 
-    //TODO: finish method to open image from datasource and send back to caller
     public Image openImage(String fileName) {
-        checkIfFileExisted(fileName);
-        return null;
+        String filePath = checkIfFileExisted(fileName);
+        if (filePath == null){
+            System.err.println("Image not found");
+            return null;
+        }
+
+        Image image = null;
+
+        try{
+            image = new Image("file:" + filePath);
+        } catch (NullPointerException e){
+            System.err.println("Error loading image");
+        }
+
+        return image;
     }
 
     public String uploadImage(String fileName) {
@@ -66,6 +70,7 @@ public class ImageDatasource{
             return "";
         }
 
+        // Get file extension of the uploaded files then append it to the file name
         String[] fileNameSplit = uploadedFile.getName().split("\\.");
         int fileExtensionIndex = fileNameSplit.length - 1;
         String fileExtension = fileNameSplit[fileExtensionIndex];
@@ -75,7 +80,7 @@ public class ImageDatasource{
         try {
             Files.copy(uploadedFile.toPath(), fileDestination.toPath(), REPLACE_EXISTING);
         } catch (IOException e) {
-            System.out.println("Error uploading file");
+            System.err.println("Error uploading file");
         }
 
         return fileDestination.getName();
