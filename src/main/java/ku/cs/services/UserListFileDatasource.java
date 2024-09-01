@@ -23,6 +23,7 @@ public class UserListFileDatasource implements Datasource<UserList>{
             String imageDirectory = directoryName + File.separator + "images";
             File imageDirectoryFile = new File(imageDirectory);
             imageDirectoryFile.mkdirs();
+            imageDirectory = directoryName + File.separator + "images" + File.separator + "users";
             file = new File(directoryName + File.separator + "users");
             file.mkdir();
 
@@ -34,6 +35,11 @@ public class UserListFileDatasource implements Datasource<UserList>{
         }
 
         file = new File(directoryName + File.separator + "users");
+        if (!file.exists()){
+            file.mkdir();
+        }
+
+        file = new File(directoryName + File.separator + "images" + File.separator + "users");
         if (!file.exists()){
             file.mkdir();
         }
@@ -84,10 +90,12 @@ public class UserListFileDatasource implements Datasource<UserList>{
                 String lastname = data[5];
                 String lastLogin  = data[6];
                 String email = data[7];
-                String password = data[8];
-                String avatar = data[9];
+                String faculty = data[8];
+                String department = data[9];
+                String password = data[10];
+                String avatar = data[11];
 
-                userList.addUser(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar);
+                userList.addUser(uuid, id, username, role, firstname, lastname, lastLogin, email, faculty, department, password, avatar);
             }
 
         } catch (UserException | IOException e) {

@@ -22,6 +22,8 @@ public class User implements Identifiable, Serializable {
     private Date lastLogin;
     private String email;
     private String avatar;
+    private String faculty;
+    private String department;
 
     private String password;
     private static String DATE_FORMAT = "yyyy-mm-dd";
@@ -38,9 +40,11 @@ public class User implements Identifiable, Serializable {
                 String lastname,
                 String lastLogin,
                 String email,
+                String faculty,
+                String department,
                 String password) throws UserException {
         //Constructor for New User
-        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, null, "none");
+        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, faculty, department, null, "none");
         setPassword(password);
     }
     public User(String uuid,
@@ -51,6 +55,8 @@ public class User implements Identifiable, Serializable {
                 String lastname,
                 String lastLogin,
                 String email,
+                String faculty,
+                String department,
                 String password,
                 String avatar) throws UserException{
         //Contructor for DataSource Reader
@@ -63,18 +69,10 @@ public class User implements Identifiable, Serializable {
         setLastname(lastname);
         setLastLogin(lastLogin);
         setEmail(email);
+        setFaculty(faculty);
+        setDepartment(department);
         setAvatar(avatar);
         this.password = password;
-    }
-
-    public static void main(String[] args) throws Exception {
-        //TEST
-        User s1 = new User("6610402230","b6610402230","student","Sirisuk","Tharntham","2004-11-29","sirisuk.t@ku.th","123456789");
-        User s2 = new User(s1.uuid.toString(),"6610402230","b6610402230","student","Sirisuk","Tharntham","2004-11-29","sirisuk.t@ku.th",s1.password,"");
-        User s3 = new User(s1.uuid.toString(),"6610402230","b6610402230","student","Sirisuk","Tharntham","2004-1129","sirisuk.t@ku.th",s1.password,"");
-        System.out.println(s1);//NEW
-        System.out.println(s2);//READER
-        System.out.println(s3);//TEST EXCEPTION
     }
 
     //GETTER
@@ -120,6 +118,8 @@ public class User implements Identifiable, Serializable {
         return this.avatar;
     }
 
+    public String getFaculty(){return this.faculty;}
+    public String getDepartment(){return this.department;}
     //SETTER
 
 
@@ -195,7 +195,8 @@ public class User implements Identifiable, Serializable {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
-
+    public void setFaculty(String faculty) { this.faculty = faculty; }
+    public void setDepartment(String department) { this.department = department; }
     //VALIDATION
 
     @Override
@@ -268,6 +269,8 @@ public class User implements Identifiable, Serializable {
                 lastname + "," +
                 dateString + "," +
                 email + "," +
+                faculty + "," +
+                department + "," +
                 password + "," +
                 avatar;
     }

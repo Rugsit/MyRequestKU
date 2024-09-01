@@ -18,8 +18,10 @@ public class UserList implements Serializable {
                    String lastname,
                    String birthdate,
                    String email,
+                   String faculty,
+                   String department,
                    String password) throws UserException {
-        User user = new User(id,username,role,firstname,lastname,birthdate,email,password);
+        User user = new User(id,username,role,firstname,lastname,birthdate,email, faculty, department,password);
         users.add(user);
     }
     public void addUser(String uuid,
@@ -30,9 +32,11 @@ public class UserList implements Serializable {
                         String lastname,
                         String birthdate,
                         String email,
+                        String faculty,
+                        String department,
                         String password,
                         String avatar) throws UserException {
-        User user = new User(uuid,id,username,role,firstname,lastname,birthdate,email,password, avatar);
+        User user = new User(uuid,id,username,role,firstname,lastname,birthdate,email,faculty,department,password,avatar);
         users.add(user);
     }
     public User findUserById(String id){
