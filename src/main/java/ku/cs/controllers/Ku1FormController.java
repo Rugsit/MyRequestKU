@@ -15,15 +15,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ku.cs.models.Ku1RequestForm;
-import org.w3c.dom.Text;
+import ku.cs.models.Ku1AndKu3RequestForm;
+import ku.cs.models.RegisterRequestForm;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Ku1FormController {
+    RegisterRequestForm registerForm;
+
     @FXML
     private TextField telTextField;
 
@@ -75,6 +75,10 @@ public class Ku1FormController {
         amountSubject = 1;
     }
 
+    public void setRegisterForm(RegisterRequestForm registerForm) {
+        this.registerForm = registerForm;
+    }
+
     private VBox deepCopyVbox(VBox vbox) {
         VBox newVbox = new VBox();
         VBox.setMargin(newVbox, VBox.getMargin(vbox));
@@ -120,28 +124,28 @@ public class Ku1FormController {
 
     @FXML
     public void onCreateRegisterForm() {
-        Ku1RequestForm ku1RequestForm = new Ku1RequestForm();
+        Ku1AndKu3RequestForm ku1AndKu3RequestForm = new Ku1AndKu3RequestForm();
 
         try {
             if (!thaiRadio.isSelected() && !interRadio.isSelected()) {
                 throw new IllegalArgumentException("กรุณาเลือกประเภทหลักสูตร");
             } else if (thaiRadio.isSelected()) {
-                ku1RequestForm.setCurriculum("thai");
+                ku1AndKu3RequestForm.setCurriculum("thai");
             } else {
-                ku1RequestForm.setCurriculum("international");
+                ku1AndKu3RequestForm.setCurriculum("international");
             }
-            ku1RequestForm.setTel(telTextField.getText());
+            ku1AndKu3RequestForm.setTel(telTextField.getText());
             if (!firstRadio.isSelected() && !secondRadio.isSelected() && !summerRadio.isSelected()) {
                 throw new IllegalArgumentException("กรุณาเลือกภาคการศึกษา");
             } else if (firstRadio.isSelected()) {
-                ku1RequestForm.setSemester("first");
+                ku1AndKu3RequestForm.setSemester("first");
             } else if (secondRadio.isSelected()) {
-                ku1RequestForm.setSemester("second");
+                ku1AndKu3RequestForm.setSemester("second");
             } else {
-                ku1RequestForm.setSemester("summer");
+                ku1AndKu3RequestForm.setSemester("summer");
             }
-            ku1RequestForm.setYear(yearTextField.getText());
-            ku1RequestForm.setCampus(campusTextField.getText());
+            ku1AndKu3RequestForm.setYear(yearTextField.getText());
+            ku1AndKu3RequestForm.setCampus(campusTextField.getText());
 
             ArrayList<String> subject = new ArrayList<>(), idSubject = new ArrayList<>();
             ArrayList<String> registerType = new ArrayList<>(), credit = new ArrayList<>();
@@ -175,7 +179,7 @@ public class Ku1FormController {
                 }
                 teacher.add(((TextField)vBox.lookup(".teacher")).getText());
             }
-            ku1RequestForm.addSubject(subject, idSubject, registerType, credit, section, sectionType, teacher);
+            ku1AndKu3RequestForm.addSubject(subject, idSubject, registerType, credit, section, sectionType, teacher);
         } catch (IllegalArgumentException e) {
             try {
                 if (currentErrorStage == null || !currentErrorStage.isShowing()) {
@@ -196,6 +200,7 @@ public class Ku1FormController {
                 System.err.println("Error: " + eee.getMessage());
             }
         }
+        System.out.println(ku1AndKu3RequestForm);
     }
 
     public void setBorderPane(BorderPane borderPane) {

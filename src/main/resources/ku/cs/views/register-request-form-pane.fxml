@@ -36,14 +36,14 @@
                               <ToggleGroup fx:id="group1" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="addDropRadio" mnemonicParsing="false" prefHeight="34.0" prefWidth="730.0" text="เพิ่มหรือถอนรายวิชาล่าช้า ( มีกรอก KU3 เพิ่มเติม )" toggleGroup="$group1">
+                        <RadioButton fx:id="addDropRadio" mnemonicParsing="false" onAction="#onAddDropClick" prefHeight="34.0" prefWidth="730.0" text="เพิ่มหรือถอนรายวิชาล่าช้า ( มีกรอก KU3 เพิ่มเติม )" toggleGroup="$group1">
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </RadioButton>
                         <VBox prefHeight="151.0" prefWidth="834.0">
                            <children>
-                              <RadioButton fx:id="registerRadio" mnemonicParsing="false" prefHeight="34.0" prefWidth="853.0" text="ลงทะเบียนเกิน 22 หน่วยกิตสำหรับภาคต้นหรือภาคปลาย หรือลงทะเบียนเกิน 7 หน่วยกิต สำหรับภาคฤดูร้อน" toggleGroup="$group1" wrapText="true">
+                              <RadioButton fx:id="registerRadio" mnemonicParsing="false" onAction="#onRegisterAbove22Click" prefHeight="34.0" prefWidth="853.0" text="ลงทะเบียนเกิน 22 หน่วยกิตสำหรับภาคต้นหรือภาคปลาย หรือลงทะเบียนเกิน 7 หน่วยกิต สำหรับภาคฤดูร้อน" toggleGroup="$group1" wrapText="true">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin>

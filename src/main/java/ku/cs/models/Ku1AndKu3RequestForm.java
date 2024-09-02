@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Ku1RequestForm extends Request{
+public class Ku1AndKu3RequestForm extends Request{
     String curriculum;
     String tel;
     String semester;
@@ -12,20 +12,33 @@ public class Ku1RequestForm extends Request{
     String campus;
     ArrayList<ArrayList<String>> subjectList = new ArrayList<>();
 
-    public Ku1RequestForm() {}
-    public Ku1RequestForm(String[]data, String[]subject) {
+    public Ku1AndKu3RequestForm() {
+        super();
+    }
+    public Ku1AndKu3RequestForm(String[]data, String[]subject, byte type) {
         curriculum = data[1];
         tel = data[2];
         semester = data[3];
         year = data[4];
         campus = data[5];
-        for (int i = 6; i < subject.length; i++) {
-            ArrayList<String> newEachSubjectList = new ArrayList<>();
-            for (int j = 0; j < 7; j++, i++) {
-                newEachSubjectList.add(subject[i]);
+        if (type == 1) {
+            for (int i = 6; i < subject.length; i++) {
+                ArrayList<String> newEachSubjectList = new ArrayList<>();
+                for (int j = 0; j < 7; j++, i++) {
+                    newEachSubjectList.add(subject[i]);
+                }
+                i--;
+                subjectList.add(newEachSubjectList);
             }
-            i--;
-            subjectList.add(newEachSubjectList);
+        } else if (type == 3) {
+            for (int i = 6; i < subject.length; i++) {
+                ArrayList<String> newEachSubjectList = new ArrayList<>();
+                for (int j = 0; j < 8; j++, i++) {
+                    newEachSubjectList.add(subject[i]);
+                }
+                i--;
+                subjectList.add(newEachSubjectList);
+            }
         }
     }
 
@@ -61,6 +74,10 @@ public class Ku1RequestForm extends Request{
             throw new IllegalArgumentException("กรุณากรอกวิทยาเขต");
         }
         this.campus = campus;
+    }
+
+    public ArrayList<ArrayList<String>> getSubjectList() {
+        return subjectList;
     }
 
     public void addSubject(ArrayList<String> subject, ArrayList<String> idSubject,
@@ -118,9 +135,64 @@ public class Ku1RequestForm extends Request{
 
             subjectList.add(eachSuject);
         }
-//        for (String text : subjectList.getFirst()) {
-//            System.out.println(text);
-//        }
+    }
+
+    public void addSubject(ArrayList<String> subject, ArrayList<String> idSubject,
+                           ArrayList<String> registerType, ArrayList<String> credit,
+                           ArrayList<String> section, ArrayList<String> sectionType,
+                           ArrayList<String> teacher, byte type) {
+        for(int i = 0; i < subject.size(); i++) {
+            ArrayList<String> eachSuject = new ArrayList<>();
+            if (subject.get(i) == null || subject.get(i).isEmpty()) {
+                throw new IllegalArgumentException("คุณไม่ได้กรอกชื่อวิชาในวิชาที่ " + (i + 1));
+            } else {
+                eachSuject.add(subject.get(i));
+            }
+            if (idSubject.get(i) == null || idSubject.get(i).isEmpty()) {
+                throw new IllegalArgumentException("คุณไม่ได้กรอกรหัสวิชาในวิชาที่ " + (i + 1));
+            } else {
+                eachSuject.add(idSubject.get(i));
+            }
+            if (registerType.get(i) == null || registerType.get(i).isEmpty()) {
+                throw new IllegalArgumentException("คุณไม่ได้เลือกประเภทลงทะเบียนในวิชาที่ " + (i + 1));
+            } else {
+                eachSuject.add(registerType.get(i));
+            }
+            try {
+                Integer.parseInt(credit.get(i));
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("คุณต้องกรอกหน่วยกิตของวิชา และต้องเป็นตัวเลขในวิชาที่ " + (i + 1));
+            }
+            if (Integer.parseInt(credit.get(i)) <= 0) {
+                throw new IllegalArgumentException("หน่วยกิตต้องมีค่ามากกว่า 0");
+            } else {
+                eachSuject.add(credit.get(i));
+            }
+
+            try {
+                Integer.parseInt(section.get(i));
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("คุณต้องกรอกหมู่เรียนของวิชา และต้องเป็นตัวเลขในวิชาที่ " + (i + 1));
+            }
+            if (Integer.parseInt(section.get(i)) <= 0) {
+                throw new IllegalArgumentException("หมู่เรียนต้องมีค่ามากกว่า 0");
+            } else {
+                eachSuject.add(section.get(i));
+            }
+            if (sectionType.get(i) == null || sectionType.get(i).isEmpty()) {
+                throw new IllegalArgumentException("คุณไม่ได้เลือกประเภทหมู่เรียน");
+            } else {
+                eachSuject.add(sectionType.get(i));
+            }
+            if (teacher.get(i) == null || teacher.get(i).isEmpty()) {
+                throw new IllegalArgumentException("คุณไม่ได้กรอกชื่ออาจารย์ประจำวิชาในวิชาที่ " + (i + 1));
+            } else {
+                eachSuject.add(teacher.get(i));
+            }
+            if (type == 1) eachSuject.add("add");
+            else eachSuject.add("drop");
+            subjectList.add(eachSuject);
+        }
     }
 
     @Override

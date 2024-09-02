@@ -167,27 +167,7 @@ public class RegisterRequestFormController {
     public void onCreateRegisterForm() {
         RegisterRequestForm registerRequestForm = new RegisterRequestForm();
         try {
-            if (lateRegistrationRadio.isSelected()) {
-                registerRequestForm.setLateRegister(true);
-            } else if (addDropRadio.isSelected()) {
-                registerRequestForm.setAddDrop(true);
-            } else if (registerRadio.isSelected()) {
-                if (!firstSemesRadio.isSelected() &&
-                        !secondSemesRadio.isSelected() &&
-                        !summerSemesRadio.isSelected()) {
-                    throw new IllegalArgumentException("คุณต้องเลือกภาคการศึกษา ต้น ปลาย ฤดูร้อน");
-                }
-                if (firstSemesRadio.isSelected()) {
-                    registerRequestForm.setSemester("ต้น");
-                } else if (secondSemesRadio.isSelected()) {
-                    registerRequestForm.setSemester("ปลาย");
-                } else if (summerSemesRadio.isSelected()) {
-                    registerRequestForm.setSemester("ฤดูร้อน");
-                }
-                registerRequestForm.setSemesterYear(yearTextField.getText());
-                registerRequestForm.setOldCredit(oldCredit.getText());
-                registerRequestForm.setNewCredit(newCredit.getText());
-            } else if (registerBelowNineRadio.isSelected()) {
+            if (registerBelowNineRadio.isSelected()) {
                 registerRequestForm.setRegisterLessThan9(true);
             } else if (latePaymentRadio.isSelected()) {
                 if (!latePayFirstSemesRadio.isSelected() &&
@@ -210,25 +190,9 @@ public class RegisterRequestFormController {
             }
             registerRequestForm.setSince(otherTextArea.getText());
         } catch (IllegalArgumentException ee) {
-            try {
-                if (currentErrorStage == null || !currentErrorStage.isShowing()) {
-                    currentErrorStage = new Stage();
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/error-page.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load());
-                    ErrorGeneralRequestFormController errorGeneralRequestFormController = fxmlLoader.getController();
-                    errorGeneralRequestFormController.setErrorMessage(ee.getMessage());
-                    ErrorGeneralRequestFormController controller = fxmlLoader.getController();
-                    controller.setStage(this.currentErrorStage);
-                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-page-style.css").toExternalForm());
-                    currentErrorStage.setScene(scene);
-                    currentErrorStage.initModality(Modality.APPLICATION_MODAL);
-                    currentErrorStage.setTitle("Error");
-                    currentErrorStage.show();
-                }
-            } catch (IOException eee) {
-                System.err.println("Error: " + eee.getMessage());
-            }
+            showErrorPopup(ee);
         }
+//        System.out.println(registerRequestForm);
     }
 
     @FXML
@@ -244,30 +208,100 @@ public class RegisterRequestFormController {
                 fxmlLoader.setLocation(getClass().getResource(viewPath));
                 Pane pane = fxmlLoader.load();
                 Ku1FormController controller = fxmlLoader.getController();
+                controller.setRegisterForm(registerRequestForm);
                 controller.setBorderPane(this.borderPane);
                 borderPane.setCenter(pane);
             } catch (IOException ee) {
                 throw new RuntimeException(ee);
             } catch (IllegalArgumentException ee) {
-                try {
-                    if (currentErrorStage == null || !currentErrorStage.isShowing()) {
-                        currentErrorStage = new Stage();
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/error-page.fxml"));
-                        Scene scene = new Scene(fxmlLoader.load());
-                        ErrorGeneralRequestFormController errorGeneralRequestFormController = fxmlLoader.getController();
-                        errorGeneralRequestFormController.setErrorMessage(ee.getMessage());
-                        ErrorGeneralRequestFormController controller = fxmlLoader.getController();
-                        controller.setStage(this.currentErrorStage);
-                        scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-page-style.css").toExternalForm());
-                        currentErrorStage.setScene(scene);
-                        currentErrorStage.initModality(Modality.APPLICATION_MODAL);
-                        currentErrorStage.setTitle("Error");
-                        currentErrorStage.show();
-                    }
-                } catch (IOException eee) {
-                    System.err.println("Error: " + eee.getMessage());
-                }
+                showErrorPopup(ee);
             }
         });
+    }
+
+    @FXML
+    public void onAddDropClick() {
+        nextFormButton.setOnAction(e -> {
+            try {
+                RegisterRequestForm registerRequestForm = new RegisterRequestForm();
+                registerRequestForm.setAddDrop(true);
+                registerRequestForm.setSince(otherTextArea.getText());
+
+                String viewPath = "/ku/cs/views/ku3-form-pane.fxml";
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource(viewPath));
+                Pane pane = fxmlLoader.load();
+                Ku3FormController controller = fxmlLoader.getController();
+                controller.setRegisterForm(registerRequestForm);
+                controller.setBorderPane(this.borderPane);
+                borderPane.setCenter(pane);
+            } catch (IOException ee) {
+                throw new RuntimeException(ee);
+            } catch (IllegalArgumentException ee) {
+                showErrorPopup(ee);
+            }
+        });
+    }
+
+    @FXML
+    public void onRegisterAbove22Click() {
+        nextFormButton.setOnAction(e -> {
+            try {
+                RegisterRequestForm registerRequestForm = new RegisterRequestForm();
+                registerRequestForm.setRegisterMoreThan22(true);
+                if (registerRadio.isSelected()) {
+                    if (!firstSemesRadio.isSelected() &&
+                            !secondSemesRadio.isSelected() &&
+                            !summerSemesRadio.isSelected()) {
+                        throw new IllegalArgumentException("คุณต้องเลือกภาคการศึกษา ต้น ปลาย ฤดูร้อน");
+                    }
+                    if (firstSemesRadio.isSelected()) {
+                        registerRequestForm.setSemester("ต้น");
+                    } else if (secondSemesRadio.isSelected()) {
+                        registerRequestForm.setSemester("ปลาย");
+                    } else if (summerSemesRadio.isSelected()) {
+                        registerRequestForm.setSemester("ฤดูร้อน");
+                    }
+                    registerRequestForm.setSemesterYear(yearTextField.getText());
+                    registerRequestForm.setOldCredit(oldCredit.getText());
+                    registerRequestForm.setNewCredit(newCredit.getText());
+                }
+
+                String viewPath = "/ku/cs/views/ku3-form-pane.fxml";
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource(viewPath));
+                Pane pane = fxmlLoader.load();
+                Ku3FormController controller = fxmlLoader.getController();
+                controller.setRegisterForm(registerRequestForm);
+                controller.setBorderPane(this.borderPane);
+                borderPane.setCenter(pane);
+            } catch (IOException ee) {
+                throw new RuntimeException(ee);
+            } catch (IllegalArgumentException ee) {
+                showErrorPopup(ee);
+            }
+        });
+    }
+
+    @FXML
+    private void showErrorPopup(IllegalArgumentException ee) {
+        try {
+            if (currentErrorStage == null || !currentErrorStage.isShowing()) {
+                currentErrorStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/error-page.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                ErrorGeneralRequestFormController errorGeneralRequestFormController = fxmlLoader.getController();
+                errorGeneralRequestFormController.setErrorMessage(ee.getMessage());
+                ErrorGeneralRequestFormController controller = fxmlLoader.getController();
+                controller.setStage(this.currentErrorStage);
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-page-style.css").toExternalForm());
+                currentErrorStage.setScene(scene);
+                currentErrorStage.initModality(Modality.APPLICATION_MODAL);
+                currentErrorStage.setTitle("Error");
+                currentErrorStage.show();
+            }
+        } catch (IOException eee) {
+            System.err.println("Error: " + eee.getMessage());
+        }
     }
 }

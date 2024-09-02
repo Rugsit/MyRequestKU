@@ -122,3 +122,14 @@
     -fx-text-fill: white;
     -fx-background-color: #FF5D5D;
 }
+
+.subject-header {
+    -fx-font-size: 32px;
+}
+
+.subject-header .box {
+    -fx-pref-height: 30px;
+    -fx-pref-width: 30px;
+}
+
+

@@ -18,9 +18,9 @@ public class RequestList {
         requests.add(request);
     }
 
-    public void addRequest(String[] data, String[] subject) {
+    public void addRequest(String[] data, String[] subject, byte type) {
         Request request = switch (data[0]) {
-            case "KU1" -> new Ku1RequestForm(data, subject);
+            case "KU1", "KU3" -> new Ku1AndKu3RequestForm(data, subject, type);
             default -> null;
         };
         requests.add(request);

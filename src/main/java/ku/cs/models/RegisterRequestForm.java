@@ -32,7 +32,9 @@ public class RegisterRequestForm extends Request{
 
     // เหตุผล
     String since;
-    public RegisterRequestForm() {}
+    public RegisterRequestForm() {
+        super();
+    }
 
     public RegisterRequestForm(String[] data) {
         super.setUuid(UUID.fromString(data[1]));
@@ -112,7 +114,7 @@ public class RegisterRequestForm extends Request{
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("คุณต้องกรอกหน่วยกิตใหม่ และต้องเป็นตัวเลข");
         }
-        if (newCreditInt <= 0 || newCreditInt > 100) {
+        if (newCreditInt <= 0 ) {
             throw new IllegalArgumentException("หน่วยกิตใหม่จะต้องมากกว่า 0");
         }
         this.newCredit = newCreditInt;
