@@ -230,4 +230,44 @@ public class RegisterRequestFormController {
             }
         }
     }
+
+    @FXML
+    public void onLateRegisterClick() {
+        nextFormButton.setOnAction(e -> {
+            try {
+                RegisterRequestForm registerRequestForm = new RegisterRequestForm();
+                registerRequestForm.setLateRegister(true);
+                registerRequestForm.setSince(otherTextArea.getText());
+
+                String viewPath = "/ku/cs/views/ku1-form-pane.fxml";
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource(viewPath));
+                Pane pane = fxmlLoader.load();
+                Ku1FormController controller = fxmlLoader.getController();
+                controller.setBorderPane(this.borderPane);
+                borderPane.setCenter(pane);
+            } catch (IOException ee) {
+                throw new RuntimeException(ee);
+            } catch (IllegalArgumentException ee) {
+                try {
+                    if (currentErrorStage == null || !currentErrorStage.isShowing()) {
+                        currentErrorStage = new Stage();
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/error-page.fxml"));
+                        Scene scene = new Scene(fxmlLoader.load());
+                        ErrorGeneralRequestFormController errorGeneralRequestFormController = fxmlLoader.getController();
+                        errorGeneralRequestFormController.setErrorMessage(ee.getMessage());
+                        ErrorGeneralRequestFormController controller = fxmlLoader.getController();
+                        controller.setStage(this.currentErrorStage);
+                        scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-page-style.css").toExternalForm());
+                        currentErrorStage.setScene(scene);
+                        currentErrorStage.initModality(Modality.APPLICATION_MODAL);
+                        currentErrorStage.setTitle("Error");
+                        currentErrorStage.show();
+                    }
+                } catch (IOException eee) {
+                    System.err.println("Error: " + eee.getMessage());
+                }
+            }
+        });
+    }
 }

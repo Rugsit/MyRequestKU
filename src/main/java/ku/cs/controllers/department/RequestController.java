@@ -6,16 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import ku.cs.controllers.department.components.DefaultButton;
 import ku.cs.controllers.department.components.DefaultLabel;
 import ku.cs.controllers.department.components.RouteButton;
 import ku.cs.controllers.department.components.SquareImage;
 import ku.cs.models.Request;
 import ku.cs.services.FXRouter;
-
-import java.util.List;
 
 public class RequestController {
     @FXML private Label pageTitleLabel;

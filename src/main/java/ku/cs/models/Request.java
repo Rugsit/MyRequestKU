@@ -1,8 +1,5 @@
 package ku.cs.models;
 
-import ku.cs.models.user.User;
-import ku.cs.models.user.exceptions.UserException;
-
 import java.util.UUID;
 
 public class Request {
@@ -15,6 +12,8 @@ public class Request {
     private String requestType;
     private String statusNow;
     private String statusNext;
+
+    public Request() {}
 
     public Request(String name, String timeStamp, String date, String nisitId, String requestType, String statusNow, String statusNext){
 //        User user = null;
@@ -92,4 +91,12 @@ public class Request {
     public void setStatusNext(String statusNext) {
         this.statusNext = statusNext;
     }
+
+    public UUID getUuid() {return uuid;}
+
+    public UUID getOwnerUUID() {return ownerUUID;}
+
+    public void setUuid(UUID uuid) {this.uuid = uuid;}
+
+    public void setOwnerUUID(UUID ownerUUID) {this.ownerUUID = ownerUUID;}
 }

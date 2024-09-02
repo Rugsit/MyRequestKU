@@ -1,6 +1,8 @@
 package ku.cs.models;
 
-public class GeneralRequestForm {
+import java.util.UUID;
+
+public class GeneralRequestForm extends Request{
     // เก็บข้อมูลเบอร์โทร
     String tel;
 
@@ -23,16 +25,28 @@ public class GeneralRequestForm {
     // เก็บข้อมูล ความประสงค์อื่นๆ
     String others;
 
+    public GeneralRequestForm(String[] data) {
+        super.setUuid(UUID.fromString(data[1]));
+        super.setOwnerUUID(UUID.fromString(data[2]));
+        super.setTimeStamp(data[3]);
+        super.setDate(data[4]);
+        super.setStatusNow(data[5]);
+        super.setStatusNext(data[6]);
+        this.tel = data[7];
+        this.degreeCertificateLost = Boolean.parseBoolean(data[8]);
+        this.degreeCertificateDamage = Boolean.parseBoolean(data[9]);
+        this.oldThaiName = data[10];
+        this.newThaiName = data[11];
+        this.oldEngName = data[12];
+        this.newEngName = data[13];
+        this.oldThaiSurName = data[14];
+        this.newThaiSurName = data[15];
+        this.oldEngSurName = data[16];
+        this.newEngSurName = data[17];
+        this.others = data[18];
+    }
+
     public GeneralRequestForm() {
-        this.oldThaiName = "";
-        this.newThaiName = "";
-        this.oldEngName = "";
-        this.newEngName = "";
-        this.oldThaiSurName = "";
-        this.newThaiSurName = "";
-        this.oldEngSurName = "";
-        this.newEngSurName = "";
-        this.others = "";
     }
 
     public void setTel(String tel) {
@@ -111,5 +125,28 @@ public class GeneralRequestForm {
             throw new IllegalArgumentException("คุณไม่ได้กรอกความประสงค์อื่นๆ");
         }
         this.others = others;
+    }
+
+    @Override
+    public String toString() {
+        return "General" + "," +
+                super.getUuid().toString() + "," +
+                super.getOwnerUUID().toString() + "," +
+                super.getTimeStamp() + "," +
+                super.getDate() + "," +
+                super.getStatusNow() + "," +
+                super.getStatusNext() + "," +
+                tel + "," +
+                degreeCertificateLost + "," +
+                degreeCertificateDamage + "," +
+                oldThaiName + "," +
+                newThaiName + "," +
+                oldEngName + "," +
+                newEngName + "," +
+                oldThaiSurName + "," +
+                newThaiSurName + "," +
+                oldEngSurName + "," +
+                newEngSurName + "," +
+                others;
     }
 }
