@@ -74,7 +74,7 @@ public class LoginController {
             if (!username.equalsIgnoreCase("debug") && !password.equalsIgnoreCase("debug")) {
                 showError("ไม่พบข้อมูลผู้ใช้งานในระบบ กรุณาลงทะเบียน");
             }
-        } else if (isUseridInDatasource){
+        } else if (isUseridInDatasource && !password.isEmpty()){
             showError("รหัสผ่านไม่ถูกต้อง กรุณากรอกรหัสผ่านใหม่");
         }
         else if (!username.isEmpty() && password.isEmpty()) {

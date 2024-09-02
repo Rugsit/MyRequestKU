@@ -126,6 +126,24 @@ public class UserListFileDatasource implements Datasource<UserList>{
         }
     }
 
+    public void appendUserData(User user) {
+        // Construct the file path to the CSV file in the "users" subdirectory
+        String filePath = directoryName + File.separator + "users" + File.separator + fileName;
+        File file = new File(filePath);
+
+        // Use try-with-resources to ensure the FileWriter and BufferedWriter are closed properly
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file, true), StandardCharsets.UTF_8))) {
+            String userData = user.toString();
+            bufferedWriter.write(userData);
+            bufferedWriter.newLine();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    }
+
 //    public static void main(String[] args) {
 //        UserListFileDatasource datasource = new UserListFileDatasource("data", "student.csv");
 //        UserList userList = datasource.readData();
@@ -138,4 +156,4 @@ public class UserListFileDatasource implements Datasource<UserList>{
 //        datasource.writeData(userList);
 //    }
 
-}
+//}
