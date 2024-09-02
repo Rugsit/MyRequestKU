@@ -45,7 +45,7 @@ public class MainApplication extends Application {
         FXRouter.when("department-staff-nisit-management", viewPath + "department-staff-nisit-management.fxml");
 
 
-
+        FXRouter.when("test", viewPath + "ku1-form-pane.fxml");
 
 
         // Faculty

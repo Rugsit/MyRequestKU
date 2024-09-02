@@ -1,8 +1,9 @@
 package ku.cs.models;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
-public class RegisterRequestForm {
+public class RegisterRequestForm extends Request{
     // ประสงค์ลงทะเบียนล่าช้า
     boolean lateRegister;
 
@@ -31,13 +32,30 @@ public class RegisterRequestForm {
 
     // เหตุผล
     String since;
+    public RegisterRequestForm() {}
 
-    public RegisterRequestForm() {
-        this.semester = "";
-        this.latePaymentSemester = "";
-        this.oldFaculty = "";
-        this.newFaculty = "";
-        this.since = "";
+    public RegisterRequestForm(String[] data) {
+        super.setUuid(UUID.fromString(data[1]));
+        super.setOwnerUUID(UUID.fromString(data[2]));
+        super.setTimeStamp(data[3]);
+        super.setDate(data[4]);
+        super.setStatusNow(data[5]);
+        super.setStatusNext(data[6]);
+        this.lateRegister = Boolean.parseBoolean(data[7]);
+        this.addDrop = Boolean.parseBoolean(data[8]);
+        this.registerMoreThan22 = Boolean.parseBoolean(data[9]);
+        this.semester = data[10];
+        this.semesterYear = Integer.parseInt(data[11]);
+        this.oldCredit = Integer.parseInt(data[12]);
+        this.newCredit = Integer.parseInt(data[13]);
+        this.registerLessThan9 = Boolean.parseBoolean(data[14]);
+        this.latePayment = Boolean.parseBoolean(data[15]);
+        this.latePaymentSemester = data[16];
+        this.latePaymentYear = Integer.parseInt(data[17]);
+        this.transferFaculty = Boolean.parseBoolean(data[18]);
+        this.oldFaculty = data[19];
+        this.newFaculty = data[20];
+        this.since = data[21];
     }
 
     public void setLateRegister(boolean lateRegister) {
@@ -152,5 +170,32 @@ public class RegisterRequestForm {
             throw new IllegalArgumentException("คุณต้องกรอกเหตุผล");
         }
         this.since = since;
+    }
+
+    @Override
+    public String toString() {
+        return "Register" + "," +
+                super.getUuid().toString() + "," +
+                super.getOwnerUUID().toString() + "," +
+                super.getTimeStamp() + "," +
+                super.getDate() + "," +
+                super.getStatusNow() + "," +
+                super.getStatusNext() + "," +
+                lateRegister + "," +
+                addDrop + "," +
+                registerMoreThan22 + "," +
+                semester + "," +
+                semesterYear + "," +
+                oldCredit + "," +
+                newCredit + "," +
+                registerLessThan9 + "," +
+                latePayment + "," +
+                latePaymentSemester + "," +
+                latePaymentYear + "," +
+                transferFaculty + "," +
+                oldFaculty + "," +
+                newFaculty + "," +
+                since;
+
     }
 }

@@ -28,7 +28,7 @@
                   </Label>
                   <VBox prefHeight="600.0" prefWidth="834.0">
                      <children>
-                        <RadioButton fx:id="lateRegistrationRadio" mnemonicParsing="false" text="ลงทะเบียนเรียนล่าช้า หรือ รักษาสถานภาพนิสิตล่าช้า ( มีกรอก KU1 เพิ่มเติม )">
+                        <RadioButton fx:id="lateRegistrationRadio" mnemonicParsing="false" onAction="#onLateRegisterClick" text="ลงทะเบียนเรียนล่าช้า หรือ รักษาสถานภาพนิสิตล่าช้า ( มีกรอก KU1 เพิ่มเติม )">
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin>
@@ -275,7 +275,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="-4.0" layoutY="33.0" prefHeight="47.0" prefWidth="988.0" styleClass="header" text="คำร้องขอลงทะเบียน" />
+      <Label layoutY="33.0" prefHeight="47.0" prefWidth="988.0" styleClass="header" text="คำร้องขอลงทะเบียน" />
       <ImageView fitHeight="50.0" fitWidth="45.0" layoutX="914.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/icons/back-icon.png" />

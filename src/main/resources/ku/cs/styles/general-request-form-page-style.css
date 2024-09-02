@@ -106,3 +106,19 @@
     -fx-text-fill: white;
     -fx-background-color: #5C6997;
 }
+
+.line {
+    -fx-stroke-width: 20px;
+}
+
+.add-subject-button {
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-background-color: #4E7FFF;
+}
+
+.remove-subject-button {
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-background-color: #FF5D5D;
+}
