@@ -3,24 +3,17 @@ package ku.cs.controllers;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
+import ku.cs.services.UserListFileDatasource;
+
 import javax.naming.AuthenticationException;
 import javax.swing.plaf.IconUIResource;
 
 public class AuthenticationController {
-    private UserList users = new UserList();
+    private UserList users;
+
     public AuthenticationController() {
-        this.users = hardCodeDatasource();
-    }
-
-
-    public UserList hardCodeDatasource() {
-        try {
-            users.addUser("6610402230", "b6610402230", "student", "Sirisuk", "Tharntham", "2004-11-29", "sirisuk.t@ku.th", "123456789");
-            users.addUser("6610402078", "b6610402078", "faculty", "Tanaanan", "Chalermpan", "2004-09-26", "tanaanan.c@ku.th", "123456789");
-        } catch (UserException e) {
-            System.out.println("Error adding user : " + e.getMessage());
-        }
-        return users;
+        UserListFileDatasource datasource = new UserListFileDatasource("data", "student.csv");
+        this.users = datasource.readData();
     }
 
 
