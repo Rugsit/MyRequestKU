@@ -71,11 +71,7 @@ public class LoginController {
             else if (loginUser.getRole().equalsIgnoreCase("advisor")){goToAdvisorManage();}
             else if (loginUser.getRole().equalsIgnoreCase("department")){goToDepartmentManage();}
         } else if (!username.isEmpty() && !password.isEmpty() && !isUseridInDatasource) {
-            if (!username.equalsIgnoreCase("debug") && !password.equalsIgnoreCase("debug")) {
-                showError("ไม่พบข้อมูลผู้ใช้งานในระบบ กรุณาลงทะเบียน");
-            }
-        } else if (isUseridInDatasource && !password.isEmpty()){
-            showError("รหัสผ่านไม่ถูกต้อง กรุณากรอกรหัสผ่านใหม่");
+            showError("ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง");
         }
         else if (!username.isEmpty() && password.isEmpty()) {
             showError("โปรดกรอกรหัสผ่าน");

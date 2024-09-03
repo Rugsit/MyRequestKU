@@ -68,10 +68,10 @@ public class RegisterController {
         if (id.isEmpty()) {warningText += "รหัสนิสิต, ";}
         if (email.isEmpty()){warningText += "อีเมลล์, ";}
 
-        // User already in datasource warning.
-        if (authController.isUserInDatasource(username))
-            { showError("ชื่อผู้ใช้มีอยู่ในระบบอยู่แล้ว");}
-        // display basic warning.
+        // No username in datasource
+        if (!authController.isUserInDatasource(username)) {
+            showError("ไม่มีชื่อผู้ใช้งานในระบบ");}
+            // display basic warning.
         else if (!warningText.equals("กรุณากรอก")){
             if (password.equals(confirmPassword)) {showError(warningText);}
             else if (!password.equals(confirmPassword) && !password.isEmpty() && !confirmPassword.isEmpty()) {showError("รหัสผ่านต้องตรงกันทั้งคู่");}
