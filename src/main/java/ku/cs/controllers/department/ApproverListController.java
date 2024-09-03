@@ -8,10 +8,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import ku.cs.controllers.department.components.CropImage;
-import ku.cs.controllers.department.components.DefaultButton;
-import ku.cs.controllers.department.components.DefaultLabel;
-import ku.cs.controllers.department.components.RouteButton;
+import ku.cs.views.components.CropImage;
+import ku.cs.views.components.DefaultButton;
+import ku.cs.views.components.DefaultLabel;
+import ku.cs.views.components.RouteButton;
 
 public class ApproverListController {
     @FXML private Label pageTitleLabel;

@@ -22,13 +22,23 @@ public class User implements Identifiable, Serializable {
     private Date lastLogin;
     private String email;
     private String avatar;
+    private String faculty;
+    private String department;
+    private String advisor;
+    private boolean approver;
+
+    private boolean active = true;
 
     private String password;
-    private static String DATE_FORMAT = "yyyy-mm-dd";
+    private static String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss:Z";
     private final String[] AVAILABLE_ROLES = new String[]{
             "admin",
             "advisor",
-            "student"
+            "faculty-staff",
+            "faculty-approver",
+            "department-staff",
+            "department-approver",
+            "student",
     };
 
     public User(String id,
@@ -40,7 +50,7 @@ public class User implements Identifiable, Serializable {
                 String email,
                 String password) throws UserException {
         //Constructor for New User
-        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, null, "none");
+        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, null, "no-image");
         setPassword(password);
     }
     public User(String uuid,
@@ -56,7 +66,7 @@ public class User implements Identifiable, Serializable {
         //Contructor for DataSource Reader
         if(uuid == null) throw new UUIDException("UUID must not be null");
         this.uuid = UUID.fromString(uuid);
-        setID(id);
+        setId(id);
         setUsername(username);
         setRole(role);
         setFirstname(firstname);
@@ -84,7 +94,7 @@ public class User implements Identifiable, Serializable {
         return this.uuid;
     }
     @Override
-    public String getID() {
+    public String getId() {
         return this.id;
     }
     @Override
@@ -119,11 +129,14 @@ public class User implements Identifiable, Serializable {
     public String getAvatar(){
         return this.avatar;
     }
+    public String getActiveStatus(){
+        return this.active?"Active":"Inactive";
+    }
 
     //SETTER
 
 
-    public void setID(String id) throws IDException{
+    public void setId(String id) throws IDException{
         if(id == null) throw new IDException("ID must not be null");
         if(!isDigit(id)) throw new IDException("ID must be a number");
         if(haveSpace(id)) throw new IDException("ID must not contain spaces");
@@ -199,7 +212,7 @@ public class User implements Identifiable, Serializable {
     //VALIDATION
 
     @Override
-    public Boolean isID(String id) {
+    public Boolean isId(String id) {
         return this.id.equals(id);
     }
     @Override

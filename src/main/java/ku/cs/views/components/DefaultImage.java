@@ -1,4 +1,4 @@
-package ku.cs.controllers.department.components;
+package ku.cs.views.components;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

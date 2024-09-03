@@ -44,7 +44,7 @@ public class UserList implements Serializable {
     public User findUserById(String id){
         if(id != null && !id.isEmpty()){
             for(User user : users){
-                if(user.isID(id))
+                if(user.isId(id))
                     return user;
             }
         }
@@ -74,6 +74,16 @@ public class UserList implements Serializable {
         }
         return null;
 
+    }
+
+    public void deleteUserByObject(User user){
+        if(user != null && haveUser(user)){
+            try{
+                users.remove(user);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }
     public HashSet<User> getUsers(){
         return users;

@@ -1,11 +1,8 @@
-package ku.cs.controllers.department.components;
+package ku.cs.views.components;
 
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
@@ -18,14 +15,19 @@ public class TextFieldStack extends StackPane{
     private DefaultButton clearButton;
     private String currentData;
 
-    private double fieldtWidth = 270;
-    private double fieldHeight = 50;
+    private double fieldtWidth;
+    private double fieldHeight;
     private double buttonWidth = 30;
     private double buttonHeight = 30;
 
     public TextFieldStack(String data) {
+        this(data,270,50);
+    }
+    public TextFieldStack(String data, double w, double h) {
         this.stackBox = this;
         this.currentData = data;
+        this.fieldtWidth = w;
+        this.fieldHeight = h;
         initTextField(fieldtWidth,fieldHeight);
         initButton(buttonWidth,buttonHeight);
         initStackBox(fieldtWidth,fieldHeight);
@@ -98,6 +100,9 @@ public class TextFieldStack extends StackPane{
     }
     private void clearText(){
         textField.setText("");
+    }
+    public void setPlaceholder(String placeholder){
+        textField.setPromptText(placeholder);
     }
     public String getData(){
         return currentData;
