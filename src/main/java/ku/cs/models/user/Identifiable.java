@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface Identifiable {
     //Identical data getter
     UUID getUUID();
-    String getID();
+    String getId();
     String getUsername();
     String getRole();
 
@@ -21,7 +21,7 @@ public interface Identifiable {
     String getDepartment();
     //Identify method
     Boolean isUUID(UUID uuid);
-    Boolean isID(String id);
+    Boolean isId(String id);
     Boolean isUsername(String username);
     Boolean isRole(String role);
     Boolean validatePassword(String password) throws PasswordException;

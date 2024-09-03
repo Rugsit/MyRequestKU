@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import ku.cs.controllers.department.components.DefaultLabel;
+import ku.cs.views.components.DefaultLabel;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;

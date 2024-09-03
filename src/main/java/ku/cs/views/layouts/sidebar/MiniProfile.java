@@ -1,13 +1,13 @@
-package ku.cs.controllers.department.layouts.sidebar;
+package ku.cs.views.layouts.sidebar;
 
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
-import ku.cs.controllers.department.components.DefaultLabel;
-import ku.cs.controllers.department.components.RouteButton;
-import ku.cs.controllers.department.components.SquareImage;
+import ku.cs.views.components.DefaultLabel;
+import ku.cs.views.components.RouteButton;
+import ku.cs.views.components.SquareImage;
 
 public class MiniProfile {
     private final VBox vBox;
