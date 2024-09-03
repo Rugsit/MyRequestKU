@@ -12,11 +12,6 @@ public class UserList implements Serializable {
         users = new HashSet<>();
     }
 
-    public static void main(String[] args) {
-        UserList users = new UserList();
-        System.out.println(users.hashCode());
-
-    }
     public void addUser(String id,
                    String username,
                    String role,
@@ -96,6 +91,17 @@ public class UserList implements Serializable {
     public String toString() {
         return users.toString();
     }
+
+//    public static void main(String[] args) {
+//        UserList users = new UserList();
+//        try {
+//            users.addUser("6610402078", "b6610402078","student", "Tanaanan", "Chalermpan", "2004-09-26:00:00:00:+0000", "tanaanan.c@ku.th", "Science", "Computer Science", "123456789");
+//            users.addUser("6610402079", "b6610402079", "student", "Pattanan", "Chalermpan", "2007-09-25:00:00:00:+0000", "pattanan.c@ku.th", "Science", "Computer Science", "123456789");
+//        } catch (Exception e){
+//            System.out.println("Error : " + e);
+//        }
+//
+//    }
 
 
 }

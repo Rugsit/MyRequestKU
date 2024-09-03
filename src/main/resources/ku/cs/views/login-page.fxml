@@ -35,7 +35,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <PasswordField layoutX="697.0" layoutY="318.0" prefHeight="50.0" prefWidth="386.0" promptText="รหัสผ่าน">
+      <PasswordField fx:id="passwordTextField" layoutX="697.0" layoutY="318.0" prefHeight="50.0" prefWidth="386.0" promptText="รหัสผ่าน">
          <styleClass>
             <String fx:value="loginTextField" />
             <String fx:value="passwordTextField" />
@@ -81,6 +81,11 @@
          </font>
       </Button>
       <Label fx:id="aboutUsLabel" focusTraversable="false" layoutX="843.0" layoutY="580.0" text="คู่มือการใช้งาน">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="695.0" layoutY="442.0" prefHeight="27.0" prefWidth="386.0" styleClass="warningLabel" text="ErrorLabel" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>

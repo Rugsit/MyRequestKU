@@ -182,4 +182,18 @@ public class UserListFileDatasource implements Datasource<UserList>{
             throw new RuntimeException(e);
         }
     }
+
+//    public static void main(String[] args) {
+//        UserListFileDatasource datasource = new UserListFileDatasource("data", "student.csv");
+//        UserList userList = datasource.readData();
+//        UserList users = new UserList();
+//        try {
+//            users.addUser("6610402078", "b6610402078","student", "Tanaanan", "Chalermpan", "2004-09-26:00:00:00:+0000", "tanaanan.c@ku.th", "Science", "Computer Science", "123456789");
+//            users.addUser("6610402079", "b6610402079", "student", "Pattanan", "Chalermpan", "2007-09-25:00:00:00:+0000", "pattanan.c@ku.th", "Science", "Computer Science", "123456789");
+//        } catch (Exception e){
+//            System.out.println("Error adding user : " + e.getMessage());
+//        }
+//        datasource.writeData(users);
+//        System.out.println("Writing to .csv succesfull !");
+//    }
 }
