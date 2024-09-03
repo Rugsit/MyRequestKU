@@ -134,4 +134,27 @@ public class UserListFileDatasource implements Datasource<UserList>{
         }
     }
 
+    public void appendData(User user) {
+        String filePath = directoryName + File.separator + "users" + File.separator + fileName;
+        File file = new File(filePath);
+
+        FileOutputStream fileOutputStream = null;
+
+        try {
+            fileOutputStream = new FileOutputStream(file, true);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
+            String dataLine = user.toString();
+            bufferedWriter.write(dataLine);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
 }
