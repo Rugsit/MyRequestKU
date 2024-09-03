@@ -28,3 +28,26 @@
     -fx-stroke: #DBDBDB;
     -fx-stroke-width: 2px;
 }
+
+.confirm-desc {
+    -fx-font-size: 30px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FF5D5D;
+}
+
+.edit-button {
+    -fx-cursor: hand;
+    -fx-font-size: 30px;
+    -fx-background-color: #FF4E4E;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+}
+
+.confirm-button {
+    -fx-cursor: hand;
+    -fx-font-size: 30px;
+    -fx-background-color: #49A267;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+}

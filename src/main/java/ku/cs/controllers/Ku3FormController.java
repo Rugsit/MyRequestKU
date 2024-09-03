@@ -17,9 +17,15 @@ import ku.cs.models.Ku1AndKu3RequestForm;
 import ku.cs.models.RegisterRequestForm;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Ku3FormController {
+
+    @FXML
+    private Stage currentConfirmStage;
+
     RegisterRequestForm registerForm;
     @FXML
     private CheckBox part1Checkbox;
@@ -183,7 +189,7 @@ public class Ku3FormController {
 
     @FXML
     public void onCreateRegisterForm() {
-        Ku1AndKu3RequestForm ku1AndKu3RequestForm = new Ku1AndKu3RequestForm();
+        Ku1AndKu3RequestForm ku1AndKu3RequestForm = createKu3Form();
 
         try {
             if (!thaiRadio.isSelected() && !interRadio.isSelected()) {
@@ -255,8 +261,8 @@ public class Ku3FormController {
                 } else {
                     ku1AndKu3RequestForm.addSubject(subject, idSubject, registerType, credit, section, sectionType, teacher, (byte) 2);
                 }
-
             }
+            showConfirmPane(registerForm, ku1AndKu3RequestForm);
         } catch (IllegalArgumentException e) {
             try {
                 if (currentErrorStage == null || !currentErrorStage.isShowing()) {
@@ -267,7 +273,7 @@ public class Ku3FormController {
                     errorGeneralRequestFormController.setErrorMessage(e.getMessage());
                     ErrorGeneralRequestFormController controller = fxmlLoader.getController();
                     controller.setStage(this.currentErrorStage);
-                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-page-style.css").toExternalForm());
+                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
                     currentErrorStage.setScene(scene);
                     currentErrorStage.initModality(Modality.APPLICATION_MODAL);
                     currentErrorStage.setTitle("Error");
@@ -276,9 +282,36 @@ public class Ku3FormController {
             } catch (IOException eee) {
                 System.err.println("Error: " + eee.getMessage());
             }
-            return;
         }
+    }
 
-        System.out.println(ku1AndKu3RequestForm);
+    private Ku1AndKu3RequestForm createKu3Form() {
+        UUID uuid = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
+        LocalDateTime now = LocalDateTime.now();
+        return new Ku1AndKu3RequestForm(uuid,userId, "Test_Name", "Test_ID", now, now, "KU3", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
+    }
+
+    private void showConfirmPane(RegisterRequestForm registerRequestForm, Ku1AndKu3RequestForm ku1AndKu3RequestForm) {
+        try {
+            if (currentConfirmStage == null || !currentConfirmStage.isShowing()) {
+                currentConfirmStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/confirm-page.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                ConfirmRequestFormController controller = fxmlLoader.getController();
+                controller.setStage(this.currentConfirmStage);
+                controller.setBorderPane(this.borderPane);
+                controller.setRequestForm(registerRequestForm);
+                controller.setRequestPair(ku1AndKu3RequestForm);
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                currentConfirmStage.setScene(scene);
+                currentConfirmStage.initModality(Modality.APPLICATION_MODAL);
+                currentConfirmStage.setTitle("Confirm");
+                currentConfirmStage.show();
+            }
+        } catch (IOException ee) {
+            System.err.println("Error: " + ee.getMessage());
+        }
     }
 }

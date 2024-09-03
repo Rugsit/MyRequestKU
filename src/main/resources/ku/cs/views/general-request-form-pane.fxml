@@ -171,7 +171,7 @@
                   </VBox>
                   <VBox alignment="BOTTOM_RIGHT">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onCreateGeneralForm" styleClass="create-form-button" text="สร้างใบคำร้อง">
+                        <Button graphicTextGap="15.0" mnemonicParsing="false" onAction="#onCreateGeneralForm" styleClass="create-form-button" text="ส่งใบคำร้อง">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

@@ -56,6 +56,21 @@ public class ChooseRequestFromController {
         }
     }
 
+    @FXML
+    public void onAcademicLeaveRequestVBoxClick() {
+        try {
+            String viewPath = "/ku/cs/views/academic-leave-form-pane.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            AcademicLeaveController controller = fxmlLoader.getController();
+            controller.setBorderPane(this.borderPane);
+            borderPane.setCenter(pane);
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+    }
+
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }

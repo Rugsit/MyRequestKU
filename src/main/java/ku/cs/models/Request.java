@@ -1,5 +1,7 @@
 package ku.cs.models;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Request {
@@ -7,15 +9,38 @@ public class Request {
     private UUID ownerUUID;
     private String name;
     private String nisitId;
-    private String timeStamp;
-    private String date;
+    private LocalDateTime timeStampLastUpdate;
+    private LocalDateTime timeStampCreateForm;
     private String requestType;
     private String statusNow;
     private String statusNext;
 
     public Request() {}
 
-    public Request(String name, String timeStamp, String date, String nisitId, String requestType, String statusNow, String statusNext){
+    public Request(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate, LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext){
+//        User user = null;
+//        String[] nameArray = name.split(" ");
+//        try {
+////            System.out.println(nameArray[0]+nameArray[1]);
+//            user = new User("6610402230","b6610402230","student",nameArray[0],nameArray[1],"2004-11-29","sirisuk.t@ku.th","123456789");
+//            this.name = user.getName();
+//            this.nisitId = user.getID();
+//        } catch (UserException e){
+//            e.printStackTrace();
+//        }
+        this.uuid = uuid;
+        this.ownerUUID = ownerUUID;
+
+        this.name = name;
+        this.nisitId = nisitId;
+        this.timeStampLastUpdate = timeStampLastUpdate;
+        this.timeStampCreateForm = timeStampCreateForm;
+        this.requestType = requestType;
+        this.statusNow = statusNow;
+        this.statusNext = statusNext;
+    }
+
+    public Request(String name, LocalDateTime timeStamp, LocalDateTime date, String nisitId, String requestType, String statusNow, String statusNext){
 //        User user = null;
 //        String[] nameArray = name.split(" ");
 //        try {
@@ -29,8 +54,8 @@ public class Request {
 
         this.name = name;
         this.nisitId = nisitId;
-        this.timeStamp = timeStamp;
-        this.date = date;
+        this.timeStampLastUpdate = timeStamp;
+        this.timeStampCreateForm = date;
         this.requestType = requestType;
         this.statusNow = statusNow;
         this.statusNext = statusNext;
@@ -44,20 +69,20 @@ public class Request {
         this.name = name;
     }
 
-    public String getTimeStamp() {
-        return timeStamp;
+    public LocalDateTime getTimeStamp() {
+        return timeStampLastUpdate;
     }
 
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimeStamp(LocalDateTime timeStamp) {
+        this.timeStampLastUpdate = timeStamp;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDateTime getDate() {
+        return timeStampCreateForm;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(LocalDateTime date) {
+        this.timeStampCreateForm = date;
     }
 
     public String getNisitId() {

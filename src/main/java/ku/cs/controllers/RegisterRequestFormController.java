@@ -10,13 +10,21 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.models.GeneralRequestForm;
 import ku.cs.models.RegisterRequestForm;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class RegisterRequestFormController {
+
+    @FXML
+    private Stage currentConfirmStage;
+
     @FXML
     private VBox buttonCOntainerVbox;
+
     @FXML
     private Stage currentErrorStage;
 
@@ -165,7 +173,7 @@ public class RegisterRequestFormController {
 
     @FXML
     public void onCreateRegisterForm() {
-        RegisterRequestForm registerRequestForm = new RegisterRequestForm();
+        RegisterRequestForm registerRequestForm = createRegisterForm();
         try {
             if (registerBelowNineRadio.isSelected()) {
                 registerRequestForm.setRegisterLessThan9(true);
@@ -189,17 +197,18 @@ public class RegisterRequestFormController {
                 registerRequestForm.setNewFaculty(newFalTextField.getText());
             }
             registerRequestForm.setSince(otherTextArea.getText());
+
+            showConfirmPane(registerRequestForm);
         } catch (IllegalArgumentException ee) {
             showErrorPopup(ee);
         }
-//        System.out.println(registerRequestForm);
     }
 
     @FXML
     public void onLateRegisterClick() {
         nextFormButton.setOnAction(e -> {
             try {
-                RegisterRequestForm registerRequestForm = new RegisterRequestForm();
+                RegisterRequestForm registerRequestForm = createRegisterForm();
                 registerRequestForm.setLateRegister(true);
                 registerRequestForm.setSince(otherTextArea.getText());
 
@@ -223,20 +232,11 @@ public class RegisterRequestFormController {
     public void onAddDropClick() {
         nextFormButton.setOnAction(e -> {
             try {
-                RegisterRequestForm registerRequestForm = new RegisterRequestForm();
+                RegisterRequestForm registerRequestForm = createRegisterForm();
                 registerRequestForm.setAddDrop(true);
                 registerRequestForm.setSince(otherTextArea.getText());
 
-                String viewPath = "/ku/cs/views/ku3-form-pane.fxml";
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource(viewPath));
-                Pane pane = fxmlLoader.load();
-                Ku3FormController controller = fxmlLoader.getController();
-                controller.setRegisterForm(registerRequestForm);
-                controller.setBorderPane(this.borderPane);
-                borderPane.setCenter(pane);
-            } catch (IOException ee) {
-                throw new RuntimeException(ee);
+                goToKU3Form(registerRequestForm);
             } catch (IllegalArgumentException ee) {
                 showErrorPopup(ee);
             }
@@ -247,7 +247,7 @@ public class RegisterRequestFormController {
     public void onRegisterAbove22Click() {
         nextFormButton.setOnAction(e -> {
             try {
-                RegisterRequestForm registerRequestForm = new RegisterRequestForm();
+                RegisterRequestForm registerRequestForm = createRegisterForm();
                 registerRequestForm.setRegisterMoreThan22(true);
                 if (registerRadio.isSelected()) {
                     if (!firstSemesRadio.isSelected() &&
@@ -266,17 +266,8 @@ public class RegisterRequestFormController {
                     registerRequestForm.setOldCredit(oldCredit.getText());
                     registerRequestForm.setNewCredit(newCredit.getText());
                 }
-
-                String viewPath = "/ku/cs/views/ku3-form-pane.fxml";
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource(viewPath));
-                Pane pane = fxmlLoader.load();
-                Ku3FormController controller = fxmlLoader.getController();
-                controller.setRegisterForm(registerRequestForm);
-                controller.setBorderPane(this.borderPane);
-                borderPane.setCenter(pane);
-            } catch (IOException ee) {
-                throw new RuntimeException(ee);
+                registerRequestForm.setSince(otherTextArea.getText());
+                goToKU3Form(registerRequestForm);
             } catch (IllegalArgumentException ee) {
                 showErrorPopup(ee);
             }
@@ -294,7 +285,7 @@ public class RegisterRequestFormController {
                 errorGeneralRequestFormController.setErrorMessage(ee.getMessage());
                 ErrorGeneralRequestFormController controller = fxmlLoader.getController();
                 controller.setStage(this.currentErrorStage);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-page-style.css").toExternalForm());
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
                 currentErrorStage.setScene(scene);
                 currentErrorStage.initModality(Modality.APPLICATION_MODAL);
                 currentErrorStage.setTitle("Error");
@@ -303,5 +294,50 @@ public class RegisterRequestFormController {
         } catch (IOException eee) {
             System.err.println("Error: " + eee.getMessage());
         }
+    }
+
+    private RegisterRequestForm createRegisterForm() {
+        UUID uuid = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
+        LocalDateTime now = LocalDateTime.now();
+        return new RegisterRequestForm(uuid,userId, "Test_Name", "Test_ID", now, now, "Register", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
+    }
+
+    private void showConfirmPane(RegisterRequestForm registerRequestForm) {
+        try {
+            if (currentConfirmStage == null || !currentConfirmStage.isShowing()) {
+                currentConfirmStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/confirm-page.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                ConfirmRequestFormController controller = fxmlLoader.getController();
+                controller.setStage(this.currentConfirmStage);
+                controller.setBorderPane(this.borderPane);
+                controller.setRequestForm(registerRequestForm);
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                currentConfirmStage.setScene(scene);
+                currentConfirmStage.initModality(Modality.APPLICATION_MODAL);
+                currentConfirmStage.setTitle("Confirm");
+                currentConfirmStage.show();
+            }
+        } catch (IOException ee) {
+            System.err.println("Error: " + ee.getMessage());
+        }
+    }
+
+    private void goToKU3Form(RegisterRequestForm registerRequestForm) {
+        String viewPath = "/ku/cs/views/ku3-form-pane.fxml";
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(viewPath));
+        Pane pane = null;
+        try {
+            pane = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Ku3FormController controller = fxmlLoader.getController();
+        controller.setRegisterForm(registerRequestForm);
+        controller.setBorderPane(this.borderPane);
+        borderPane.setCenter(pane);
     }
 }

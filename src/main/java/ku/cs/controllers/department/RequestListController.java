@@ -15,6 +15,8 @@ import ku.cs.models.Request;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class RequestListController {
     @FXML private AnchorPane mainAnchorPane;
@@ -79,7 +81,8 @@ public class RequestListController {
         requestStatusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
 
         requestTableView.getColumns().addAll(nameColumn,timeStampColumn,nisitIdColumn,requestTypeColumn,requestStatusColumn);
-        Request request = new Request("ศิริสุข ทานธรรม", "23:59", "02/08/2024", "6610402230", "คำร้องทั่วไป", "รอภาควิชา", "อนุมัติโดยอาจารย์ที่ปรึกษา");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Request request = new Request("ศิริสุข ทานธรรม", LocalDateTime.parse("2024-09-03 21:27:00", formatter), LocalDateTime.parse("2024-09-03 21:27:00", formatter), "6610402230", "คำร้องทั่วไป", "รอภาควิชา", "อนุมัติโดยอาจารย์ที่ปรึกษา");
         requestTableView.getItems().add(request);
 
         requestTableView.setStyle(

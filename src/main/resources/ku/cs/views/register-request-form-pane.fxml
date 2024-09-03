@@ -266,7 +266,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="createFormButton" layoutX="90.0" mnemonicParsing="false" onAction="#onCreateRegisterForm" styleClass="create-form-button" text="สร้างใบคำร้อง" visible="false">
+      <Button fx:id="createFormButton" graphicTextGap="15.0" layoutX="90.0" mnemonicParsing="false" onAction="#onCreateRegisterForm" styleClass="create-form-button" text="ส่งใบคำร้อง" visible="false">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -12,8 +12,12 @@ import javafx.stage.Stage;
 import ku.cs.models.GeneralRequestForm;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class GeneralRequestFormController {
+    @FXML
+    private Stage currentConfirmStage;
 
     @FXML
     private Stage currentErrorStage;
@@ -135,7 +139,7 @@ public class GeneralRequestFormController {
 
     @FXML
     public void onCreateGeneralForm() {
-        GeneralRequestForm generalRequestForm = new GeneralRequestForm();
+        GeneralRequestForm generalRequestForm = createGeneralForm();
         try {
             generalRequestForm.setTel(telTextField.getText());
             if (degreeCerCheckBox.isSelected()) {
@@ -160,6 +164,7 @@ public class GeneralRequestFormController {
             } if (otherCheckBox.isSelected()) {
                 generalRequestForm.setOthers(otherTextArea.getText());
             }
+            showConfirmPane(generalRequestForm);
         } catch (IllegalArgumentException e) {
             try {
                 if (currentErrorStage == null || !currentErrorStage.isShowing()) {
@@ -170,7 +175,7 @@ public class GeneralRequestFormController {
                     errorGeneralRequestFormController.setErrorMessage(e.getMessage());
                     ErrorGeneralRequestFormController controller = fxmlLoader.getController();
                     controller.setStage(this.currentErrorStage);
-                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-page-style.css").toExternalForm());
+                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
                     currentErrorStage.setScene(scene);
                     currentErrorStage.initModality(Modality.APPLICATION_MODAL);
                     currentErrorStage.setTitle("Error");
@@ -184,6 +189,35 @@ public class GeneralRequestFormController {
 
     public void setErrorStage(Stage currentErrorStage) {
         this.currentErrorStage = currentErrorStage;
+    }
+
+    private GeneralRequestForm createGeneralForm() {
+        UUID uuid = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
+        LocalDateTime now = LocalDateTime.now();
+        return new GeneralRequestForm(uuid,userId, "Test_Name", "Test_ID", now, now, "GeneralRequest", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
+    }
+
+    private void showConfirmPane(GeneralRequestForm generalRequestForm) {
+        try {
+            if (currentConfirmStage == null || !currentConfirmStage.isShowing()) {
+                currentConfirmStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/confirm-page.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                ConfirmRequestFormController controller = fxmlLoader.getController();
+                controller.setStage(this.currentConfirmStage);
+                controller.setBorderPane(this.borderPane);
+                controller.setRequestForm(generalRequestForm);
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                currentConfirmStage.setScene(scene);
+                currentConfirmStage.initModality(Modality.APPLICATION_MODAL);
+                currentConfirmStage.setTitle("Confirm");
+                currentConfirmStage.show();
+            }
+        } catch (IOException ee) {
+            System.err.println("Error: " + ee.getMessage());
+        }
     }
 
 }

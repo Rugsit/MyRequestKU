@@ -1,6 +1,10 @@
 package ku.cs.models;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GeneralRequestForm extends Request{
     // เก็บข้อมูลเบอร์โทร
@@ -28,30 +32,38 @@ public class GeneralRequestForm extends Request{
     public GeneralRequestForm(String[] data) {
         super.setUuid(UUID.fromString(data[1]));
         super.setOwnerUUID(UUID.fromString(data[2]));
-        super.setTimeStamp(data[3]);
-        super.setDate(data[4]);
-        super.setStatusNow(data[5]);
-        super.setStatusNext(data[6]);
-        this.tel = data[7];
-        this.degreeCertificateLost = Boolean.parseBoolean(data[8]);
-        this.degreeCertificateDamage = Boolean.parseBoolean(data[9]);
-        this.oldThaiName = data[10];
-        this.newThaiName = data[11];
-        this.oldEngName = data[12];
-        this.newEngName = data[13];
-        this.oldThaiSurName = data[14];
-        this.newThaiSurName = data[15];
-        this.oldEngSurName = data[16];
-        this.newEngSurName = data[17];
-        this.others = data[18];
+        super.setName(data[3]);
+        super.setNisitId(data[4]);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        super.setTimeStamp(LocalDateTime.parse(data[5], formatter));
+        super.setDate(LocalDateTime.parse(data[6], formatter));
+        super.setStatusNow(data[7]);
+        super.setStatusNext(data[8]);
+        this.tel = data[9];
+        this.degreeCertificateLost = Boolean.parseBoolean(data[10]);
+        this.degreeCertificateDamage = Boolean.parseBoolean(data[11]);
+        this.oldThaiName = data[12];
+        this.newThaiName = data[13];
+        this.oldEngName = data[14];
+        this.newEngName = data[15];
+        this.oldThaiSurName = data[16];
+        this.newThaiSurName = data[17];
+        this.oldEngSurName = data[18];
+        this.newEngSurName = data[19];
+        this.others = data[20];
     }
 
-    public GeneralRequestForm() {
+    public GeneralRequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
+                              LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
+        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
     }
 
     public void setTel(String tel) {
-        if (tel == null || tel.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้กรอกเบอร์โทร");
+        tel = tel.strip();
+        Pattern pattern = Pattern.compile("^[0-9]{10}$");
+        Matcher matcher = pattern.matcher(tel);
+        if (!matcher.find()) {
+            throw new IllegalArgumentException("กรุณากรอกเบอร์โทรให้ถูกต้อง");
         }
         this.tel = tel;
     }
@@ -129,11 +141,14 @@ public class GeneralRequestForm extends Request{
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String timestamp = super.getTimeStamp().format(formatter);
+        String date = super.getDate().format(formatter);
         return "General" + "," +
                 super.getUuid().toString() + "," +
                 super.getOwnerUUID().toString() + "," +
-                super.getTimeStamp() + "," +
-                super.getDate() + "," +
+                timestamp + "," +
+                date + "," +
                 super.getStatusNow() + "," +
                 super.getStatusNext() + "," +
                 tel + "," +

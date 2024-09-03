@@ -1,6 +1,9 @@
 package ku.cs.models;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,17 +15,28 @@ public class Ku1AndKu3RequestForm extends Request{
     String campus;
     ArrayList<ArrayList<String>> subjectList = new ArrayList<>();
 
-    public Ku1AndKu3RequestForm() {
-        super();
+    public Ku1AndKu3RequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
+                                LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
+        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
     }
+
     public Ku1AndKu3RequestForm(String[]data, String[]subject, byte type) {
-        curriculum = data[1];
-        tel = data[2];
-        semester = data[3];
-        year = data[4];
-        campus = data[5];
+        super.setUuid(UUID.fromString(data[1]));
+        super.setOwnerUUID(UUID.fromString(data[2]));
+        super.setName(data[3]);
+        super.setNisitId(data[4]);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        super.setTimeStamp(LocalDateTime.parse(data[5], formatter));
+        super.setDate(LocalDateTime.parse(data[6], formatter));
+        super.setStatusNow(data[7]);
+        super.setStatusNext(data[8]);
+        curriculum = data[9];
+        tel = data[10];
+        semester = data[11];
+        year = data[12];
+        campus = data[13];
         if (type == 1) {
-            for (int i = 6; i < subject.length; i++) {
+            for (int i = 14; i < subject.length; i++) {
                 ArrayList<String> newEachSubjectList = new ArrayList<>();
                 for (int j = 0; j < 7; j++, i++) {
                     newEachSubjectList.add(subject[i]);
@@ -197,7 +211,23 @@ public class Ku1AndKu3RequestForm extends Request{
 
     @Override
     public String toString() {
-        String text = "KU1" + "," + curriculum + "," + tel + "," + semester + "," + year + "," + campus;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String timestamp = super.getTimeStamp().format(formatter);
+        String date = super.getDate().format(formatter);
+        String text = super.getRequestType() + "," +
+                super.getUuid().toString() + "," +
+                super.getOwnerUUID().toString() + "," +
+                super.getName() + "," +
+                super.getNisitId() + "," +
+                timestamp + "," +
+                date + "," +
+                super.getStatusNow() + "," +
+                super.getStatusNext() + ","
+                + curriculum + ","
+                + tel + ","
+                + semester + ","
+                + year + ","
+                + campus;
         for (ArrayList<String> eachSubject : subjectList) {
             for (String eachString : eachSubject) {
                 text += "," + eachString;

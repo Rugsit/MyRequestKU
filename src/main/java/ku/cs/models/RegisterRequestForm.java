@@ -1,6 +1,8 @@
 package ku.cs.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class RegisterRequestForm extends Request{
@@ -32,32 +34,36 @@ public class RegisterRequestForm extends Request{
 
     // เหตุผล
     String since;
-    public RegisterRequestForm() {
-        super();
+    public RegisterRequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
+                                LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
+        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
     }
 
     public RegisterRequestForm(String[] data) {
         super.setUuid(UUID.fromString(data[1]));
         super.setOwnerUUID(UUID.fromString(data[2]));
-        super.setTimeStamp(data[3]);
-        super.setDate(data[4]);
-        super.setStatusNow(data[5]);
-        super.setStatusNext(data[6]);
-        this.lateRegister = Boolean.parseBoolean(data[7]);
-        this.addDrop = Boolean.parseBoolean(data[8]);
-        this.registerMoreThan22 = Boolean.parseBoolean(data[9]);
-        this.semester = data[10];
-        this.semesterYear = Integer.parseInt(data[11]);
-        this.oldCredit = Integer.parseInt(data[12]);
-        this.newCredit = Integer.parseInt(data[13]);
-        this.registerLessThan9 = Boolean.parseBoolean(data[14]);
-        this.latePayment = Boolean.parseBoolean(data[15]);
-        this.latePaymentSemester = data[16];
-        this.latePaymentYear = Integer.parseInt(data[17]);
-        this.transferFaculty = Boolean.parseBoolean(data[18]);
-        this.oldFaculty = data[19];
-        this.newFaculty = data[20];
-        this.since = data[21];
+        super.setName(data[3]);
+        super.setNisitId(data[4]);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        super.setTimeStamp(LocalDateTime.parse(data[5], formatter));
+        super.setDate(LocalDateTime.parse(data[6], formatter));
+        super.setStatusNow(data[7]);
+        super.setStatusNext(data[8]);
+        this.lateRegister = Boolean.parseBoolean(data[9]);
+        this.addDrop = Boolean.parseBoolean(data[10]);
+        this.registerMoreThan22 = Boolean.parseBoolean(data[11]);
+        this.semester = data[12];
+        this.semesterYear = Integer.parseInt(data[13]);
+        this.oldCredit = Integer.parseInt(data[14]);
+        this.newCredit = Integer.parseInt(data[15]);
+        this.registerLessThan9 = Boolean.parseBoolean(data[16]);
+        this.latePayment = Boolean.parseBoolean(data[17]);
+        this.latePaymentSemester = data[18];
+        this.latePaymentYear = Integer.parseInt(data[19]);
+        this.transferFaculty = Boolean.parseBoolean(data[20]);
+        this.oldFaculty = data[21];
+        this.newFaculty = data[22];
+        this.since = data[23];
     }
 
     public void setLateRegister(boolean lateRegister) {
@@ -176,11 +182,16 @@ public class RegisterRequestForm extends Request{
 
     @Override
     public String toString() {
-        return "Register" + "," +
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String timestamp = super.getTimeStamp().format(formatter);
+        String date = super.getDate().format(formatter);
+        return  super.getRequestType() + "," +
                 super.getUuid().toString() + "," +
                 super.getOwnerUUID().toString() + "," +
-                super.getTimeStamp() + "," +
-                super.getDate() + "," +
+                super.getName() + "," +
+                super.getNisitId() + "," +
+                timestamp + "," +
+                date + "," +
                 super.getStatusNow() + "," +
                 super.getStatusNext() + "," +
                 lateRegister + "," +
