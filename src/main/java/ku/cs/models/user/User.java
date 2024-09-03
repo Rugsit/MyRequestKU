@@ -22,15 +22,23 @@ public class User implements Identifiable, Serializable {
     private Date lastLogin;
     private String email;
     private String avatar;
+    private String faculty;
+    private String department;
+
+    private String advisor;
+    private boolean approver;
+    private boolean active = true;
 
     private String password;
-    private static String DATE_FORMAT = "yyyy-mm-dd";
+    private static String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss:Z";
     private final String[] AVAILABLE_ROLES = new String[]{
             "admin",
             "advisor",
+            "faculty-staff",
+            "faculty-approver",
+            "department-staff",
+            "department-approver",
             "student",
-            "faculty",
-            "department"
     };
 
     public User(String id,
@@ -40,9 +48,11 @@ public class User implements Identifiable, Serializable {
                 String lastname,
                 String lastLogin,
                 String email,
+                String faculty,
+                String department,
                 String password) throws UserException {
         //Constructor for New User
-        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, null, "none");
+        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, faculty, department, null, "no-image");
         setPassword(password);
     }
     public User(String uuid,
@@ -53,32 +63,25 @@ public class User implements Identifiable, Serializable {
                 String lastname,
                 String lastLogin,
                 String email,
+                String faculty,
+                String department,
                 String password,
                 String avatar) throws UserException{
         //Contructor for DataSource Reader
         if(uuid == null) throw new UUIDException("UUID must not be null");
         this.uuid = UUID.fromString(uuid);
-        setID(id);
+        setId(id);
         setUsername(username);
         setRole(role);
         setFirstname(firstname);
         setLastname(lastname);
         setLastLogin(lastLogin);
         setEmail(email);
+        setFaculty(faculty);
+        setDepartment(department);
         setAvatar(avatar);
         this.password = password;
     }
-
-
-//    public static void main(String[] args) throws Exception {
-//        //TEST
-//        User s1 = new User("6610402230","b6610402230","student","Sirisuk","Tharntham","2004-11-29","sirisuk.t@ku.th","123456789");
-//        User s2 = new User(s1.uuid.toString(),"6610402230","b6610402230","student","Sirisuk","Tharntham","2004-11-29","sirisuk.t@ku.th",s1.password,"");
-//        User s3 = new User(s1.uuid.toString(),"6610402230","b6610402230","student","Sirisuk","Tharntham","2004-1129","sirisuk.t@ku.th",s1.password,"");
-//        System.out.println(s1);//NEW
-//        System.out.println(s2);//READER
-//        //System.out.println(s3);//TEST EXCEPTION
-//    }
 
     //GETTER
 
@@ -87,7 +90,7 @@ public class User implements Identifiable, Serializable {
         return this.uuid;
     }
     @Override
-    public String getID() {
+    public String getId() {
         return this.id;
     }
     @Override
@@ -122,11 +125,16 @@ public class User implements Identifiable, Serializable {
     public String getAvatar(){
         return this.avatar;
     }
+    public String getActiveStatus(){
+        return this.active?"Active":"Inactive";
+    }
 
+    public String getFaculty(){return this.faculty;}
+    public String getDepartment(){return this.department;}
     //SETTER
 
 
-    public void setID(String id) throws IDException{
+    public void setId(String id) throws IDException{
         if(id == null) throw new IDException("ID must not be null");
         if(!isDigit(id)) throw new IDException("ID must be a number");
         if(haveSpace(id)) throw new IDException("ID must not contain spaces");
@@ -198,11 +206,12 @@ public class User implements Identifiable, Serializable {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
-
+    public void setFaculty(String faculty) { this.faculty = faculty; }
+    public void setDepartment(String department) { this.department = department; }
     //VALIDATION
 
     @Override
-    public Boolean isID(String id) {
+    public Boolean isId(String id) {
         return this.id.equals(id);
     }
     @Override
@@ -259,6 +268,10 @@ public class User implements Identifiable, Serializable {
         }
         return false;
     }
+    @Override
+    public int hashCode(){
+        return this.uuid.hashCode();
+    }
 
     @Override
     public String toString() {
@@ -271,6 +284,8 @@ public class User implements Identifiable, Serializable {
                 lastname + "," +
                 dateString + "," +
                 email + "," +
+                faculty + "," +
+                department + "," +
                 password + "," +
                 avatar;
     }

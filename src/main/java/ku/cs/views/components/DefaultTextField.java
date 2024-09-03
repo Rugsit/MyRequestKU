@@ -1,4 +1,4 @@
-package ku.cs.controllers.department.components;
+package ku.cs.views.components;
 
 import javafx.scene.control.TextField;
 import javafx.scene.text.Font;

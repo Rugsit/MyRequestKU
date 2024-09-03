@@ -80,11 +80,11 @@ public class RegisterController {
             // Pass user into a User class.
             hideError();
             try{
-                user =  new User(id, username,"student",name,lastName,"2034-11-29",email,password);
-                datasource.appendUserData(user);
+                user = new User(id, username, "student", name, lastName, "2004-09-26:00:00:00:+0000", email, "none", "none", password);
+                datasource.appendData(user);
                 goToLogin(); // go to login page if successful add register user and append to datasource.
             } catch (Exception e){
-                showError("กรุณากรอกรหัสผ่าน 9 ตัวอักษรขึ้นไป");
+                showError("กรุณากรอกรหัสผ่านที่มีความยาวมากกว่า 9 ตัวอักษร");
             }
         }
 

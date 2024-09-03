@@ -33,13 +33,25 @@
                         <Font name="Arial Bold" size="40.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="578.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="578.0" style="-fx-spacing: 10;">
                      <children>
                         <TextField fx:id="searchTextFiled" promptText="Search">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
+                        <Button fx:id="refreshButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                              <Font name="Arial" size="20.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/pages/department/global/yellow-reload.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </HBox>
                </children>
@@ -52,11 +64,7 @@
             </TableView>
          </children>
       </VBox>
-      <VBox fx:id="nisitEditorVBox" alignment="TOP_CENTER" layoutX="703.0" layoutY="115.0" prefHeight="600.0" prefWidth="560.0">
-         <children>
-            <ImageView fx:id="nisitImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </VBox>
+      <VBox fx:id="nisitEditorVBox" alignment="TOP_CENTER" layoutX="703.0" layoutY="115.0" prefHeight="600.0" prefWidth="560.0" />
       <Button fx:id="addNisitButton" layoutX="1091.0" layoutY="39.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="155.0" text="เพิ่มนิสิต">
          <font>
             <Font name="Arial" size="24.0" />

@@ -15,9 +15,6 @@
     -fx-font-weight: Bold;
     -fx-font-size: 32;
 }
-.table-view .table-column {
-
-}
 
 .table-view .table-cell{
     -fx-alignment: CENTER;
@@ -26,16 +23,56 @@
 }
 
 .table-row-cell  {
-
     -fx-background-color: transparent;
 }
-.table-row-cell:filled {
-    -fx-padding: 10 0 10 0;
-    -fx-background-color: white;
-    -fx-text-fill: black;
-    -fx-background-radius: 20;
-}
 
+
+.table-row-cell:filled {
+    -fx-background-insets: 10; /* Create spacing effect padding! */
+    -fx-padding: 20 0 20 0;
+    -fx-background-radius: 20;
+    -fx-background-color: white;
+}
+.table-row-cell:filled .table-cell{
+    -fx-text-fill: black;
+}
+.table-row-cell:filled:selected {
+    -fx-background-color: #e0e0e0;
+}
 .table-row-cell:filled:hover {
     -fx-background-color: #cbcbcb;
+    -fx-cursor: HAND;
+}
+
+
+/*SCROLL BAR*/
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+    -fx-pref-width: 15;
+}
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+.table-view .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-color:  #e0e0e0;
+    -fx-background-radius: 20;
+}
+.table-view .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color:  #e0e0e0;
+    -fx-background-radius: 20;
+}
+.table-view .virtual-flow .scroll-bar:vertical .thumb:hover{
+    -fx-background-color:  #cbcbcb;
+    -fx-cursor: HAND;
+}
+.table-view .virtual-flow .scroll-bar:horizontal .thumb:hover{
+    -fx-background-color:  #cbcbcb;
+    -fx-cursor: HAND;
 }

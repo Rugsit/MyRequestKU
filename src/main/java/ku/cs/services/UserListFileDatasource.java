@@ -6,6 +6,9 @@ import ku.cs.models.user.exceptions.UserException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class UserListFileDatasource implements Datasource<UserList>{
     private String directoryName;
@@ -23,9 +26,10 @@ public class UserListFileDatasource implements Datasource<UserList>{
             String imageDirectory = directoryName + File.separator + "images";
             File imageDirectoryFile = new File(imageDirectory);
             imageDirectoryFile.mkdirs();
+            imageDirectory = directoryName + File.separator + "images" + File.separator + "users";
             file = new File(directoryName + File.separator + "users");
             file.mkdir();
-
+            createRootUser();
         }
         // ถ้ามี directory data อยู่แล้ว เช็กว่ามี images และ users ไหม - เผื่อกรณี sub directory หาย
         file = new File(directoryName + File.separator + "images");
@@ -36,6 +40,17 @@ public class UserListFileDatasource implements Datasource<UserList>{
         file = new File(directoryName + File.separator + "users");
         if (!file.exists()){
             file.mkdir();
+            createRootUser();
+        }
+
+        file = new File(directoryName + File.separator + "images" + File.separator + "users");
+        if (!file.exists()){
+            file.mkdir();
+        }
+
+        file = new File(directoryName + File.separator + "users" + File.separator + "admin.csv");
+        if (!file.exists()){
+            createRootUser();
         }
 
         String filePath = directoryName + File.separator + "users" + File.separator + fileName;
@@ -49,6 +64,22 @@ public class UserListFileDatasource implements Datasource<UserList>{
         }
     }
 
+    private void createRootUser(){
+        String filePath = directoryName + File.separator + "users" + File.separator + "admin.csv";
+        File file = new File(filePath);
+        try {
+            file.createNewFile();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss:Z");
+            String dateString = formatter.format(new Date());
+            User root = new User("0000000000", "admin", "admin", "admin", "admin", dateString, "-", "-", "-", "adminSW211");
+            UserListFileDatasource userListDatasource = new UserListFileDatasource("data", "admin.csv");
+            userListDatasource.appendData(root);
+        } catch (IOException e) {
+            System.out.println("Error creating root user");
+        } catch (UserException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public UserList readData() {
         UserList userList = new UserList();
@@ -84,10 +115,12 @@ public class UserListFileDatasource implements Datasource<UserList>{
                 String lastname = data[5];
                 String lastLogin  = data[6];
                 String email = data[7];
-                String password = data[8];
-                String avatar = data[9];
+                String faculty = data[8];
+                String department = data[9];
+                String password = data[10];
+                String avatar = data[11];
 
-                userList.addUser(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar);
+                userList.addUser(uuid, id, username, role, firstname, lastname, lastLogin, email, faculty, department, password, avatar);
             }
 
         } catch (UserException | IOException e) {
@@ -126,34 +159,41 @@ public class UserListFileDatasource implements Datasource<UserList>{
         }
     }
 
-    public void appendUserData(User user) {
-        // Construct the file path to the CSV file in the "users" subdirectory
+    public void appendData(User user) {
         String filePath = directoryName + File.separator + "users" + File.separator + fileName;
         File file = new File(filePath);
 
-        // Use try-with-resources to ensure the FileWriter and BufferedWriter are closed properly
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(file, true), StandardCharsets.UTF_8))) {
-            String userData = user.toString();
-            bufferedWriter.write(userData);
-            bufferedWriter.newLine();
+        FileOutputStream fileOutputStream = null;
 
-        } catch (IOException e) {
+        try {
+            fileOutputStream = new FileOutputStream(file, true);
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-    }
+
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
+            String dataLine = user.toString();
+            bufferedWriter.write(dataLine);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
 //    public static void main(String[] args) {
 //        UserListFileDatasource datasource = new UserListFileDatasource("data", "student.csv");
 //        UserList userList = datasource.readData();
+//        UserList users = new UserList();
 //        try {
-//            userList.addUser("6610402230", "b6610402230", "student", "Sirisuk", "Tharntham", "2004-11-29", "sirisuk.t@ku.th", "123456789");
-//            userList.addUser("6610402078", "b6610402078", "faculty", "Tanaanan", "Chalermpan", "2004-09-26", "tanaanan.c@ku.th", "123456789");
-//        } catch (UserException e) {
+//            users.addUser("6610402078", "b6610402078","student", "Tanaanan", "Chalermpan", "2004-09-26:00:00:00:+0000", "tanaanan.c@ku.th", "Science", "Computer Science", "123456789");
+//            users.addUser("6610402079", "b6610402079", "student", "Pattanan", "Chalermpan", "2007-09-25:00:00:00:+0000", "pattanan.c@ku.th", "Science", "Computer Science", "123456789");
+//        } catch (Exception e){
 //            System.out.println("Error adding user : " + e.getMessage());
 //        }
-//        datasource.writeData(userList);
+//        datasource.writeData(users);
+//        System.out.println("Writing to .csv succesfull !");
 //    }
-
-//}
+}

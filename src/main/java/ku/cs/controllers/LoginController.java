@@ -6,10 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import ku.cs.controllers.department.components.DefaultLabel;
 import ku.cs.models.user.User;
+import ku.cs.views.components.DefaultLabel;
 import ku.cs.services.FXRouter;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -41,7 +40,7 @@ public class LoginController {
         try {
             loginUser = authController.loginAuthenticate(username, password);
         } catch (Exception e) {
-            errorLabel.setText("รหัสผ่านไม่ถูกต้อง");
+            errorLabel.setText("กรุณากรอกรหัสผ่านที่มีความยาวมากกว่า 9 ตัวอักษร");
         }
 
         // Debug login method
@@ -90,6 +89,7 @@ public class LoginController {
         errorLabel.setText("");
         errorLabel.setVisible(false);
     }
+
 
     @FXML
     protected void goToRegister() {

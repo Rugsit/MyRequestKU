@@ -1,9 +1,8 @@
-package ku.cs.controllers.department.layouts.sidebar;
+package ku.cs.views.layouts.sidebar;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import ku.cs.controllers.department.components.CropImage;
 
 public class CenterImage {
     private VBox vBox;
