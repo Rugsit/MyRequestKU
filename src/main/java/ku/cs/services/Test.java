@@ -24,12 +24,12 @@ public class Test {
         Date date = new Date();
         try {
             UserList users = userDataSource.readData();
-            users.addUser("6610402230","b6610402230","student","ศิริสุข","ทานธรรม",dateToFormatString(DATE_FORMAT,date),"sirisuk.t@ku.th","123456789");
-            users.addUser("6610402231","b6610402231","student","โนเนม","แอนโนนิมัส",dateToFormatString(DATE_FORMAT,date),"xxxxx.t@ku.th","123456789");
-            users.addUser("6610402232","b6610402232","student","โนเนม","แอนโนนิมัส",dateToFormatString(DATE_FORMAT,date),"xxxxx.t@ku.th","123456789");
-            users.addUser("6610402233","b6610402233","student","โนเนม","แอนโนนิมัส",dateToFormatString(DATE_FORMAT,date),"xxxxx.t@ku.th","123456789");
-            users.addUser("6610402234","b6610402234","student","โนเนม","แอนโนนิมัส",dateToFormatString(DATE_FORMAT,date),"xxxxx.t@ku.th","123456789");
-            users.addUser("6610402235","b6610402235","student","โนเนม","แอนโนนิมัส",dateToFormatString(DATE_FORMAT,date),"xxxxx.t@ku.th","123456789");
+            users.addUser("6610402230","b6610402230","student","ศิริสุข","ทานธรรม",dateToFormatString(DATE_FORMAT,date),"sirisuk.t@ku.th","science","computer science","123456789");
+            users.addUser("6610402231","b6610402231","student","โนเนม","แอนโนนิมัส",dateToFormatString(DATE_FORMAT,date),"xxxxx.t@ku.th","science","computer science","123456789");
+            users.addUser("6610402232","b6610402232","student","โนเนม","แอนโนนิมัส",dateToFormatString(DATE_FORMAT,date),"xxxxx.t@ku.th","science","computer science","123456789");
+            users.addUser("6610402233","b6610402233","student","โนเนม","แอนโนนิมัส",dateToFormatString(DATE_FORMAT,date),"xxxxx.t@ku.th","science","computer science","123456789");
+            users.addUser("6610402234","b6610402234","student","โนเนม","แอนโนนิมัส",dateToFormatString(DATE_FORMAT,date),"xxxxx.t@ku.th","science","computer science","123456789");
+            users.addUser("6610402235","b6610402235","student","โนเนม","แอนโนนิมัส",dateToFormatString(DATE_FORMAT,date),"xxxxx.t@ku.th","science","computer science","123456789");
             userDataSource.writeData(users);
             System.out.println(users);
 
