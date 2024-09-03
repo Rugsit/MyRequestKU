@@ -35,6 +35,15 @@ public class AuthenticationController {
         return null;
     }
 
+    public User getUserInDatasource(String username){
+        for (User existUser : users.getUsers()){
+            if(existUser.getUsername().equalsIgnoreCase(username)){
+                return existUser;
+            }
+        }
+        return null;
+    }
+
     public boolean isUserInDatasource(String username){
         for (User existUser : users.getUsers()){
             if(existUser.getUsername().equalsIgnoreCase(username)){

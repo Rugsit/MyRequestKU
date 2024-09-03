@@ -40,7 +40,7 @@ public class LoginController {
         try {
             loginUser = authController.loginAuthenticate(username, password);
         } catch (Exception e) {
-            errorLabel.setText("กรุณากรอกรหัสผ่านที่มีความยาวมากกว่า 9 ตัวอักษร");
+            errorLabel.setText("ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง");
         }
 
         // Debug login method

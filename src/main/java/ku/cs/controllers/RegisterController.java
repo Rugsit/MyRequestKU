@@ -49,7 +49,7 @@ public class RegisterController {
     }
 
     @FXML
-    protected void onRegisterButtonClick(){
+    protected void onRegisterButtonClick() {
         String username = getTextFieldInput(usernameTextField);
         String password = getTextFieldInput(passwordTextField);
         String confirmPassword = getTextFieldInput(confirmPasswordTextField);
@@ -58,38 +58,46 @@ public class RegisterController {
         String id = getTextFieldInput(studentIdTextField);
         String email = getTextFieldInput(emailTextField);
 
-        // basic warning
+        // Basic warning
         hideError();
         String warningText = "กรุณากรอก";
-        if (username.isEmpty()) {warningText += "ชื่อผู้ใช้, ";}
-        if (password.isEmpty() || confirmPassword.isEmpty()) {warningText += "รหัสผ่าน, ";}
-        if (name.isEmpty()){warningText += "ชื่อ, ";}
-        if (lastName.isEmpty()) {warningText += "นามสกุล, ";}
-        if (id.isEmpty()) {warningText += "รหัสนิสิต, ";}
-        if (email.isEmpty()){warningText += "อีเมลล์, ";}
+        if (username.isEmpty()) warningText += "ชื่อผู้ใช้, ";
+        if (password.isEmpty() || confirmPassword.isEmpty()) warningText += "รหัสผ่าน, ";
+        if (name.isEmpty()) warningText += "ชื่อ, ";
+        if (lastName.isEmpty()) warningText += "นามสกุล, ";
+        if (id.isEmpty()) warningText += "รหัสนิสิต, ";
+        if (email.isEmpty()) warningText += "อีเมลล์, ";
+
+        // Check if user exists in the datasource
+        User existingUser = authController.getUserInDatasource(username);
 
         // No username in datasource
-        if (!authController.isUserInDatasource(username)) {
-            showError("ไม่มีชื่อผู้ใช้งานในระบบ");}
-            // display basic warning.
-        else if (!warningText.equals("กรุณากรอก")){
-            if (password.equals(confirmPassword)) {showError(warningText);}
-            else if (!password.equals(confirmPassword) && !password.isEmpty() && !confirmPassword.isEmpty()) {showError("รหัสผ่านต้องตรงกันทั้งคู่");}
+        if (existingUser == null) {
+            showError("ไม่มีชื่อผู้ใช้งานในระบบ");
+        }
+        // Display basic warning.
+        else if (!warningText.equals("กรุณากรอก")) {
+            if (password.equals(confirmPassword)) {
+                showError(warningText);
+            } else if (!password.equals(confirmPassword) && !password.isEmpty() && !confirmPassword.isEmpty()) {
+                showError("รหัสผ่านต้องตรงกันทั้งคู่");
             }
-        else {
+        } else {
             // Pass user into a User class.
             hideError();
-            try{
-                user = new User(id, username, "student", name, lastName, "2004-09-26:00:00:00:+0000", email, "none", "none", password);
-                datasource.appendData(user);
-                goToLogin(); // go to login page if successful add register user and append to datasource.
-            } catch (Exception e){
+            try {
+                if (existingUser.getId() == null) {
+                    user = new User(id, username, "student", name, lastName, "2004-09-26:00:00:00:+0000", email, "none", "none", password);
+                    datasource.appendData(user);
+                    goToLogin();
+                } else {
+                    showError("ผู้ใช้งานได้ทำการลงทะเบียนก่อนหน้าเรียบร้อยแล้ว");
+                }
+            } catch (Exception e) {
                 showError("กรุณากรอกรหัสผ่านที่มีความยาวมากกว่า 9 ตัวอักษร");
+                System.out.println(e.getMessage());
             }
         }
-
-
-
     }
 
     private void showError(String message) {
