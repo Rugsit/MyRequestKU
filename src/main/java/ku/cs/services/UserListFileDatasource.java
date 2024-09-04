@@ -10,7 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class UserListFileDatasource implements Datasource<UserList>{
+public class UserListFileDatasource implements Datasource<UserList> {
     private String directoryName;
     private String fileName;
 
@@ -20,9 +20,9 @@ public class UserListFileDatasource implements Datasource<UserList>{
         checkIfFileExist();
     }
 
-    private void checkIfFileExist(){
+    private void checkIfFileExist() {
         File file = new File(directoryName);
-        if (!file.exists()){
+        if (!file.exists()) {
             String imageDirectory = directoryName + File.separator + "images";
             File imageDirectoryFile = new File(imageDirectory);
             imageDirectoryFile.mkdirs();
@@ -33,29 +33,29 @@ public class UserListFileDatasource implements Datasource<UserList>{
         }
         // ถ้ามี directory data อยู่แล้ว เช็กว่ามี images และ users ไหม - เผื่อกรณี sub directory หาย
         file = new File(directoryName + File.separator + "images");
-        if (!file.exists()){
+        if (!file.exists()) {
             file.mkdir();
         }
 
         file = new File(directoryName + File.separator + "users");
-        if (!file.exists()){
+        if (!file.exists()) {
             file.mkdir();
             createRootUser();
         }
 
         file = new File(directoryName + File.separator + "images" + File.separator + "users");
-        if (!file.exists()){
+        if (!file.exists()) {
             file.mkdir();
         }
 
         file = new File(directoryName + File.separator + "users" + File.separator + "admin.csv");
-        if (!file.exists()){
+        if (!file.exists()) {
             createRootUser();
         }
 
         String filePath = directoryName + File.separator + "users" + File.separator + fileName;
         file = new File(filePath);
-        if (!file.exists()){
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
@@ -64,7 +64,7 @@ public class UserListFileDatasource implements Datasource<UserList>{
         }
     }
 
-    private void createRootUser(){
+    private void createRootUser() {
         String filePath = directoryName + File.separator + "users" + File.separator + "admin.csv";
         File file = new File(filePath);
         try {
@@ -80,6 +80,7 @@ public class UserListFileDatasource implements Datasource<UserList>{
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public UserList readData() {
         UserList userList = new UserList();
@@ -99,7 +100,7 @@ public class UserListFileDatasource implements Datasource<UserList>{
 
         String dataLine = "";
 
-        try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)){
+        try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
             while ((dataLine = bufferedReader.readLine()) != null) {
                 if (dataLine.equals("")) continue;
 
@@ -113,7 +114,7 @@ public class UserListFileDatasource implements Datasource<UserList>{
                 String role = data[3];
                 String firstname = data[4];
                 String lastname = data[5];
-                String lastLogin  = data[6];
+                String lastLogin = data[6];
                 String email = data[7];
                 String faculty = data[8];
                 String department = data[9];
@@ -146,7 +147,7 @@ public class UserListFileDatasource implements Datasource<UserList>{
 
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)){
+        try (BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
             for (User user : userList.getUsers()) {
                 String dataLine = user.toString();
                 bufferedWriter.write(dataLine);
@@ -178,22 +179,9 @@ public class UserListFileDatasource implements Datasource<UserList>{
             bufferedWriter.write(dataLine);
             bufferedWriter.newLine();
             bufferedWriter.flush();
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-//    public static void main(String[] args) {
-//        UserListFileDatasource datasource = new UserListFileDatasource("data", "student.csv");
-//        UserList userList = datasource.readData();
-//        UserList users = new UserList();
-//        try {
-//            users.addUser("6610402078", "b6610402078","student", "Tanaanan", "Chalermpan", "2004-09-26:00:00:00:+0000", "tanaanan.c@ku.th", "Science", "Computer Science", "123456789");
-//            users.addUser("6610402079", "b6610402079", "student", "Pattanan", "Chalermpan", "2007-09-25:00:00:00:+0000", "pattanan.c@ku.th", "Science", "Computer Science", "123456789");
-//        } catch (Exception e){
-//            System.out.println("Error adding user : " + e.getMessage());
-//        }
-//        datasource.writeData(users);
-//        System.out.println("Writing to .csv succesfull !");
-//    }
 }
