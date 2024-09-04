@@ -6,14 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import ku.cs.controllers.department.components.DefaultButton;
-import ku.cs.controllers.department.components.DefaultLabel;
-import ku.cs.controllers.department.components.RouteButton;
-import ku.cs.controllers.department.components.SquareImage;
+import ku.cs.views.components.DefaultButton;
+import ku.cs.views.components.DefaultLabel;
+import ku.cs.views.components.RouteButton;
+import ku.cs.views.components.SquareImage;
 import ku.cs.models.Request;
 import ku.cs.services.FXRouter;
-
-import java.time.format.DateTimeFormatter;
 
 public class RequestController {
     @FXML private Label pageTitleLabel;
@@ -75,8 +73,7 @@ public class RequestController {
             reqType.setText(req.getRequestType());
             reqName.setText(req.getName());
             reqNisitId.setText(req.getNisitId());
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            reqTimestamp.setText(req.getTimeStamp().format(formatter));
+            reqTimestamp.setText(req.getTimeStamp());
         }
     }
     private void initButton(){

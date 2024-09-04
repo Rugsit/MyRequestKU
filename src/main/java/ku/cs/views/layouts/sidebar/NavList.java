@@ -1,4 +1,4 @@
-package ku.cs.controllers.department.layouts.sidebar;
+package ku.cs.views.layouts.sidebar;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
-import ku.cs.controllers.department.components.RouteButton;
+import ku.cs.views.components.RouteButton;
 
 public class NavList {
     private VBox vBox;

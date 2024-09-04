@@ -7,12 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
-import ku.cs.controllers.department.components.*;
+import ku.cs.views.components.*;
 
 public class NisitAdvisorManagementController {
     @FXML private Label pageTitleLabel;

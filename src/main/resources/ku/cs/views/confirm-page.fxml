@@ -14,13 +14,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" styleClass="root" stylesheets="@../styles/error-confirm-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.ConfirmRequestFormController">
    <children>
-      <Label layoutY="14.0" prefHeight="90.0" prefWidth="600.0" styleClass="header" text="คุณแน่ใจหรือไม่ว่าจะส่งใบคำร้องนี้ ?" textAlignment="CENTER">
+      <Label layoutY="11.0" prefHeight="90.0" prefWidth="600.0" styleClass="header" text="คุณแน่ใจหรือไม่ว่าจะส่งใบคำร้องนี้ ?" textAlignment="CENTER">
          <font>
             <Font name="PrintAble4U Bold" size="12.0" />
          </font>
       </Label>
-      <Line endX="434.0" endY="-1.52587890625E-5" layoutX="132.0" layoutY="104.0" startX="-100.0" styleClass="line" />
-      <Label fx:id="errorMessage" layoutY="111.0" lineSpacing="15.0" prefHeight="90.0" prefWidth="600.0" styleClass="confirm-desc" text="คุณไม่สามารถแก้ไขใบคำร้องที่ส่งไปแล้วได้ !&#10;โปรดตรวจทานให้แน่ใจก่อนกดส่ง" textAlignment="CENTER" wrapText="true">
+      <Line endX="434.0" endY="-1.52587890625E-5" layoutX="132.0" layoutY="100.0" startX="-100.0" styleClass="line" />
+      <Label fx:id="errorMessage" layoutY="109.0" lineSpacing="15.0" prefHeight="90.0" prefWidth="600.0" styleClass="confirm-desc" text="คุณไม่สามารถแก้ไขใบคำร้องที่ส่งไปแล้วได้ !&#10;โปรดตรวจทานให้แน่ใจก่อนกดส่ง" textAlignment="CENTER" wrapText="true">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding></Label>

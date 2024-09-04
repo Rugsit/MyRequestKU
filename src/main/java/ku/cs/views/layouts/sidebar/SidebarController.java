@@ -1,13 +1,9 @@
-package ku.cs.controllers.department.layouts.sidebar;
+package ku.cs.views.layouts.sidebar;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import ku.cs.controllers.department.components.DefaultLabel;
+import ku.cs.views.components.DefaultLabel;
 import ku.cs.cs211671project.MainApplication;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 public class SidebarController {
     private VBox vBox;

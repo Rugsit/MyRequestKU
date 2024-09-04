@@ -7,16 +7,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import ku.cs.controllers.department.components.DefaultLabel;
-import ku.cs.controllers.department.components.RouteButton;
-import ku.cs.controllers.department.components.SquareImage;
-import ku.cs.controllers.department.layouts.sidebar.SidebarController;
+import ku.cs.views.components.DefaultLabel;
+import ku.cs.views.components.DefaultTableView;
+import ku.cs.views.components.RouteButton;
+import ku.cs.views.components.SquareImage;
+import ku.cs.views.layouts.sidebar.SidebarController;
 import ku.cs.models.Request;
+import ku.cs.models.user.UserList;
 import ku.cs.services.FXRouter;
+import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class RequestListController {
     @FXML private AnchorPane mainAnchorPane;
@@ -35,6 +36,7 @@ public class RequestListController {
 
     @FXML private TextField seachTextField;
     @FXML private TableView<Request> requestTableView;
+    @FXML private UserList userList;
 
     private final String BASE_COLOR = "#FFFFFF";
     private final String HOVER_COLOR = "#a6a6a6";
@@ -53,7 +55,9 @@ public class RequestListController {
 
         mainAnchorPane.getChildren().add(new SidebarController().getVBox());
 
-
+        UserListFileDatasource userDataSource = new UserListFileDatasource("data","users.csv");
+        userList = userDataSource.readData();
+        System.out.println(userList);
 
     }
     private void initLabel() {
@@ -68,39 +72,31 @@ public class RequestListController {
 
     }
     private void initTableView(){
-        requestTableView.getColumns().clear();
-        TableColumn<Request,String> nameColumn = new TableColumn("ชื่อ-นามสกุล");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        TableColumn<Request,String> timeStampColumn = new TableColumn("วันที่และเวลา");
-        timeStampColumn.setCellValueFactory(new PropertyValueFactory<>("timeStamp"));
-        TableColumn<Request,String> nisitIdColumn = new TableColumn("รหัสนิสิต");
-        nisitIdColumn.setCellValueFactory(new PropertyValueFactory<>("nisitId"));
-        TableColumn<Request,String> requestTypeColumn = new TableColumn("ประเภทคำร้อง");
-        requestTypeColumn.setCellValueFactory(new PropertyValueFactory<>("requestType"));
-        TableColumn<Request,String> requestStatusColumn = new TableColumn("สถานะคำร้อง");
-        requestStatusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
-
-        requestTableView.getColumns().addAll(nameColumn,timeStampColumn,nisitIdColumn,requestTypeColumn,requestStatusColumn);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        Request request = new Request("ศิริสุข ทานธรรม", LocalDateTime.parse("2024-09-03 21:27:00", formatter), LocalDateTime.parse("2024-09-03 21:27:00", formatter), "6610402230", "คำร้องทั่วไป", "รอภาควิชา", "อนุมัติโดยอาจารย์ที่ปรึกษา");
-        requestTableView.getItems().add(request);
-
-        requestTableView.setStyle(
-                "-fx-font-family: " + DEFAULT_FONT + ";"
-        );
-        requestTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-        requestTableView.getStylesheets().add(getClass().getResource("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet.css").toExternalForm());
-        requestTableView.setOnMouseClicked(e->{
-            Request selected = requestTableView.getSelectionModel().getSelectedItem();
-            if(selected != null){
-                try {
-                    FXRouter.goTo("department-staff-request",selected);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+        DefaultTableView<Request> reqTable = new DefaultTableView(requestTableView){
+            @Override
+            protected void handleCLick() {
+                getTableView().setOnMouseClicked(e->{
+                    Object selected = getTableView().getSelectionModel().getSelectedItem();
+                    if(selected instanceof Request){
+                        try {
+                            FXRouter.goTo("department-staff-request",selected);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                });
             }
-        });
+        };
+        reqTable.getTableView().getColumns().clear();
+
+        reqTable.addColumn("ชื่อ-นามสกุล","name");
+        reqTable.addColumn("วันที่และเวลา","timeStamp");
+        reqTable.addColumn("รหัสนิสิต","nisitId");
+        reqTable.addColumn("ประเภทคำร้อง","requestType");
+        reqTable.addColumn("สถานะคำร้อง","statusNow");
+
+        Request request = new Request("ศิริสุข ทานธรรม", "23:59", "02/08/2024", "6610402230", "คำร้องทั่วไป", "รอภาควิชา", "อนุมัติโดยอาจารย์ที่ปรึกษา");
+        reqTable.getTableView().getItems().add(request);
 
     }
 
