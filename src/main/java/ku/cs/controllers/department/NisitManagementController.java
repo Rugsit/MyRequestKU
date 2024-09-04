@@ -143,7 +143,7 @@ public class NisitManagementController {
     }
     private void refreshTableData(){
         nisitTableView.getItems().clear();
-        datasource = new UserListFileDatasource("data","users.csv");
+        datasource = new UserListFileDatasource("data","student.csv");
         users = datasource.readData();
 
         for(User user : users.getUsers()){
