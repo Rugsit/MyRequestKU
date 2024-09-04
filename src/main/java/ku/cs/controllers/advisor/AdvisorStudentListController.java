@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.advisor;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;

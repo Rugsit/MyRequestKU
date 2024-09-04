@@ -2,7 +2,6 @@ package ku.cs.controllers.department;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -12,7 +11,7 @@ import ku.cs.views.components.DefaultTableView;
 import ku.cs.views.components.RouteButton;
 import ku.cs.views.components.SquareImage;
 import ku.cs.views.layouts.sidebar.SidebarController;
-import ku.cs.models.Request;
+import ku.cs.models.request.Request;
 import ku.cs.models.user.UserList;
 import ku.cs.services.FXRouter;
 import ku.cs.services.UserListFileDatasource;

@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
 import ku.cs.services.FXRouter;

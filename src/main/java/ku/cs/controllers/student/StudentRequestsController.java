@@ -1,21 +1,14 @@
-package ku.cs.controllers;
+package ku.cs.controllers.student;
 
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.util.Duration;
-import ku.cs.services.FXRouter;
+import ku.cs.controllers.requests.ChooseRequestFromController;
 
 import java.io.IOException;
 

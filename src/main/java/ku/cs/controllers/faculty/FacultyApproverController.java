@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.faculty;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;

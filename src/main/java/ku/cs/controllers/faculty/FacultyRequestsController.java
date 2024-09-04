@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.faculty;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -8,7 +8,7 @@ import ku.cs.services.FXRouter;
 
 import java.io.IOException;
 
-public class AdvisorRequestsController {
+public class FacultyRequestsController {
     @FXML Circle imageCircle;
 
     public void initialize(){
@@ -16,15 +16,15 @@ public class AdvisorRequestsController {
         imageCircle.setFill(new ImagePattern(profile));
     }
 
-
     @FXML
-    protected void goToStudentList() {
+    protected void onApproverClicked() {
         try {
-            FXRouter.goTo("advisor-students");
+            FXRouter.goTo("faculty-approver");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     @FXML
     protected void onLogoutClicked() {
@@ -35,8 +35,3 @@ public class AdvisorRequestsController {
         }
     }
 }
-
-
-
-
-

@@ -1,14 +1,12 @@
-package ku.cs.controllers;
+package ku.cs.controllers.requests;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import ku.cs.models.GeneralRequestForm;
-import ku.cs.models.RegisterRequestForm;
-import ku.cs.models.Request;
+import ku.cs.controllers.student.StudentRequestsController;
+import ku.cs.models.request.Request;
 
 import java.io.IOException;
 

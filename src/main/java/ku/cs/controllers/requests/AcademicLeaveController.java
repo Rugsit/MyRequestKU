@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.requests;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;

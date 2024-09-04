@@ -1,6 +1,5 @@
-package ku.cs.models;
+package ku.cs.models.request;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

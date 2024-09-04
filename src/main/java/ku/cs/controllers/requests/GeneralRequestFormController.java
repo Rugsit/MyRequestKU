@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.requests;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ku.cs.models.GeneralRequestForm;
+import ku.cs.models.request.GeneralRequestForm;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

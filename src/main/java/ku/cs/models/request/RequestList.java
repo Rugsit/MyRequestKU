@@ -1,4 +1,4 @@
-package ku.cs.models;
+package ku.cs.models.request;
 
 import java.util.ArrayList;
 

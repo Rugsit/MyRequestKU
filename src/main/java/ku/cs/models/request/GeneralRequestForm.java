@@ -1,4 +1,4 @@
-package ku.cs.models;
+package ku.cs.models.request;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

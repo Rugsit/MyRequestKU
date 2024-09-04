@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

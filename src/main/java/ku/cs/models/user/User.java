@@ -151,7 +151,6 @@ public class User implements Identifiable, Serializable {
 
     public void setRole(String role) throws RoleException{
         if(role == null) throw new RoleException("Role must not be null");
-        if(!isAplha(role)) throw new RoleException("Role must be alphabet");
         if(haveSpace(role))throw new RoleException("Role must not contain spaces");
         Boolean valid = false;
         role = role.trim().toLowerCase();

@@ -1,14 +1,7 @@
 package ku.cs.views.components;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import ku.cs.models.Request;
-import ku.cs.services.FXRouter;
-
-import java.io.IOException;
 
 public class DefaultTableView<S> extends TableView {
     private TableView<S> tableView;

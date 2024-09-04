@@ -1,12 +1,8 @@
-package ku.cs.controllers;
+package ku.cs.controllers.requests;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.Stack;
 
 public class ErrorGeneralRequestFormController {
 

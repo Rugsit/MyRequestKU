@@ -1,9 +1,10 @@
-package ku.cs.controllers;
+package ku.cs.controllers.requests;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import ku.cs.controllers.student.StudentRequestsController;
 
 import java.io.IOException;
 

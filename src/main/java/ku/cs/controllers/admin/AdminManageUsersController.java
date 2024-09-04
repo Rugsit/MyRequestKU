@@ -1,15 +1,15 @@
-package ku.cs.controllers;
+package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
 
-public class AdminManageFacultyController {
+public class AdminManageUsersController {
     @FXML
-    protected void goToAdminManageUsers() {
+    protected void goToAdminManageStaff() {
         try {
-            FXRouter.goTo("admin-manage-users");
+            FXRouter.goTo("admin-manage-staff");
         } catch (
                 IOException e) {
             throw new RuntimeException(e);
@@ -17,9 +17,9 @@ public class AdminManageFacultyController {
     }
 
     @FXML
-    protected void goToAdminManageStaff() {
+    protected void goToAdminManageFaculty() {
         try {
-            FXRouter.goTo("admin-manage-staff");
+            FXRouter.goTo("admin-manage-faculty-department");
         } catch (
                 IOException e) {
             throw new RuntimeException(e);

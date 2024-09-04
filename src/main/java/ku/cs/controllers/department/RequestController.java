@@ -10,7 +10,7 @@ import ku.cs.views.components.DefaultButton;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.views.components.RouteButton;
 import ku.cs.views.components.SquareImage;
-import ku.cs.models.Request;
+import ku.cs.models.request.Request;
 import ku.cs.services.FXRouter;
 
 import java.time.format.DateTimeFormatter;

@@ -1,14 +1,9 @@
-package ku.cs.controllers;
+package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import ku.cs.services.FXRouter;
-
-import java.io.IOException;
 
 public class StudentProfileController {
     @FXML ImageView profilePictureImageView;

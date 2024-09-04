@@ -37,7 +37,7 @@ public class LoginController {
         String username = userNameTextField.getText().trim();
         String password = passwordTextField.getText().trim();
         User loginUser = null;
-        boolean isUseridInDatasource = authController.isUserInDatasource(username);
+        User isUseridInDatasource = authController.isUserInDatasource(username);
         try {
             loginUser = authController.loginAuthenticate(username, password);
         } catch (Exception e) {
@@ -70,7 +70,7 @@ public class LoginController {
             else if (loginUser.getRole().equalsIgnoreCase("student")){onStudentButtonClicked();}
             else if (loginUser.getRole().equalsIgnoreCase("advisor")){goToAdvisorManage();}
             else if (loginUser.getRole().equalsIgnoreCase("department")){goToDepartmentManage();}
-        } else if (!username.isEmpty() && !password.isEmpty() && !isUseridInDatasource) {
+        } else if (!username.isEmpty() && !password.isEmpty() && isUseridInDatasource == null) {
             showError("ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง");
         }
         else if (!username.isEmpty() && password.isEmpty()) {

@@ -32,6 +32,9 @@ public class Authentication {
         return null;
     }
 
+    public User isUserInDatasource(String id){
+        return users.findUserById(id);
+    }
 
 }
 
