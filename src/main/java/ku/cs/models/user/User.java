@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import static ku.cs.services.utils.DateTools.dateToFormatString;
+import static ku.cs.services.utils.DateTools.formatToDate;
 import static ku.cs.services.utils.StringCompare.*;
 
 public class User implements Identifiable, Serializable {
@@ -25,21 +27,11 @@ public class User implements Identifiable, Serializable {
     private String faculty;
     private String department;
 
-    private String advisor;
-    private boolean approver;
-    private boolean active = true;
+    private UUID advisor;
+    private boolean active;
 
     private String password;
     private static String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss:Z";
-    private final String[] AVAILABLE_ROLES = new String[]{
-            "admin",
-            "advisor",
-            "faculty-staff",
-            "faculty-approver",
-            "department-staff",
-            "department-approver",
-            "student",
-    };
 
     public User(String id,
                 String username,
@@ -52,8 +44,9 @@ public class User implements Identifiable, Serializable {
                 String department,
                 String password) throws UserException {
         //Constructor for New User
-        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, faculty, department, null, "no-image");
+        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, faculty, department, null, "no-image","active","no-advisor");
         setPassword(password);
+        this.active = !role.equalsIgnoreCase("student");
     }
     public User(String uuid,
                 String id,
@@ -66,7 +59,9 @@ public class User implements Identifiable, Serializable {
                 String faculty,
                 String department,
                 String password,
-                String avatar) throws UserException{
+                String avatar,
+                String activeStatus,
+                String advisorUUID) throws UserException{
         //Contructor for DataSource Reader
         if(uuid == null) throw new UUIDException("UUID must not be null");
         this.uuid = UUID.fromString(uuid);
@@ -81,6 +76,8 @@ public class User implements Identifiable, Serializable {
         setDepartment(department);
         setAvatar(avatar);
         this.password = password;
+        this.active = activeStatus.equalsIgnoreCase("active");
+        this.advisor = (!advisorUUID.equalsIgnoreCase("no-advisor")) ? UUID.fromString(advisorUUID) : null;
     }
 
     //GETTER
@@ -128,11 +125,13 @@ public class User implements Identifiable, Serializable {
     public String getActiveStatus(){
         return this.active?"Active":"Inactive";
     }
+    public UUID getAdvisor(){
+        return this.advisor;
+    }
 
     public String getFaculty(){return this.faculty;}
     public String getDepartment(){return this.department;}
     //SETTER
-
 
     public void setId(String id) throws IDException{
         if(id == null) throw new IDException("ID must not be null");
@@ -208,6 +207,18 @@ public class User implements Identifiable, Serializable {
     }
     public void setFaculty(String faculty) { this.faculty = faculty; }
     public void setDepartment(String department) { this.department = department; }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    public void setAdvisor(Identifiable object){
+        if(object != null && object.isRole("advisor")){
+            this.advisor = object.getUUID();
+        }
+    }
+    public void removeAdvisor(){
+        this.advisor = null;
+    }
     //VALIDATION
 
     @Override
@@ -234,30 +245,11 @@ public class User implements Identifiable, Serializable {
         BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), this.password);
         return result.verified;
     }
+    public boolean isActive(){
+        return this.active;
+    }
 
     //MORE
-
-    private static Date formatToDate(String format,String dateString) {
-        SimpleDateFormat formatter = new SimpleDateFormat(format);
-        Date date = null;
-        try {
-            date = formatter.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            System.err.println("Error : ParseException\n\tformatToDate method returns null!");
-        }
-        return date;
-    }
-    private static String dateToFormatString(String format,Date date) {
-        String dateString = "NO_DATE";
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat(format);
-            dateString = formatter.format(date);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dateString;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -275,18 +267,22 @@ public class User implements Identifiable, Serializable {
 
     @Override
     public String toString() {
-        String dateString = dateToFormatString(DATE_FORMAT, lastLogin);
+        String lastLogin = dateToFormatString(DATE_FORMAT, this.lastLogin);
+        String activeStatus = (active ? "active" : "inactive");
+        String advisorUUID = (advisor != null) ? advisor.toString() : "no-advisor";
         return uuid.toString() + "," +
                 id + "," +
                 username + "," +
                 role + "," +
                 firstname + "," +
                 lastname + "," +
-                dateString + "," +
+                lastLogin + "," +
                 email + "," +
                 faculty + "," +
                 department + "," +
                 password + "," +
-                avatar;
+                avatar + "," +
+                activeStatus + "," +
+                advisorUUID;
     }
 }

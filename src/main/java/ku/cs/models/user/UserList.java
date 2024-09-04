@@ -41,8 +41,10 @@ public class UserList implements Serializable {
                         String faculty,
                         String department,
                         String password,
-                        String avatar) throws UserException {
-        User user = new User(uuid,id,username,role,firstname,lastname,birthdate,email,faculty,department,password,avatar);
+                        String avatar,
+                        String activeStatus,
+                        String advisorUUID) throws UserException {
+        User user = new User(uuid,id,username,role,firstname,lastname,birthdate,email,faculty,department,password,avatar,activeStatus,advisorUUID);
         users.add(user);
     }
     public User findUserById(String id){
