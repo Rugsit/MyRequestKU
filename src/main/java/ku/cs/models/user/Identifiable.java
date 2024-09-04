@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface Identifiable {
     //public static final
-    ArrayList<String> AVAILABLE_ROLES = new ArrayList<>(Arrays.asList(new String[]{
+    ArrayList<String> AVAILABLE_ROLES = new ArrayList<>(Arrays.asList(
             "admin",
             "advisor",
             "faculty-staff",
@@ -17,7 +17,7 @@ public interface Identifiable {
             "department-staff",
             "department-approver",
             "student"
-    }));
+    ));
     //Identical data getter
     UUID getUUID();
     String getId();

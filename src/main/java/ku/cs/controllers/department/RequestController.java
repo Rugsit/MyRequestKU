@@ -13,6 +13,8 @@ import ku.cs.views.components.SquareImage;
 import ku.cs.models.Request;
 import ku.cs.services.FXRouter;
 
+import java.time.format.DateTimeFormatter;
+
 public class RequestController {
     @FXML private Label pageTitleLabel;
 
@@ -70,10 +72,11 @@ public class RequestController {
         new DefaultLabel(editorStatusImageLabel);
 
         if(req!=null){
-            reqType.changeText(req.getRequestType());
-            reqName.changeText(req.getName());
-            reqNisitId.changeText(req.getNisitId());
-            reqTimestamp.changeText(req.getTimeStamp());
+            reqType.setText(req.getRequestType());
+            reqName.setText(req.getName());
+            reqNisitId.setText(req.getNisitId());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            reqTimestamp.setText(req.getTimeStamp().format(formatter));
         }
     }
     private void initButton(){

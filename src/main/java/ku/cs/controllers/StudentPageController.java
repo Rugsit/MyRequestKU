@@ -32,6 +32,8 @@ public class StudentPageController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
+            StudentRequestsController controller = fxmlLoader.getController();
+            controller.setBorderPane(this.contentBorderPane);
             contentBorderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);

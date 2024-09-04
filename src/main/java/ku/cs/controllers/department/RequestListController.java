@@ -18,6 +18,8 @@ import ku.cs.services.FXRouter;
 import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class RequestListController {
     @FXML private AnchorPane mainAnchorPane;
@@ -94,8 +96,8 @@ public class RequestListController {
         reqTable.addColumn("รหัสนิสิต","nisitId");
         reqTable.addColumn("ประเภทคำร้อง","requestType");
         reqTable.addColumn("สถานะคำร้อง","statusNow");
-
-        Request request = new Request("ศิริสุข ทานธรรม", "23:59", "02/08/2024", "6610402230", "คำร้องทั่วไป", "รอภาควิชา", "อนุมัติโดยอาจารย์ที่ปรึกษา");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        Request request = new Request("ศิริสุข ทานธรรม", LocalDateTime.parse("2024/08/02 23:59:45", formatter), LocalDateTime.parse("2024/08/02 23:59:45", formatter), "6610402230", "คำร้องทั่วไป", "รอภาควิชา", "อนุมัติโดยอาจารย์ที่ปรึกษา");
         reqTable.getTableView().getItems().add(request);
 
     }
