@@ -8,16 +8,24 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.UserListFileDatasource;
 import ku.cs.views.components.*;
+
+import java.awt.*;
+import java.util.Optional;
 
 public class NisitManagementController {
     @FXML private Label pageTitleLabel;
@@ -50,10 +58,10 @@ public class NisitManagementController {
     private UserList users;
     private UserListFileDatasource datasource;
     private User selectedUser;
+    private DefaultLabel editorErrorLabel;
 
     @FXML public void initialize() {
-        datasource = new UserListFileDatasource("data","users.csv");
-        users = datasource.readData();
+        editorErrorLabel = new DefaultLabel("");
         initTableView();
         refreshTableData();
         nisitImageView = new ImageView();
@@ -79,7 +87,7 @@ public class NisitManagementController {
     private void initButton(){
         new RouteButton(backButton,"department-staff-request-list","transparent","#a6a6a6","#000000");
         new DefaultButton(addNisitButton,"#ABFFA4","#80BF7A","#000000").changeBackgroundRadius(100);
-        DefaultButton refreshBt = new DefaultButton(refreshButton,"transparent","#a6a6a6","#000000"){
+        DefaultButton refreshBt = new DefaultButton(refreshButton,"transparent","white","#000000"){
             @Override
             protected void handleClickEvent() {
                 getButton().setOnMouseClicked(e->{
@@ -135,6 +143,9 @@ public class NisitManagementController {
     }
     private void refreshTableData(){
         nisitTableView.getItems().clear();
+        datasource = new UserListFileDatasource("data","users.csv");
+        users = datasource.readData();
+
         for(User user : users.getUsers()){
             if(user.isRole("student")){
 //                System.out.println(">>>> " + user);
@@ -179,6 +190,16 @@ public class NisitManagementController {
             container = newEditorContainerHBox();
             nisitPasswordTextField = new TextFieldStack("PASSWORD",570,50);
             container.getChildren().add(nisitPasswordTextField);
+            children.add(container);
+
+            container = newEditorContainerHBox();
+            setEditorErrorLabel("");
+            container.setAlignment(Pos.CENTER);
+            container.setPrefHeight(20);
+            //
+//            container.setStyle("-fx-background-color: #fff");
+
+            container.getChildren().add(editorErrorLabel);
             children.add(container);
 
             container = newEditorContainerHBox();
@@ -228,7 +249,7 @@ public class NisitManagementController {
             if(node instanceof HBox){
                 HBox hbox = (HBox) node;
                 hbox.setSpacing(20);
-                VBox.setMargin(hbox,new Insets(30,0,0,0));
+                VBox.setMargin(hbox,new Insets(15,0,0,0));
                 for(int i = 0;i < hbox.getChildren().size();i++){
                     Node child = hbox.getChildren().get(i);
                     if(child instanceof TextFieldStack){
@@ -283,7 +304,9 @@ public class NisitManagementController {
             datasource.writeData(users);
             nisitTableView.refresh();
 
+            setEditorErrorLabel("");
         } catch (UserException e){
+            setEditorErrorLabel(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -308,6 +331,7 @@ public class NisitManagementController {
             private final HBox hbox = new HBox(actionButton);
             {
                 hbox.setAlignment(Pos.CENTER_LEFT);
+                hbox.setPrefSize(35,35);
                 DefaultButton b =new DefaultButton(actionButton,"transparent", "#e0e0e0", "#000000"){
                     @Override
                     protected void handleClickEvent() {
@@ -336,5 +360,10 @@ public class NisitManagementController {
         });
         return column;
     }
+    private void setEditorErrorLabel(String error){
+        this.editorErrorLabel.changeLabelColor("red");
+        this.editorErrorLabel.changeText(error,18, FontWeight.BOLD);
+    }
 }
+
 

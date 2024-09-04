@@ -30,7 +30,7 @@ public class MiniProfile {
         this.profileName = new Label();
 
         new SquareImage(profileImage,image).setClipImage(1000,1000);
-        new DefaultLabel(profileName).setText(name,24, FontWeight.BOLD);
+        new DefaultLabel(profileName).changeText(name,24, FontWeight.BOLD);
         this.logoutButton = new RouteButton("login",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
         this.logoutButton.changeText("ออกจากระบบ",18,FontWeight.NORMAL);
 

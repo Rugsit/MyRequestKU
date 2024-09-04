@@ -70,10 +70,10 @@ public class RequestController {
         new DefaultLabel(editorStatusImageLabel);
 
         if(req!=null){
-            reqType.setText(req.getRequestType());
-            reqName.setText(req.getName());
-            reqNisitId.setText(req.getNisitId());
-            reqTimestamp.setText(req.getTimeStamp());
+            reqType.changeText(req.getRequestType());
+            reqName.changeText(req.getName());
+            reqNisitId.changeText(req.getNisitId());
+            reqTimestamp.changeText(req.getTimeStamp());
         }
     }
     private void initButton(){
