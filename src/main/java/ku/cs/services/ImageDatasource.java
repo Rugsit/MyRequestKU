@@ -67,7 +67,7 @@ public class ImageDatasource{
 
         File uploadedFile = fileChooser.showOpenDialog(null);
         if (uploadedFile == null) {
-            return "";
+            return "no-image";
         }
 
         // Get file extension of the uploaded files then append it to the file name

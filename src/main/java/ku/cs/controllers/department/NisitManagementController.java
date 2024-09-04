@@ -15,12 +15,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
+import ku.cs.services.ImageDatasource;
 import ku.cs.services.UserListFileDatasource;
 import ku.cs.views.components.*;
 
@@ -59,6 +61,8 @@ public class NisitManagementController {
     private UserListFileDatasource datasource;
     private User selectedUser;
     private DefaultLabel editorErrorLabel;
+    private UploadImageStack editorUploadImageStack;
+
 
     @FXML public void initialize() {
         editorErrorLabel = new DefaultLabel("");
@@ -165,20 +169,34 @@ public class NisitManagementController {
         children.clear();
         HBox container;
         if(user != null){
+            //USER IMAGE
             container = newEditorContainerHBox();
             nisitImageView.setPreserveRatio(true);
             nisitImageView.setFitWidth(200);
             nisitImageView.setFitHeight(200);
             SquareImage nisitImage = new SquareImage(nisitImageView);
             nisitImage.setClipImage(50,50);
-            if(user.getAvatar() != "no-image"){
-
+            if(!user.getAvatar().equalsIgnoreCase("no-image")){
+                ImageDatasource imageDatasource = new ImageDatasource("users");
+                nisitImage.setImage(imageDatasource.openImage(user.getAvatar()));
             }
 
             container.getChildren().add(nisitImageView);
             container.setAlignment(Pos.CENTER);
             children.add(container);
 
+            //ERROR LABEL
+            container = newEditorContainerHBox();
+            setEditorErrorLabel("");
+            container.setAlignment(Pos.CENTER);
+            container.setPrefHeight(20);
+            //
+//            container.setStyle("-fx-background-color: #fff");
+
+            container.getChildren().add(editorErrorLabel);
+            children.add(container);
+
+            //TEST FIELDS
             container = newEditorContainerHBox();
             container.getChildren().add(nisitFirstnameTextField = new TextFieldStack(user.getFirstname()));
             container.getChildren().add(nisitLastnameTextField = new TextFieldStack(user.getLastname()));
@@ -192,16 +210,16 @@ public class NisitManagementController {
             container.getChildren().add(nisitPasswordTextField);
             children.add(container);
 
-            container = newEditorContainerHBox();
-            setEditorErrorLabel("");
-            container.setAlignment(Pos.CENTER);
-            container.setPrefHeight(20);
-            //
-//            container.setStyle("-fx-background-color: #fff");
+            //UPLOAD IMAGE
 
-            container.getChildren().add(editorErrorLabel);
+            container = newEditorContainerHBox();
+            container.setAlignment(Pos.CENTER);
+
+            editorUploadImageStack = new UploadImageStack("users",user.getDefaultAvatarName(),user.getAvatar());
+            container.getChildren().add(editorUploadImageStack);
             children.add(container);
 
+            //EDIT SAVE CANCEL BUTTON
             container = newEditorContainerHBox();
             Button button;
             button = new Button();
@@ -258,6 +276,10 @@ public class NisitManagementController {
 //                        if(i == 0){
 //                            HBox.setMargin(child,new Insets(0,0,0,0));
 //                        }
+                    }else if(child instanceof StackPane){
+                        child.setVisible(editMode);
+                        child.setDisable(!editMode);
+
                     }else if(child instanceof Button){
                         hbox.setAlignment(Pos.CENTER);
                         Button button = (Button) child;
@@ -267,7 +289,9 @@ public class NisitManagementController {
                                 protected void handleClickEvent(){
                                     button.setOnMouseClicked(e -> {
                                         toggleEditFiled();
-                                        onSaveButton();
+                                        if(!editMode){
+                                            onSaveButton();
+                                        }
                                     });
                                 }
                             };
@@ -297,16 +321,21 @@ public class NisitManagementController {
             selectedUser.setLastname(nisitLastnameTextField.getData());
             selectedUser.setId(nisitIdTextField.getData());
             selectedUser.setEmail(nisitEmailTextField.getData());
+            selectedUser.setAvatar(editorUploadImageStack.getCurFileName());
 
             if(!nisitPasswordTextField.getData().equalsIgnoreCase("PASSWORD")){
                 selectedUser.setPassword(nisitPasswordTextField.getData());
             }
             datasource.writeData(users);
             nisitTableView.refresh();
+            selectedUserListener();
 
             setEditorErrorLabel("");
         } catch (UserException e){
+            selectedUserListener();
             setEditorErrorLabel(e.getMessage());
+            System.out.println("UserException Error : " + e.getMessage());
+            toggleEditFiled();
             e.printStackTrace();
         }
     }
