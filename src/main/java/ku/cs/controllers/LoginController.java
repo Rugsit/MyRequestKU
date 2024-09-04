@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import ku.cs.models.user.User;
+import ku.cs.services.Authentication;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.services.FXRouter;
 
@@ -23,13 +24,13 @@ public class LoginController {
     @FXML private Button selectStudentRoleButton;
     @FXML private Label aboutUsLabel;
 
-    private AuthenticationController authController;
+    private Authentication authController;
 
     @FXML
     private void initialize() {
         errorLabel.setText("");
         DefaultLabel aboutUs = new DefaultLabel(aboutUsLabel);
-        authController = new AuthenticationController();
+        authController = new Authentication();
     }
     @FXML
     protected void onLoginButtonClick() {

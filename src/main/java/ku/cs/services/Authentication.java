@@ -1,19 +1,17 @@
-package ku.cs.controllers;
+package ku.cs.services;
 
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
-import ku.cs.services.UserListFileDatasource;
 
 import javax.naming.AuthenticationException;
-import javax.swing.plaf.IconUIResource;
 
-public class AuthenticationController {
+public class Authentication {
     private UserList users;
 
-    public AuthenticationController() {
+    public Authentication() {
         UserListFileDatasource datasource = new UserListFileDatasource("data", "student.csv");
-        this.users = datasource.readData();
+        this.users = datasource.readAllUser();
     }
 
 
@@ -34,22 +32,6 @@ public class AuthenticationController {
         return null;
     }
 
-    public User getUserInDatasource(String username) {
-        for (User existUser : users.getUsers()) {
-            if (existUser.getUsername().equalsIgnoreCase(username)) {
-                return existUser;
-            }
-        }
-        return null;
-    }
 
-    public boolean isUserInDatasource(String username) {
-        for (User existUser : users.getUsers()) {
-            if (existUser.getUsername().equalsIgnoreCase(username)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
 

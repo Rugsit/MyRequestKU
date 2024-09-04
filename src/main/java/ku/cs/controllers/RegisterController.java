@@ -6,10 +6,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import ku.cs.models.user.User;
-import ku.cs.services.Datasource;
+import ku.cs.models.user.UserList;
+import ku.cs.services.Authentication;
 import ku.cs.services.FXRouter;
 import ku.cs.services.UserListFileDatasource;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -24,12 +24,11 @@ public class RegisterController {
     @FXML private Label errorLabel;
 
     private UserListFileDatasource datasource;
-    private AuthenticationController authController;
+    private Authentication authentication;
     private User user;
     @FXML
     public void initialize() {
         datasource = new UserListFileDatasource("data", "student.csv");
-        authController = new AuthenticationController();
         usernameTextField.requestFocus();
         hideError();
     }
@@ -69,10 +68,11 @@ public class RegisterController {
         if (email.isEmpty()) warningText += "อีเมลล์, ";
 
         // Check if user exists in the datasource
-        User existingUser = authController.getUserInDatasource(username);
-
+        UserList users = datasource.readData();
+        User existingUser = users.findUserById(id);
         // No username in datasource
-        if (existingUser == null) {
+        if (existingUser == null || !existingUser.getFirstname().equalsIgnoreCase(name) ||
+                !existingUser.getLastname().equalsIgnoreCase(lastName)) {
             showError("ไม่มีชื่อผู้ใช้งานในระบบ");
         }
         // Display basic warning.
@@ -86,15 +86,18 @@ public class RegisterController {
             // Pass user into a User class.
             hideError();
             try {
-                if (existingUser.getId() == null) {
-                    user = new User(id, username, "student", name, lastName, "2004-09-26:00:00:00:+0000", email, "none", "none", password);
-                    datasource.appendData(user);
+                if (existingUser.getUsername().equals("no-username")) {
+                    existingUser.setActive(true);
+                    existingUser.setEmail(email);
+                    existingUser.setUsername(username);
+                    existingUser.setPassword(password);
+                    datasource.writeData(users);
                     goToLogin();
                 } else {
                     showError("ผู้ใช้งานได้ทำการลงทะเบียนก่อนหน้าเรียบร้อยแล้ว");
                 }
             } catch (Exception e) {
-                showError("กรุณากรอกรหัสผ่านที่มีความยาวมากกว่า 9 ตัวอักษร");
+                showError("กรุณากรอกรหัสผ่านที่มีความยาวมากกว่า 8 ตัวอักษร");
                 System.out.println(e.getMessage());
             }
         }
