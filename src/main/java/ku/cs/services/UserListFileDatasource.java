@@ -1,13 +1,14 @@
 package ku.cs.services;
 
+import ku.cs.models.user.Identifiable;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class UserListFileDatasource implements Datasource<UserList> {
@@ -184,6 +185,20 @@ public class UserListFileDatasource implements Datasource<UserList> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public UserList readAllUser(){
+        ArrayList<String> allFiles = Identifiable.AVAILABLE_ROLES;
+        UserList userList = new UserList();
+        UserListFileDatasource userListDatasource;
+        for (String fileName : allFiles) {
+            if (fileName.contains("approver")) {
+                continue;
+            }
+            userListDatasource = new UserListFileDatasource("data", fileName + ".csv");
+            userList.getUsers().addAll(userListDatasource.readData().getUsers());
+        }
+        return userList;
     }
 
 }
