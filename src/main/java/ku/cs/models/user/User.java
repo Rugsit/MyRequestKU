@@ -4,8 +4,6 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import ku.cs.models.user.exceptions.*;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -131,10 +129,14 @@ public class User implements Identifiable, Serializable {
 
     public String getFaculty(){return this.faculty;}
     public String getDepartment(){return this.department;}
+    public String getDefaultAvatarName(){
+        return getUUID().toString() +"-avatar";
+    }
     //SETTER
 
     public void setId(String id) throws IDException{
         if(id == null) throw new IDException("ID must not be null");
+        if(id.isEmpty()) throw new IDException("ID must not be empty");
         if(!isDigit(id)) throw new IDException("ID must be a number");
         if(haveSpace(id)) throw new IDException("ID must not contain spaces");
         if(id.length() != 10) throw new IDException("ID must be 10 characters");
@@ -143,6 +145,7 @@ public class User implements Identifiable, Serializable {
 
     public void setUsername(String username) throws UsernameException{
         if(username == null) throw new UsernameException("Username must not be null");
+        if(username.isEmpty()) throw new UsernameException("Username must not be empty");
         if(!isAlphaNumberic(username)) throw new UsernameException("Username must be alphanumeric");
         if(haveSpace(username))throw new UsernameException("Username must not contain spaces");
         if(username.length() > 30) throw new UsernameException("Username must be equal or less than 30 characters");
@@ -151,6 +154,7 @@ public class User implements Identifiable, Serializable {
 
     public void setRole(String role) throws RoleException{
         if(role == null) throw new RoleException("Role must not be null");
+        if(role.isEmpty()) throw new RoleException("Role must not be empty");
         if(haveSpace(role))throw new RoleException("Role must not contain spaces");
         Boolean valid = false;
         role = role.trim().toLowerCase();
@@ -163,6 +167,7 @@ public class User implements Identifiable, Serializable {
 
     public void setFirstname(String firstname) throws NameException{
         if(firstname == null) throw new NameException("Firstname must not be null");
+        if(firstname.isEmpty()) throw new NameException("Firstname must not be empty");
         if(!isAplha(firstname)) throw new NameException("Firstname must be alphabet");
         if(haveSpace(firstname)) throw new NameException("Firstname must not contain spaces");
         this.firstname = firstname.trim().toLowerCase();
@@ -170,6 +175,7 @@ public class User implements Identifiable, Serializable {
 
     public void setLastname(String lastname) throws NameException{
         if(lastname == null) throw new NameException("Lastname must not be null");
+        if(lastname.isEmpty()) throw new NameException("Lastname must not be empty");
         if(!isAplha(lastname)) throw new NameException("Lastname must be alphabet");
         if(haveSpace(lastname)) throw new NameException("Lastname must not contain spaces");
         this.lastname = lastname.trim().toLowerCase();
@@ -177,6 +183,7 @@ public class User implements Identifiable, Serializable {
 
     public void setLastLogin(String dateString) throws DateException {
         if(dateString == null) throw new DateException("dateString must not be null");
+        if(dateString.isEmpty()) throw new DateException("dateString must not be empty");
         Date date = formatToDate(DATE_FORMAT,dateString);
 //        if(date == null) throw new DateException("Invalid " + DATE_FORMAT + "format dateString");
         this.lastLogin = date;
@@ -184,14 +191,15 @@ public class User implements Identifiable, Serializable {
 
     public void setEmail(String email) throws EmailException{
         if(email == null) throw new EmailException("Email must not be null");
+        if(email.isEmpty()) throw new EmailException("Email must not be empty");
         if(haveSpace(email)) throw new EmailException("Email must not contain spaces");
 //        if(isValidEmailPattern(email)) throw new EmailException("Invalid email pattern");
         this.email = email.trim();
     }
 
     public void setPassword(String password) throws PasswordException {
-        if(password == null)
-            throw new PasswordException("Password cannot be null");
+        if(password == null) throw new PasswordException("Password cannot be null");
+        if(password.isEmpty()) throw new PasswordException("Password must not be empty");
         if(password.length() <= 8)
             throw new PasswordException("password must be more than 8 characters");
 
