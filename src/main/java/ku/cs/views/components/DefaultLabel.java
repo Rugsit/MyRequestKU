@@ -6,11 +6,18 @@ import javafx.scene.text.FontWeight;
 
 import java.util.List;
 
-public class DefaultLabel {
+public class DefaultLabel extends Label{
     protected Label label;
     public static final String DEFAULT_FONT = "PrintAble4U";
     public static final String FALLBACK_FONT = "Arial";
     public static final String DEFAULT_LABEL_COLOR = "#000000";
+
+    public DefaultLabel(String text){
+        super(text);
+        this.label = this;
+        setFont(DEFAULT_FONT);
+        changeLabelColor(DEFAULT_LABEL_COLOR);
+    }
 
     public DefaultLabel(Label label) {
         this.label = label;
@@ -46,10 +53,10 @@ public class DefaultLabel {
     public void changeLabelColor(String colorHex){
         label.setStyle(label.getStyle() + "-fx-text-fill: " + colorHex + ";");
     }
-    public void setText(String text){
+    public void changeText(String text){
         label.setText(text);
     }
-    public void setText(String text,double fontSize,FontWeight fontWeight){
+    public void changeText(String text, double fontSize, FontWeight fontWeight){
         String fontName = getAvailableFont(DEFAULT_FONT);
         Font newFont = Font.font(fontName,fontWeight,fontSize);
         label.setFont(newFont);

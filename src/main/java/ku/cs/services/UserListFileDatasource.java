@@ -120,8 +120,10 @@ public class UserListFileDatasource implements Datasource<UserList> {
                 String department = data[9];
                 String password = data[10];
                 String avatar = data[11];
+                String activeStatus = data[12];
+                String advisorUUID = data[13];
 
-                userList.addUser(uuid, id, username, role, firstname, lastname, lastLogin, email, faculty, department, password, avatar);
+                userList.addUser(uuid, id, username, role, firstname, lastname, lastLogin, email, faculty, department, password, avatar,activeStatus,advisorUUID);
             }
 
         } catch (UserException | IOException e) {

@@ -24,7 +24,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Button>
-      <VBox fx:id="nisitTableVBox" layoutX="48.0" layoutY="110.0" prefHeight="557.0" prefWidth="635.0">
+      <VBox fx:id="nisitTableVBox" layoutX="27.0" layoutY="110.0" prefHeight="557.0" prefWidth="656.0">
          <children>
             <HBox fx:id="tableHeaderHBox" alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="806.0">
                <children>
