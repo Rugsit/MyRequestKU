@@ -65,11 +65,11 @@ public class LoginController {
         // Normal login method.
         if (loginUser != null){
             hideError();
-            if (loginUser.getRole().equalsIgnoreCase("faculty")) {goToFacultyManage();}
+            if (loginUser.getRole().equalsIgnoreCase("faculty-staff")) {goToFacultyManage();}
             else if (loginUser.getRole().equalsIgnoreCase("admin")) {goToAdminManage();}
             else if (loginUser.getRole().equalsIgnoreCase("student")){onStudentButtonClicked();}
             else if (loginUser.getRole().equalsIgnoreCase("advisor")){goToAdvisorManage();}
-            else if (loginUser.getRole().equalsIgnoreCase("department")){goToDepartmentManage();}
+            else if (loginUser.getRole().equalsIgnoreCase("department-staff")){goToDepartmentManage();}
         } else if (!username.isEmpty() && !password.isEmpty() && isUseridInDatasource == null) {
             showError("ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง");
         }
