@@ -24,7 +24,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Button>
-      <VBox fx:id="nisitTableVBox" layoutX="48.0" layoutY="110.0" prefHeight="557.0" prefWidth="821.0">
+      <VBox fx:id="nisitTableVBox" layoutX="27.0" layoutY="110.0" prefHeight="557.0" prefWidth="656.0">
          <children>
             <HBox fx:id="tableHeaderHBox" alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="806.0">
                <children>
@@ -33,13 +33,25 @@
                         <Font name="Arial Bold" size="40.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="578.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="578.0" style="-fx-spacing: 10;">
                      <children>
                         <TextField fx:id="searchTextFiled" promptText="Search">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
+                        <Button fx:id="refreshButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                              <Font name="Arial" size="20.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/pages/department/global/yellow-reload.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </HBox>
                </children>
@@ -52,20 +64,7 @@
             </TableView>
          </children>
       </VBox>
-      <VBox fx:id="nisitEditorVBox" alignment="TOP_CENTER" layoutX="872.0" layoutY="115.0" prefHeight="606.0" prefWidth="404.0">
-         <children>
-            <ImageView fx:id="nisitImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="404.0">
-               <children>
-                  <TextField fx:id="nisitNameTextField" prefHeight="35.0" prefWidth="314.0" text="ชื่อนามากุล">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
+      <VBox fx:id="nisitEditorVBox" alignment="TOP_CENTER" layoutX="703.0" layoutY="115.0" prefHeight="600.0" prefWidth="560.0" />
       <Button fx:id="addNisitButton" layoutX="1091.0" layoutY="39.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="155.0" text="เพิ่มนิสิต">
          <font>
             <Font name="Arial" size="24.0" />

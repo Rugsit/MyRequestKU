@@ -1,0 +1,32 @@
+*{
+    -fx-font-family : PrintAble4U;
+}
+
+.signOut {
+    -fx-underline: true;
+    -fx-text-fill: #0000FF;
+    -fx-font-size: 18;
+    -fx-alignment: center;
+}
+
+.tabName{
+    -fx-font-size: 18;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+
+.manageRequestTab {
+    -fx-background-color: #EBEBEB;
+    -fx-font-size: 18;
+    -fx-padding: 3;
+}
+
+.manageFacultyTab{
+    -fx-background-color: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-padding: 3;
+}
+
+.requestsTable {
+    -fx-font-size: 18;
+}
