@@ -262,6 +262,9 @@ public class Ku3FormController {
                     ku1AndKu3RequestForm.addSubject(subject, idSubject, registerType, credit, section, sectionType, teacher, (byte) 2);
                 }
             }
+            if (!part1Checkbox.isSelected() && !part2CheckBox.isSelected()) {
+                throw new IllegalArgumentException("กรุณาเลือกขอเพิ่มรายวิชา หรือ ขอถอนรายวิชา");
+            }
             showConfirmPane(registerForm, ku1AndKu3RequestForm);
         } catch (IllegalArgumentException e) {
             try {
