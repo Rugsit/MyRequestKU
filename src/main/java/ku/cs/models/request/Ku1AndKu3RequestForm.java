@@ -13,19 +13,22 @@ public class Ku1AndKu3RequestForm extends Request{
     String semester;
     String year;
     String campus;
-    ArrayList<ArrayList<String>> subjectList = new ArrayList<>();
+    ArrayList<ArrayList<String>> subjectList;
 
     public Ku1AndKu3RequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
                                 LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
         super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
+        subjectList = new ArrayList<>();
     }
 
     public Ku1AndKu3RequestForm(String[]data, String[]subject, byte type) {
+        this.subjectList = new ArrayList<>();
+        super.setRequestType(data[0]);
         super.setUuid(UUID.fromString(data[1]));
         super.setOwnerUUID(UUID.fromString(data[2]));
         super.setName(data[3]);
         super.setNisitId(data[4]);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         super.setTimeStamp(LocalDateTime.parse(data[5], formatter));
         super.setDate(LocalDateTime.parse(data[6], formatter));
         super.setStatusNow(data[7]);
@@ -36,7 +39,7 @@ public class Ku1AndKu3RequestForm extends Request{
         year = data[12];
         campus = data[13];
         if (type == 1) {
-            for (int i = 14; i < subject.length; i++) {
+            for (int i = 0; i < subject.length; i++) {
                 ArrayList<String> newEachSubjectList = new ArrayList<>();
                 for (int j = 0; j < 7; j++, i++) {
                     newEachSubjectList.add(subject[i]);
@@ -45,7 +48,7 @@ public class Ku1AndKu3RequestForm extends Request{
                 subjectList.add(newEachSubjectList);
             }
         } else if (type == 3) {
-            for (int i = 6; i < subject.length; i++) {
+            for (int i = 0; i < subject.length; i++) {
                 ArrayList<String> newEachSubjectList = new ArrayList<>();
                 for (int j = 0; j < 8; j++, i++) {
                     newEachSubjectList.add(subject[i]);
@@ -75,6 +78,7 @@ public class Ku1AndKu3RequestForm extends Request{
     }
 
     public void setYear(String year) {
+        year = year.trim();
         Pattern pattern = Pattern.compile("^2[0-9]{3}$");
         Matcher matcher = pattern.matcher(year);
         if (!matcher.find()) {
@@ -84,8 +88,9 @@ public class Ku1AndKu3RequestForm extends Request{
     }
 
     public void setCampus(String campus) {
-        if (campus == null || campus.isBlank()) {
-            throw new IllegalArgumentException("กรุณากรอกวิทยาเขต");
+        campus = campus.trim();
+        if (campus.isBlank()) {
+            throw new IllegalArgumentException("กรุณากรอกวิทยาเขตให้ถูกต้อง");
         }
         this.campus = campus;
     }
@@ -101,50 +106,50 @@ public class Ku1AndKu3RequestForm extends Request{
         for(int i = 0; i < subject.size(); i++) {
             ArrayList<String> eachSuject = new ArrayList<>();
             if (subject.get(i) == null || subject.get(i).isEmpty()) {
-                throw new IllegalArgumentException("คุณไม่ได้กรอกชื่อวิชาในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณากรอกชื่อวิชาในวิชาที่ " + (i + 1));
             } else {
-                eachSuject.add(subject.get(i));
+                eachSuject.add(subject.get(i).trim());
             }
             if (idSubject.get(i) == null || idSubject.get(i).isEmpty()) {
-                throw new IllegalArgumentException("คุณไม่ได้กรอกรหัสวิชาในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณากรอกรหัสวิชาในวิชาที่ " + (i + 1));
             } else {
-                eachSuject.add(idSubject.get(i));
+                eachSuject.add(idSubject.get(i).trim());
             }
             if (registerType.get(i) == null || registerType.get(i).isEmpty()) {
-                throw new IllegalArgumentException("คุณไม่ได้เลือกประเภทลงทะเบียนในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณาเลือกประเภทลงทะเบียนในวิชาที่ " + (i + 1));
             } else {
-                eachSuject.add(registerType.get(i));
+                eachSuject.add(registerType.get(i).trim());
             }
             try {
-                Integer.parseInt(credit.get(i));
+                Integer.parseInt(credit.get(i).trim());
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("คุณต้องกรอกหน่วยกิตของวิชา และต้องเป็นตัวเลขในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณากรอกหน่วยกิตของวิชา และต้องเป็นตัวเลขในวิชาที่ " + (i + 1));
             }
-            if (Integer.parseInt(credit.get(i)) <= 0) {
+            if (Integer.parseInt(credit.get(i).trim()) <= 0) {
                 throw new IllegalArgumentException("หน่วยกิตต้องมีค่ามากกว่า 0");
             } else {
-                eachSuject.add(credit.get(i));
+                eachSuject.add(credit.get(i).trim());
             }
 
             try {
-                Integer.parseInt(section.get(i));
+                Integer.parseInt(section.get(i).trim());
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("คุณต้องกรอกหมู่เรียนของวิชา และต้องเป็นตัวเลขในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณากรอกหมู่เรียนของวิชา และต้องเป็นตัวเลขในวิชาที่ " + (i + 1));
             }
-            if (Integer.parseInt(section.get(i)) <= 0) {
+            if (Integer.parseInt(section.get(i).trim()) <= 0) {
                 throw new IllegalArgumentException("หมู่เรียนต้องมีค่ามากกว่า 0");
             } else {
-                eachSuject.add(section.get(i));
+                eachSuject.add(section.get(i).trim());
             }
-            if (sectionType.get(i) == null || sectionType.get(i).isEmpty()) {
-                throw new IllegalArgumentException("คุณไม่ได้เลือกประเภทหมู่เรียน");
+            if (sectionType.get(i).isEmpty()) {
+                throw new IllegalArgumentException("กรุณาเลือกประเภทหมู่เรียน");
             } else {
-                eachSuject.add(sectionType.get(i));
+                eachSuject.add(sectionType.get(i).trim());
             }
             if (teacher.get(i) == null || teacher.get(i).isEmpty()) {
-                throw new IllegalArgumentException("คุณไม่ได้กรอกชื่ออาจารย์ประจำวิชาในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณากรอกชื่ออาจารย์ประจำวิชาในวิชาที่ " + (i + 1));
             } else {
-                eachSuject.add(teacher.get(i));
+                eachSuject.add(teacher.get(i).trim());
             }
 
             subjectList.add(eachSuject);
@@ -158,50 +163,50 @@ public class Ku1AndKu3RequestForm extends Request{
         for(int i = 0; i < subject.size(); i++) {
             ArrayList<String> eachSuject = new ArrayList<>();
             if (subject.get(i) == null || subject.get(i).isEmpty()) {
-                throw new IllegalArgumentException("คุณไม่ได้กรอกชื่อวิชาในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณากรอกชื่อวิชาในวิชาที่ " + (i + 1));
             } else {
-                eachSuject.add(subject.get(i));
+                eachSuject.add(subject.get(i).trim());
             }
             if (idSubject.get(i) == null || idSubject.get(i).isEmpty()) {
-                throw new IllegalArgumentException("คุณไม่ได้กรอกรหัสวิชาในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณากรอกรหัสวิชาในวิชาที่ " + (i + 1));
             } else {
-                eachSuject.add(idSubject.get(i));
+                eachSuject.add(idSubject.get(i).trim());
             }
             if (registerType.get(i) == null || registerType.get(i).isEmpty()) {
-                throw new IllegalArgumentException("คุณไม่ได้เลือกประเภทลงทะเบียนในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณาเลือกประเภทลงทะเบียนในวิชาที่ " + (i + 1));
             } else {
-                eachSuject.add(registerType.get(i));
+                eachSuject.add(registerType.get(i).trim());
             }
             try {
-                Integer.parseInt(credit.get(i));
+                Integer.parseInt(credit.get(i).trim());
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("คุณต้องกรอกหน่วยกิตของวิชา และต้องเป็นตัวเลขในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณากรอกหน่วยกิตของวิชา และต้องเป็นตัวเลขในวิชาที่ " + (i + 1));
             }
-            if (Integer.parseInt(credit.get(i)) <= 0) {
+            if (Integer.parseInt(credit.get(i).trim()) <= 0) {
                 throw new IllegalArgumentException("หน่วยกิตต้องมีค่ามากกว่า 0");
             } else {
-                eachSuject.add(credit.get(i));
+                eachSuject.add(credit.get(i).trim());
             }
 
             try {
-                Integer.parseInt(section.get(i));
+                Integer.parseInt(section.get(i).trim());
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("คุณต้องกรอกหมู่เรียนของวิชา และต้องเป็นตัวเลขในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณากรอกหมู่เรียนของวิชา และต้องเป็นตัวเลขในวิชาที่ " + (i + 1));
             }
-            if (Integer.parseInt(section.get(i)) <= 0) {
+            if (Integer.parseInt(section.get(i).trim()) <= 0) {
                 throw new IllegalArgumentException("หมู่เรียนต้องมีค่ามากกว่า 0");
             } else {
-                eachSuject.add(section.get(i));
+                eachSuject.add(section.get(i).trim());
             }
             if (sectionType.get(i) == null || sectionType.get(i).isEmpty()) {
-                throw new IllegalArgumentException("คุณไม่ได้เลือกประเภทหมู่เรียน");
+                throw new IllegalArgumentException("กรุณาเลือกประเภทหมู่เรียน");
             } else {
-                eachSuject.add(sectionType.get(i));
+                eachSuject.add(sectionType.get(i).trim());
             }
             if (teacher.get(i) == null || teacher.get(i).isEmpty()) {
-                throw new IllegalArgumentException("คุณไม่ได้กรอกชื่ออาจารย์ประจำวิชาในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณากรอกชื่ออาจารย์ประจำวิชาในวิชาที่ " + (i + 1));
             } else {
-                eachSuject.add(teacher.get(i));
+                eachSuject.add(teacher.get(i).trim());
             }
             if (type == 1) eachSuject.add("add");
             else eachSuject.add("drop");
@@ -211,7 +216,7 @@ public class Ku1AndKu3RequestForm extends Request{
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String timestamp = super.getTimeStamp().format(formatter);
         String date = super.getDate().format(formatter);
         String text = super.getRequestType() + "," +

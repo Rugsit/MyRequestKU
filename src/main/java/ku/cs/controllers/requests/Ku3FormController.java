@@ -195,19 +195,19 @@ public class Ku3FormController {
             if (!thaiRadio.isSelected() && !interRadio.isSelected()) {
                 throw new IllegalArgumentException("กรุณาเลือกประเภทหลักสูตร");
             } else if (thaiRadio.isSelected()) {
-                ku1AndKu3RequestForm.setCurriculum("thai");
+                ku1AndKu3RequestForm.setCurriculum("Thai");
             } else {
-                ku1AndKu3RequestForm.setCurriculum("international");
+                ku1AndKu3RequestForm.setCurriculum("International");
             }
             ku1AndKu3RequestForm.setTel(telTextField.getText());
             if (!firstRadio.isSelected() && !secondRadio.isSelected() && !summerRadio.isSelected()) {
                 throw new IllegalArgumentException("กรุณาเลือกภาคการศึกษา");
             } else if (firstRadio.isSelected()) {
-                ku1AndKu3RequestForm.setSemester("first");
+                ku1AndKu3RequestForm.setSemester("First");
             } else if (secondRadio.isSelected()) {
-                ku1AndKu3RequestForm.setSemester("second");
+                ku1AndKu3RequestForm.setSemester("Second");
             } else {
-                ku1AndKu3RequestForm.setSemester("summer");
+                ku1AndKu3RequestForm.setSemester("Summer");
             }
             ku1AndKu3RequestForm.setYear(yearTextField.getText());
             ku1AndKu3RequestForm.setCampus(campusTextField.getText());

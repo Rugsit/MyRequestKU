@@ -18,6 +18,13 @@ public class RequestList {
         requests.add(request);
     }
 
+    public void addRequest(String[] data, String[] subject) {
+       Request request;
+        if (data[0].equals("AcademicLeave")) {
+            request = new AcademicLeaveRequestForm(data, subject);
+        }
+    }
+
     public void addRequest(String[] data, String[] subject, byte type) {
         Request request = switch (data[0]) {
             case "KU1", "KU3" -> new Ku1AndKu3RequestForm(data, subject, type);

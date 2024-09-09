@@ -180,14 +180,14 @@ public class RegisterRequestFormController {
                 if (!latePayFirstSemesRadio.isSelected() &&
                         !latePaySecondSemesRadio.isSelected() &&
                         !latePaySummerSemesRadio.isSelected()) {
-                    throw new IllegalArgumentException("คุณต้องเลือกภาคการศึกษา ต้น ปลาย ฤดูร้อน");
+                    throw new IllegalArgumentException("กรุณาเลือกภาคการศึกษา ต้น ปลาย ฤดูร้อน");
                 }
                 if (latePayFirstSemesRadio.isSelected()) {
-                    registerRequestForm.setLatePaymentSemester("ต้น");
+                    registerRequestForm.setLatePaymentSemester("First");
                 } else if (latePaySecondSemesRadio.isSelected()) {
-                    registerRequestForm.setLatePaymentSemester("ปลาย");
+                    registerRequestForm.setLatePaymentSemester("Second");
                 } else if (latePaySummerSemesRadio.isSelected()) {
-                    registerRequestForm.setLatePaymentSemester("ฤดูร้อน");
+                    registerRequestForm.setLatePaymentSemester("Summer");
                 }
                 registerRequestForm.setLatePaymentYear(latePayYearTextField.getText());
             } else if (transferFalRadio.isSelected()) {
@@ -252,14 +252,14 @@ public class RegisterRequestFormController {
                     if (!firstSemesRadio.isSelected() &&
                             !secondSemesRadio.isSelected() &&
                             !summerSemesRadio.isSelected()) {
-                        throw new IllegalArgumentException("คุณต้องเลือกภาคการศึกษา ต้น ปลาย ฤดูร้อน");
+                        throw new IllegalArgumentException("กรุณาเลือกภาคการศึกษา ต้น ปลาย ฤดูร้อน");
                     }
                     if (firstSemesRadio.isSelected()) {
-                        registerRequestForm.setSemester("ต้น");
+                        registerRequestForm.setSemester("First");
                     } else if (secondSemesRadio.isSelected()) {
-                        registerRequestForm.setSemester("ปลาย");
+                        registerRequestForm.setSemester("Second");
                     } else if (summerSemesRadio.isSelected()) {
-                        registerRequestForm.setSemester("ฤดูร้อน");
+                        registerRequestForm.setSemester("Summer");
                     }
                     registerRequestForm.setSemesterYear(yearTextField.getText());
                     registerRequestForm.setOldCredit(oldCredit.getText());

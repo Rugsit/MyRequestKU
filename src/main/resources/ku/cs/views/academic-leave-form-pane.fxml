@@ -226,7 +226,7 @@
                                     <Insets right="20.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField prefHeight="34.0" prefWidth="180.0">
+                              <TextField prefHeight="34.0" prefWidth="180.0" styleClass="subjectId">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
@@ -236,7 +236,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField prefHeight="34.0" prefWidth="180.0" />
+                              <TextField prefHeight="34.0" prefWidth="180.0" styleClass="teacher" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -244,6 +244,22 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <HBox alignment="BASELINE_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="createFormButton" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onCreateRegisterForm" styleClass="create-form-button" text="ส่งใบคำร้อง">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/icons/create-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
             </VBox>
          </content>

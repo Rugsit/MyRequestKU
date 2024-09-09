@@ -144,7 +144,7 @@ public class GeneralRequestFormController {
             generalRequestForm.setTel(telTextField.getText());
             if (degreeCerCheckBox.isSelected()) {
                 if (!lostRadio.isSelected() && !damagedRadio.isSelected()) {
-                    throw new IllegalArgumentException("ใบแทนปริญญาบัตรคุณต้องเลือก ชำรุด หรือ สูญหาย");
+                    throw new IllegalArgumentException("ใบแทนปริญญาบัตรกรุณาเลือก ชำรุด หรือ สูญหาย");
                 }
                 if (lostRadio.isSelected()) {
                     generalRequestForm.setDegreeCertificateLost(true);
