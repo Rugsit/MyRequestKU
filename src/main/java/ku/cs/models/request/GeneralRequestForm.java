@@ -157,6 +157,8 @@ public class GeneralRequestForm extends Request{
         return "General" + "," +
                 super.getUuid().toString() + "," +
                 super.getOwnerUUID().toString() + "," +
+                super.getName() + "," +
+                super.getNisitId() + "," +
                 timestamp + "," +
                 date + "," +
                 super.getStatusNow() + "," +
