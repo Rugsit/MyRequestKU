@@ -1,6 +1,7 @@
 package ku.cs.models.request;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RequestList {
     ArrayList<Request> requests;
@@ -10,27 +11,32 @@ public class RequestList {
     }
 
     public void addRequest(String[] data) {
-        Request request = switch (data[0]) {
-            case "Register" -> new RegisterRequestForm(data);
-            case "General" -> new GeneralRequestForm(data);
-            default -> null;
-        };
-        requests.add(request);
-    }
-
-    public void addRequest(String[] data, String[] subject) {
-       Request request;
-        if (data[0].equals("AcademicLeave")) {
-            request = new AcademicLeaveRequestForm(data, subject);
+        Request request;
+        switch (data[0]) {
+            case "Register":
+                request = new RegisterRequestForm(data); break;
+            case "General":
+                request = new GeneralRequestForm(data); break;
+            case "AcademicLeave":
+                String[] first = Arrays.copyOfRange(data, 0, 19);
+                String[] second = Arrays.copyOfRange(data, 19, data.length);
+                request = new AcademicLeaveRequestForm(first, second); break;
+            case "KU1":
+                String[] firstKU1 = Arrays.copyOfRange(data, 0, 13);
+                String[] secondKU1 = Arrays.copyOfRange(data, 13, data.length);
+                request = new Ku1AndKu3RequestForm(firstKU1, secondKU1, (byte)1); break;
+            case "KU3":
+                String[] firstKU3 = Arrays.copyOfRange(data, 0, 13);
+                String[] secondKU3 = Arrays.copyOfRange(data, 13, data.length);
+                request = new Ku1AndKu3RequestForm(firstKU3, secondKU3, (byte)3);break;
+            default:
+                request = null;
         }
+        requests.add(request);
     }
 
-    public void addRequest(String[] data, String[] subject, byte type) {
-        Request request = switch (data[0]) {
-            case "KU1", "KU3" -> new Ku1AndKu3RequestForm(data, subject, type);
-            default -> null;
-        };
-        requests.add(request);
+    public ArrayList<Request> getRequests() {
+        return this.requests;
     }
 
 
