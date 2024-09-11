@@ -195,7 +195,7 @@ public class Ku1FormController {
                     errorGeneralRequestFormController.setErrorMessage(e.getMessage());
                     ErrorGeneralRequestFormController controller = fxmlLoader.getController();
                     controller.setStage(this.currentErrorStage);
-                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                     currentErrorStage.setScene(scene);
                     currentErrorStage.initModality(Modality.APPLICATION_MODAL);
                     currentErrorStage.setTitle("Error");
@@ -253,7 +253,7 @@ public class Ku1FormController {
                 controller.setBorderPane(this.borderPane);
                 controller.setRequestForm(registerRequestForm);
                 controller.setRequestPair(ku1AndKu3RequestForm);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentConfirmStage.setScene(scene);
                 currentConfirmStage.initModality(Modality.APPLICATION_MODAL);
                 currentConfirmStage.setTitle("Confirm");

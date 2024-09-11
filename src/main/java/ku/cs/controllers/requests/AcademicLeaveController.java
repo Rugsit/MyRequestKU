@@ -13,8 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.AcademicLeaveRequestForm;
-import ku.cs.models.request.GeneralRequestForm;
-import ku.cs.models.request.RegisterRequestForm;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -235,7 +233,7 @@ public class AcademicLeaveController {
                     errorGeneralRequestFormController.setErrorMessage(e.getMessage());
                     ErrorGeneralRequestFormController controller = fxmlLoader.getController();
                     controller.setStage(this.currentErrorStage);
-                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                     currentErrorStage.setScene(scene);
                     currentErrorStage.initModality(Modality.APPLICATION_MODAL);
                     currentErrorStage.setTitle("Error");
@@ -265,7 +263,7 @@ public class AcademicLeaveController {
                 controller.setStage(this.currentConfirmStage);
                 controller.setBorderPane(this.borderPane);
                 controller.setRequestForm(academicLeaveRequestForm);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentConfirmStage.setScene(scene);
                 currentConfirmStage.initModality(Modality.APPLICATION_MODAL);
                 currentConfirmStage.setTitle("Confirm");

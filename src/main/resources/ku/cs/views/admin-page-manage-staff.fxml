@@ -135,54 +135,13 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <TabPane layoutX="353.0" layoutY="90.0" prefHeight="546.0" prefWidth="894.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="300.0" tabMinHeight="50.0" tabMinWidth="260.0">
+      <TabPane fx:id="staffTabPane" layoutX="353.0" layoutY="90.0" prefHeight="546.0" prefWidth="894.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="300.0" tabMinHeight="50.0" tabMinWidth="268.0">
         <tabs>
-          <Tab text="เจ้าหน้าที่คณะ">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="534.0" prefWidth="855.0">
-                     <children>
-                        <TableView prefHeight="470.0" prefWidth="869.0">
-                           <columns>
-                              <TableColumn prefWidth="244.0000365972519" text="ชื่อ" />
-                              <TableColumn prefWidth="165.5999755859375" text="ชื่อผู้ใช้" />
-                              <TableColumn prefWidth="228.80001831054688" text="รหัสผ่านเริ่มต้น" />
-                              <TableColumn prefWidth="231.2000732421875" text="คณะ" />
-                           </columns>
-                        </TableView>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="เจ้าหน้าที่ภาควิชา">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="455.0" prefWidth="874.0">
-                     <children>
-                        <TableView prefHeight="470.0" prefWidth="869.0">
-                           <columns>
-                              <TableColumn prefWidth="196.0000365972519" text="ชื่อ" />
-                              <TableColumn prefWidth="158.39996337890625" text="ชื่อผู้ใช้" />
-                              <TableColumn prefWidth="174.39999389648438" text="รหัสผ่านเริ่มต้น" />
-                              <TableColumn prefWidth="156.80010986328125" text="คณะ" />
-                              <TableColumn prefWidth="181.5999755859375" text="ภาควิชา" />
-                           </columns>
-                        </TableView>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="อาจารย์ที่ปรึกษา">
+          <Tab fx:id="facultyTab" text="เจ้าหน้าที่คณะ" />
+          <Tab fx:id="departmentTab" text="เจ้าหน้าที่ภาควิชา" />
+            <Tab fx:id="advisorTab" text="อาจารย์ที่ปรึกษา">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="534.0" prefWidth="855.0">
-                     <children>
-                        <TableView prefHeight="470.0" prefWidth="869.0">
-                           <columns>
-                              <TableColumn prefWidth="197.60004270076752" text="ชื่อ" />
-                              <TableColumn prefWidth="139.20001220703125" text="ชื่อผู้ใช้" />
-                              <TableColumn prefWidth="133.60003662109375" text="รหัสผ่านเริ่มต้น" />
-                              <TableColumn prefWidth="133.60000610351562" text="คณะ" />
-                              <TableColumn prefWidth="160.0" text="ภาควิชา" />
-                              <TableColumn prefWidth="101.60000000000002" text="รหัสประจำตัว" />
-                           </columns>
-                        </TableView>
-                     </children></AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="534.0" prefWidth="855.0" />
                </content>
             </Tab>
         </tabs>
@@ -194,7 +153,7 @@
                   <Image url="@../../../images/icons/search-icon.png" />
                </image>
             </ImageView>
-            <TextField prefHeight="50.0" prefWidth="140.0" promptText="ค้นหา" styleClass="searchTextField">
+            <TextField fx:id="searchTextField" prefHeight="50.0" prefWidth="180.0" promptText="ค้นหา" styleClass="searchTextField">
                <font>
                   <Font size="18.0" />
                </font>
@@ -225,5 +184,15 @@
             </ImageView>
          </graphic>
       </Button>
+      <TableView fx:id="userListTableview" layoutX="357.0" layoutY="154.0" prefHeight="470.0" prefWidth="876.0">
+         <columns>
+            <TableColumn prefWidth="197.60004270076752" text="ชื่อ" />
+            <TableColumn prefWidth="139.20001220703125" text="ชื่อผู้ใช้" />
+            <TableColumn prefWidth="133.60003662109375" text="รหัสผ่านเริ่มต้น" />
+            <TableColumn prefWidth="133.60000610351562" text="คณะ" />
+            <TableColumn prefWidth="160.0" text="ภาควิชา" />
+            <TableColumn prefWidth="101.60000000000002" text="รหัสประจำตัว" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

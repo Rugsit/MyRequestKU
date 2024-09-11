@@ -1,5 +1,10 @@
 * {
     -fx-font-family: PrintAble4U;
+    -fx-text-fill: #374957;
+}
+
+.root {
+    -fx-background-color: #FFFFFF;
 }
 
 .header {
@@ -50,4 +55,54 @@
     -fx-background-color: #49A267;
     -fx-background-radius: 5px;
     -fx-text-fill: white;
+}
+
+.edit-data-header {
+    -fx-font-weight: bold;
+    -fx-font-size: 48px;
+}
+.old-data-header {
+    -fx-font-size: 38px;
+}
+
+.text-desc-input {
+    -fx-font-size: 24px;
+}
+
+.input-edit {
+    -fx-font-weight: 500;
+    -fx-font-size: 20px;
+    -fx-prompt-text-fill: #909090;
+    -fx-background-color: #F3F3F3;
+    -fx-background-radius: 5;
+}
+
+.input-edit:focused{
+    -fx-border-color: #374957;
+    -fx-border-radius: 5;
+}
+
+.exit-button {
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
+
+.accept-button {
+    -fx-cursor: hand;
+    -fx-font-size: 30px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-background-color: #49A267;
+}
+
+.choice-box-select {
+    -fx-cursor: hand;
+    -fx-background-color: #F3F3F3;
+    -fx-border-radius: 5;
+    -fx-border-width: 0px;
+}
+
+.error-label {
+    -fx-text-fill: #FF5D5D;
+    -fx-font-size: 24px;
 }

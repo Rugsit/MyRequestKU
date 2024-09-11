@@ -138,7 +138,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="909.0" layoutY="648.0" mnemonicParsing="false" styleClass="banButton" text="  ระงับการใช้งาน">
+      <Button layoutX="909.0" layoutY="648.0" mnemonicParsing="false" onAction="#banButton" styleClass="banButton" text="  ระงับการใช้งาน">
          <graphic>
             <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -146,7 +146,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button layoutX="1101.0" layoutY="648.0" mnemonicParsing="false" styleClass="unBanButton" text="  ให้ใช้งานได้">
+      <Button layoutX="1101.0" layoutY="648.0" mnemonicParsing="false" onAction="#unbanButton" styleClass="unBanButton" text="  ให้ใช้งานได้">
          <graphic>
             <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -154,72 +154,23 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <TabPane layoutX="353.0" layoutY="90.0" prefHeight="546.0" prefWidth="894.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="300.0" tabMinHeight="50.0" tabMinWidth="200.0">
+      <TabPane fx:id="userListTabPane" layoutX="353.0" layoutY="90.0" prefHeight="546.0" prefWidth="894.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="300.0" tabMinHeight="50.0" tabMinWidth="150.0">
         <tabs>
-          <Tab text="เจ้าหน้าที่คณะ">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="534.0" prefWidth="855.0">
-                     <children>
-                        <TableView prefHeight="470.0" prefWidth="869.0">
-                           <columns>
-                              <TableColumn prefWidth="137.59998166561127" text="รูปภาพ" />
-                              <TableColumn prefWidth="131.99996948242188" text="ชื่อผู้ใช้" />
-                              <TableColumn prefWidth="367.9999694824219" text="ชื่อ-นามสกุล" />
-                              <TableColumn prefWidth="231.20003662109377" text="เวลาที่เข้าใช้ล่าสุด" />
-                           </columns>
-                        </TableView>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="เจ้าหน้าที่ภาควิชา">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="455.0" prefWidth="874.0">
-                     <children>
-                        <TableView prefHeight="470.0" prefWidth="869.0">
-                           <columns>
-                              <TableColumn prefWidth="137.59998166561127" text="รูปภาพ" />
-                              <TableColumn prefWidth="131.99996948242188" text="ชื่อผู้ใช้" />
-                              <TableColumn prefWidth="367.9999694824219" text="ชื่อ-นามสกุล" />
-                              <TableColumn prefWidth="231.20001220703125" text="เวลาที่เข้าใช้ล่าสุด" />
-                           </columns>
-                        </TableView>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="อาจารย์ที่ปรึกษา">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="534.0" prefWidth="855.0">
-                     <children>
-                        <TableView prefHeight="470.0" prefWidth="869.0">
-                           <columns>
-                              <TableColumn prefWidth="137.59998166561127" text="รูปภาพ" />
-                              <TableColumn prefWidth="131.99996948242188" text="ชื่อผู้ใช้" />
-                              <TableColumn prefWidth="367.9999694824219" text="ชื่อ-นามสกุล" />
-                              <TableColumn prefWidth="231.19989013671875" text="เวลาที่เข้าใช้ล่าสุด" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab text="นิสิต">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="534.0" prefWidth="855.0">
-                     <children>
-                        <TableView prefHeight="470.0" prefWidth="869.0">
-                           <columns>
-                              <TableColumn prefWidth="137.59998166561127" text="รูปภาพ" />
-                              <TableColumn prefWidth="131.99996948242188" text="ชื่อผู้ใช้" />
-                              <TableColumn prefWidth="367.9999694824219" text="ชื่อ-นามสกุล" />
-                              <TableColumn prefWidth="231.19989013671875" text="เวลาที่เข้าใช้ล่าสุด" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
+            <Tab fx:id="allTab" text="รวม" />
+          <Tab fx:id="facultyStaffTab" text="เจ้าหน้าที่คณะ" />
+          <Tab fx:id="departmentStaffTab" text="เจ้าหน้าที่ภาควิชา" />
+            <Tab fx:id="adviserTab" text="อาจารย์ที่ปรึกษา" />
+            <Tab fx:id="studentTab" text="นิสิต" />
         </tabs>
       </TabPane>
+      <TableView fx:id="userListTableView" layoutX="358.0" layoutY="152.0" prefHeight="470.0" prefWidth="869.0">
+         <columns>
+            <TableColumn prefWidth="137.59998166561127" text="รูปภาพ" />
+            <TableColumn prefWidth="131.99996948242188" text="ชื่อผู้ใช้" />
+            <TableColumn prefWidth="367.9999694824219" text="ชื่อ-นามสกุล" />
+            <TableColumn prefWidth="231.19989013671875" text="เวลาที่เข้าใช้ล่าสุด" />
+         </columns>
+      </TableView>
       <HBox alignment="CENTER_LEFT" layoutX="980.0" layoutY="18.0" prefHeight="52.0" prefWidth="266.0" styleClass="searchHBox">
          <children>
             <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
@@ -227,7 +178,7 @@
                   <Image url="@../../../images/icons/search-icon.png" />
                </image>
             </ImageView>
-            <TextField prefHeight="50.0" prefWidth="223.0" promptText="ค้นหา" styleClass="searchTextField">
+            <TextField fx:id="searchTextField" prefHeight="50.0" prefWidth="223.0" promptText="ค้นหา" styleClass="searchTextField">
                <font>
                   <Font size="18.0" />
                </font>

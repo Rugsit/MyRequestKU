@@ -5,7 +5,7 @@
 
 Button {
     -fx-background-color: transparent;
-    -fx-font-size: 18;
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
 }
 
@@ -27,7 +27,7 @@ Button:hover {
 .signOut {
     -fx-underline: true;
     -fx-text-fill: #2C67FF;
-    -fx-font-size: 18;
+    -fx-font-size: 18px;
     -fx-alignment: center;
     -fx-font-weight: normal;
 }
@@ -39,7 +39,7 @@ Button:hover {
 .tab-pane .tab {
     -fx-cursor: hand;
     -fx-font-weight: 700;
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
     -fx-background-color: #e0e0e0;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
@@ -62,13 +62,13 @@ Button:hover {
 .banButton, .edit {
     -fx-cursor: hand;
     -fx-padding: 15px;
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
     -fx-text-fill: white;
     -fx-background-color: FF4E4E;
 }
 
 .searchTextField {
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
     -fx-font-weight: 700;
     -fx-prompt-text-fill: #909090;
     -fx-background-color: transparent;
@@ -77,7 +77,7 @@ Button:hover {
 .unBanButton {
     -fx-cursor: hand;
     -fx-padding: 15px;
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
     -fx-text-fill: white;
     -fx-background-color: #49A267;
 }
@@ -90,7 +90,7 @@ Button:hover {
     -fx-cursor: hand;
     -fx-font-weight: 700;
     -fx-padding: 0 0 0 5 ;
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
     -fx-text-fill: white;
     -fx-background-color: #374957;
 }
@@ -99,9 +99,16 @@ Button:hover {
 .table-view .column-header {
     -fx-background-color: transparent;
     -fx-pref-height: 40px;
-    -fx-font-size: 14px;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
+}
+
+.table-view {
+    -fx-font-size: 24px;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .table-view .column-header-background {
@@ -120,6 +127,64 @@ Button:hover {
 
 .tabName {
     -fx-alignment: center;
-    -fx-font-size: 18;
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
+}
+
+.allTab {
+    -fx-pref-width: 100px;
+}
+
+.table-view .cell {
+     -fx-text-fill: #374957;
+     -fx-padding: 10px;
+     -fx-font-size: 20px;
+     -fx-border-color: transparent;
+}
+.table-view .cell:selected {
+    -fx-border-radius: 2px;
+    -fx-border-width: 2px;
+    -fx-border-color: #374957;
+    -fx-background-color: #F3F3F3;
+}
+.table-view .cell:hover {
+    -fx-cursor: hand;
+}
+
+.row-active {
+    -fx-cursor: hand;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #49A267;
+    -fx-background-color: #D3FFE1;
+}
+
+.row-inactive {
+    -fx-cursor: hand;
+    -fx-border-style: solid;
+    -fx-background-color: #FFD0D0;
+    -fx-border-color: #FF5D5D;
+}
+
+.table-view .scroll-bar:vertical {
+    -fx-pref-width: 20px;
+    -fx-background-color: white; /* Thumb (the part that moves) color */
+    -fx-background-radius: 1px;    /* Rounded corners */
+}
+
+.table-view .scroll-bar:vertical .thumb{
+    -fx-background-color: #374957;
+}
+/*Admin profile style*/
+
+.cardUserProfile {
+    -fx-background-color: white; /* สีพื้นหลังของ Pane */
+    -fx-background-radius: 30;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 13, 0, 0, 1); /* เอฟเฟกต์เงา */
+}
+
+.editPassword {
+    -fx-cursor: hand;
+    -fx-text-fill: #2C67FF;
+    -fx-underline: true;
 }
