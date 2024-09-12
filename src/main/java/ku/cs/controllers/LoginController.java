@@ -7,11 +7,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import ku.cs.models.user.User;
+import ku.cs.models.user.UserList;
+import ku.cs.models.user.exceptions.DateException;
 import ku.cs.services.Authentication;
+import ku.cs.services.UserListFileDatasource;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class LoginController {
     @FXML private TextField userNameTextField;
@@ -25,6 +30,7 @@ public class LoginController {
     @FXML private Label aboutUsLabel;
 
     private Authentication authController;
+    private UserListFileDatasource datasource;
 
     @FXML
     private void initialize() {
@@ -33,7 +39,7 @@ public class LoginController {
         authController = new Authentication();
     }
     @FXML
-    protected void onLoginButtonClick() {
+    protected void onLoginButtonClick(){
         String username = userNameTextField.getText().trim();
         String password = passwordTextField.getText().trim();
         User loginUser = null;
@@ -64,12 +70,28 @@ public class LoginController {
 
         // Normal login method.
         if (loginUser != null){
-            hideError();
-            if (loginUser.getRole().equalsIgnoreCase("faculty-staff")) {goToFacultyManage();}
-            else if (loginUser.getRole().equalsIgnoreCase("admin")) {goToAdminManage();}
-            else if (loginUser.getRole().equalsIgnoreCase("student")){onStudentButtonClicked();}
-            else if (loginUser.getRole().equalsIgnoreCase("advisor")){goToAdvisorManage();}
-            else if (loginUser.getRole().equalsIgnoreCase("department-staff")){goToDepartmentManage();}
+            if (!username.isEmpty() && !password.isEmpty() && loginUser.getActiveStatus().equals("Inactive")){
+                showError("บัญชี้นี้ได้ถูกระงับการใช้งานชั่วคราว");
+            }
+            else{
+                try {
+                    String fileName = loginUser.getRole();
+                    datasource = new UserListFileDatasource("data", fileName+".csv");
+                    UserList users = datasource.readData();
+                    User existingUser = users.findUserById(loginUser.getId());
+                    existingUser.setLastLogin(LocalDateTime.now().format(DateTimeFormatter.ofPattern(User.DATE_FORMAT)));
+                    datasource.writeData(users);
+                } catch (Exception e){
+                    showError("ไม่สามารถบันทึกเวลาในการเข้าใช้ได้");
+                }
+
+                hideError();
+                if (loginUser.getRole().equalsIgnoreCase("faculty-staff")) {goToFacultyManage();}
+                else if (loginUser.getRole().equalsIgnoreCase("admin")) {goToAdminManage();}
+                else if (loginUser.getRole().equalsIgnoreCase("student")){onStudentButtonClicked();}
+                else if (loginUser.getRole().equalsIgnoreCase("advisor")){goToAdvisorManage();}
+                else if (loginUser.getRole().equalsIgnoreCase("department-staff")){goToDepartmentManage();}
+            }
         } else if (!username.isEmpty() && !password.isEmpty() && isUseridInDatasource == null) {
             showError("ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง");
         }
