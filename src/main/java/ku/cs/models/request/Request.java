@@ -1,11 +1,13 @@
 package ku.cs.models.request;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class Request {
     private UUID uuid;
     private UUID ownerUUID;
+    private UUID departmentUUID;
     private String name;
     private String nisitId;
     private LocalDateTime timeStampLastUpdate;
@@ -13,6 +15,8 @@ public class Request {
     private String requestType;
     private String statusNow;
     private String statusNext;
+    private RequestApproverList approverList;
+
 
     public Request() {}
 
