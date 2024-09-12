@@ -63,7 +63,7 @@ public class UserList implements Serializable {
                 user = new Admin(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus);
                 break;
             case "advisor":
-                user = new Advisor(id, username, role, firstname, lastname, lastLogin, email, password, faculty, department);
+                user = new Advisor(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty, department);
                 break;
             case "student":
                 user = new Student(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty, department, advisorUUID);
