@@ -1,6 +1,5 @@
 package ku.cs.models.user;
 
-import com.sun.source.tree.Tree;
 import ku.cs.models.user.exceptions.UserException;
 
 import java.io.Serializable;
@@ -17,12 +16,31 @@ public class UserList implements Serializable {
                    String role,
                    String firstname,
                    String lastname,
-                   String birthdate,
+                   String lastLogin,
                    String email,
+                   String password,
                    String faculty,
-                   String department,
-                   String password) throws UserException {
-        User user = new User(id,username,role,firstname,lastname,birthdate,email, faculty, department,password);
+                   String department) throws UserException {
+        User user;
+        switch (role){
+            case "admin":
+                user = new Admin(id, username, role, firstname, lastname, lastLogin, email, password);
+                break;
+            case "advisor":
+                user = new Advisor(id, username, role, firstname, lastname, lastLogin, email, password, faculty, department);
+                break;
+            case "student":
+                user = new Student(id, username, role, firstname, lastname, lastLogin, email, password, faculty, department,"no-advisor");
+                break;
+            default:
+                if(role.contains("faculty")){
+                    user = new FacultyUser(id, username, role, firstname, lastname, lastLogin, email, password, faculty);
+                }else if(role.contains("department")){
+                    user = new DepartmentUser(id, username, role, firstname, lastname, lastLogin, email, password, faculty,department);
+                }else{
+                    throw new UserException("Invalid role");
+                }
+        }
         users.add(user);
     }
     public void addUser(String uuid,
@@ -31,15 +49,34 @@ public class UserList implements Serializable {
                         String role,
                         String firstname,
                         String lastname,
-                        String birthdate,
+                        String lastLogin,
                         String email,
-                        String faculty,
-                        String department,
                         String password,
                         String avatar,
                         String activeStatus,
+                        String faculty,
+                        String department,
                         String advisorUUID) throws UserException {
-        User user = new User(uuid,id,username,role,firstname,lastname,birthdate,email,faculty,department,password,avatar,activeStatus,advisorUUID);
+        User user;
+        switch (role){
+            case "admin":
+                user = new Admin(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus);
+                break;
+            case "advisor":
+                user = new Advisor(id, username, role, firstname, lastname, lastLogin, email, password, faculty, department);
+                break;
+            case "student":
+                user = new Student(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty, department, advisorUUID);
+                break;
+            default:
+                if(role.contains("faculty")){
+                    user = new FacultyUser(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty);
+                }else if(role.contains("department")){
+                    user = new DepartmentUser(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty, department);
+                }else{
+                    throw new UserException("Invalid role");
+                }
+        }
         users.add(user);
     }
     public User findUserById(String id){

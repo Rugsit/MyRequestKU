@@ -6,11 +6,11 @@ public class StringCompare {
     }
     public static Boolean isAplha(String str) {
         //INCLUDE THAI
-        return str.matches("[a-zA-Z\u0E00-\u0E7F]+");
+        return str.matches("[a-zA-Z\u0E00-\u0E7F-_]+");
     }
     public static Boolean isAlphaNumberic(String str) {
         //INCLUDE THAI
-        return str.matches("[a-zA-Z0-9\u0E00-\u0E7F]+");
+        return str.matches("[a-zA-Z0-9\u0E00-\u0E7F-_]+");
     }
     public static Boolean haveSpace(String str) {
         return str.matches("\\s+");

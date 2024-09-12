@@ -1,13 +1,16 @@
 package ku.cs.services;
 
+import ku.cs.models.user.Admin;
 import ku.cs.models.user.Identifiable;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
+import ku.cs.services.utils.DateTools;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -56,6 +59,8 @@ public class UserListFileDatasource implements Datasource<UserList> {
 
         String filePath = directoryName + File.separator + "users" + File.separator + fileName;
         file = new File(filePath);
+
+
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -70,9 +75,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
         File file = new File(filePath);
         try {
             file.createNewFile();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss:Z");
-            String dateString = formatter.format(new Date());
-            User root = new User("0000000000", "admin", "admin", "admin", "admin", dateString, "-", "-", "-", "adminSW211");
+            User root = new Admin("0000000000", "admin", "admin", "admin", "admin", DateTools.localDateTimeToFormatString(User.DATE_FORMAT, LocalDateTime.now()), "no-email", "adminSW211");
             UserListFileDatasource userListDatasource = new UserListFileDatasource("data", "admin.csv");
             userListDatasource.appendData(root);
         } catch (IOException e) {
@@ -117,14 +120,14 @@ public class UserListFileDatasource implements Datasource<UserList> {
                 String lastname = data[5];
                 String lastLogin = data[6];
                 String email = data[7];
-                String faculty = data[8];
-                String department = data[9];
-                String password = data[10];
-                String avatar = data[11];
-                String activeStatus = data[12];
+                String password = data[8];
+                String avatar = data[9];
+                String activeStatus = data[10];
+                String faculty = data[11];
+                String department = data[12];
                 String advisorUUID = data[13];
 
-                userList.addUser(uuid, id, username, role, firstname, lastname, lastLogin, email, faculty, department, password, avatar,activeStatus,advisorUUID);
+                userList.addUser(uuid, id, username, role, firstname, lastname, lastLogin, email, password , avatar,activeStatus, faculty, department, advisorUUID);
             }
 
         } catch (UserException | IOException e) {
@@ -153,6 +156,13 @@ public class UserListFileDatasource implements Datasource<UserList> {
         try (BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
             for (User user : userList.getUsers()) {
                 String dataLine = user.toString();
+
+                int maxLength = 14;
+                int dataLength = dataLine.split(",").length;
+                if(dataLength < maxLength){
+                    dataLine += ",none".repeat(maxLength-dataLength);
+                }
+
                 bufferedWriter.write(dataLine);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
@@ -179,6 +189,13 @@ public class UserListFileDatasource implements Datasource<UserList> {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
             String dataLine = user.toString();
+
+            int maxLength = 14;
+            int dataLength = dataLine.split(",").length;
+            if(dataLength < maxLength){
+                dataLine += ",none".repeat(maxLength-dataLength);
+            }
+
             bufferedWriter.write(dataLine);
             bufferedWriter.newLine();
             bufferedWriter.flush();

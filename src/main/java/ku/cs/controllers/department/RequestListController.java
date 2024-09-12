@@ -56,9 +56,9 @@ public class RequestListController {
 
         mainAnchorPane.getChildren().add(new SidebarController().getVBox());
 
-        UserListFileDatasource userDataSource = new UserListFileDatasource("data","users.csv");
-        userList = userDataSource.readData();
-        System.out.println(userList);
+//        UserListFileDatasource userDataSource = new UserListFileDatasource("data","users.csv");
+//        userList = userDataSource.readData();
+//        System.out.println(userList);
 
     }
     private void initLabel() {

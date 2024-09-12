@@ -86,7 +86,7 @@ public class RegisterController {
             // Pass user into a User class.
             hideError();
             try {
-                if (existingUser.getUsername().equals("nousername")) {
+                if (existingUser.getUsername().equals("no-username")) {
                     existingUser.setActive(true);
                     existingUser.setEmail(email);
                     existingUser.setUsername(username);
