@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
@@ -52,14 +53,22 @@ public class EditFormController {
     @FXML
     private Label userNameLabel;
 
+//--------------------------------------------------------------
 
+//    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//แก้ตรงนี้ไป เนื่องจาก restructure user ใหม่ check ว่าถูกมั้ย
+//facultyLabel.setText(((Student)currentUser).getFaculty());
+//nameLabel.setText(currentUser.getName());
+//userNameLabel.setText(currentUser.getUsername());
+
+//--------------------------------------------------------------
     public void showOldUserData(String role) {
         currentRole = role;
-        facultyLabel.setText(currentUser.getFaculty());
+        facultyLabel.setText(((Student)currentUser).getFaculty());
         nameLabel.setText(currentUser.getName());
         userNameLabel.setText(currentUser.getUsername());
         if (role.equals("department-staff") || role.equals("advisor")) {
-            departmentLabel.setText(currentUser.getDepartment());
+            departmentLabel.setText(((Student)currentUser).getDepartment());
         }
         if (role.equals("advisor")) {
             advisorIdLabel.setText(currentUser.getId());

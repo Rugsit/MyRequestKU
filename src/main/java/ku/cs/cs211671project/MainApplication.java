@@ -22,7 +22,7 @@ public class MainApplication extends Application {
         FXRouter.bind(this, stage, "CS211 Project", windowWidth, windowHeight);
         configRoutes();
 
-        FXRouter.goTo("admin-manage-users");
+        FXRouter.goTo("login");
     }
     private void configRoutes() {
         String viewPath = "ku/cs/views/";
