@@ -44,7 +44,7 @@ public class ConfirmStack extends StackPane {
 
         initialize();
     }
-    private void initialize(){
+    protected void initialize(){
         initStackPain();
         initBackgroundPane();
         initMainBox();

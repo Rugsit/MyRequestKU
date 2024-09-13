@@ -92,7 +92,7 @@ public class NisitManagementController {
     }
     private void initButton(){
         new RouteButton(backButton,"department-staff-request-list","transparent","#a6a6a6","#000000");
-        new DefaultButton(addNisitButton,"#ABFFA4","#80BF7A","#000000").changeBackgroundRadius(100);
+        new RouteButton(addNisitButton,"department-staff-add-nisit","#ABFFA4","#80BF7A","#000000").changeBackgroundRadius(100);
         DefaultButton refreshBt = new DefaultButton(refreshButton,"transparent","white","#000000"){
             @Override
             protected void handleClickEvent() {
@@ -367,38 +367,6 @@ public class NisitManagementController {
             e.printStackTrace();
         }
 
-    }
-    private TableColumn<User,?> newUserAvatarColumn(){
-        TableColumn<User,VBox> column = new TableColumn<>();
-        column.setCellFactory(c -> new TableCell<>(){
-            private VBox vBox = new VBox();
-            private ImageView columnAvatar = new ImageView();
-            {
-                vBox.setAlignment(Pos.CENTER);
-//                columnAvatar.setPreserveRatio(true);
-                columnAvatar.setFitWidth(55);
-                columnAvatar.setFitHeight(55);
-                vBox.getChildren().add(columnAvatar);
-            }
-            @Override
-            protected void updateItem(VBox item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || getTableView() == null || getTableView().getItems().get(getIndex()) == null) {
-                    setGraphic(null);
-                } else {
-                    User user = getTableView().getItems().get(getIndex());
-                    new SquareImage(columnAvatar).setClipImage(50,50);
-                    if(!user.getAvatar().equalsIgnoreCase("no-image")){
-                        ImageDatasource imageDatasource = new ImageDatasource("users");
-                        columnAvatar.setImage(imageDatasource.openImage(user.getAvatar()));
-                    }
-
-                    setGraphic(vBox);
-
-                }
-            }
-        });
-        return column;
     }
     private TableColumn<User,?> newUsernameEmailColumn(String colName){
         TableColumn<User,VBox> column = new TableColumn<>(colName);
