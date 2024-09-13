@@ -55,12 +55,12 @@ public class AddNisitController {
         editorErrorLabel = new DefaultLabel("");
         initTableView();
         users = new UserList();
-        try {
-            users.addUser("6610402230","no-username","student","ศิริสุข","ทานธรรม", DateTools.localDateTimeToFormatString(User.DATE_FORMAT, LocalDateTime.now()),"no-email","123456789","science","computer science");
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+//        try {
+//            users.addUser("6610402230","no-username","student","ศิริสุข","ทานธรรม", DateTools.localDateTimeToFormatString(User.DATE_FORMAT, LocalDateTime.now()),"no-email","123456789","science","computer science");
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
         refreshTableData();
 
         selectedUser = null;
