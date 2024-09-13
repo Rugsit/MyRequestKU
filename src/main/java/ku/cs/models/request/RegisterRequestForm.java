@@ -45,7 +45,7 @@ public class RegisterRequestForm extends Request{
         super.setOwnerUUID(UUID.fromString(data[2]));
         super.setName(data[3]);
         super.setNisitId(data[4]);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         super.setTimeStamp(LocalDateTime.parse(data[5], formatter));
         super.setDate(LocalDateTime.parse(data[6], formatter));
         super.setStatusNow(data[7]);
@@ -192,33 +192,33 @@ public class RegisterRequestForm extends Request{
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         String timestamp = super.getTimeStamp().format(formatter);
         String date = super.getDate().format(formatter);
-        return  super.getRequestType() + "," +
-                super.getUuid().toString() + "," +
-                super.getOwnerUUID().toString() + "," +
-                super.getName() + "," +
-                super.getNisitId() + "," +
-                timestamp + "," +
-                date + "," +
-                super.getStatusNow() + "," +
-                super.getStatusNext() + "," +
-                lateRegister + "," +
-                addDrop + "," +
-                registerMoreThan22 + "," +
-                semester + "," +
-                semesterYear + "," +
-                oldCredit + "," +
-                newCredit + "," +
-                registerLessThan9 + "," +
-                latePayment + "," +
-                latePaymentSemester + "," +
-                latePaymentYear + "," +
-                transferFaculty + "," +
-                oldFaculty + "," +
-                newFaculty + "," +
-                since;
+        return  "\"" + super.getRequestType() + "\",\"" +
+                super.getUuid().toString() + "\",\"" +
+                super.getOwnerUUID().toString() + "\",\"" +
+                super.getName() + "\",\"" +
+                super.getNisitId() + "\",\"" +
+                timestamp + "\",\"" +
+                date + "\",\"" +
+                super.getStatusNow() + "\",\"" +
+                super.getStatusNext() + "\",\"" +
+                lateRegister + "\",\"" +
+                addDrop + "\",\"" +
+                registerMoreThan22 + "\",\"" +
+                semester + "\",\"" +
+                semesterYear + "\",\"" +
+                oldCredit + "\",\"" +
+                newCredit + "\",\"" +
+                registerLessThan9 + "\",\"" +
+                latePayment + "\",\"" +
+                latePaymentSemester + "\",\"" +
+                latePaymentYear + "\",\"" +
+                transferFaculty + "\",\"" +
+                oldFaculty + "\",\"" +
+                newFaculty + "\",\"" +
+                since + "\"";
 
     }
 }

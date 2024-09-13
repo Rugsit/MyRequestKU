@@ -264,7 +264,7 @@
             </VBox>
          </content>
       </ScrollPane>
-      <Label layoutY="33.0" prefHeight="47.0" prefWidth="988.0" styleClass="header" text="คำร้องขอลงทะเบียน" />
+      <Label layoutY="33.0" prefHeight="47.0" prefWidth="988.0" styleClass="header" text="ใบคำร้องขอลาพักการศึกษา" />
       <ImageView fitHeight="50.0" fitWidth="45.0" layoutX="914.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/icons/back-icon.png" />
