@@ -18,6 +18,8 @@ public class UploadImageStack extends StackPane {
     private DefaultLabel fileLabel;
     private DefaultButton uploadButton;
     private DefaultButton deleteButton;
+    private boolean deleteButtonClicked = false;
+    private boolean uploadButtonClicked = false;
 
     private ImageDatasource datasource;
     public UploadImageStack(String dir, String fileName, String curFileName) {
@@ -61,13 +63,14 @@ public class UploadImageStack extends StackPane {
         uploadButton.setOnMouseClicked(e ->{
             curFileName = datasource.uploadImage(fileName);
             changeFileLabel(curFileName);
+            uploadButtonClicked = true;
         });
     }
     protected void handleDeleteButtonClick(){
         deleteButton.setOnMouseClicked(e ->{
             if(curFileName != null && !curFileName.equalsIgnoreCase("no-image")){
-                curFileName = "no-image";
-                changeFileLabel(curFileName);
+                changeFileLabel("no-image");
+                deleteButtonClicked = true;
             }
         });
     }
@@ -77,5 +80,35 @@ public class UploadImageStack extends StackPane {
 
     public String getCurFileName() {
         return curFileName;
+    }
+
+    public void saveUploadedImage(){
+        if(uploadButtonClicked && curFileName != null && !curFileName.equalsIgnoreCase("no-image")){
+            curFileName = datasource.saveImage();
+            changeFileLabel(curFileName);
+        }
+        uploadButtonClicked = false;
+    }
+    public void cancelUploadedImage(){
+        if(uploadButtonClicked && curFileName != null && !curFileName.equalsIgnoreCase("no-image")){
+            datasource.deleteFile("tmp");
+            curFileName = "no-image";
+            changeFileLabel(curFileName);
+        }
+        uploadButtonClicked = false;
+    }
+    public void performDeleteImage(){
+        if(deleteButtonClicked && curFileName != null && !curFileName.equalsIgnoreCase("no-image")){
+            datasource.deleteFile(curFileName);
+            curFileName = "no-image";
+            changeFileLabel(curFileName);
+        }
+        deleteButtonClicked = false;
+    }
+    public void cancelDeleteImage(){
+        if(deleteButtonClicked && curFileName != null && !curFileName.equalsIgnoreCase("no-image")){
+            changeFileLabel(curFileName);
+        }
+        deleteButtonClicked = false;
     }
 }

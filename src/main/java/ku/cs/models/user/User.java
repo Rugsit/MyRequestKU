@@ -52,9 +52,9 @@ public abstract class User implements Identifiable, Comparable {
         //Contructor for DataSource Reader
         if(uuid == null) throw new UUIDException("UUID must not be null");
         this.uuid = UUID.fromString(uuid);
+        setRole(role);
         setId(id);
         setUsername(username);
-        setRole(role);
         setFirstname(firstname);
         setLastname(lastname);
         setLastLogin(lastLogin);
@@ -121,8 +121,8 @@ public abstract class User implements Identifiable, Comparable {
         if(id == null) throw new IDException("ID must not be null");
         if(id.isEmpty()) throw new IDException("ID must not be empty");
         if(haveSpace(id)) throw new IDException("ID must not contain spaces");
-        if(!isDigit(id)) throw new IDException("ID must be a number");
-        if(id.length() != 10) throw new IDException("ID must be 10 characters");
+        if(!isAlphaNumberic(id)) throw new IDException("ID must be a alphanumeric");
+        if(role.equalsIgnoreCase("student") && id.length() != 10) throw new IDException("ID must be 10 characters");
         this.id = id.trim();
     }
 
