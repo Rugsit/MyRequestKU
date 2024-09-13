@@ -24,6 +24,7 @@ import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.ImageDatasource;
 import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 
 import java.awt.*;
@@ -31,6 +32,7 @@ import java.util.Optional;
 
 public class NisitManagementController {
     @FXML private Label pageTitleLabel;
+    @FXML private StackPane mainStackPane;
 
     @FXML private VBox nisitTableVBox;
     @FXML private HBox tableHeaderHBox;
@@ -63,7 +65,6 @@ public class NisitManagementController {
     private DefaultLabel editorErrorLabel;
     private UploadImageStack editorUploadImageStack;
 
-
     @FXML public void initialize() {
         editorErrorLabel = new DefaultLabel("");
         initTableView();
@@ -83,6 +84,7 @@ public class NisitManagementController {
 //        nisitImage.setClipImage(50,50);
 //        nisitImage.setImage(new Image(getClass().getResourceAsStream("/images/profile-test.png")));
 //        toggleEditFiled();
+//        mainStackPane.getChildren().add(new ConfirmStack("ยืนยัน","This is a long label text that will wrap to the next line if it exceeds the maximum width."));
     }
     private void initLabel(){
         new DefaultLabel(pageTitleLabel);
@@ -90,7 +92,7 @@ public class NisitManagementController {
     }
     private void initButton(){
         new RouteButton(backButton,"department-staff-request-list","transparent","#a6a6a6","#000000");
-        new DefaultButton(addNisitButton,"#ABFFA4","#80BF7A","#000000").changeBackgroundRadius(100);
+        new RouteButton(addNisitButton,"department-staff-add-nisit","#ABFFA4","#80BF7A","#000000").changeBackgroundRadius(100);
         DefaultButton refreshBt = new DefaultButton(refreshButton,"transparent","white","#000000"){
             @Override
             protected void handleClickEvent() {
@@ -126,11 +128,15 @@ public class NisitManagementController {
         nisitTable.getTableView().getColumns().clear();
         nisitTable.getTableView().getItems().clear();
 
+//        nisitTable.getTableView().getColumns().add(newUserAvatarColumn());
         nisitTable.addColumn("รหัสนิสิต","id");
         nisitTable.addColumn("ชื่อ-นามสกุล","name");
-        nisitTable.addColumn("อีเมล","email");
-        nisitTable.addColumn("สถานะ","activeStatus");
+//        nisitTable.addColumn("อีเมล","email");
+//        nisitTable.addColumn("สถานะ/ล่าสุด","activeStatus");
+        nisitTable.getTableView().getColumns().add(newUsernameEmailColumn("ชื่อผู้ใช้/อีเมล"));
+        nisitTable.getTableView().getColumns().add(newStatusLatestColumn("สถานะ/ล่าสุด"));
         nisitTable.getTableView().getColumns().add(newDeleteColumn());
+        nisitTable.addStyleSheet("/ku/cs/styles/department/pages/nisit-management/department-nisit-management-table-stylesheet.css");
 
     }
     private void selectedUserListener(){
@@ -157,10 +163,12 @@ public class NisitManagementController {
             }
         }
         nisitTableView.getSortOrder().clear();
-        TableColumn firstCol = nisitTableView.getColumns().get(0);
-        nisitTableView.getSortOrder().add(firstCol);
-        firstCol.setSortType(TableColumn.SortType.ASCENDING);
+        TableColumn nisitedCol = nisitTableView.getColumns().get(0);
+        nisitedCol.setSortable(true);
+        nisitTableView.getSortOrder().add(nisitedCol);
+        nisitedCol.setSortType(TableColumn.SortType.ASCENDING);
         nisitTableView.sort();
+        nisitedCol.setSortable(false);
 
     }
     private void initNisitEditor(User user){
@@ -302,6 +310,8 @@ public class NisitManagementController {
                                 @Override
                                 protected void handleClickEvent(){
                                     button.setOnMouseClicked(e -> {
+                                        editorUploadImageStack.cancelUploadedImage();//IF CLICKED
+                                        editorUploadImageStack.cancelDeleteImage();//IF CLICKED
                                         selectedUserListener();
                                     });
                                 }
@@ -317,6 +327,9 @@ public class NisitManagementController {
     }
     private void onSaveButton()  {
         try {
+            editorUploadImageStack.saveUploadedImage();//IF CLICKED
+            editorUploadImageStack.performDeleteImage();//IF CLICKED
+
             selectedUser.setFirstname(nisitFirstnameTextField.getData());
             selectedUser.setLastname(nisitLastnameTextField.getData());
             selectedUser.setId(nisitIdTextField.getData());
@@ -326,6 +339,8 @@ public class NisitManagementController {
             if(!nisitPasswordTextField.getData().equalsIgnoreCase("PASSWORD")){
                 selectedUser.setPassword(nisitPasswordTextField.getData());
             }
+
+
             datasource.writeData(users);
             nisitTableView.refresh();
             selectedUserListener();
@@ -353,8 +368,82 @@ public class NisitManagementController {
         }
 
     }
+    private TableColumn<User,?> newUsernameEmailColumn(String colName){
+        TableColumn<User,VBox> column = new TableColumn<>(colName);
+        column.setSortable(false);//BLOCK SORT BY CLICK
+        column.setReorderable(false);//BLOCK DRAG BY MOUSE
+        column.setCellFactory(c -> new TableCell<>(){
+            private VBox vBox = new VBox();
+            private Text line1 = new Text();
+            private Text line2 = new Text();
+            {
+                vBox.setAlignment(Pos.CENTER);
+            }
+            @Override
+            protected void updateItem(VBox item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || getTableView() == null || getTableView().getItems().get(getIndex()) == null) {
+                    setGraphic(null);
+                } else {
+                    User user = getTableView().getItems().get(getIndex());
+                    String username = user.getUsername();
+                    line1.setText((username.equalsIgnoreCase("no-username")
+                            && user.getActiveStatus().equalsIgnoreCase("inactive")
+                            ? "not register" : username));
+                    line2.setText(user.getEmail());
+
+                    vBox.getChildren().clear();
+                    vBox.getChildren().addAll(line1, line2);
+
+                    setGraphic(vBox);
+                }
+            }
+        });
+        return column;
+    }
+    private TableColumn<User,?> newStatusLatestColumn(String colName){
+        TableColumn<User,VBox> column = new TableColumn<>(colName);
+        column.setSortable(false);//BLOCK SORT BY CLICK
+        column.setReorderable(false);//BLOCK DRAG BY MOUSE
+        column.setCellFactory(c -> new TableCell<>(){
+            private VBox vBox = new VBox();
+            private DefaultLabel line1 = new DefaultLabel("");
+            private Text line2 = new Text();
+            {
+                vBox.setAlignment(Pos.CENTER);
+                line1.changeText("",18,FontWeight.NORMAL);
+            }
+            @Override
+            protected void updateItem(VBox item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || getTableView() == null || getTableView().getItems().get(getIndex()) == null) {
+                    setGraphic(null);
+                } else {
+                    User user = getTableView().getItems().get(getIndex());
+                    String status = user.getActiveStatus();
+                    line1.changeText(status);
+                    if(status.equalsIgnoreCase("active")){
+                        line1.changeLabelColor("green");
+                    }else {
+                        line1.changeLabelColor("red");
+                    }
+
+                    line2.setText(DateTools.localDateTimeToFormatString("yyyy/MM/dd HH:mm", user.getLastLogin()));
+
+                    vBox.getChildren().clear();
+                    vBox.getChildren().addAll(line1, line2);
+
+                    setGraphic(vBox);
+                }
+            }
+        });
+        return column;
+    }
     private TableColumn<User,?> newDeleteColumn(){
         TableColumn<User, HBox> column = new TableColumn<>("");
+        column.setSortable(false);//BLOCK SORT BY CLICK
+        column.setReorderable(false);//BLOCK DRAG BY MOUSE
+
         column.setCellFactory(c -> new TableCell<>() {
             private Button actionButton = new Button();
             private final HBox hbox = new HBox(actionButton);
@@ -366,8 +455,25 @@ public class NisitManagementController {
                     protected void handleClickEvent() {
                         button.setOnMouseClicked(e -> {
                             User user = getTableView().getItems().get(getIndex());
-                            System.out.println("Button clicked for item: " + user.getId() + " " + user.getName());
-                            onDeleteButton(user);
+                            System.out.println("DeleteButton clicked for item: " + user.getId() + " " + user.getName());
+                            mainStackPane.getChildren().add(new ConfirmStack("ยืนยัน","คุณต้องการลบใช่มั้ย"){
+                                @Override
+                                protected void handleAcceptButton(){
+                                    getAcceptButton().setOnMouseClicked(e -> {
+                                        System.out.println("Accept button clicked");
+                                        mainStackPane.getChildren().removeLast();
+                                        onDeleteButton(user);
+                                    });
+                                }
+                                @Override
+                                protected void handleDeclineButton(){
+                                    getDeclineButton().setOnMouseClicked(e -> {
+                                        System.out.println("Decline button clicked");
+                                        mainStackPane.getChildren().removeLast();
+                                    });
+                                }
+                            });
+
                         });
                     }
                 };

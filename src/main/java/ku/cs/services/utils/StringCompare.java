@@ -13,7 +13,7 @@ public class StringCompare {
         return str.matches("[a-zA-Z0-9\u0E00-\u0E7F-_]+");
     }
     public static Boolean haveSpace(String str) {
-        return str.matches("\\s+");
+        return str.matches(".*\\s.*");
     }
     public static Boolean isValidEmailPattern(String str) {
         //MAY NOT WORK AS EXPECTED

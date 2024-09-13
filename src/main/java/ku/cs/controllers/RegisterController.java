@@ -116,6 +116,7 @@ public class RegisterController {
     @FXML
     protected void onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER){
+            onRegisterButtonClick();
             System.out.println("register");
         }
     }
