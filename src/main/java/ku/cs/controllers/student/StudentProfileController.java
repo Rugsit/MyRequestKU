@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import ku.cs.models.user.User;
+import ku.cs.views.components.CropImage;
 
 public class StudentProfileController {
     @FXML ImageView profilePictureImageView;
@@ -14,21 +16,12 @@ public class StudentProfileController {
     @FXML Label userTypeLabel;
     @FXML Label idLabel;
     @FXML Label advisorLabel;
+    private User loginUser;
+    CropImage profilePicture;
 
 
     public void initialize(){
-        showInfo();
+        profilePicture = new CropImage(profilePictureImageView);
     }
 
-    private void showInfo(){
-        Image profilePicture = new Image(getClass().getResourceAsStream("/images/users/card-profile.png"));
-        profilePictureImageView.setImage(profilePicture);
-        usernameLabel.setText("MemoryF");
-        studentNameLabel.setText("เมมโมรี่โฟม รักนอน");
-        facultyLabel.setText("คณะวิทยาศาสตร์");
-        departmentLabel.setText("ภาควิชาวิทยาการคอมพิวเตอร์");
-        userTypeLabel.setText("นิสิต");
-        idLabel.setText("6610407777");
-        advisorLabel.setText("ผศ.ดร.โพลีเอสเตอร์ นอนไม่พอ");
-    }
 }

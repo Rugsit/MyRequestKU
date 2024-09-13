@@ -31,6 +31,7 @@ public class LoginController {
 
     private Authentication authController;
     private UserListFileDatasource datasource;
+    private User loginUser = null;
 
     @FXML
     private void initialize() {
@@ -42,7 +43,6 @@ public class LoginController {
     protected void onLoginButtonClick(){
         String username = userNameTextField.getText().trim();
         String password = passwordTextField.getText().trim();
-        User loginUser = null;
         User isUseridInDatasource = authController.isUserInDatasource(username);
         try {
             loginUser = authController.loginAuthenticate(username, password);
@@ -137,7 +137,7 @@ public class LoginController {
     @FXML
     private void onStudentButtonClicked(){
         try{
-            FXRouter.goTo("student-page");
+            FXRouter.goTo("student-page", loginUser);
         } catch (IOException e){
             throw new RuntimeException(e);
         }
