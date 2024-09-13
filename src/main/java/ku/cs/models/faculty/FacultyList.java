@@ -8,6 +8,10 @@ public class FacultyList {
         facultyList = new HashSet<>();
     }
 
+    public void addFaculty(String name, String id) {
+        facultyList.add(new Faculty(name, id));
+    }
+
     public void addFaculty(String[] faculty) {
         facultyList.add(new Faculty(faculty[0], faculty[1]));
     }

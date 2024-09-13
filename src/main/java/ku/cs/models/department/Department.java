@@ -1,6 +1,9 @@
 package ku.cs.models.department;
 
 import ku.cs.models.faculty.Faculty;
+import ku.cs.models.faculty.FacultyList;
+import ku.cs.services.Datasource;
+import ku.cs.services.FacultyListFileDatasource;
 
 public class Department {
     private String name;
@@ -8,10 +11,17 @@ public class Department {
     private String faculty;
     private String facultyId;
 
-    public Department(String name, String id, String faculty) {
+    public Department(String name, String id, String faculty) throws NoFacultyException {
+        FacultyList facultyList = new FacultyList();
+        Datasource<FacultyList> facultyListFileDatasource = new FacultyListFileDatasource("data");
+        facultyList = facultyListFileDatasource.readData();
+        if(facultyList.getFacultyByName(faculty) == null) {
+            throw new NoFacultyException("ไม่สามารถสร้างได้ เนื่องจากไม่มีคณะดังกล่าวอยู่ในระบบ");
+        }
         this.name = name;
         this.id = id;
         this.faculty = faculty;
+        this.facultyId = facultyList.getFacultyByName(faculty).getId();
     }
 
     public String getName() {
