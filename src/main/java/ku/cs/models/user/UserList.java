@@ -171,4 +171,8 @@ public class UserList implements Serializable {
         }
         return list;
     }
+
+    public void addUser(User user) {
+        users.add(user);
+    }
 }

@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.StringConverter;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.FXRouter;
@@ -12,6 +14,7 @@ import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -56,7 +59,21 @@ public class AdminManageUsersController {
         TableColumn<User, Boolean> status = new TableColumn<>("สถานะการใช้งาน");
         status.setCellValueFactory(new PropertyValueFactory<>("ActiveStatus"));
         TableColumn<User, LocalDateTime> lastTime = new TableColumn<>("เวลาที่เข้าใช้ล่าสุด");
-        lastTime.setCellValueFactory(new PropertyValueFactory<>("LastLogin"));
+        lastTime.setCellValueFactory(new PropertyValueFactory<>("lastLogin"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
+
+        // Set the cellFactory to format the LocalDateTime
+        lastTime.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
+            @Override
+            public String toString(LocalDateTime lastLogin) {
+                return lastLogin != null ? lastLogin.format(formatter) : "";
+            }
+
+            @Override
+            public LocalDateTime fromString(String string) {
+                return LocalDateTime.parse(string, formatter);
+            }
+        }));
 
         userListTableView.setRowFactory(tv -> new TableRow<User>() {
             @Override
@@ -75,10 +92,8 @@ public class AdminManageUsersController {
                 }
             }
         });
-        lastTime.setSortType(TableColumn.SortType.ASCENDING);
         userListTableView.getColumns().addAll(avatar, userName, name, status, lastTime);
-        userListTableView.getSortOrder().add(lastTime);
-        userListTableView.getSortOrder().add(lastTime);
+
 
 
         loadAllUsers();
@@ -99,17 +114,13 @@ public class AdminManageUsersController {
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.trim().isEmpty()) {
-                HashSet<User> filter = new HashSet<>();
-                for (User user : userlist.getUsers()) {
-                    if (user.getName().toLowerCase().contains(newValue.toLowerCase())) {
-                        filter.add(user);
-                    }
-                }
-                userListTableView.getItems().clear();
-                userListTableView.getItems().addAll(filter);
+                search();
             } else {
                 userListTableView.getItems().clear();
                 userListTableView.getItems().addAll(userlist.getUsers());
+                TableColumn<User, LocalDateTime> lastTimeInSearch = (TableColumn<User, LocalDateTime>) userListTableView.getColumns().get(4);
+                lastTimeInSearch.setSortType(TableColumn.SortType.DESCENDING);
+                userListTableView.getSortOrder().add(lastTime);
             }
         });
     }
@@ -127,23 +138,32 @@ public class AdminManageUsersController {
         userlist = datasource.readData();
         updateTableView();
     }
-    
+
+    private void search() {
+        HashSet<User> filter = new HashSet<>();
+        for (User user : userlist.getUsers()) {
+            if (user.getName().toLowerCase().contains(searchTextField.getText().toLowerCase())) {
+                filter.add(user);
+            }
+        }
+        userListTableView.getItems().clear();
+        userListTableView.getItems().addAll(filter);
+        TableColumn<User, LocalDateTime> lastTime = (TableColumn<User, LocalDateTime>) userListTableView.getColumns().get(4);
+        lastTime.setSortType(TableColumn.SortType.DESCENDING);
+        userListTableView.getSortOrder().add(lastTime);
+    }
 
     private void updateTableView() {
-//        storeCurrentUserList.clear();
-//        storeCurrentUserList.addAll(userlist.getUsers());
+
         if (searchTextField.getText().trim().isEmpty()) {
         userListTableView.getItems().clear();
         userListTableView.getItems().addAll(userlist.getUsers());
+
+        TableColumn<User, LocalDateTime> lastTime = (TableColumn<User, LocalDateTime>) userListTableView.getColumns().get(4);
+        lastTime.setSortType(TableColumn.SortType.DESCENDING);
+        userListTableView.getSortOrder().add(lastTime);
         } else{
-            HashSet<User> filter = new HashSet<>();
-            for (User user : userlist.getUsers()) {
-                if (user.getName().toLowerCase().contains(searchTextField.getText().toLowerCase())) {
-                    filter.add(user);
-                }
-            }
-            userListTableView.getItems().clear();
-            userListTableView.getItems().addAll(filter);
+            search();
         }
     }
 
