@@ -130,4 +130,49 @@ public class UserList implements Serializable {
     public String toString() {
         return users.toString();
     }
+
+
+    public UserList getFacultyList() {
+        UserList list = new UserList();
+        for (User user : users) {
+            if (user instanceof FacultyUser){
+               list.addUser(user);
+            }
+        }
+        return list;
+    }
+
+    public UserList getDepartmentList() {
+        UserList list = new UserList();
+        for (User user : users) {
+            if (user instanceof DepartmentUser){
+                list.addUser(user);
+            }
+        }
+        return list;
+    }
+
+    public UserList getAdvisorList() {
+        UserList list = new UserList();
+        for (User user : users) {
+            if (user instanceof Advisor){
+                list.addUser(user);
+            }
+        }
+        return list;
+    }
+
+    public UserList getStudentList() {
+        UserList list = new UserList();
+        for (User user : users) {
+            if (user instanceof Student){
+                list.addUser(user);
+            }
+        }
+        return list;
+    }
+
+    public void addUser(User user) {
+        users.add(user);
+    }
 }

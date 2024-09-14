@@ -39,5 +39,9 @@ public class RequestList {
         return this.requests;
     }
 
+    public void addRequest(Request request) {
+        this.requests.add(request);
+    }
+
 
 }

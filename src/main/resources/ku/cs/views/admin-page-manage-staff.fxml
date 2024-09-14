@@ -166,7 +166,7 @@
             <Insets left="10.0" />
          </padding>
       </HBox>
-      <Button alignment="BASELINE_LEFT" layoutX="1059.0" layoutY="21.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="188.0" styleClass="addFacultyButton" text="  เพิ่มเจ้าหน้าที่">
+      <Button alignment="BASELINE_LEFT" layoutX="1059.0" layoutY="21.0" mnemonicParsing="false" onAction="#addStaff" prefHeight="50.0" prefWidth="188.0" styleClass="addFacultyButton" text="  เพิ่มเจ้าหน้าที่">
          <graphic>
             <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                <image>

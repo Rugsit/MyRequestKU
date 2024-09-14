@@ -8,7 +8,7 @@ import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.UserListFileDatasource;
 
-public class EditFormController {
+public class AddFormController {
     AdminManageStaffController currentControllAdminpage;
     UserListFileDatasource datasource;
     String currentRole;
@@ -51,21 +51,6 @@ public class EditFormController {
     @FXML
     private Label userNameLabel;
 
-
-    public void showOldUserData(String role) {
-        currentRole = role;
-        if (currentUser instanceof FacultyUser) {
-            facultyLabel.setText(((FacultyUser)currentUser).getFaculty());
-        }
-        nameLabel.setText(currentUser.getName());
-        userNameLabel.setText(currentUser.getUsername());
-        if (currentUser instanceof DepartmentUser) {
-            departmentLabel.setText(((DepartmentUser)currentUser).getDepartment());
-        }
-        if (currentUser instanceof Advisor) {
-            advisorIdLabel.setText(currentUser.getId());
-        }
-    }
 
     public void setStage(Stage stage) {
         this.stage = stage;

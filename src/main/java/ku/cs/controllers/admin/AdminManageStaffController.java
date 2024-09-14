@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.models.user.Advisor;
+import ku.cs.models.user.FacultyUser;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.FXRouter;
@@ -17,9 +19,7 @@ import java.util.HashSet;
 
 public class AdminManageStaffController {
     @FXML
-    Stage currentEditStage;
-    @FXML
-    HashSet<User> storeCurrentUserList;
+    Stage currentPopupStage;
     UserListFileDatasource datasource;
     UserList userList;
     @FXML
@@ -40,7 +40,6 @@ public class AdminManageStaffController {
 
     @FXML
     public void initialize() {
-        storeCurrentUserList = new HashSet<>();
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableview.setPlaceholder(placeHolder);
 
@@ -56,17 +55,10 @@ public class AdminManageStaffController {
         });
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.trim().isEmpty()) {
-                HashSet<User> filter = new HashSet<>();
-                for (User user : userListTableview.getItems()) {
-                    if (user.getName().toLowerCase().contains(newValue.toLowerCase())) {
-                        filter.add(user);
-                    }
-                }
-                userListTableview.getItems().clear();
-                userListTableview.getItems().addAll(filter);
+                search(newValue);
             } else {
                 userListTableview.getItems().clear();
-                userListTableview.getItems().addAll(storeCurrentUserList);
+                userListTableview.getItems().addAll(userList.getUsers());
             }
         });
 
@@ -83,6 +75,17 @@ public class AdminManageStaffController {
         });
     }
 
+    private void search(String newValue) {
+        HashSet<User> filter = new HashSet<>();
+        for (User user : userList.getUsers()) {
+            if (user.getName().toLowerCase().contains(newValue.toLowerCase())) {
+                filter.add(user);
+            }
+        }
+        userListTableview.getItems().clear();
+        userListTableview.getItems().addAll(filter);
+    }
+
     public void loadFacultyStaff() {
         userListTableview.getItems().clear();
         userListTableview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -90,14 +93,15 @@ public class AdminManageStaffController {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<User, String> username = new TableColumn<>("ชื่อผู้ใช้");
         username.setCellValueFactory(new PropertyValueFactory<>("username"));
-//        TableColumn<User, String> startPassword = new TableColumn<>("รหัสผ่านเริ่มต้น");
-//        startPassword.setCellValueFactory(new PropertyValueFactory<>("username"));
+        TableColumn<User, String> startPassword = new TableColumn<>("รหัสผ่านเริ่มต้น");
+        startPassword.setCellValueFactory(new PropertyValueFactory<>("username"));
         TableColumn<User, String> faculty = new TableColumn<>("คณะ");
-        faculty.setCellValueFactory(new PropertyValueFactory<>("faculty"));
+        faculty.setCellValueFactory(new PropertyValueFactory<>("Faculty"));
 
         userListTableview.getColumns().setAll(name, username, faculty);
         readSpecificRole("faculty-staff");
         userListTableview.getItems().addAll(userList.getUsers());
+        search(searchTextField.getText());
     }
 
     public void loadDepartmentStaff() {
@@ -117,7 +121,9 @@ public class AdminManageStaffController {
         userListTableview.getColumns().setAll(name, username, faculty, department);
         readSpecificRole("department-staff");
         userListTableview.getItems().addAll(userList.getUsers());
+        search(searchTextField.getText());
     }
+
 
     public void loadAdvisor() {
         userListTableview.getItems().clear();
@@ -138,33 +144,57 @@ public class AdminManageStaffController {
         userListTableview.getColumns().setAll(name, username, faculty, department, advisorId);
         readSpecificRole("advisor");
         userListTableview.getItems().addAll(userList.getUsers());
+        search(searchTextField.getText());
     }
 
     private void readSpecificRole(String role) {
         datasource = new UserListFileDatasource("data", role+".csv");
         userList = datasource.readData();
-        storeCurrentUserList.clear();
-        storeCurrentUserList.addAll(userList.getUsers());
     }
 
     private void showEditPopup(User currentUser, String role) {
         try {
-            if (currentEditStage == null || !currentEditStage.isShowing()) {
-                currentEditStage = new Stage();
+            if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                currentPopupStage = new Stage();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/edit-" + role + ".fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
 
                 EditFormController controller = fxmlLoader.getController();
                 controller.setCurrentUser(currentUser);
-                controller.setStage(currentEditStage);
+                controller.setStage(currentPopupStage);
                 controller.setUserListForWrite(userList);
                 controller.showOldUserData(role);
                 controller.setCurrentControllAdminpage(this);
                 scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
-                currentEditStage.setScene(scene);
-                currentEditStage.initModality(Modality.APPLICATION_MODAL);
-                currentEditStage.setTitle("Confirm");
-                currentEditStage.show();
+                currentPopupStage.setScene(scene);
+                currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+                currentPopupStage.setTitle("Confirm");
+                currentPopupStage.show();
+            }
+        } catch (IOException ee) {
+            System.err.println("Error: " + ee.getMessage());
+        }
+    }
+
+    @FXML
+    public void addStaff() {
+        Tab tab = staffTabPane.getSelectionModel().getSelectedItem();
+        String addStaffRole = tab == facultyTab ? "faculty-staff" : tab == departmentTab ? "department-staff" : "advisor-staff";
+        try {
+            if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                currentPopupStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/add-" + addStaffRole + ".fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                AddFormController controller = fxmlLoader.getController();
+                controller.setStage(currentPopupStage);
+                controller.setUserListForWrite(userList);
+                controller.setCurrentControllAdminpage(this);
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
+                currentPopupStage.setScene(scene);
+                currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+                currentPopupStage.setTitle("Confirm");
+                currentPopupStage.show();
             }
         } catch (IOException ee) {
             System.err.println("Error: " + ee.getMessage());
