@@ -12,16 +12,9 @@ public class Department {
     private String facultyId;
 
     public Department(String name, String id, String faculty) throws NoFacultyException {
-        FacultyList facultyList = new FacultyList();
-        Datasource<FacultyList> facultyListFileDatasource = new FacultyListFileDatasource("data");
-        facultyList = facultyListFileDatasource.readData();
-        if(facultyList.getFacultyByName(faculty) == null) {
-            throw new NoFacultyException("ไม่สามารถสร้างได้ เนื่องจากไม่มีคณะดังกล่าวอยู่ในระบบ");
-        }
+        setFaculty(faculty);
         this.name = name;
         this.id = id;
-        this.faculty = faculty;
-        this.facultyId = facultyList.getFacultyByName(faculty).getId();
     }
 
     public String getName() {
@@ -58,4 +51,25 @@ public class Department {
     public String toString() {
         return name + "," + id + "," + faculty + "," + facultyId;
     }
+
+    public void setFaculty(String faculty) throws NoFacultyException {
+        faculty = faculty.trim();
+        if (faculty.isEmpty()) {
+            throw new NoFacultyException("กรุณาใส่ชื่อคณะให้ถูกต้อง");
+        }
+        FacultyList facultyList = new FacultyList();
+        Datasource<FacultyList> facultyListFileDatasource = new FacultyListFileDatasource("data");
+        facultyList = facultyListFileDatasource.readData();
+        if(facultyList.getFacultyByName(faculty) == null) {
+            throw new NoFacultyException("ไม่สามารถสร้างได้ เนื่องจากไม่มีคณะดังกล่าวอยู่ในระบบ");
+        }
+        this.faculty = faculty;
+        this.facultyId = facultyList.getFacultyByName(faculty).getId();
+    }
+
+    void setFaculty(Faculty faculty){
+        this.faculty = faculty.getName();
+        this.facultyId = faculty.getId();
+    }
+
 }

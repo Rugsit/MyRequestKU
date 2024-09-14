@@ -1,8 +1,5 @@
 package ku.cs.models.faculty;
 
-import ku.cs.models.department.Department;
-import ku.cs.models.department.DepartmentList;
-
 public class Faculty {
     private String name;
     private String id;
@@ -14,18 +11,19 @@ public class Faculty {
 
     public void setName(String name) {
         name = name.trim();
-        if (!name.isEmpty()){
-            this.name = name;
+        if (name.isEmpty()){
+            throw new IllegalArgumentException("กรุณาใส่ชื่อคณะให้ถูกต้อง");
         }
+        this.name = name;
     }
 
     public void setId(String id) {
         id = id.trim();
-        if (!id.isEmpty()){
-            this.id = id;
+        if (id.isEmpty()){
+            throw new IllegalArgumentException("กรุณาใส่ชื่อคณะให้ถูกต้อง");
         }
+        this.id = id;
     }
-
     public String getName() {
         return name;
     }
