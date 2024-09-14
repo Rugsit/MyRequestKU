@@ -1,5 +1,6 @@
 package ku.cs.models.department;
 
+import ku.cs.models.faculty.Faculty;
 import java.util.HashSet;
 
 public class DepartmentList {
@@ -59,6 +60,14 @@ public class DepartmentList {
         for (Department department : departments) {
             if (department.getName().equals(name)) {
                 departments.remove(department);
+            }
+        }
+    }
+
+    public void updateFaculty(Faculty faculty, String old) throws NoFacultyException {
+        for (Department department : departments) {
+            if (department.getFaculty().equals(old)) {
+                department.setFaculty(faculty);
             }
         }
     }
