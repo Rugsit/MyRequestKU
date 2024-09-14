@@ -46,9 +46,10 @@ public class DepartmentListFileDatasource implements Datasource<DepartmentList> 
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
         String dataLine;
         try(BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-            dataLine = bufferedReader.readLine();
-            String[] data = dataLine.split(",");
-            departmentList.addDepartment(data);
+            while ((dataLine = bufferedReader.readLine()) != null) {
+                String[] data = dataLine.split(",");
+                departmentList.addDepartment(data);
+            }
         } catch (IOException e) {
             System.err.println("Error reading file: " + filePath);
         }
