@@ -100,6 +100,17 @@
     -fx-background-color: #F3F3F3;
     -fx-border-radius: 5;
     -fx-border-width: 0px;
+    -fx-font-size: 20px;
+}
+
+.choice-box-select .context-menu {
+    -fx-font-size: 20px;
+    -fx-background-color: white;
+}
+
+.choice-box-select .menu-item:focused {
+    -fx-background-color: #F3F3F3;
+    -fx-cursor: hand;
 }
 
 .error-label {

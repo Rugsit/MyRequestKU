@@ -13,14 +13,14 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="730.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.AddFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="730.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.AddFormController">
    <children>
       <Label layoutX="24.0" layoutY="14.0" prefHeight="90.0" prefWidth="587.0" styleClass="edit-data-header" text="เพิ่มข้อมูล">
          <font>
             <Font name="PrintAble4U Bold" size="12.0" />
          </font>
       </Label>
-      <Button graphicTextGap="15.0" layoutX="579.0" layoutY="436.0" mnemonicParsing="false" onAction="#onAcceptClick" styleClass="accept-button" text="ตกลง">
+      <Button graphicTextGap="15.0" layoutX="579.0" layoutY="492.0" mnemonicParsing="false" onAction="#onAcceptClick" styleClass="accept-button" text="ตกลง">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -63,7 +63,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="startPasswordTextField" prefHeight="50.0" prefWidth="286.0" promptText="รหัสผ่านเริ่มต้น" styleClass="input-edit">
+            <TextField fx:id="startPassword" prefHeight="50.0" prefWidth="286.0" promptText="รหัสผ่านเริ่มต้น" styleClass="input-edit">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
@@ -79,7 +79,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Line endX="-100.0" endY="303.0000305175781" layoutX="467.0" layoutY="101.0" startX="-100.0" styleClass="line" />
+      <Line endX="-100.0" endY="300.6000061035156" layoutX="467.0" layoutY="101.0" startX="-100.0" styleClass="line" />
       <Label fx:id="errorLabel" alignment="CENTER_RIGHT" layoutX="382.0" layoutY="492.0" prefHeight="26.0" prefWidth="326.0" styleClass="error-label" text="error" visible="false" />
       <VBox layoutX="382.0" layoutY="104.0" prefHeight="324.0" prefWidth="326.0">
          <children>
@@ -88,7 +88,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <ChoiceBox prefHeight="50.0" prefWidth="326.0" styleClass="choice-box-select">
+            <ChoiceBox fx:id="departmentChoiceBox" prefHeight="50.0" prefWidth="326.0" styleClass="choice-box-select">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
@@ -98,7 +98,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <ChoiceBox prefHeight="50.0" prefWidth="350.0" styleClass="choice-box-select">
+            <ChoiceBox fx:id="facultyChoiceBox" prefHeight="50.0" prefWidth="350.0" styleClass="choice-box-select">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin></ChoiceBox>
@@ -110,5 +110,6 @@
             <TextField fx:id="advisorIdTextField" prefHeight="50.0" prefWidth="286.0" promptText="รหัสประจำตัว" styleClass="input-edit" />
          </children>
       </VBox>
+      <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="389.0" layoutY="412.0" prefHeight="66.0" prefWidth="326.0" styleClass="error-label" text="error" visible="false" wrapText="true" />
    </children>
 </AnchorPane>

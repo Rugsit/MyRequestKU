@@ -63,7 +63,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="startPassword" prefHeight="50.0" prefWidth="286.0" promptText="รหัสผ่านเริ่มต้น" styleClass="input-edit">
+            <TextField fx:id="startPasswordTextField" prefHeight="50.0" prefWidth="286.0" promptText="รหัสผ่านเริ่มต้น" styleClass="input-edit">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
@@ -73,7 +73,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <ChoiceBox prefHeight="42.0" prefWidth="350.0" styleClass="choice-box-select" />
+            <ChoiceBox fx:id="facultyChoiceBox" prefHeight="42.0" prefWidth="350.0" styleClass="choice-box-select" />
          </children>
       </VBox>
       <Button layoutX="651.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExitClick" prefHeight="44.0" prefWidth="34.0" styleClass="exit-button">
@@ -91,12 +91,12 @@
          </font>
       </Label>
       <Line endX="-100.0" endY="395.0" layoutX="476.0" layoutY="105.0" startX="-100.0" styleClass="line" />
-      <VBox layoutX="401.0" layoutY="170.0" prefHeight="200.0" prefWidth="304.0">
+      <VBox layoutX="401.0" layoutY="170.0" prefWidth="304.0">
          <children>
             <HBox>
                <children>
                   <Label styleClass="text-desc-input" text="ชื่อ" />
-                  <Label fx:id="nameLabel" styleClass="text-desc-input" text="นายรักษิต">
+                  <Label fx:id="nameLabel" prefWidth="263.0" styleClass="text-desc-input" text="นายรักษิต" wrapText="true">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -109,7 +109,7 @@
             <HBox>
                <children>
                   <Label styleClass="text-desc-input" text="ชื่อผู้ใช้" />
-                  <Label fx:id="userNameLabel" styleClass="text-desc-input" text="Nest">
+                  <Label fx:id="userNameLabel" prefWidth="233.0" styleClass="text-desc-input" text="Nest" wrapText="true">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -121,8 +121,8 @@
             </HBox>
             <HBox>
                <children>
-                  <Label styleClass="text-desc-input" text="รหัสผ่านเริ่มต้น" />
-                  <Label fx:id="startPasswordLabel" styleClass="text-desc-input" text="test12354">
+                  <Label prefHeight="26.0" prefWidth="122.0" styleClass="text-desc-input" text="รหัสผ่านเริ่มต้น" />
+                  <Label fx:id="startPasswordLabel" prefWidth="184.0" styleClass="text-desc-input" text="test12354" wrapText="true">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -135,7 +135,7 @@
             <HBox>
                <children>
                   <Label styleClass="text-desc-input" text="คณะ" />
-                  <Label fx:id="facultyLabel" styleClass="text-desc-input" text="วิทยาศาสตร์">
+                  <Label fx:id="facultyLabel" prefWidth="246.0" styleClass="text-desc-input" text="วิทยาศาสตร์" wrapText="true">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -144,6 +144,6 @@
             </HBox>
          </children>
       </VBox>
-      <Label fx:id="errorLabel" alignment="CENTER_RIGHT" layoutX="378.0" layoutY="431.0" prefHeight="26.0" prefWidth="326.0" styleClass="error-label" text="error" visible="false" />
+      <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="388.0" layoutY="395.0" prefHeight="66.0" prefWidth="315.0" styleClass="error-label" text="error" visible="false" wrapText="true" />
    </children>
 </AnchorPane>

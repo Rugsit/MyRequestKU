@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="720.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.EditFormController">
+   <children>
+      <Label layoutX="24.0" layoutY="14.0" prefHeight="90.0" prefWidth="586.0" styleClass="edit-data-header" text="แก้ไขข้อมูล">
+         <font>
+            <Font name="PrintAble4U Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button graphicTextGap="15.0" layoutX="568.0" layoutY="399.0" mnemonicParsing="false" onAction="#onAcceptClick" styleClass="accept-button" text="ตกลง">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/save-icon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <VBox layoutX="24.0" layoutY="104.0" prefWidth="326.0">
+         <children>
+            <Label styleClass="text-desc-input" text="ชื่อคณะ">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="facultyNameTextField" prefHeight="50.0" prefWidth="286.0" promptText="ชื่อคณะ" styleClass="input-edit">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </TextField>
+            <Label styleClass="text-desc-input" text="รหัสคณะ">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="facultyIdTextField" prefHeight="50.0" prefWidth="286.0" promptText="รหัสคณะ" styleClass="input-edit">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <Button layoutX="651.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExitClick" prefHeight="44.0" prefWidth="34.0" styleClass="exit-button">
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/exit-button.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="401.0" layoutY="104.0" prefWidth="315.0" styleClass="old-data-header" text="ข้อมูลเก่า" textAlignment="CENTER">
+         <font>
+            <Font name="PrintAble4U Bold" size="12.0" />
+         </font>
+      </Label>
+      <Line endX="-100.0" endY="200.60000610351562" layoutX="476.0" layoutY="105.0" startX="-100.0" styleClass="line" />
+      <VBox layoutX="401.0" layoutY="170.0" prefWidth="304.0">
+         <children>
+            <HBox>
+               <children>
+                  <Label styleClass="text-desc-input" text="ชื่อคณะ" />
+                  <Label fx:id="facultyNameLabel" prefWidth="226.0" styleClass="text-desc-input" text="นายรักษิต" wrapText="true">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label styleClass="text-desc-input" text="รหัสคณะ" />
+                  <Label fx:id="facultyIdLabel" prefWidth="218.0" styleClass="text-desc-input" text="Nest" wrapText="true">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="389.0" layoutY="323.0" prefHeight="66.0" prefWidth="315.0" styleClass="error-label" text="error" visible="false" wrapText="true" />
+   </children>
+</AnchorPane>
