@@ -118,14 +118,14 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Pane layoutX="413.0" layoutY="151.0" prefHeight="422.0" prefWidth="737.0" styleClass="cardUserProfile">
+      <Pane layoutX="413.0" layoutY="151.0" prefHeight="342.0" prefWidth="662.0" styleClass="cardUserProfile">
          <children>
-            <Label layoutX="236.0" layoutY="30.0" text="นายรักษิต รุ่งรัตนไชย">
+            <Label fx:id="nameLabel" layoutX="236.0" layoutY="30.0" prefHeight="68.0" prefWidth="321.0" styleClass="profile-card-header" text="นายรักษิต รุ่งรัตนไชย">
                <font>
                   <Font name="System Bold Italic" size="36.0" />
                </font>
             </Label>
-            <ImageView fitHeight="210.0" fitWidth="152.0" layoutX="33.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="image" fitHeight="210.0" fitWidth="152.0" layoutX="33.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/users/card-profile.png" />
                </image>
@@ -135,45 +135,30 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="319.0" layoutY="121.0" text="Sleepman">
+            <Label fx:id="userNameLabel" layoutX="319.0" layoutY="121.0" text="Sleepman">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="321.0" layoutY="189.0" text="pwd.Sleepman">
+            <Label fx:id="dafaultPasswordLabel" layoutX="322.0" layoutY="168.0" text="pwd.Sleepman">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <ImageView fitHeight="54.0" fitWidth="51.0" layoutX="236.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="54.0" fitWidth="51.0" layoutX="237.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/icons/default-key-icon.png" />
                </image>
             </ImageView>
-            <Line endX="358.0" layoutX="329.0" layoutY="99.0" startX="-86.79998779296875" stroke="#9f9f9f" />
-            <ImageView fitHeight="35.0" fitWidth="38.0" layoutX="243.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true">
+            <Line endX="277.20001220703125" layoutX="329.0" layoutY="99.0" startX="-86.79998779296875" stroke="#9f9f9f" />
+            <ImageView fitHeight="35.0" fitWidth="38.0" layoutX="242.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/icons/key-icon.png" />
                </image>
             </ImageView>
-            <Label layoutX="321.0" layoutY="265.0" text="XXXXXXXXXXX">
+            <Label fx:id="passwordLabel" layoutX="320.0" layoutY="234.0" text="XXXXXXXXXXX">
                <font>
                   <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="490.0" layoutY="269.0" styleClass="editPassword" text="แก้ไขรหัสผ่าน" textFill="#ff2828">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="61.0" layoutY="245.0" styleClass="editPassword" text="แก้ไขรูปภาพ" textFill="#ff2828">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="570.0" layoutY="46.0" styleClass="editPassword" text="แก้ไขชื่อ-นามสกุล" textFill="#ff2828">
-               <font>
-                  <Font size="18.0" />
                </font>
             </Label>
          </children>
@@ -193,5 +178,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Button layoutX="1156.0" layoutY="664.0" mnemonicParsing="false" styleClass="edit-data-button" text="แก้ไขข้อมูล" />
    </children>
 </AnchorPane>

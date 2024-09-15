@@ -63,7 +63,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="startPasswordTextField" prefHeight="50.0" prefWidth="286.0" promptText="รหัสผ่านเริ่มต้น" styleClass="input-edit">
+            <TextField fx:id="startPassword" prefHeight="50.0" prefWidth="286.0" promptText="รหัสผ่านเริ่มต้น" styleClass="input-edit">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
@@ -88,7 +88,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <ChoiceBox prefHeight="50.0" prefWidth="326.0" styleClass="choice-box-select">
+            <ChoiceBox fx:id="departmentChoiceBox" prefHeight="50.0" prefWidth="326.0" styleClass="choice-box-select">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
@@ -98,8 +98,9 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <ChoiceBox prefHeight="50.0" prefWidth="350.0" styleClass="choice-box-select" />
+            <ChoiceBox fx:id="facultyChoiceBox" prefHeight="50.0" prefWidth="350.0" styleClass="choice-box-select" />
          </children>
       </VBox>
+      <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="400.0" layoutY="329.0" prefHeight="66.0" prefWidth="315.0" styleClass="error-label" text="error" visible="false" wrapText="true" />
    </children>
 </AnchorPane>

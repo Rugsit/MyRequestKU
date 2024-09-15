@@ -20,7 +20,7 @@ public class Faculty {
     public void setId(String id) {
         id = id.trim();
         if (id.isEmpty()){
-            throw new IllegalArgumentException("กรุณาใส่ชื่อคณะให้ถูกต้อง");
+            throw new IllegalArgumentException("กรุณาใส่รหัสคณะให้ถูกต้อง");
         }
         this.id = id;
     }

@@ -7,10 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ku.cs.models.user.Advisor;
-import ku.cs.models.user.FacultyUser;
-import ku.cs.models.user.User;
-import ku.cs.models.user.UserList;
+import ku.cs.models.user.*;
 import ku.cs.services.FXRouter;
 import ku.cs.services.UserListFileDatasource;
 
@@ -18,28 +15,29 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class AdminManageStaffController {
+    Admin loginUser;
     @FXML
-    Stage currentPopupStage;
-    UserListFileDatasource datasource;
-    UserList userList;
+    private Stage currentPopupStage;
+
+    private UserListFileDatasource datasource;
+    private UserList userList;
+
     @FXML
-    TableView<User> userListTableview;
+    private TableView<User> userListTableview;
     @FXML
-    TabPane staffTabPane;
+    private TabPane staffTabPane;
     @FXML
     private Tab advisorTab;
-
     @FXML
     private Tab departmentTab;
-
     @FXML
     private Tab facultyTab;
-
     @FXML
-    TextField searchTextField;
-
+    private TextField searchTextField;
     @FXML
     public void initialize() {
+        if (FXRouter.getData() instanceof Admin) loginUser = (Admin) FXRouter.getData();
+
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableview.setPlaceholder(placeHolder);
 
@@ -94,11 +92,11 @@ public class AdminManageStaffController {
         TableColumn<User, String> username = new TableColumn<>("ชื่อผู้ใช้");
         username.setCellValueFactory(new PropertyValueFactory<>("username"));
         TableColumn<User, String> startPassword = new TableColumn<>("รหัสผ่านเริ่มต้น");
-        startPassword.setCellValueFactory(new PropertyValueFactory<>("username"));
+        startPassword.setCellValueFactory(new PropertyValueFactory<>("DefaultPassword"));
         TableColumn<User, String> faculty = new TableColumn<>("คณะ");
         faculty.setCellValueFactory(new PropertyValueFactory<>("Faculty"));
 
-        userListTableview.getColumns().setAll(name, username, faculty);
+        userListTableview.getColumns().setAll(name, username, startPassword, faculty);
         readSpecificRole("faculty-staff");
         userListTableview.getItems().addAll(userList.getUsers());
         search(searchTextField.getText());
@@ -111,14 +109,14 @@ public class AdminManageStaffController {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<User, String> username = new TableColumn<>("ชื่อผู้ใช้");
         username.setCellValueFactory(new PropertyValueFactory<>("username"));
-//        TableColumn<User, String> startPassword = new TableColumn<>("รหัสผ่านเริ่มต้น");
-//        startPassword.setCellValueFactory(new PropertyValueFactory<>("username"));
+        TableColumn<User, String> startPassword = new TableColumn<>("รหัสผ่านเริ่มต้น");
+        startPassword.setCellValueFactory(new PropertyValueFactory<>("DefaultPassword"));
         TableColumn<User, String> faculty = new TableColumn<>("คณะ");
         faculty.setCellValueFactory(new PropertyValueFactory<>("faculty"));
         TableColumn<User, String> department = new TableColumn<>("ภาควิชา");
         department.setCellValueFactory(new PropertyValueFactory<>("department"));
 
-        userListTableview.getColumns().setAll(name, username, faculty, department);
+        userListTableview.getColumns().setAll(name, username, startPassword ,faculty, department);
         readSpecificRole("department-staff");
         userListTableview.getItems().addAll(userList.getUsers());
         search(searchTextField.getText());
@@ -132,8 +130,8 @@ public class AdminManageStaffController {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<User, String> username = new TableColumn<>("ชื่อผู้ใช้");
         username.setCellValueFactory(new PropertyValueFactory<>("username"));
-//        TableColumn<User, String> startPassword = new TableColumn<>("รหัสผ่านเริ่มต้น");
-//        startPassword.setCellValueFactory(new PropertyValueFactory<>("username"));
+        TableColumn<User, String> startPassword = new TableColumn<>("รหัสผ่านเริ่มต้น");
+        startPassword.setCellValueFactory(new PropertyValueFactory<>("DefaultPassword"));
         TableColumn<User, String> faculty = new TableColumn<>("คณะ");
         faculty.setCellValueFactory(new PropertyValueFactory<>("faculty"));
         TableColumn<User, String> department = new TableColumn<>("ภาควิชา");
@@ -141,7 +139,7 @@ public class AdminManageStaffController {
         TableColumn<User, String> advisorId = new TableColumn<>("รหัสประจำตัว");
         advisorId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        userListTableview.getColumns().setAll(name, username, faculty, department, advisorId);
+        userListTableview.getColumns().setAll(name, username,startPassword, faculty, department, advisorId);
         readSpecificRole("advisor");
         userListTableview.getItems().addAll(userList.getUsers());
         search(searchTextField.getText());
@@ -160,11 +158,12 @@ public class AdminManageStaffController {
                 Scene scene = new Scene(fxmlLoader.load());
 
                 EditFormController controller = fxmlLoader.getController();
-                controller.setCurrentUser(currentUser);
+                controller.setCurrentObject(currentUser);
                 controller.setStage(currentPopupStage);
-                controller.setUserListForWrite(userList);
+                controller.setListForWrite(userList);
                 controller.showOldUserData(role);
-                controller.setCurrentControllAdminpage(this);
+                controller.setChoiceBox();
+                controller.setCurrentControllPage(this);
                 scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentPopupStage.setScene(scene);
                 currentPopupStage.initModality(Modality.APPLICATION_MODAL);
@@ -179,7 +178,7 @@ public class AdminManageStaffController {
     @FXML
     public void addStaff() {
         Tab tab = staffTabPane.getSelectionModel().getSelectedItem();
-        String addStaffRole = tab == facultyTab ? "faculty-staff" : tab == departmentTab ? "department-staff" : "advisor-staff";
+        String addStaffRole = tab == facultyTab ? "faculty-staff" : tab == departmentTab ? "department-staff" : "advisor";
         try {
             if (currentPopupStage == null || !currentPopupStage.isShowing()) {
                 currentPopupStage = new Stage();
@@ -188,8 +187,10 @@ public class AdminManageStaffController {
 
                 AddFormController controller = fxmlLoader.getController();
                 controller.setStage(currentPopupStage);
-                controller.setUserListForWrite(userList);
-                controller.setCurrentControllAdminpage(this);
+                controller.setListForWrite(userList);
+                controller.setCurrentControllpage(this);
+                controller.setRole(addStaffRole);
+                controller.setChoiceBox();
                 scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentPopupStage.setScene(scene);
                 currentPopupStage.initModality(Modality.APPLICATION_MODAL);
@@ -204,9 +205,8 @@ public class AdminManageStaffController {
     @FXML
     protected void goToAdminManageUsers() {
         try {
-            FXRouter.goTo("admin-manage-users");
-        } catch (
-                IOException e) {
+            FXRouter.goTo("admin-manage-users", loginUser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -214,9 +214,8 @@ public class AdminManageStaffController {
     @FXML
     protected void goToAdminManageFaculty() {
         try {
-            FXRouter.goTo("admin-manage-faculty-department");
-        } catch (
-                IOException e) {
+            FXRouter.goTo("admin-manage-faculty-department", loginUser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -224,9 +223,8 @@ public class AdminManageStaffController {
     @FXML
     protected void goToUserProfile() {
         try {
-            FXRouter.goTo("user-profile");
-        } catch (
-                IOException e) {
+            FXRouter.goTo("admin-user-profile", loginUser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

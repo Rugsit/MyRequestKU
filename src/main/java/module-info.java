@@ -37,4 +37,8 @@ module ku.cs {
     opens ku.cs.controllers.faculty to javafx.fxml;
     exports ku.cs.models.request;
     opens ku.cs.models.request to javafx.base;
+    exports ku.cs.models.department;
+    opens ku.cs.models.department to javafx.fxml;
+    exports ku.cs.models.faculty;
+    opens ku.cs.models.faculty to javafx.fxml;
 }

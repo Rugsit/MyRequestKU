@@ -177,6 +177,10 @@ Button:hover {
 }
 /*Admin profile style*/
 
+.profile-card-header {
+
+}
+
 .cardUserProfile {
     -fx-background-color: white; /* สีพื้นหลังของ Pane */
     -fx-background-radius: 30;
@@ -187,4 +191,10 @@ Button:hover {
     -fx-cursor: hand;
     -fx-text-fill: #2C67FF;
     -fx-underline: true;
+}
+
+.edit-data-button {
+    -fx-cursor: hand;
+    -fx-background-color: #FF5D5D;
+    -fx-text-fill: white;
 }

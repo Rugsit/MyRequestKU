@@ -37,6 +37,8 @@ public class Department {
         name = name.trim();
         if (!name.isEmpty()) {
             this.name = name;
+        } else {
+            throw new IllegalArgumentException("กรุณากรอกชื่อภาควิชาให้ถูกต้อง");
         }
     }
 
@@ -44,6 +46,8 @@ public class Department {
         id = id.trim();
         if (!id.isEmpty()) {
             this.id = id;
+        } else {
+            throw new IllegalArgumentException("กรุณากรอกรหัสภาควิชาให้ถูกต้อง");
         }
     }
 

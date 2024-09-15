@@ -135,7 +135,7 @@ public class UserList implements Serializable {
     public UserList getFacultyList() {
         UserList list = new UserList();
         for (User user : users) {
-            if (user instanceof FacultyUser){
+            if (user.getRole().equals("faculty-staff")){
                list.addUser(user);
             }
         }
@@ -145,7 +145,7 @@ public class UserList implements Serializable {
     public UserList getDepartmentList() {
         UserList list = new UserList();
         for (User user : users) {
-            if (user instanceof DepartmentUser){
+            if (user.getRole().equals("department-staff")){
                 list.addUser(user);
             }
         }
@@ -155,7 +155,7 @@ public class UserList implements Serializable {
     public UserList getAdvisorList() {
         UserList list = new UserList();
         for (User user : users) {
-            if (user instanceof Advisor){
+            if (user.getRole().equals("advisor")){
                 list.addUser(user);
             }
         }
@@ -165,7 +165,7 @@ public class UserList implements Serializable {
     public UserList getStudentList() {
         UserList list = new UserList();
         for (User user : users) {
-            if (user instanceof Student){
+            if (user.getRole().equals("student")){
                 list.addUser(user);
             }
         }
