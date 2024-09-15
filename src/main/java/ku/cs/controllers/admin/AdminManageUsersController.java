@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
+import ku.cs.models.user.Admin;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.FXRouter;
@@ -20,32 +21,31 @@ import java.util.Date;
 import java.util.HashSet;
 
 public class AdminManageUsersController {
-    @FXML
-    TableView<User> userListTableView;
+    Admin loginUser;
+    private UserListFileDatasource datasource;
+    private UserList userlist;
 
     @FXML
-    TextField searchTextField;
-
-    UserListFileDatasource datasource;
-
+    private TableView<User> userListTableView;
     @FXML
-    Tab facultyStaffTab;
+    private TextField searchTextField;
     @FXML
-    Tab departmentStaffTab;
+    private Tab facultyStaffTab;
     @FXML
-    Tab adviserTab;
+    private Tab departmentStaffTab;
     @FXML
-    Tab studentTab;
+    private Tab adviserTab;
     @FXML
-    Tab allTab;
-
+    private Tab studentTab;
     @FXML
-    TabPane userListTabPane;
-
-    UserList userlist;
+    private Tab allTab;
+    @FXML
+    private TabPane userListTabPane;
 
     @FXML
     public void initialize() {
+        if (FXRouter.getData() instanceof Admin) loginUser = (Admin) FXRouter.getData();
+
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableView.setPlaceholder(placeHolder);
         userListTableView.getColumns().clear();
@@ -245,7 +245,7 @@ public class AdminManageUsersController {
     @FXML
     protected void goToAdminManageStaff() {
         try {
-            FXRouter.goTo("admin-manage-staff");
+            FXRouter.goTo("admin-manage-staff", loginUser);
         } catch (
                 IOException e) {
             throw new RuntimeException(e);
@@ -255,7 +255,7 @@ public class AdminManageUsersController {
     @FXML
     protected void goToAdminManageFaculty() {
         try {
-            FXRouter.goTo("admin-manage-faculty-department");
+            FXRouter.goTo("admin-manage-faculty-department", loginUser);
         } catch (
                 IOException e) {
             throw new RuntimeException(e);
@@ -265,7 +265,7 @@ public class AdminManageUsersController {
     @FXML
     protected void goToUserProfile() {
         try {
-            FXRouter.goTo("user-profile");
+            FXRouter.goTo("admin-user-profile", loginUser);
         } catch (
                 IOException e) {
             throw new RuntimeException(e);

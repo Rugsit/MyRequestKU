@@ -1,5 +1,6 @@
 package ku.cs.controllers.admin;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import ku.cs.models.department.Department;
 import ku.cs.models.department.DepartmentList;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
+import ku.cs.models.user.Admin;
 import ku.cs.models.user.User;
 import ku.cs.services.Datasource;
 import ku.cs.services.DepartmentListFileDatasource;
@@ -21,11 +23,13 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class AdminManageFacultyController {
-    @FXML
-    Stage currentPopupStage;
+    Admin loginUser;
 
-    FacultyList facultyList;
-    DepartmentList departmentList;
+    @FXML
+    private Stage currentPopupStage;
+
+    private FacultyList facultyList;
+    private DepartmentList departmentList;
 
     @FXML
     private TextField searchTextField;
@@ -41,6 +45,8 @@ public class AdminManageFacultyController {
     private TableView<Department> departmentTableView;
     @FXML
     public void initialize() {
+        if (FXRouter.getData() instanceof Admin) loginUser = (Admin) FXRouter.getData();
+
         Label placeHolder = new Label("ไม่พบข้อมูล");
         facultyTableView.setPlaceholder(placeHolder);
         departmentTableView.setPlaceholder(placeHolder);
@@ -179,13 +185,38 @@ public class AdminManageFacultyController {
             System.err.println("Error: " + ee.getMessage());
         }
     }
+   @FXML
+   public void addPopup() {
+        Tab tab = tabpane.getSelectionModel().getSelectedItem();
+        String addFacultyDepartment = tab == facultyTab ? "faculty" : "department";
+        try {
+            if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                currentPopupStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/add-" + addFacultyDepartment + ".fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                AddFormController controller = fxmlLoader.getController();
+                controller.setStage(currentPopupStage);
+                if (addFacultyDepartment.equals("faculty")) controller.setListForWrite(facultyList);
+                else controller.setListForWrite(departmentList);
+                controller.setCurrentControllpage(this);
+                controller.setChoiceBox();
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
+                currentPopupStage.setScene(scene);
+                currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+                currentPopupStage.setTitle("Confirm");
+                currentPopupStage.show();
+            }
+        } catch (IOException ee) {
+            System.err.println("Error: " + ee.getMessage());
+        }
+    }
 
     @FXML
     protected void goToAdminManageUsers() {
         try {
-            FXRouter.goTo("admin-manage-users");
-        } catch (
-                IOException e) {
+            FXRouter.goTo("admin-manage-users", loginUser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -193,9 +224,8 @@ public class AdminManageFacultyController {
     @FXML
     protected void goToAdminManageStaff() {
         try {
-            FXRouter.goTo("admin-manage-staff");
-        } catch (
-                IOException e) {
+            FXRouter.goTo("admin-manage-staff", loginUser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -203,9 +233,8 @@ public class AdminManageFacultyController {
     @FXML
     protected void goToUserProfile() {
         try {
-            FXRouter.goTo("user-profile");
-        } catch (
-                IOException e) {
+            FXRouter.goTo("admin-user-profile", loginUser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

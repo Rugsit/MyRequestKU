@@ -7,10 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ku.cs.models.user.Advisor;
-import ku.cs.models.user.FacultyUser;
-import ku.cs.models.user.User;
-import ku.cs.models.user.UserList;
+import ku.cs.models.user.*;
 import ku.cs.services.FXRouter;
 import ku.cs.services.UserListFileDatasource;
 
@@ -18,29 +15,29 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class AdminManageStaffController {
+    Admin loginUser;
     @FXML
-    Stage currentPopupStage;
-    UserListFileDatasource datasource;
-    UserList userList;
+    private Stage currentPopupStage;
+
+    private UserListFileDatasource datasource;
+    private UserList userList;
 
     @FXML
-    TableView<User> userListTableview;
+    private TableView<User> userListTableview;
     @FXML
-    TabPane staffTabPane;
+    private TabPane staffTabPane;
     @FXML
     private Tab advisorTab;
-
     @FXML
     private Tab departmentTab;
-
     @FXML
     private Tab facultyTab;
-
     @FXML
-    TextField searchTextField;
-
+    private TextField searchTextField;
     @FXML
     public void initialize() {
+        if (FXRouter.getData() instanceof Admin) loginUser = (Admin) FXRouter.getData();
+
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableview.setPlaceholder(placeHolder);
 
@@ -190,8 +187,8 @@ public class AdminManageStaffController {
 
                 AddFormController controller = fxmlLoader.getController();
                 controller.setStage(currentPopupStage);
-                controller.setUserListForWrite(userList);
-                controller.setCurrentControllAdminpage(this);
+                controller.setListForWrite(userList);
+                controller.setCurrentControllpage(this);
                 controller.setRole(addStaffRole);
                 controller.setChoiceBox();
                 scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
@@ -208,9 +205,8 @@ public class AdminManageStaffController {
     @FXML
     protected void goToAdminManageUsers() {
         try {
-            FXRouter.goTo("admin-manage-users");
-        } catch (
-                IOException e) {
+            FXRouter.goTo("admin-manage-users", loginUser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -218,9 +214,8 @@ public class AdminManageStaffController {
     @FXML
     protected void goToAdminManageFaculty() {
         try {
-            FXRouter.goTo("admin-manage-faculty-department");
-        } catch (
-                IOException e) {
+            FXRouter.goTo("admin-manage-faculty-department", loginUser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -228,9 +223,8 @@ public class AdminManageStaffController {
     @FXML
     protected void goToUserProfile() {
         try {
-            FXRouter.goTo("user-profile");
-        } catch (
-                IOException e) {
+            FXRouter.goTo("admin-user-profile", loginUser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

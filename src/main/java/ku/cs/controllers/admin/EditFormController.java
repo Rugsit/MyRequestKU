@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ku.cs.models.department.Department;
 import ku.cs.models.department.DepartmentList;
+import ku.cs.models.department.NoFacultyException;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.*;
@@ -18,22 +19,23 @@ import ku.cs.services.UserListFileDatasource;
 import org.w3c.dom.Text;
 
 public class EditFormController {
-    AdminManageStaffController currentControllStaffPage;
-    AdminManageFacultyController currentControllFacultyPage;
-    UserListFileDatasource datasourceUserlist;
-    FacultyListFileDatasource datasourceFacultylist;
-    DepartmentListFileDatasource datasourceDepartmentlist;
+    private AdminManageStaffController currentControllStaffPage;
+    private AdminManageFacultyController currentControllFacultyPage;
+    private UserListFileDatasource datasourceUserlist;
+    private FacultyListFileDatasource datasourceFacultylist;
+    private DepartmentListFileDatasource datasourceDepartmentlist;
 
-    String currentRole;
+    private String prevFacaltyChose;
+    private String currentRole;
 
-    Faculty faculty;
-    FacultyList facultyList;
-    Department department;
-    DepartmentList departmentList;
-    User currentUser;
-    UserList userList;
+    private Faculty faculty;
+    private FacultyList facultyList;
+    private Department department;
+    private  DepartmentList departmentList;
+    private User currentUser;
+    private UserList userList;
 
-    Stage stage;
+    private Stage stage;
 
     @FXML
     private Label departmentNameLabel;
@@ -81,6 +83,25 @@ public class EditFormController {
     private Label startPasswordLabel;
     @FXML
     private Label userNameLabel;
+
+    @FXML
+    public void initialize() {
+        if (departmentChoiceBox != null) {
+            departmentChoiceBox.setOnMouseClicked(e -> {
+                if (facultyChoiceBox.getValue() != null && prevFacaltyChose != facultyChoiceBox.getValue()) {
+                    prevFacaltyChose = facultyChoiceBox.getValue();
+                    departmentChoiceBox.getItems().clear();
+                    DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
+                    DepartmentList departmentList = datasourceDepartment.readData();
+                    for (Department department : departmentList.getDepartments()) {
+                        if (department.getFaculty().equals(facultyChoiceBox.getValue())) {
+                            departmentChoiceBox.getItems().add(department.getName());
+                        }
+                    }
+                }
+            });
+        }
+    }
 
     public void showOldFacultyDepartmentData() {
         if (faculty == null) {
@@ -196,21 +217,37 @@ public class EditFormController {
                 errorLabel.setText(e.getMessage());
             }
         } else if (faculty != null) {
-            datasourceFacultylist = new FacultyListFileDatasource("data");
-            faculty.setName(facultyNameTextField.getText());
-            faculty.setId(facultyIdTextField.getText());
-            datasourceFacultylist.writeData(facultyList);
-            currentControllFacultyPage.loadFaculty();
-            stage.close();
+            try {
+                datasourceFacultylist = new FacultyListFileDatasource("data");
+                Datasource<DepartmentList> departmentData = new DepartmentListFileDatasource("data");
+                DepartmentList departmentUpdateList = departmentData.readData();
+                String oldname = faculty.getName();
+                faculty.setName(facultyNameTextField.getText());
+                faculty.setId(facultyIdTextField.getText());
+                departmentUpdateList.updateFaculty(faculty, oldname);
+                departmentData.writeData(departmentUpdateList);
+                datasourceFacultylist.writeData(facultyList);
+                currentControllFacultyPage.loadFaculty();
+                stage.close();
+            } catch (IllegalArgumentException | NoFacultyException e) {
+                errorLabel.setVisible(true);
+                errorLabel.setText(e.getMessage());
+            }
 
         } else if (departmentList != null) {
-            datasourceDepartmentlist = new DepartmentListFileDatasource("data");
-            department.setName(departmentNameTextField.getText());
-            department.setFaculty(facultyTextField.getText());
-            department.setId(departmentIdTextField.getText());
-            datasourceDepartmentlist.writeData(departmentList);
-            currentControllFacultyPage.loadDepartment();
-            stage.close();
+            try {
+                datasourceDepartmentlist = new DepartmentListFileDatasource("data");
+                department.setName(departmentNameTextField.getText());
+                if (facultyChoiceBox != null) department.setFaculty(facultyChoiceBox.getValue());
+                else throw new IllegalArgumentException("กรุณาเลือกคณะที่ต้องการแก้ไข");
+                department.setId(departmentIdTextField.getText());
+                datasourceDepartmentlist.writeData(departmentList);
+                currentControllFacultyPage.loadDepartment();
+                stage.close();
+            } catch (NoFacultyException | IllegalArgumentException e) {
+                errorLabel.setVisible(true);
+                errorLabel.setText(e.getMessage());
+            }
         }
     }
 }

@@ -127,9 +127,8 @@ public class LoginController {
     @FXML
     protected void goToAdminManage() {
         try {
-            FXRouter.goTo("admin-manage-users");
-        } catch (
-                IOException e) {
+            FXRouter.goTo("admin-user-profile", loginUser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

@@ -11,60 +11,63 @@ import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
+import ku.cs.services.Datasource;
 import ku.cs.services.DepartmentListFileDatasource;
 import ku.cs.services.FacultyListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
+import org.w3c.dom.Text;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class AddFormController {
-    AdminManageStaffController currentControllAdminpage;
-    String currentRole;
-    Stage stage;
-    UserList userList;
-    @FXML
-    Label errorLabel;
+    private AdminManageStaffController adminStaffController;
+    private AdminManageFacultyController adminFacultyController;
+
+    private String currentRole;
+    private Stage stage;
+
+    private FacultyList facultyList;
+    private DepartmentList departmentList;
+    private UserList userList;
 
     @FXML
-    ChoiceBox<String> departmentChoiceBox;
+    private TextField facultyNameTextField;
     @FXML
-    ChoiceBox<String> facultyChoiceBox;
-
+    private TextField facultyIdTextField;
+    @FXML
+    private TextField departmentNameTextField;
+    @FXML
+    private TextField departmentIdTextField;
+    @FXML
+    private Label errorLabel;
+    @FXML
+    private ChoiceBox<String> departmentChoiceBox;
+    @FXML
+    private ChoiceBox<String> facultyChoiceBox;
     @FXML
     private Label facultyLabel;
-
     @FXML
     private Label nameLabel;
-
     @FXML
     private Label departmentLabel;
-
     @FXML
     private Label advisorIdLabel;
-
     @FXML
     private TextField advisorIdTextField;
-
     @FXML
     private TextField firstNameTextField;
-
     @FXML
     private TextField lastNameTextField;
-
     @FXML
     private TextField userNameTextField;
-
     @FXML
     private TextField startPassword;
-
     @FXML
     private Label startPasswordLabel;
-
     @FXML
     private Label userNameLabel;
-
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -73,23 +76,35 @@ public class AddFormController {
     public void setRole(String role) {
         currentRole = role;
     }
-    public void setUserListForWrite(UserList userList) {
-       this.userList = userList;
+    public void setListForWrite(Object objectlist) {
+        if (objectlist instanceof DepartmentList) {
+            this.departmentList = (DepartmentList) objectlist;
+        } else if (objectlist instanceof FacultyList) {
+            this.facultyList = (FacultyList) objectlist;
+        } else if (objectlist instanceof UserList) {
+            this.userList = (UserList) objectlist;
+        }
     }
 
-    public void setCurrentControllAdminpage(AdminManageStaffController currentControllAdminpage) {
-        this.currentControllAdminpage = currentControllAdminpage;
+    public void setCurrentControllpage(Object object) {
+        if (object instanceof AdminManageStaffController) {
+            this.adminStaffController = (AdminManageStaffController) object;
+        } else if (object instanceof AdminManageFacultyController) {
+            this.adminFacultyController = (AdminManageFacultyController) object;
+        }
     }
 
     public void setChoiceBox() {
-        FacultyListFileDatasource datasourceFaculty = new FacultyListFileDatasource("data");
-        DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
-        FacultyList list =  datasourceFaculty.readData();
-        DepartmentList departmentList = datasourceDepartment.readData();
-        for (Faculty faculty : list.getFacultyList()) {
-            facultyChoiceBox.getItems().add(faculty.getName());
+        if (facultyChoiceBox != null) {
+            FacultyListFileDatasource datasourceFaculty = new FacultyListFileDatasource("data");
+            FacultyList list =  datasourceFaculty.readData();
+            for (Faculty faculty : list.getFacultyList()) {
+                facultyChoiceBox.getItems().add(faculty.getName());
+            }
         }
         if (departmentChoiceBox != null) {
+            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
+            DepartmentList departmentList = datasourceDepartment.readData();
             for (Department department : departmentList.getDepartments()) {
                 departmentChoiceBox.getItems().add(department.getName());
             }
@@ -114,23 +129,39 @@ public class AddFormController {
                 FacultyUser facultyUser = new FacultyUser(uuid.toString(), "0000000000", userNameTextField.getText(), "faculty-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), "no-image", "active", facultyChoiceBox.getValue());
                 userList.addUser(facultyUser);
                 datasource.writeData(userList.getFacultyList());
-                currentControllAdminpage.loadFacultyStaff();
+                adminStaffController.loadFacultyStaff();
             } else if (currentRole.equals("department-staff")) {
                 DepartmentUser departmentUser = new DepartmentUser(uuid.toString(), "0000000000", userNameTextField.getText(), "department-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), "no-image", "active", facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
                 userList.addUser(departmentUser);
                 datasource.writeData(userList.getDepartmentList());
-                currentControllAdminpage.loadDepartmentStaff();
+                adminStaffController.loadDepartmentStaff();
             } else if (currentRole.equals("advisor")) {
                 Advisor advisor = new Advisor(uuid.toString(), advisorIdTextField.getText(), userNameTextField.getText(), "advisor", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), "no-image", "active", facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
                 userList.addUser(advisor);
                 datasource.writeData(userList.getAdvisorList());
-                currentControllAdminpage.loadAdvisor();
+                adminStaffController.loadAdvisor();
             }
             stage.close();
         } catch (UserException e) {
             errorLabel.setVisible(true);
             errorLabel.setText(e.getMessage());
         }
+    }
+
+    @FXML
+    public void onAcceptFacultyDepartmentClick() {
+        if (departmentList != null) {
+            Datasource<DepartmentList> datasource = new DepartmentListFileDatasource("data");
+            departmentList.addDepartment(departmentNameTextField.getText(), departmentIdTextField.getText(), facultyChoiceBox.getValue());
+            datasource.writeData(departmentList);
+            adminFacultyController.loadDepartment();
+        } else if (facultyList != null) {
+            Datasource<FacultyList> datasource = new FacultyListFileDatasource("data");
+            facultyList.addFaculty(facultyNameTextField.getText(), facultyIdTextField.getText());
+            datasource.writeData(facultyList);
+            adminFacultyController.loadFaculty();
+        }
+        stage.close();
     }
 
 
