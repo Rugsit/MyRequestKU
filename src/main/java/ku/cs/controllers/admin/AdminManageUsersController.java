@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -128,7 +129,9 @@ public class AdminManageUsersController {
     private void loadAllUsers() {
         datasource = new UserListFileDatasource("data", "admin.csv");
         userlist = datasource.readAllUser();
-        HashSet<User> HashUser = userlist.getUsers();
+        //MARK !!!!
+        Collection<User> HashUser = userlist.getUsers();
+        //MARK !!!!
         HashUser.removeIf(user -> user.getRole().equals("admin"));
         updateTableView();
     }
@@ -166,37 +169,49 @@ public class AdminManageUsersController {
             search();
         }
     }
-
+//CONFLICTS FOR NEST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private void writeSpecificUsers(String fileName) {
         datasource = new UserListFileDatasource("data", fileName);
         if (fileName.equals("faculty-staff.csv")) {
-            datasource.writeData(userlist.getFacultyList());
+            datasource.writeData(userlist.getUserList("faculty-staff"));
         } else if (fileName.equals("department-staff.csv")) {
-            datasource.writeData(userlist.getDepartmentList());
+            datasource.writeData(userlist.getUserList("department-staff"));
         } else if (fileName.equals("student.csv")) {
-            datasource.writeData(userlist.getStudentList());
+            datasource.writeData(userlist.getUserList("student"));
         } else if (fileName.equals("advisor.csv")) {
-            datasource.writeData(userlist.getAdvisorList());
+            datasource.writeData(userlist.getUserList("advisor"));
         }
     }
 
     private void writeAllUsers(User user) {
         String role = user.getRole();
+
+//        UserList tmp;
+//        tmp = new UserList();
+//        tmp.getUsers(role).addAll(userlist.getUsers(role));
+//        datasource.writeData(tmp);
+//        สามารถเรียก ref ของ collection ภายในมาใช้ได้แต่รกนิสนึง
+
         if (role.equals("faculty-staff")) {
             datasource = new UserListFileDatasource("data", "faculty-staff.csv");
-            datasource.writeData(userlist.getFacultyList());
+//            datasource.writeData(userlist.getFacultyList());
+            datasource.writeData(userlist.getUserList(role));
         } else if (role.equals("department-staff")) {
             datasource = new UserListFileDatasource("data", "department-staff.csv");
-            datasource.writeData(userlist.getDepartmentList());
+//            datasource.writeData(userlist.getDepartmentList());
+            datasource.writeData(userlist.getUserList(role));
         } else if (role.equals("student")) {
             datasource = new UserListFileDatasource("data", "student.csv");
-            datasource.writeData(userlist.getStudentList());
+//            datasource.writeData(userlist.getStudentList());
+            datasource.writeData(userlist.getUserList(role));
         } else if (role.equals("advisor")) {
             datasource = new UserListFileDatasource("data", "advisor.csv");
-            datasource.writeData(userlist.getAdvisorList());
+//            datasource.writeData(userlist.getAdvisorList());
+            datasource.writeData(userlist.getUserList(role));
+
         }
     }
-
+//CONFLICTS FOR NEST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     @FXML
     public void banButton() {
         User currentUser = userListTableView.getSelectionModel().getSelectedItem();

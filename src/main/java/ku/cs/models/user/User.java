@@ -4,13 +4,15 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import ku.cs.models.user.exceptions.*;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.Random;
 import java.util.UUID;
 
 import static ku.cs.services.utils.DateTools.localDateTimeToFormatString;
 import static ku.cs.services.utils.DateTools.formatToLocalDateTime;
 import static ku.cs.services.utils.StringCompare.*;
 
-public abstract class User implements Identifiable, Comparable {
+public abstract class User implements Identifiable, Comparable<User> {
     private final UUID uuid;
     private String id;
     private String username;
@@ -63,6 +65,17 @@ public abstract class User implements Identifiable, Comparable {
         this.password = password;
         this.active = activeStatus.equalsIgnoreCase("active");
     }
+    //Comparator
+    public static Comparator<User> userIdComparator = new Comparator<>() {
+        public int compare(User u1, User u2) {
+            return u1.getId().compareTo(u2.getId());
+        }
+    };
+    public static Comparator<User> usernameComparator = new Comparator<>() {
+        public int compare(User u1, User u2) {
+            return u1.getUsername().compareTo(u2.getUsername());
+        }
+    };
 
     //GETTER
 
@@ -104,7 +117,16 @@ public abstract class User implements Identifiable, Comparable {
         return this.email;
     }
     public String getDefaultPassword() {
-        return firstname + "-" + lastname + "-default-password";
+        String strUUID = this.uuid.toString();
+        int sum = 0;
+        for(char c : strUUID.toCharArray()) {
+            sum += c;
+        }
+        Random random = new Random();
+        random.setSeed(sum);
+        int max=999999999,min=100000000;
+        String defaultPassword = "" + (random.nextInt(max - min + 1) + min);
+        return defaultPassword;
     }
     public String getAvatar(){
         return this.avatar;
@@ -121,8 +143,11 @@ public abstract class User implements Identifiable, Comparable {
         if(id == null) throw new IDException("ID must not be null");
         if(id.isEmpty()) throw new IDException("ID must not be empty");
         if(haveSpace(id)) throw new IDException("ID must not contain spaces");
+        if(role.equalsIgnoreCase("student")){
+            if(!isDigit(id)) throw new IDException("Nisit ID must be digits");
+            if(id.length() != 10) throw new IDException("Nisit ID must be 10 characters");
+        }
         if(!isAlphaNumberic(id)) throw new IDException("ID must be a alphanumeric");
-        if(role.equalsIgnoreCase("student") && id.length() != 10) throw new IDException("ID must be 10 characters");
         this.id = id.trim();
     }
 
@@ -152,7 +177,9 @@ public abstract class User implements Identifiable, Comparable {
     public void setFirstname(String firstname) throws NameException{
         if(firstname == null) throw new NameException("Firstname must not be null");
         if(firstname.isEmpty()) throw new NameException("Firstname must not be empty");
-        if(haveSpace(firstname)) throw new NameException("Firstname must not contain spaces");
+        if(startWithSpace(firstname)) throw new NameException("Firstname must not start with spaces");
+        if(endWithSpace(firstname)) throw new NameException("Firstname must not end with spaces");
+        if(haveDuplicateSpace(firstname)) throw new NameException("Firstname must not contain duplicate spaces");
         if(!isAplha(firstname)) throw new NameException("Firstname must be alphabet");
         this.firstname = firstname.trim().toLowerCase();
     }
@@ -160,7 +187,9 @@ public abstract class User implements Identifiable, Comparable {
     public void setLastname(String lastname) throws NameException{
         if(lastname == null) throw new NameException("Lastname must not be null");
         if(lastname.isEmpty()) throw new NameException("Lastname must not be empty");
-        if(haveSpace(lastname)) throw new NameException("Lastname must not contain spaces");
+        if(startWithSpace(lastname)) throw new NameException("Lastname must not start with spaces");
+        if(endWithSpace(lastname)) throw new NameException("Lastname must not end with spaces");
+        if(haveDuplicateSpace(lastname)) throw new NameException("Lastname must not contain duplicate spaces");
         if(!isAplha(lastname)) throw new NameException("Lastname must be alphabet");
         this.lastname = lastname.trim().toLowerCase();
     }
@@ -241,9 +270,9 @@ public abstract class User implements Identifiable, Comparable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof User){
-            User user = (User) obj;
-            if(user.uuid.equals(this.uuid))
+        if(obj instanceof Identifiable){
+            Identifiable user = (Identifiable)obj;
+            if(this.uuid.equals(user.getUUID()))
                 return true;
         }
         return false;
@@ -253,13 +282,8 @@ public abstract class User implements Identifiable, Comparable {
         return this.uuid.hashCode();
     }
     @Override
-    public int compareTo(Object o) {
-        if(o instanceof Identifiable){
-            Identifiable user = (Identifiable) o;
-            return this.uuid.compareTo(user.getUUID());
-        }
-        return 0;
-
+    public int compareTo(User user) {
+        return this.uuid.compareTo(user.getUUID());
     }
 
     @Override

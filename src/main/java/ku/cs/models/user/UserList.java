@@ -6,9 +6,12 @@ import java.io.Serializable;
 import java.util.*;
 
 public class UserList implements Serializable {
-    private HashSet<User> users;
+    private HashMap<String, ArrayList<User>> users;
     public UserList() {
-        users = new HashSet<>();
+        users = new HashMap<>();
+        for(String role : Identifiable.AVAILABLE_ROLES){
+            users.put(role, new ArrayList<>());
+        }
     }
 
     public void addUser(String id,
@@ -41,7 +44,7 @@ public class UserList implements Serializable {
                     throw new UserException("Invalid role");
                 }
         }
-        users.add(user);
+        users.get(role).add(user);
     }
     public void addUser(String uuid,
                         String id,
@@ -77,36 +80,89 @@ public class UserList implements Serializable {
                     throw new UserException("Invalid role");
                 }
         }
-        users.add(user);
+        users.get(role).add(user);
     }
-    public User findUserById(String id){
-        if(id != null && !id.isEmpty()){
-            for(User user : users){
-                if(user.isId(id))
-                    return user;
+    public void addUser(User user) throws UserException {
+        if(user != null){
+            if(!haveUser(user)){
+                users.get(user.getRole()).add(user);
+            }
+        }
+    }
+    public User findUserById(String queryId){
+        if(queryId != null && !queryId.isEmpty()){
+            for(ArrayList<User> list : users.values()){
+                Collections.sort(list,User.userIdComparator);
+                int low = 0;
+                int high = list.size()-1;
+                while(low <= high){
+                    int mid = low + (high - low) / 2;
+                    if(list.get(mid).getId().compareTo(queryId) == 0){
+                        return list.get(mid);
+                    }
+                    // If query greater, ignore left half
+                    if (list.get(mid).getId().compareTo(queryId) < 0)
+                        low = mid + 1;
+
+                    // If query is smaller, ignore right half
+                    else
+                        high = mid - 1;
+                }
             }
         }
         return null;
     }
-    public User findUserByUsername(String username){
-        if(username != null && !username.isEmpty()){
-            for(User user : users){
-                if(user.isUsername(username))
-                    return user;
+    public User findUserByUsername(String queryUsername){
+        if(queryUsername != null && !queryUsername.isEmpty()){
+            for(ArrayList<User> list : users.values()){
+                Collections.sort(list,User.usernameComparator);
+                int low = 0;
+                int high = list.size()-1;
+                while(low <= high){
+                    int mid = low + (high - low) / 2;
+                    if(list.get(mid).getUsername().compareTo(queryUsername) == 0){
+                        return list.get(mid);
+                    }
+                    // If query greater, ignore left half
+                    if (list.get(mid).getUsername().compareTo(queryUsername) < 0)
+                        low = mid + 1;
+
+                        // If query is smaller, ignore right half
+                    else
+                        high = mid - 1;
+                }
             }
         }
         return null;
     }
 
     public boolean haveUser(User user){
-        return users.contains(user);
+        boolean found = false;
+        for(ArrayList<User> list : users.values()){
+            if(list.contains(user)){
+                found = true;
+            }
+        }
+        return found;
     }
-    public User findUserByObject(User user){
-        if(user != null){
-            if(haveUser(user)){
-                for(User u : users){
-                    if(u.equals(user))
-                        return u;
+    public User findUserByObject(User queryUser){
+        if(queryUser != null){
+            for(ArrayList<User> list : users.values()){
+                Collections.sort(list);
+                int low = 0;
+                int high = list.size()-1;
+                while(low <= high){
+                    int mid = low + (high - low) / 2;
+                    if(list.get(mid).compareTo(queryUser) == 0){
+                        return list.get(mid);
+                    }
+                    // If query greater, ignore left half
+                    if (list.get(mid).compareTo(queryUser) < 0)
+                        low = mid + 1;
+
+                    // If query is smaller, ignore right half
+                    else
+                        high = mid - 1;
                 }
             }
         }
@@ -117,62 +173,38 @@ public class UserList implements Serializable {
     public void deleteUserByObject(User user){
         if(user != null && haveUser(user)){
             try{
-                users.remove(user);
+                users.get(user.getRole()).remove(user);
             }catch(Exception e){
                 e.printStackTrace();
             }
         }
     }
-    public HashSet<User> getUsers(){
-        return users;
+    public Collection<User> getUsers(){
+        ArrayList<User> list = new ArrayList<>();
+        for(ArrayList<User> roleList : users.values()){
+            list.addAll(roleList);
+        }
+        return list;
     }
+    public Collection<User> getUsers(String role){
+        if(!Identifiable.AVAILABLE_ROLES.contains(role))return  null;
+        return users.get(role);
+    }
+    public UserList getUserList(String role){
+        if(!Identifiable.AVAILABLE_ROLES.contains(role))return  null;
+        UserList newUserList = new UserList();
+        newUserList.getUsers(role).addAll(users.get(role));
+        return newUserList;
+    }
+    public void concatenate(UserList userList){
+        for(String role : users.keySet()){
+            users.get(role).addAll(userList.users.get(role));
+        }
+    }
+
     @Override
     public String toString() {
         return users.toString();
     }
 
-
-    public UserList getFacultyList() {
-        UserList list = new UserList();
-        for (User user : users) {
-            if (user.getRole().equals("faculty-staff")){
-               list.addUser(user);
-            }
-        }
-        return list;
-    }
-
-    public UserList getDepartmentList() {
-        UserList list = new UserList();
-        for (User user : users) {
-            if (user.getRole().equals("department-staff")){
-                list.addUser(user);
-            }
-        }
-        return list;
-    }
-
-    public UserList getAdvisorList() {
-        UserList list = new UserList();
-        for (User user : users) {
-            if (user.getRole().equals("advisor")){
-                list.addUser(user);
-            }
-        }
-        return list;
-    }
-
-    public UserList getStudentList() {
-        UserList list = new UserList();
-        for (User user : users) {
-            if (user.getRole().equals("student")){
-                list.addUser(user);
-            }
-        }
-        return list;
-    }
-
-    public void addUser(User user) {
-        users.add(user);
-    }
 }

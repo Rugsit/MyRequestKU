@@ -128,17 +128,17 @@ public class AddFormController {
             if (currentRole.equals("faculty-staff")) {
                 FacultyUser facultyUser = new FacultyUser(uuid.toString(), "0000000000", userNameTextField.getText(), "faculty-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), "no-image", "active", facultyChoiceBox.getValue());
                 userList.addUser(facultyUser);
-                datasource.writeData(userList.getFacultyList());
+                datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadFacultyStaff();
             } else if (currentRole.equals("department-staff")) {
                 DepartmentUser departmentUser = new DepartmentUser(uuid.toString(), "0000000000", userNameTextField.getText(), "department-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), "no-image", "active", facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
                 userList.addUser(departmentUser);
-                datasource.writeData(userList.getDepartmentList());
+                datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadDepartmentStaff();
             } else if (currentRole.equals("advisor")) {
                 Advisor advisor = new Advisor(uuid.toString(), advisorIdTextField.getText(), userNameTextField.getText(), "advisor", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), "no-image", "active", facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
                 userList.addUser(advisor);
-                datasource.writeData(userList.getAdvisorList());
+                datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadAdvisor();
             }
             stage.close();
