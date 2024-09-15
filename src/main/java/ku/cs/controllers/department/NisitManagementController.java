@@ -156,7 +156,7 @@ public class NisitManagementController {
         datasource = new UserListFileDatasource("data","student.csv");
         users = datasource.readData();
 
-        for(User user : users.getUsers()){
+        for(User user : users.getUsers("student")){
             if(user.isRole("student")){
 //                System.out.println(">>>> " + user);
                 nisitTableView.getItems().add(user);

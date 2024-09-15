@@ -12,6 +12,7 @@ import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -122,7 +123,9 @@ public class AdminManageUsersController {
         userListTableView.getItems().clear();
         datasource = new UserListFileDatasource("data", "admin.csv");
         userlist = datasource.readAllUser();
-        HashSet<User> HashUser = userlist.getUsers();
+        //MARK !!!!
+        Collection<User> HashUser = userlist.getUsers();
+        //MARK !!!!
         HashUser.removeIf(user -> user.getRole().equals("admin"));
         userListTableView.getItems().addAll(userlist.getUsers());
         storeCurrentUserList.clear();
@@ -145,7 +148,9 @@ public class AdminManageUsersController {
 
     private void writeAllUsers(User user) {
         String role = user.getRole();
-        HashSet<User> hashUser = userlist.getUsers();
+        //MARK !!!!
+        Collection<User> hashUser = userlist.getUsers();
+        //MARK !!!!
         hashUser.removeIf(user1 -> !user1.getRole().equals(role));
         if (role.equals("faculty-staff")) {
             datasource = new UserListFileDatasource("data", "faculty-staff.csv");

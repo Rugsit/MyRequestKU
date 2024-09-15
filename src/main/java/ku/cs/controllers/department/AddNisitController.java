@@ -199,7 +199,7 @@ public class AddNisitController {
     private void refreshTableData(){
         nisitTableView.getItems().clear();
 
-        for(User user : users.getUsers()){
+        for(User user : users.getUsers("student")){
             if(user.isRole("student")){
 //                System.out.println(">>>> " + user);
                 nisitTableView.getItems().add(user);
@@ -436,7 +436,7 @@ public class AddNisitController {
                                         "MyFaculty",
                                         "MyDepartment"
                                 );
-                                users.getUsers().addAll(tmpUserList.getUsers());
+                                users.concatenate(tmpUserList);
                                 setEditorErrorLabel("");
                                 mainStackPane.getChildren().removeLast();
                                 refreshTableData();
@@ -472,7 +472,7 @@ public class AddNisitController {
         selectedUserListener();
     }
     private void onSaveAddNisitButton(){
-        if(users.getUsers().isEmpty()){
+        if(users.getUsers("student").isEmpty()){
             mainStackPane.getChildren().add(new ConfirmStack("Alert","ไม่สามารถบันทึกข้อมูลได้เนื่องจากไม่มีข้อมูล"){
                 @Override
                 protected void initialize(){
@@ -505,7 +505,7 @@ public class AddNisitController {
                             datasource = new UserListFileDatasource("data","student.csv");
                             UserList studentUserList = datasource.readData();
 
-                            studentUserList.getUsers().addAll(users.getUsers());
+                            studentUserList.concatenate(users);
 
                             datasource.writeData(studentUserList);
                         }catch (Exception err){
