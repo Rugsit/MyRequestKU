@@ -4,6 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import ku.cs.models.user.exceptions.*;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ import static ku.cs.services.utils.DateTools.localDateTimeToFormatString;
 import static ku.cs.services.utils.DateTools.formatToLocalDateTime;
 import static ku.cs.services.utils.StringCompare.*;
 
-public abstract class User implements Identifiable, Comparable {
+public abstract class User implements Identifiable, Comparable<User> {
     private final UUID uuid;
     private String id;
     private String username;
@@ -64,6 +65,17 @@ public abstract class User implements Identifiable, Comparable {
         this.password = password;
         this.active = activeStatus.equalsIgnoreCase("active");
     }
+    //Comparator
+    public static Comparator<User> userIdComparator = new Comparator<>() {
+        public int compare(User u1, User u2) {
+            return u1.getId().compareTo(u2.getId());
+        }
+    };
+    public static Comparator<User> usernameComparator = new Comparator<>() {
+        public int compare(User u1, User u2) {
+            return u1.getUsername().compareTo(u2.getUsername());
+        }
+    };
 
     //GETTER
 
@@ -258,9 +270,9 @@ public abstract class User implements Identifiable, Comparable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof User){
-            User user = (User) obj;
-            if(user.uuid.equals(this.uuid))
+        if(obj instanceof Identifiable){
+            Identifiable user = (Identifiable)obj;
+            if(this.uuid.equals(user.getUUID()))
                 return true;
         }
         return false;
@@ -270,13 +282,8 @@ public abstract class User implements Identifiable, Comparable {
         return this.uuid.hashCode();
     }
     @Override
-    public int compareTo(Object o) {
-        if(o instanceof Identifiable){
-            Identifiable user = (Identifiable) o;
-            return this.uuid.compareTo(user.getUUID());
-        }
-        return 0;
-
+    public int compareTo(User user) {
+        return this.uuid.compareTo(user.getUUID());
     }
 
     @Override

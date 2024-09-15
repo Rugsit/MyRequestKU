@@ -213,7 +213,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
                 continue;
             }
             userListDatasource = new UserListFileDatasource("data", fileName + ".csv");
-            userList.getUsers().addAll(userListDatasource.readData().getUsers());
+            userList.concatenate(userListDatasource.readData());
         }
         return userList;
     }
