@@ -175,9 +175,9 @@ public abstract class User implements Identifiable, Comparable {
     public void setLastname(String lastname) throws NameException{
         if(lastname == null) throw new NameException("Lastname must not be null");
         if(lastname.isEmpty()) throw new NameException("Lastname must not be empty");
-        if(startWithSpace(firstname)) throw new NameException("Lastname must not start with spaces");
-        if(endWithSpace(firstname)) throw new NameException("Lastname must not end with spaces");
-        if(haveDuplicateSpace(firstname)) throw new NameException("Lastname must not contain duplicate spaces");
+        if(startWithSpace(lastname)) throw new NameException("Lastname must not start with spaces");
+        if(endWithSpace(lastname)) throw new NameException("Lastname must not end with spaces");
+        if(haveDuplicateSpace(lastname)) throw new NameException("Lastname must not contain duplicate spaces");
         if(!isAplha(lastname)) throw new NameException("Lastname must be alphabet");
         this.lastname = lastname.trim().toLowerCase();
     }
