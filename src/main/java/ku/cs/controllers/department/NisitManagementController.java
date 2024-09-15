@@ -239,6 +239,7 @@ public class NisitManagementController {
             container.getChildren().add(button);
 
         }else{
+            nisitEditorVBox.setAlignment(Pos.CENTER);
             container = newEditorContainerHBox();
             nisitImageView.setPreserveRatio(true);
             nisitImageView.setFitWidth(300);
