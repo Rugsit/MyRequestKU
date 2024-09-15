@@ -1,19 +1,41 @@
 package ku.cs.controllers.advisor;
 
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import ku.cs.controllers.student.StudentProfileController;
+import ku.cs.models.user.Advisor;
 import ku.cs.services.FXRouter;
+import ku.cs.services.ImageDatasource;
+import ku.cs.views.components.SquareImage;
 
 import java.io.IOException;
 
 public class AdvisorStudentListController {
     @FXML Circle imageCircle;
+    @FXML Label tabAccountNameLabel;
+    @FXML ImageView tabProfilePicImageView;
+    @FXML BorderPane contentBorderPane;
+    private Advisor loginUser;
+    ImageDatasource datasource;
 
     public void initialize(){
-        Image profile = new Image(getClass().getResourceAsStream("/images/users/side-bar-profile.png"));
-        imageCircle.setFill(new ImagePattern(profile));
+        if (FXRouter.getData() instanceof Advisor)
+        {
+            loginUser = (Advisor) FXRouter.getData();
+        }
+        //Image profile = new Image(getClass().getResourceAsStream("/images/users/side-bar-profile.png"));
+        //imageCircle.setFill(new ImagePattern(profile));
+        datasource = new ImageDatasource("users");
+        SquareImage profilePic = new SquareImage(tabProfilePicImageView);
+        profilePic.setClipImage(150, 150);
+        profilePic.setImage(datasource.openImage(loginUser.getAvatar()));
+
+        tabAccountNameLabel.setText(loginUser.getName());
     }
 
 
@@ -30,6 +52,38 @@ public class AdvisorStudentListController {
     protected void onLogoutClicked() {
         try {
             FXRouter.goTo("login");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onSideProfileClicked(){
+        try {
+            String viewPath = "/ku/cs/views/advisor-profile-card.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            AdvisorProfileController advisorProfileController = fxmlLoader.getController();
+            advisorProfileController.usernameLabel.setText(loginUser.getUsername());
+            advisorProfileController.departmentLabel.setText(loginUser.getDepartment());
+            advisorProfileController.idLabel.setText(loginUser.getId());
+            advisorProfileController.studentNameLabel.setText(loginUser.getName());
+            advisorProfileController.facultyLabel.setText(loginUser.getFaculty());
+            advisorProfileController.profilePicture.setImage(datasource.openImage(loginUser.getAvatar()));
+            advisorProfileController.profilePicture.setClipImage(50,50);
+            advisorProfileController.userTypeLabel.setText(loginUser.getRole());
+            advisorProfileController.advisorLabel.setText("None");
+            System.out.println(loginUser.getUsername());
+            System.out.println(loginUser.getDepartment());
+            System.out.println(loginUser.getId());
+            System.out.println(loginUser.getName());
+            System.out.println(loginUser.getFaculty());
+            System.out.println(loginUser.getAvatar());
+            System.out.println(loginUser.getRole());
+
+
+            contentBorderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
