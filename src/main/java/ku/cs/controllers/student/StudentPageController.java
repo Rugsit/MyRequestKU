@@ -48,6 +48,8 @@ public class StudentPageController {
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
             StudentRequestsController controller = fxmlLoader.getController();
+            controller.setLoginUser(loginUser);
+            controller.initialize();
             controller.setBorderPane(this.contentBorderPane);
             contentBorderPane.setCenter(pane);
         } catch (IOException e) {
