@@ -5,9 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.user.*;
+import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.UserListFileDatasource;
 
@@ -15,13 +17,15 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class AdminManageStaffController {
-    Admin loginUser;
-    @FXML
-    private Stage currentPopupStage;
+    // store data what object that currently login now
+    private Admin loginUser;
 
-    private UserListFileDatasource datasource;
+    // dataList for write data to file
     private UserList userList;
 
+    // FXML Component
+    @FXML
+    private Stage currentPopupStage;
     @FXML
     private TableView<User> userListTableview;
     @FXML
@@ -34,12 +38,14 @@ public class AdminManageStaffController {
     private Tab facultyTab;
     @FXML
     private TextField searchTextField;
+
     @FXML
-    public void initialize() {
+    private void initialize() {
         if (FXRouter.getData() instanceof Admin) loginUser = (Admin) FXRouter.getData();
 
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableview.setPlaceholder(placeHolder);
+        userListTableview.setFocusTraversable(true);
 
         loadFacultyStaff();
         staffTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -60,17 +66,47 @@ public class AdminManageStaffController {
             }
         });
 
-        userListTableview.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                if (newValue.getRole().equals("faculty-staff")) {
-                    showEditPopup(newValue, "faculty-staff");
-                } else if (newValue.getRole().equals("department-staff")) {
-                    showEditPopup(newValue, "department-staff");
-                } else if (newValue.getRole().equals("advisor")) {
-                    showEditPopup(newValue, "advisor");
+        userListTableview.setRowFactory(tv -> {
+            TableRow<User> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty()) {
+                    User selectedUser = row.getItem();
+                    showEditPopupWhenClickRow(selectedUser);
                 }
+            });
+            return row;
+        });
+
+        userListTableview.setOnKeyPressed(e -> {
+            User user = userListTableview.getSelectionModel().getSelectedItem();
+            if (user != null && e.getCode() == KeyCode.ENTER) {
+                showEditPopupWhenClickRow(user);
             }
         });
+
+//        userListTableview.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue != null) {
+//                if (newValue.getRole().equals("faculty-staff")) {
+//                    showEditPopup(newValue, "faculty-staff");
+//                } else if (newValue.getRole().equals("department-staff")) {
+//                    showEditPopup(newValue, "department-staff");
+//                } else if (newValue.getRole().equals("advisor")) {
+//                    showEditPopup(newValue, "advisor");
+//                }
+//            }
+//        });
+    }
+
+    private void showEditPopupWhenClickRow(User selectedUser) {
+        if (selectedUser != null) {
+            if (selectedUser.getRole().equals("faculty-staff")) {
+                showEditPopup(selectedUser, "faculty-staff");
+            } else if (selectedUser.getRole().equals("department-staff")) {
+                showEditPopup(selectedUser, "department-staff");
+            } else if (selectedUser.getRole().equals("advisor")) {
+                showEditPopup(selectedUser, "advisor");
+            }
+        }
     }
 
     private void search(String newValue) {
@@ -146,12 +182,12 @@ public class AdminManageStaffController {
     }
 
     private void readSpecificRole(String role) {
-        datasource = new UserListFileDatasource("data", role+".csv");
+        Datasource<UserList> datasource = new UserListFileDatasource("data", role+".csv");
         userList = datasource.readData();
     }
 
     private void showEditPopup(User currentUser, String role) {
-        try {
+    try {
             if (currentPopupStage == null || !currentPopupStage.isShowing()) {
                 currentPopupStage = new Stage();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/edit-" + role + ".fxml"));
@@ -173,6 +209,10 @@ public class AdminManageStaffController {
         } catch (IOException ee) {
             System.err.println("Error: " + ee.getMessage());
         }
+    }
+
+    public void resetSearch() {
+        searchTextField.setText("");
     }
 
     @FXML

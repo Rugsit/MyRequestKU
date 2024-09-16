@@ -10,6 +10,7 @@ import javafx.util.StringConverter;
 import ku.cs.models.user.Admin;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
+import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
 import ku.cs.services.UserListFileDatasource;
 
@@ -22,10 +23,16 @@ import java.util.Date;
 import java.util.HashSet;
 
 public class AdminManageUsersController {
-    Admin loginUser;
-    private UserListFileDatasource datasource;
+    // store data what object that currently login now
+    private Admin loginUser;
+
+    // datasource for read and write file
+    private Datasource<UserList> datasource;
+
+    // dataList for write data to file
     private UserList userlist;
 
+    // FXML Component
     @FXML
     private TableView<User> userListTableView;
     @FXML
@@ -44,7 +51,7 @@ public class AdminManageUsersController {
     private TabPane userListTabPane;
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         if (FXRouter.getData() instanceof Admin) loginUser = (Admin) FXRouter.getData();
 
         Label placeHolder = new Label("ไม่พบข้อมูล");
@@ -128,10 +135,8 @@ public class AdminManageUsersController {
 
     private void loadAllUsers() {
         datasource = new UserListFileDatasource("data", "admin.csv");
-        userlist = datasource.readAllUser();
-        //MARK !!!!
+        userlist = ((UserListFileDatasource)datasource).readAllUser();
         Collection<User> HashUser = userlist.getUsers();
-        //MARK !!!!
         HashUser.removeIf(user -> user.getRole().equals("admin"));
         updateTableView();
     }

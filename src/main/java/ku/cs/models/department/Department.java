@@ -11,10 +11,10 @@ public class Department {
     private String faculty;
     private String facultyId;
 
-    public Department(String name, String id, String faculty) throws NoFacultyException {
+    public Department(String name, String id, String faculty) throws NoFacultyException, IllegalArgumentException{
         setFaculty(faculty);
-        this.name = name;
-        this.id = id;
+        setName(name);
+        setId(id);
     }
 
     public String getName() {
@@ -57,6 +57,7 @@ public class Department {
     }
 
     public void setFaculty(String faculty) throws NoFacultyException {
+        if (faculty == null) throw new IllegalArgumentException("กรุณาใส่ชื่อคณะให้ถูกต้อง");
         faculty = faculty.trim();
         if (faculty.isEmpty()) {
             throw new NoFacultyException("กรุณาใส่ชื่อคณะให้ถูกต้อง");

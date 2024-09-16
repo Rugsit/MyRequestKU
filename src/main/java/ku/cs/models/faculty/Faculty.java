@@ -5,8 +5,12 @@ public class Faculty {
     private String id;
 
     public Faculty(String name, String id) {
-        this.name = name;
-        this.id = id;
+        try {
+            setName(name);
+            setId(id);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
 
     public void setName(String name) {

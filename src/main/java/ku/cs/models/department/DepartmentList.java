@@ -12,16 +12,16 @@ public class DepartmentList {
     public void addDepartment(String name, String id, String faculty) {
         try {
             departments.add(new Department(name, id, faculty));
-        } catch (NoFacultyException e) {
-            System.err.println(e.getMessage());
+        } catch (NoFacultyException | IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
 
     public void addDepartment(String[] department){
         try {
             departments.add(new Department(department[0], department[1], department[2]));
-        } catch (NoFacultyException e) {
-            System.err.println(e.getMessage());
+        } catch (NoFacultyException | IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
 

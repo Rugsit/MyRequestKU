@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.department.Department;
@@ -23,14 +24,17 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class AdminManageFacultyController {
-    Admin loginUser;
+    // store data what object that currently login now
+    private Admin loginUser;
 
-    @FXML
-    private Stage currentPopupStage;
 
+    // dataList for write data to file
     private FacultyList facultyList;
     private DepartmentList departmentList;
 
+    // FXML Component
+    @FXML
+    private Stage currentPopupStage;
     @FXML
     private TextField searchTextField;
     @FXML
@@ -43,8 +47,9 @@ public class AdminManageFacultyController {
     private TableView<Faculty> facultyTableView;
     @FXML
     private TableView<Department> departmentTableView;
+
     @FXML
-    public void initialize() {
+    private void initialize() {
         if (FXRouter.getData() instanceof Admin) loginUser = (Admin) FXRouter.getData();
 
         Label placeHolder = new Label("ไม่พบข้อมูล");
@@ -80,18 +85,53 @@ public class AdminManageFacultyController {
                 }
             }
         });
-        facultyTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-           if (newValue != null) {
-               Faculty faculty = facultyTableView.getSelectionModel().getSelectedItem();
-               showEditPopup("faculty", faculty, facultyList);
-           }
+
+        facultyTableView.setRowFactory(e -> {
+            TableRow<Faculty> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty()) {
+                    Faculty faculty = row.getItem();
+                    showEditPopup("faculty", faculty, facultyList);
+                }
+            });
+            return row;
         });
-        departmentTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue != null) {
-                Department department = departmentTableView.getSelectionModel().getSelectedItem();
+        facultyTableView.setOnKeyPressed(e -> {
+            Faculty faculty = facultyTableView.getSelectionModel().getSelectedItem();
+            if (faculty != null && e.getCode() == KeyCode.ENTER) {
+                showEditPopup("faculty", faculty, facultyList);
+            }
+        });
+
+        departmentTableView.setRowFactory(e -> {
+            TableRow<Department> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty()) {
+                    Department department = row.getItem();
+                    showEditPopup("department", department, departmentList);;
+                }
+            });
+            return row;
+        });
+        departmentTableView.setOnKeyPressed(e -> {
+            Department department = departmentTableView.getSelectionModel().getSelectedItem();
+            if (department != null && e.getCode() == KeyCode.ENTER) {
                 showEditPopup("department", department, departmentList);
             }
         });
+
+//        facultyTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//           if (newValue != null) {
+//               Faculty faculty = facultyTableView.getSelectionModel().getSelectedItem();
+//               showEditPopup("faculty", faculty, facultyList);
+//           }
+//        });
+//        departmentTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//            if(newValue != null) {
+//                Department department = departmentTableView.getSelectionModel().getSelectedItem();
+//                showEditPopup("department", department, departmentList);
+//            }
+//        });
         loadFaculty();
 
     }
@@ -185,6 +225,11 @@ public class AdminManageFacultyController {
             System.err.println("Error: " + ee.getMessage());
         }
     }
+
+    public void resetSearch() {
+        searchTextField.setText("");
+    }
+
    @FXML
    public void addPopup() {
         Tab tab = tabpane.getSelectionModel().getSelectedItem();

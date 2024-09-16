@@ -9,11 +9,19 @@ public class FacultyList {
     }
 
     public void addFaculty(String name, String id) {
-        facultyList.add(new Faculty(name, id));
+        try {
+            facultyList.add(new Faculty(name, id));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
 
     public void addFaculty(String[] faculty) {
-        facultyList.add(new Faculty(faculty[0], faculty[1]));
+        try {
+            facultyList.add(new Faculty(faculty[0], faculty[1]));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
 
     public HashSet<Faculty> getFacultyList() {

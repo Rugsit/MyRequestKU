@@ -22,16 +22,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class AddFormController {
+    // store controller ref for user their method example. reload main page when edit data
     private AdminManageStaffController adminStaffController;
     private AdminManageFacultyController adminFacultyController;
 
+    // store temp data for interact with behavior in scene
+    private String prevFacaltyChose;
     private String currentRole;
-    private Stage stage;
 
+
+    // dataList for write data to file csv
     private FacultyList facultyList;
     private DepartmentList departmentList;
     private UserList userList;
 
+    // JavaFX component
+    @FXML
+    private Stage stage;
     @FXML
     private TextField facultyNameTextField;
     @FXML
@@ -68,6 +75,32 @@ public class AddFormController {
     private Label startPasswordLabel;
     @FXML
     private Label userNameLabel;
+
+    @FXML
+    private void initialize() {
+        if (departmentChoiceBox != null) {
+            departmentChoiceBox.setOnMouseClicked(e -> {
+                showDepartmentInChoiceBox();
+            });
+            departmentChoiceBox.setOnKeyPressed(e -> {
+                showDepartmentInChoiceBox();
+            });
+        }
+    }
+
+    private void showDepartmentInChoiceBox() {
+        if (facultyChoiceBox.getValue() != null && prevFacaltyChose != facultyChoiceBox.getValue()) {
+            prevFacaltyChose = facultyChoiceBox.getValue();
+            departmentChoiceBox.getItems().clear();
+            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
+            DepartmentList departmentList = datasourceDepartment.readData();
+            for (Department department : departmentList.getDepartments()) {
+                if (department.getFaculty().equals(facultyChoiceBox.getValue())) {
+                    departmentChoiceBox.getItems().add(department.getName());
+                }
+            }
+        }
+    }
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -141,6 +174,7 @@ public class AddFormController {
                 datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadAdvisor();
             }
+            adminStaffController.resetSearch();
             stage.close();
         } catch (UserException e) {
             errorLabel.setVisible(true);
@@ -150,18 +184,24 @@ public class AddFormController {
 
     @FXML
     public void onAcceptFacultyDepartmentClick() {
-        if (departmentList != null) {
-            Datasource<DepartmentList> datasource = new DepartmentListFileDatasource("data");
-            departmentList.addDepartment(departmentNameTextField.getText(), departmentIdTextField.getText(), facultyChoiceBox.getValue());
-            datasource.writeData(departmentList);
-            adminFacultyController.loadDepartment();
-        } else if (facultyList != null) {
-            Datasource<FacultyList> datasource = new FacultyListFileDatasource("data");
-            facultyList.addFaculty(facultyNameTextField.getText(), facultyIdTextField.getText());
-            datasource.writeData(facultyList);
-            adminFacultyController.loadFaculty();
+        try {
+            if (departmentList != null) {
+                Datasource<DepartmentList> datasource = new DepartmentListFileDatasource("data");
+                departmentList.addDepartment(departmentNameTextField.getText(), departmentIdTextField.getText(), facultyChoiceBox.getValue());
+                datasource.writeData(departmentList);
+                adminFacultyController.loadDepartment();
+            } else if (facultyList != null) {
+                Datasource<FacultyList> datasource = new FacultyListFileDatasource("data");
+                facultyList.addFaculty(facultyNameTextField.getText(), facultyIdTextField.getText());
+                datasource.writeData(facultyList);
+                adminFacultyController.loadFaculty();
+            }
+            adminFacultyController.resetSearch();
+            stage.close();
+        } catch (IllegalArgumentException e) {
+            errorLabel.setVisible(true);
+            errorLabel.setText(e.getMessage());
         }
-        stage.close();
     }
 
 
