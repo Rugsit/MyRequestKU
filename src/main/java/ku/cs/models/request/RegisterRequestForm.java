@@ -7,33 +7,34 @@ import java.util.UUID;
 
 public class RegisterRequestForm extends Request{
     // ประสงค์ลงทะเบียนล่าช้า
-    boolean lateRegister;
+    private boolean lateRegister;
 
     // ประสงค์เพิ่มถอน
-    boolean addDrop;
+    private boolean addDrop;
 
     // ประสงค์ลงทะเบียนมากกว่า 22 หน่วยกิต
-    boolean registerMoreThan22;
-    String semester;
-    int semesterYear;
-    int oldCredit;
-    int newCredit;
+    private boolean registerMoreThan22;
+    private String semester;
+    private int semesterYear;
+    private int oldCredit;
+    private int newCredit;
 
     // ประสงค์ลงทะเบียนต่ำกว่า 9 หน่วยกิต
-    boolean registerLessThan9;
+    private boolean registerLessThan9;
 
     // ประสงค์ผ่อนผันค่าธรรมเนียมการศึกษา
-    boolean latePayment;
-    String latePaymentSemester;
-    int latePaymentYear;
+    private boolean latePayment;
+    private String latePaymentSemester;
+    private int latePaymentYear;
 
     // ประสงค์ย้ายคณะหรือสาขาวิชา
-    boolean transferFaculty;
-    String oldFaculty;
-    String newFaculty;
+    private boolean transferFaculty;
+    private String oldFaculty;
+    private String newFaculty;
 
     // เหตุผล
-    String since;
+    private String since;
+
     public RegisterRequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
                                 LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
         super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
@@ -183,7 +184,7 @@ public class RegisterRequestForm extends Request{
     }
 
     public void setSince(String since) {
-        this.since = since.trim();
+        since = since.trim();
         if (since.isEmpty()) {
             throw new IllegalArgumentException("กรุณากรอกเหตุผล");
         }
@@ -195,30 +196,30 @@ public class RegisterRequestForm extends Request{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         String timestamp = super.getTimeStamp().format(formatter);
         String date = super.getDate().format(formatter);
-        return  "\"" + super.getRequestType() + "\",\"" +
-                super.getUuid().toString() + "\",\"" +
-                super.getOwnerUUID().toString() + "\",\"" +
-                super.getName() + "\",\"" +
-                super.getNisitId() + "\",\"" +
-                timestamp + "\",\"" +
-                date + "\",\"" +
-                super.getStatusNow() + "\",\"" +
-                super.getStatusNext() + "\",\"" +
-                lateRegister + "\",\"" +
-                addDrop + "\",\"" +
-                registerMoreThan22 + "\",\"" +
-                semester + "\",\"" +
-                semesterYear + "\",\"" +
-                oldCredit + "\",\"" +
-                newCredit + "\",\"" +
-                registerLessThan9 + "\",\"" +
-                latePayment + "\",\"" +
-                latePaymentSemester + "\",\"" +
-                latePaymentYear + "\",\"" +
-                transferFaculty + "\",\"" +
-                oldFaculty + "\",\"" +
-                newFaculty + "\",\"" +
-                since + "\"";
+        return  super.getRequestType() + "," +
+                super.getUuid().toString() + "," +
+                super.getOwnerUUID().toString() + "," +
+                super.getName() + "," +
+                super.getNisitId() + "," +
+                timestamp + "," +
+                date + "," +
+                super.getStatusNow() + "," +
+                super.getStatusNext() + "," +
+                lateRegister + "," +
+                addDrop + "," +
+                registerMoreThan22 + "," +
+                semester + "," +
+                semesterYear + "," +
+                oldCredit + "," +
+                newCredit + "," +
+                registerLessThan9 + "," +
+                latePayment + "," +
+                latePaymentSemester + "," +
+                latePaymentYear + "," +
+                transferFaculty + "," +
+                oldFaculty + "," +
+                newFaculty + "," +
+                since;
 
     }
 }

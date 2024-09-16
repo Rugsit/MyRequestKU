@@ -7,17 +7,26 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.request.Request;
+import ku.cs.models.request.RequestList;
+import ku.cs.services.Datasource;
+import ku.cs.services.RequestListFileDatasource;
 
 import java.io.IOException;
 
 public class ConfirmRequestFormController {
-    Stage stage;
+    private Datasource<RequestList> datasource;
+    private Stage stage;
 
-    Request request;
-    Request requestPair;
+    private Request request;
+    private Request requestPair;
 
     @FXML
     public BorderPane borderPane;
+
+    @FXML
+    private void initialize() {
+        datasource = new RequestListFileDatasource("data");
+    }
 
     @FXML
     public void onEditClick() {
@@ -42,6 +51,7 @@ public class ConfirmRequestFormController {
 
     @FXML
     public void onConfirmClick() {
+        RequestList requestList = datasource.readData();
         try {
             String viewPath = "/ku/cs/views/student-requests-pane.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -53,10 +63,13 @@ public class ConfirmRequestFormController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(this.request);
         if (this.request != null) {
-            System.out.println(this.requestPair);
+            requestList.addRequest(request);
         }
+        if (this.requestPair != null) {
+            requestList.addRequest(requestPair);
+        }
+        datasource.writeData(requestList);
         stage.close();
     }
 }

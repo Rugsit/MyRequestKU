@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.AcademicLeaveRequestForm;
+import ku.cs.models.user.User;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -20,64 +21,49 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class AcademicLeaveController {
+    private int amountSubject;
+    private User loginUser;
+
+    // FXML Component
     @FXML
     private Stage currentConfirmStage;
-
     @FXML
     private Stage currentErrorStage;
-
     @FXML
-    public BorderPane borderPane;
-
-    int amountSubject;
-
+    private BorderPane borderPane;
     @FXML
     private TextArea addressTextArea;
-
     @FXML
     private TextField amountLeaveTextField;
-
     @FXML
     private RadioButton fromFirstSemesterRadio;
-
     @FXML
     private RadioButton fromSecondSemesterRadio;
-
     @FXML
     private TextField fromYearTextField;
-
     @FXML
     private RadioButton registerFirstSemester;
-
     @FXML
     private RadioButton registerRadio;
-
     @FXML
     private RadioButton registerSecondSemester;
-
     @FXML
     private TextField registerYearTextField;
-
     @FXML
     private TextArea sinceLeaveTextArea;
-
     @FXML
     private TextField telTextField;
-
     @FXML
     private RadioButton toFirstSemesterRadio;
-
     @FXML
     private RadioButton toSecondSemesterRadio;
-
     @FXML
     private TextField toYearTextField;
-
     @FXML
     private VBox subjectVbox;
-
     @FXML
     private HBox subjectHbox;
+
 
     @FXML
     public void initialize() {
@@ -146,6 +132,8 @@ public class AcademicLeaveController {
         this.borderPane = borderPane;
     }
 
+    public void setLoginUser(User loginUser) {this.loginUser = loginUser;}
+
     @FXML
     void onBackButtonClick() {
         try {
@@ -162,7 +150,7 @@ public class AcademicLeaveController {
     }
 
     @FXML
-    void onRemoveSubjectClick() {
+    private void onRemoveSubjectClick() {
         if (registerRadio.isSelected() && subjectVbox.getChildren().size() > 1) {
             subjectVbox.getChildren().removeLast();
             amountSubject--;
@@ -247,9 +235,8 @@ public class AcademicLeaveController {
 
     private AcademicLeaveRequestForm createAcademicLeaveRequestForm() {
         UUID uuid = UUID.randomUUID();
-        UUID userId = UUID.randomUUID();
         LocalDateTime now = LocalDateTime.now();
-        return new AcademicLeaveRequestForm(uuid,userId, "Test_Name", "Test_ID", now, now, "AcademicLeave", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
+        return new AcademicLeaveRequestForm(uuid,loginUser.getUUID(), loginUser.getName(), loginUser.getId(), now, now, "AcademicLeave", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
     }
 
     private void showConfirmPane(AcademicLeaveRequestForm academicLeaveRequestForm) {

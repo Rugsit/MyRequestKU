@@ -17,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.Ku1AndKu3RequestForm;
 import ku.cs.models.request.RegisterRequestForm;
+import ku.cs.models.user.User;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -24,59 +25,49 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Ku1FormController {
+    private User loginUser;
+    private RegisterRequestForm registerForm;
+    private int amountSubject;
+
+    // FXML Component
     @FXML
     private Stage currentConfirmStage;
-    RegisterRequestForm registerForm;
-
     @FXML
     private TextField telTextField;
-
     @FXML
     private RadioButton firstRadio;
-
     @FXML
     private RadioButton secondRadio;
-
     @FXML
     private RadioButton summerRadio;
-
     @FXML
     private RadioButton thaiRadio;
-
     @FXML
     private RadioButton interRadio;
-
     @FXML
     private TextField yearTextField;
-
     @FXML
     private TextField campusTextField;
-
     @FXML
     private Stage currentErrorStage;
-
-    int amountSubject;
-
     @FXML
-    public BorderPane borderPane;
-
+    private BorderPane borderPane;
     @FXML
     private VBox subjectVbox;
-
     @FXML
     private VBox prototypeVbox;
-
     @FXML
     private TextField teacherTextField;
-    @FXML
-    public void addSubject() {
-        subjectVbox.getChildren().add(deepCopyVbox(prototypeVbox));
-        amountSubject++;
-    }
 
     @FXML
     public void initialize() {
         amountSubject = 1;
+    }
+
+    @FXML
+    public void addSubject() {
+        subjectVbox.getChildren().add(deepCopyVbox(prototypeVbox));
+        amountSubject++;
     }
 
     public void setRegisterForm(RegisterRequestForm registerForm) {
@@ -211,6 +202,8 @@ public class Ku1FormController {
         this.borderPane = borderPane;
     }
 
+    public void setLoginUser(User loginUser) {this.loginUser = loginUser;}
+
     @FXML
     public void onBackButtonClick() {
         try {
@@ -236,9 +229,8 @@ public class Ku1FormController {
     }
     private Ku1AndKu3RequestForm createKu1Form() {
         UUID uuid = UUID.randomUUID();
-        UUID userId = UUID.randomUUID();
         LocalDateTime now = LocalDateTime.now();
-        return new Ku1AndKu3RequestForm(uuid,userId, "Test_Name", "Test_ID", now, now, "KU1", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
+        return new Ku1AndKu3RequestForm(uuid,loginUser.getUUID(), loginUser.getName(), loginUser.getId(), now, now, "KU1", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
     }
 
     private void showConfirmPane(RegisterRequestForm registerRequestForm, Ku1AndKu3RequestForm ku1AndKu3RequestForm) {

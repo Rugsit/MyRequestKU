@@ -15,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.Ku1AndKu3RequestForm;
 import ku.cs.models.request.RegisterRequestForm;
+import ku.cs.models.user.User;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -22,61 +23,55 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Ku3FormController {
+    User loginUser;
+    private int amountSubjectPart1;
+    private int amountSubjectPart2;
+    private RegisterRequestForm registerForm;
 
+    // FXML Component
     @FXML
     private Stage currentConfirmStage;
-
-    RegisterRequestForm registerForm;
     @FXML
     private CheckBox part1Checkbox;
-
     @FXML
     private CheckBox part2CheckBox;
-
     @FXML
     private TextField telTextField;
-
     @FXML
     private RadioButton firstRadio;
-
     @FXML
     private RadioButton secondRadio;
-
     @FXML
     private RadioButton summerRadio;
-
     @FXML
     private RadioButton thaiRadio;
-
     @FXML
     private RadioButton interRadio;
-
     @FXML
     private TextField yearTextField;
-
     @FXML
     private TextField campusTextField;
-
     @FXML
     private Stage currentErrorStage;
-
     @FXML
     private VBox subjectVbox;
-
     @FXML
     private VBox subjectDropVbox;
-
     @FXML
     private VBox prototypePart1Vbox;
-
     @FXML
     private VBox prototypePart2Vbox;
-
-    int amountSubjectPart1;
-    int amountSubjectPart2;
-
     @FXML
     public BorderPane borderPane;
+
+    @FXML
+    public void initialize() {
+        amountSubjectPart1 = 1;
+        amountSubjectPart2 = 2;
+        subjectVbox.disableProperty().bind(Bindings.not(part1Checkbox.selectedProperty()));
+        subjectDropVbox.disableProperty().bind(Bindings.not(part2CheckBox.selectedProperty()));
+
+    }
 
     public void setRegisterForm(RegisterRequestForm registerForm) {
         this.registerForm = registerForm;
@@ -116,14 +111,6 @@ public class Ku3FormController {
     }
 
 
-    @FXML
-    public void initialize() {
-        amountSubjectPart1 = 1;
-        amountSubjectPart2 = 2;
-        subjectVbox.disableProperty().bind(Bindings.not(part1Checkbox.selectedProperty()));
-        subjectDropVbox.disableProperty().bind(Bindings.not(part2CheckBox.selectedProperty()));
-
-    }
     private VBox deepCopyVbox(VBox vbox, byte id) {
         VBox newVbox = new VBox();
         VBox.setMargin(newVbox, VBox.getMargin(vbox));
@@ -134,8 +121,6 @@ public class Ku3FormController {
         }
         return newVbox;
     }
-
-
 
     private HBox deepCopyHBox(HBox hbox) {
         ToggleGroup toggleGroup = new ToggleGroup();
@@ -171,6 +156,7 @@ public class Ku3FormController {
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }
+    public void setLoginUser(User loginUser) {this.loginUser = loginUser;}
 
     @FXML
     public void onBackButtonClick() {
@@ -290,9 +276,8 @@ public class Ku3FormController {
 
     private Ku1AndKu3RequestForm createKu3Form() {
         UUID uuid = UUID.randomUUID();
-        UUID userId = UUID.randomUUID();
         LocalDateTime now = LocalDateTime.now();
-        return new Ku1AndKu3RequestForm(uuid,userId, "Test_Name", "Test_ID", now, now, "KU3", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
+        return new Ku1AndKu3RequestForm(uuid,loginUser.getUUID(), loginUser.getName(), loginUser.getId(), now, now, "KU3", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
     }
 
     private void showConfirmPane(RegisterRequestForm registerRequestForm, Ku1AndKu3RequestForm ku1AndKu3RequestForm) {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RequestList {
-    ArrayList<Request> requests;
+    private ArrayList<Request> requests;
 
     public RequestList() {
         requests = new ArrayList<>();

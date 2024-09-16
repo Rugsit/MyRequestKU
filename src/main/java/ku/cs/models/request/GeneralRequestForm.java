@@ -8,26 +8,26 @@ import java.util.regex.Pattern;
 
 public class GeneralRequestForm extends Request{
     // เก็บข้อมูลเบอร์โทร
-    String tel;
+    private String tel;
 
     //เก็บข้อมูลเความประสงค์ในการขอใบแทนปริญญาบัตร
-    boolean degreeCertificateLost;
-    boolean degreeCertificateDamage;
+    private boolean degreeCertificateLost;
+    private boolean degreeCertificateDamage;
 
     // เก็บข้อมูลความประสงค์ในการเปลี่ยนชื่อ
-    String oldThaiName;
-    String newThaiName;
-    String oldEngName;
-    String newEngName;
+    private String oldThaiName;
+    private String newThaiName;
+    private String oldEngName;
+    private String newEngName;
 
     // เก็บข้อมูลความประสงค์ในการเปลี่ยนชื่อสกุล
-    String oldThaiSurName;
-    String newThaiSurName;
-    String oldEngSurName;
-    String newEngSurName;
+    private String oldThaiSurName;
+    private String newThaiSurName;
+    private String oldEngSurName;
+    private String newEngSurName;
 
     // เก็บข้อมูล ความประสงค์อื่นๆ
-    String others;
+    private String others;
 
     public GeneralRequestForm(String[] data) {
         super.setRequestType(data[0]);

@@ -11,85 +11,63 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.RegisterRequestForm;
+import ku.cs.models.user.User;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class RegisterRequestFormController {
+    User loginUser;
 
     @FXML
     private Stage currentConfirmStage;
-
     @FXML
     private VBox buttonCOntainerVbox;
-
     @FXML
     private Stage currentErrorStage;
-
     @FXML
     private RadioButton addDropRadio;
-
     @FXML
     private RadioButton firstSemesRadio;
-
     @FXML
     private RadioButton latePayFirstSemesRadio;
-
     @FXML
     private RadioButton latePaySecondSemesRadio;
-
     @FXML
     private RadioButton latePaySummerSemesRadio;
-
     @FXML
     private TextField latePayYearTextField;
-
     @FXML
     private RadioButton latePaymentRadio;
-
     @FXML
     private RadioButton lateRegistrationRadio;
-
     @FXML
     private TextField newCredit;
-
     @FXML
     private TextField oldCredit;
-
     @FXML
     private TextArea otherTextArea;
-
     @FXML
     private RadioButton registerBelowNineRadio;
-
     @FXML
     private RadioButton registerRadio;
-
     @FXML
     private RadioButton secondSemesRadio;
-
     @FXML
     private RadioButton summerSemesRadio;
-
     @FXML
     private RadioButton transferFalRadio;
-
     @FXML
     private TextField yearTextField;
-
     @FXML
     private TextField newFalTextField;
-
     @FXML
     private TextField oldFalTextField;
-
     @FXML
     public BorderPane borderPane;
-
     @FXML
     private Button nextFormButton;
-
     @FXML
     private Button createFormButton;
 
@@ -121,6 +99,8 @@ public class RegisterRequestFormController {
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }
+
+    public void setLoginUser(User loginUser) {this.loginUser = loginUser;}
 
     private void showButtonWhenClick (Control control, Button button) {
         if (control instanceof RadioButton) {
@@ -218,6 +198,7 @@ public class RegisterRequestFormController {
                 Ku1FormController controller = fxmlLoader.getController();
                 controller.setRegisterForm(registerRequestForm);
                 controller.setBorderPane(this.borderPane);
+                controller.setLoginUser(loginUser);
                 borderPane.setCenter(pane);
             } catch (IOException ee) {
                 throw new RuntimeException(ee);
@@ -297,9 +278,8 @@ public class RegisterRequestFormController {
 
     private RegisterRequestForm createRegisterForm() {
         UUID uuid = UUID.randomUUID();
-        UUID userId = UUID.randomUUID();
         LocalDateTime now = LocalDateTime.now();
-        return new RegisterRequestForm(uuid,userId, "Test_Name", "Test_ID", now, now, "Register", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
+        return new RegisterRequestForm(uuid,loginUser.getUUID(), loginUser.getName(), loginUser.getId(), now, now, "Register", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
     }
 
     private void showConfirmPane(RegisterRequestForm registerRequestForm) {
@@ -337,6 +317,7 @@ public class RegisterRequestFormController {
         Ku3FormController controller = fxmlLoader.getController();
         controller.setRegisterForm(registerRequestForm);
         controller.setBorderPane(this.borderPane);
+        controller.setLoginUser(loginUser);
         borderPane.setCenter(pane);
     }
 }

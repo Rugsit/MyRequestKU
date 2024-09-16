@@ -79,7 +79,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Line endX="-100.0" endY="300.6000061035156" layoutX="467.0" layoutY="101.0" startX="-100.0" styleClass="line" />
+      <Line endX="-100.0" endY="300.6000061035156" layoutX="466.0" layoutY="101.0" startX="-100.0" styleClass="line" />
       <Label fx:id="errorLabel" alignment="CENTER_RIGHT" layoutX="382.0" layoutY="492.0" prefHeight="26.0" prefWidth="326.0" styleClass="error-label" text="error" visible="false" />
       <VBox layoutX="382.0" layoutY="104.0" prefHeight="324.0" prefWidth="326.0">
          <children>

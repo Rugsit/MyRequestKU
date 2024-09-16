@@ -8,12 +8,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Ku1AndKu3RequestForm extends Request{
-    String curriculum;
-    String tel;
-    String semester;
-    String year;
-    String campus;
-    ArrayList<ArrayList<String>> subjectList;
+    private String curriculum;
+    private String tel;
+    private String semester;
+    private String year;
+    private String campus;
+    private ArrayList<ArrayList<String>> subjectList;
 
     public Ku1AndKu3RequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
                                 LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
