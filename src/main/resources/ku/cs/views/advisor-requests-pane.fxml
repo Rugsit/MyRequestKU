@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" style="-fx-background-color: F8F8F8;" stylesheets="@../styles/student-requests-pane.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.advisor.AdvisorRequestsController">
+   <children>
+      <BorderPane fx:id="borderPane" prefHeight="720.0" prefWidth="988.0" />
+      <Label layoutX="29.0" layoutY="33.0" styleClass="header" text="จัดการคำร้องที่รอการอนุมัติ">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
