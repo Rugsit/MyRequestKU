@@ -1,42 +1,38 @@
 package ku.cs.controllers.advisor;
 
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import ku.cs.services.FXRouter;
-
-import java.io.IOException;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.BorderPane;
 
 public class AdvisorRequestsController {
-    @FXML Circle imageCircle;
-
-    public void initialize(){
-        Image profile = new Image(getClass().getResourceAsStream("/images/users/side-bar-profile.png"));
-        imageCircle.setFill(new ImagePattern(profile));
-    }
-
-
+    @FXML TableView requestListTableView;
     @FXML
-    protected void goToStudentList() {
-        try {
-            FXRouter.goTo("advisor-students");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    BorderPane borderPane;
+
+    public void initialize() {
+        showTable();
     }
 
-    @FXML
-    protected void onLogoutClicked() {
-        try {
-            FXRouter.goTo("login");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private void showTable(){
+        requestListTableView.getColumns().clear();
+        TableColumn<String, String> nameColumn = new TableColumn<>("ชื่อ-นามสกุล");
+        TableColumn<String, String> dateColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
+        TableColumn<String, String> typeColumn = new TableColumn<>("ประเภทคำร้อง");
+        TableColumn<String, String> statusColumn = new TableColumn<>("สถานะคำร้อง");
+        requestListTableView.getColumns().add(nameColumn);
+        requestListTableView.getColumns().add(dateColumn);
+        requestListTableView.getColumns().add(typeColumn);
+        requestListTableView.getColumns().add(statusColumn);
+        nameColumn.setMinWidth(150);
+        dateColumn.setMinWidth(200);
+        typeColumn.setMinWidth(200);
+        statusColumn.setMinWidth(381);
     }
+
+
+    public void setBorderPane(BorderPane borderPane) {
+        this.borderPane = borderPane;
+    }
+
 }
-
-
-
-
-

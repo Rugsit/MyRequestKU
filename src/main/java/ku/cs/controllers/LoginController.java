@@ -145,7 +145,7 @@ public class LoginController {
     @FXML
     protected void goToAdvisorManage() {
         try {
-            FXRouter.goTo("advisor-students");
+            FXRouter.goTo("advisor-students", loginUser);
         } catch (
                 IOException e) {
             throw new RuntimeException(e);
