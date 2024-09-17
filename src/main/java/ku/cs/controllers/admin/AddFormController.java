@@ -80,10 +80,28 @@ public class AddFormController {
     private void initialize() {
         if (departmentChoiceBox != null) {
             departmentChoiceBox.setOnMouseClicked(e -> {
-                showDepartmentInChoiceBox();
+                try {
+                    if (facultyChoiceBox.getValue() == null) {
+                        throw new IllegalArgumentException("กรุณาเลือกคณะก่อน");
+                    }
+                    showDepartmentInChoiceBox();
+                    errorLabel.setVisible(false);
+                } catch (IllegalArgumentException ex){
+                    errorLabel.setVisible(true);
+                    errorLabel.setText(ex.getMessage());
+                }
             });
             departmentChoiceBox.setOnKeyPressed(e -> {
-                showDepartmentInChoiceBox();
+                try {
+                    if (facultyChoiceBox.getValue() == null) {
+                        throw new IllegalArgumentException("กรุณาเลือกคณะก่อน");
+                    }
+                    showDepartmentInChoiceBox();
+                    errorLabel.setVisible(false);
+                } catch (IllegalArgumentException ex){
+                    errorLabel.setVisible(true);
+                    errorLabel.setText(ex.getMessage());
+                }
             });
         }
     }
@@ -135,13 +153,13 @@ public class AddFormController {
                 facultyChoiceBox.getItems().add(faculty.getName());
             }
         }
-        if (departmentChoiceBox != null) {
-            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
-            DepartmentList departmentList = datasourceDepartment.readData();
-            for (Department department : departmentList.getDepartments()) {
-                departmentChoiceBox.getItems().add(department.getName());
-            }
-        }
+//        if (departmentChoiceBox != null) {
+//            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
+//            DepartmentList departmentList = datasourceDepartment.readData();
+//            for (Department department : departmentList.getDepartments()) {
+//                departmentChoiceBox.getItems().add(department.getName());
+//            }
+//        }
     }
 
     @FXML
@@ -159,17 +177,17 @@ public class AddFormController {
             if (facultyChoiceBox.getValue() == null) throw new UserException("กรุณาเลือกคณะ");
             if (departmentChoiceBox != null && departmentChoiceBox.getValue() == null) throw new UserException("กรุณาเลือกภาควิชา");
             if (currentRole.equals("faculty-staff")) {
-                FacultyUser facultyUser = new FacultyUser(uuid.toString(), "0000000000", userNameTextField.getText(), "faculty-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), "no-image", "active", facultyChoiceBox.getValue());
+                FacultyUser facultyUser = new FacultyUser("0000000000", userNameTextField.getText(), "faculty-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), facultyChoiceBox.getValue());
                 userList.addUser(facultyUser);
                 datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadFacultyStaff();
             } else if (currentRole.equals("department-staff")) {
-                DepartmentUser departmentUser = new DepartmentUser(uuid.toString(), "0000000000", userNameTextField.getText(), "department-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), "no-image", "active", facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
+                DepartmentUser departmentUser = new DepartmentUser("0000000000", userNameTextField.getText(), "department-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
                 userList.addUser(departmentUser);
                 datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadDepartmentStaff();
             } else if (currentRole.equals("advisor")) {
-                Advisor advisor = new Advisor(uuid.toString(), advisorIdTextField.getText(), userNameTextField.getText(), "advisor", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), "no-image", "active", facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
+                Advisor advisor = new Advisor(advisorIdTextField.getText(), userNameTextField.getText(), "advisor", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText(), facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
                 userList.addUser(advisor);
                 datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadAdvisor();

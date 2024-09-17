@@ -89,10 +89,28 @@ public class EditFormController {
     private void initialize() {
         if (departmentChoiceBox != null) {
             departmentChoiceBox.setOnMouseClicked(e -> {
-                showDepartmentInChoiceBox();
+                try {
+                    if (facultyChoiceBox.getValue() == null) {
+                        throw new IllegalArgumentException("กรุณาเลือกคณะก่อน");
+                    }
+                    showDepartmentInChoiceBox();
+                    errorLabel.setVisible(false);
+                } catch (IllegalArgumentException ex){
+                    errorLabel.setVisible(true);
+                    errorLabel.setText(ex.getMessage());
+                }
             });
             departmentChoiceBox.setOnKeyPressed(e -> {
-                showDepartmentInChoiceBox();
+                try {
+                    if (facultyChoiceBox.getValue() == null) {
+                        throw new IllegalArgumentException("กรุณาเลือกคณะก่อน");
+                    }
+                    showDepartmentInChoiceBox();
+                    errorLabel.setVisible(false);
+                } catch (IllegalArgumentException ex){
+                    errorLabel.setVisible(true);
+                    errorLabel.setText(ex.getMessage());
+                }
             });
         }
     }
@@ -146,13 +164,13 @@ public class EditFormController {
                 facultyChoiceBox.getItems().add(faculty.getName());
             }
         }
-        if (departmentChoiceBox != null) {
-            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
-            DepartmentList departmentList = datasourceDepartment.readData();
-            for (Department department : departmentList.getDepartments()) {
-                departmentChoiceBox.getItems().add(department.getName());
-            }
-        }
+//        if (departmentChoiceBox != null) {
+//            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
+//            DepartmentList departmentList = datasourceDepartment.readData();
+//            for (Department department : departmentList.getDepartments()) {
+//                departmentChoiceBox.getItems().add(department.getName());
+//            }
+//        }
     }
 
 
