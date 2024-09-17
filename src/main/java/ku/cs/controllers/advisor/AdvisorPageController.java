@@ -14,13 +14,15 @@ import ku.cs.services.ImageDatasource;
 import ku.cs.views.components.SquareImage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class AdvisorPageController {
     @FXML Circle imageCircle;
     @FXML Label tabAccountNameLabel;
     @FXML ImageView tabProfilePicImageView;
     @FXML BorderPane contentBorderPane;
-    private Advisor loginUser;
+    private static Advisor loginUser;
     ImageDatasource datasource;
 
     public void initialize(){
@@ -39,9 +41,9 @@ public class AdvisorPageController {
         tabAccountNameLabel.setText(loginUser.getName());
     }
 
-
-
-
+    public static UUID getAdvisorUUID() {
+        return loginUser.getUUID();
+    }
 
     @FXML
     protected void onStudentClicked() {
