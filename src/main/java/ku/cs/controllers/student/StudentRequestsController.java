@@ -4,18 +4,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import ku.cs.controllers.requests.ChooseRequestFromController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.user.Student;
-import ku.cs.models.user.User;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
+import ku.cs.views.components.DefaultTableView;
 
 import java.io.IOException;
 
@@ -33,6 +31,7 @@ public class StudentRequestsController {
     private RequestList requestList;
     private RequestList myRequests;
     Student loginUser;
+    DefaultTableView<Request> requestListTable;
 
     // TODO: fetch data from datasource instead
     public void initialize() {
@@ -41,33 +40,48 @@ public class StudentRequestsController {
     }
 
     private void showTable(){
+        requestListTable = new DefaultTableView<>(requestListTableView) {
+            @Override
+            protected void handleCLick() {
+                getTableView().setOnMouseClicked(e-> {
+                    Object selected = getTableView().getSelectionModel().getSelectedItem();
+                    if(selected != null){
+                        try {
+                            String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
+                            FXMLLoader fxmlLoader = new FXMLLoader();
+                            fxmlLoader.setLocation(getClass().getResource(viewPath));
+                            Pane pane = fxmlLoader.load();
+                            StudentRequestInfoController controller = fxmlLoader.getController();
+                            controller.setLoginUser(loginUser);
+                            controller.setRequest((Request) selected);
+                            controller.showInfo();
+                            controller.showTable();
+                            controller.setBorderPane(borderPane);
+                            borderPane.setCenter(pane);
+                        } catch (IOException exception) {
+                            System.err.println("Error: handle click");
+                        }
+                    }
+                });
+            }
+        };
+        requestListTable.getTableView().getStylesheets().clear();
+        requestListTable.addStyleSheet("/ku/cs/styles/admin-page-style.css");
         requestListTableView.getColumns().clear();
-        TableColumn<Request, String> typeColumn = new TableColumn<>("ประเภทคำร้อง");
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("requestType"));
-        TableColumn<Request, String> createColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
-        createColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
-        TableColumn<Request, String> latestColumn = new TableColumn<>("วันที่อัพเดทล่าสุด");
-        latestColumn.setCellValueFactory(new PropertyValueFactory<>("TimeStamp"));
-        TableColumn<Request, String> statusColumn = new TableColumn<>("สถานะคำร้อง");
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
-        requestListTableView.getColumns().add(typeColumn);
-        requestListTableView.getColumns().add(createColumn);
-        requestListTableView.getColumns().add(latestColumn);
-        requestListTableView.getColumns().add(statusColumn);
-        typeColumn.setMinWidth(150);
-        createColumn.setMinWidth(200);
-        latestColumn.setMinWidth(200);
-        statusColumn.setMinWidth(381);
+        requestListTable.addColumn("ประเภทคำร้อง", "requestType");
+        requestListTable.addColumn("วันที่ยื่นคำร้อง", "Date");
+        requestListTable.addColumn("วันที่อัพเดทล่าสุด", "TimeStamp");
+        requestListTable.addColumn("สถานะคำร้อง", "statusNow");
+        requestListTable.addColumn("", "statusNext");
+
         if (loginUser == null) {return;}
         requestListDatasource = new RequestListFileDatasource("data");
         requestList = requestListDatasource.readData();
         myRequests = new RequestList();
         for (Request request : requestList.getRequests()) {
-            System.out.println("find");
             if (request.getOwnerUUID().equals(loginUser.getUUID())) {
-            System.out.println("found");
                 myRequests.addRequest(request);
-                requestListTableView.getItems().add(request);
+                requestListTable.getTableView().getItems().add(request);
             }
         }
     }
