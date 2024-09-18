@@ -45,16 +45,20 @@ public class AdvisorRequestsController {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("requestType"));
         TableColumn<Request, String> statusColumn = new TableColumn<>("สถานะคำร้อง");
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
+        TableColumn<Request, String> statusNextColumn = new TableColumn<>("สถานะคำร้องต่อไป");
+        statusNextColumn.setCellValueFactory(new PropertyValueFactory<>("statusNext"));
 
         nameColumn.setMinWidth(150);
         dateColumn.setMinWidth(200);
-        typeColumn.setMinWidth(200);
-        statusColumn.setMinWidth(381);
+        typeColumn.setMinWidth(150);
+        statusColumn.setMinWidth(190);
+        statusNextColumn.setMinWidth(241);
 
         requestListTableView.getColumns().add(nameColumn);
         requestListTableView.getColumns().add(dateColumn);
         requestListTableView.getColumns().add(typeColumn);
         requestListTableView.getColumns().add(statusColumn);
+        requestListTableView.getColumns().add(statusNextColumn);
     }
 
     private void getStudentID(){
