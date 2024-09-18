@@ -98,6 +98,8 @@ public class LoginController {
                 if (loginUser.getDefaultPassword().equals(password) && !loginUser.getRole().equals("student")){
                     System.out.println("Need to change password");
                     changePasswordPopup(loginUser);
+                    userNameTextField.setText("");
+                    passwordTextField.setText("");
                 }
                 else{
                     if (loginUser.getRole().equalsIgnoreCase("faculty-staff")) {goToFacultyManage();}
@@ -128,7 +130,7 @@ public class LoginController {
                 Scene scene = new Scene(fxmlLoader.load());
 
                 ChangePasswordController controller = fxmlLoader.getController();
-                //controller.setUser(currentUser); // Assuming a setUser method exists in ChangePasswordController
+                controller.setCurrentUser(currentUser);
                 controller.setStage(currentPopupStage);
 
                 currentPopupStage.setScene(scene);

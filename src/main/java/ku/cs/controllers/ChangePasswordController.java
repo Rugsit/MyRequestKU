@@ -5,6 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import ku.cs.models.user.User;
+import ku.cs.models.user.UserList;
+import ku.cs.services.UserListFileDatasource;
 
 import java.util.Stack;
 
@@ -12,7 +15,9 @@ public class ChangePasswordController {
     @FXML
     private Button acceptButton;
     @FXML
-    private Button exitButton; // Corrected fx:id to match FXML
+    private Button exitButton;
+    @FXML
+    private Label displayTextField;
 
     @FXML
     private TextField passwordTextField;
@@ -22,12 +27,13 @@ public class ChangePasswordController {
     private Label errorLabel;
 
     private Stage stage;
+    private User currentUser;
+    private UserListFileDatasource datasource;
 
     public void setStage(Stage stage){this.stage = stage;}
-
-    @FXML
-    private void initialize() {
-    }
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+        displayTextField.setText("เปลี่ยนรหัสผ่าน ( " + currentUser.getUsername() + " )");}
 
     private boolean passwordChange() {
         String password1 = passwordTextField.getText().trim();
@@ -47,14 +53,28 @@ public class ChangePasswordController {
 
     @FXML
     private void onAcceptClick() {
-        // Handle the accept button click event
-        System.out.println("Accept button clicked");
+        // change password and save to datasource.
         if (passwordChange()){
-            stage.close();
-        } else{
-            System.out.println("Not finished undo closing !");
-        }
+            try{ // writing user data.
+                String fileName = currentUser.getRole();
 
+                datasource = new UserListFileDatasource("data", fileName+".csv");
+                UserList users = datasource.readData();
+                User existingUser = users.findUserById(currentUser.getId());
+                existingUser.setPassword(passwordTextField.getText().trim());
+                datasource.writeData(users);
+
+                stage.close();
+
+
+            }catch (Exception e){
+                errorLabel.setVisible(true);
+                errorLabel.setText("กรุณากรอกรหัสผ่านที่มีความยาวมากกว่า 8 ตัวอักษร");
+                System.out.println(e.getMessage());
+            }
+
+
+        }
     }
 
     @FXML
