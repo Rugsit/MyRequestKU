@@ -1,10 +1,13 @@
 package ku.cs.controllers.advisor;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.user.Student;
@@ -14,23 +17,39 @@ import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
-public class AdvisorRequestsController {
-    @FXML TableView requestListTableView;
+public class AdvisorStudentRequestsController {
+    @FXML
+    TableView requestListTableView;
     @FXML
     BorderPane borderPane;
+    @FXML
+    Label displayName;
+
     private Datasource<RequestList> requestListDatasource;
     private Datasource<UserList> datasource;
     private RequestList requestList;
     private ArrayList<String> studentId;
     private UserList userlist;
+    private String selectedStudentId;
+    private String studentName;
 
     public void initialize() {
         studentId = new ArrayList<>();
-        getStudentID();
-        loadRequests();
         showTable();
+    }
+
+    public void setStudentName(String studentName){
+        this.studentName = studentName;
+        displayName.setText(this.studentName);
+    }
+
+    public void setSelectedStudentId(String selectedStudentId) {
+        this.selectedStudentId = selectedStudentId;
+        loadRequests();
     }
 
     private void showTable() {
@@ -61,19 +80,6 @@ public class AdvisorRequestsController {
         requestListTableView.getColumns().add(statusNextColumn);
     }
 
-    private void getStudentID(){
-        datasource = new UserListFileDatasource("data", "student.csv");
-        userlist = datasource.readData();
-        for (User user : userlist.getUsers()) {
-            if (user instanceof Student){
-                Student student = (Student) user;
-                if (AdvisorPageController.getAdvisorUUID().equals(student.getAdvisor())){
-                    studentId.add(student.getId());
-                }
-            }
-        }
-    }
-
     private void loadRequests() {
         requestListDatasource = new RequestListFileDatasource("data");
         requestList = requestListDatasource.readData();
@@ -81,13 +87,29 @@ public class AdvisorRequestsController {
 
         if (requestList != null) {
             for (Request request : requestList.getRequests()) {
-                if (studentId.contains(request.getNisitId())){
+                if (selectedStudentId.equals(request.getNisitId())){
                     requestListTableView.getItems().add(request);
                 }
             }
         }
     }
 
+
+    public void onBackButtonClick(){
+        try {
+            String viewPath = "/ku/cs/views/advisor-students-pane.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            AdvisorStudentListController controller = fxmlLoader.getController();
+            controller.initialize();
+            borderPane.setCenter(pane);
+            controller.setBorderPane(borderPane);
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
 
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
