@@ -1,15 +1,20 @@
 package ku.cs.controllers.advisor;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.UserListFileDatasource;
+
+import java.io.IOException;
+import java.util.UUID;
 
 public class AdvisorStudentListController {
     @FXML TableView requestListTableView;
@@ -20,6 +25,7 @@ public class AdvisorStudentListController {
     public void initialize() {
         loadStudents();
         showTable();
+        loadRequestsDetail();
     }
 
 
@@ -55,6 +61,34 @@ public class AdvisorStudentListController {
                 }
             }
         }
+    }
+
+    private void loadRequestsDetail() {
+        requestListTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                try {
+                    String viewPath = "/ku/cs/views/advisor-student-requests-pane.fxml";
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
+                    Pane pane = fxmlLoader.load();
+                    AdvisorStudentRequestsController controller = fxmlLoader.getController();
+
+                    // Pass selected student details to the controller
+                    if (newValue instanceof Student) {
+                        Student selectedStudent = (Student) newValue;
+                        String  selectedStudentId = selectedStudent.getId();
+
+                        controller.setSelectedStudentId(selectedStudentId);
+                        controller.setStudentName(selectedStudent.getName());
+                    }
+
+                    borderPane.setCenter(pane);
+                    controller.setBorderPane(borderPane);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void setBorderPane(BorderPane borderPane) {
