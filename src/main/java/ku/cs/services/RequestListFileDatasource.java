@@ -92,8 +92,15 @@ public class RequestListFileDatasource implements Datasource<RequestList> {
         }
     }
 
-    public void appendData(Request request) {
-        String filePath = directoryName + File.separator + "requests" + File.separator + "requests.csv";
+    public void appendData(Request request, String option) {
+        String filePath;
+        if (option.equals("data")) {
+            filePath = directoryName + File.separator + "requests" + File.separator + "requests.csv";
+        } else if (option.equals("log")) {
+            filePath = directoryName + File.separator + "requests" + File.separator + "requests-log.csv";
+        } else {
+            throw new IllegalArgumentException("Unknown option: " + option);
+        }
         File file = new File(filePath);
         FileOutputStream fileOutputStream = null;
 
@@ -113,5 +120,47 @@ public class RequestListFileDatasource implements Datasource<RequestList> {
             System.err.println("Error writing request list file");
         }
 
+    }
+
+    public void appendToLog(Request request) {
+        Datasource<RequestList> datasource = new RequestListFileDatasource("data");
+        RequestList requestList = datasource.readData();
+        String dataToLog;
+
+        for (Request req : requestList.getRequests()) {
+            if (req.getUuid().equals(request.getUuid())) {
+                appendData(request, "log");
+                break;
+            }
+        }
+    }
+
+    public RequestList queryLog(Request request) {
+        RequestList requestList = new RequestList();
+        requestList.addRequest(request);
+        String filePath = directoryName + File.separator + "requests" + File.separator + "requests-log.csv";
+        File file = new File(filePath);
+
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            System.err.println("Error opening request logs file");
+        }
+
+        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
+
+        String dataLine = "";
+        try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+            while ((dataLine = bufferedReader.readLine()) != null) {
+                String[] data = dataLine.split(",");
+                if (request.getUuid().toString().equals(data[1])) {
+                    requestList.addRequest(data);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading request list file");
+        }
+        return requestList;
     }
 }
