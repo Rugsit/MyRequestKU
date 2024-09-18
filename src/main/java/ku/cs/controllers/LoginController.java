@@ -1,11 +1,15 @@
 package ku.cs.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.DateException;
@@ -17,6 +21,7 @@ import ku.cs.services.FXRouter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Stack;
 
 public class LoginController {
     @FXML private TextField userNameTextField;
@@ -28,6 +33,7 @@ public class LoginController {
     @FXML private Button selectAdviserRoleButton;
     @FXML private Button selectStudentRoleButton;
     @FXML private Label aboutUsLabel;
+    @FXML private Stage currentPopupStage;
 
     private Authentication authController;
     private UserListFileDatasource datasource;
@@ -39,6 +45,7 @@ public class LoginController {
         DefaultLabel aboutUs = new DefaultLabel(aboutUsLabel);
         authController = new Authentication();
     }
+
     @FXML
     protected void onLoginButtonClick(){
         String username = userNameTextField.getText().trim();
@@ -86,11 +93,21 @@ public class LoginController {
                 }
 
                 hideError();
-                if (loginUser.getRole().equalsIgnoreCase("faculty-staff")) {goToFacultyManage();}
-                else if (loginUser.getRole().equalsIgnoreCase("admin")) {goToAdminManage();}
-                else if (loginUser.getRole().equalsIgnoreCase("student")){onStudentButtonClicked();}
-                else if (loginUser.getRole().equalsIgnoreCase("advisor")){goToAdvisorManage();}
-                else if (loginUser.getRole().equalsIgnoreCase("department-staff")){goToDepartmentManage();}
+
+                // change default password check.
+                if (loginUser.getDefaultPassword().equals(password) && !loginUser.getRole().equals("student")){
+                    System.out.println("Need to change password");
+                    changePasswordPopup(loginUser);
+                }
+                else{
+                    if (loginUser.getRole().equalsIgnoreCase("faculty-staff")) {goToFacultyManage();}
+                    else if (loginUser.getRole().equalsIgnoreCase("admin")) {goToAdminManage();}
+                    else if (loginUser.getRole().equalsIgnoreCase("student")){onStudentButtonClicked();}
+                    else if (loginUser.getRole().equalsIgnoreCase("advisor")){goToAdvisorManage();}
+                    else if (loginUser.getRole().equalsIgnoreCase("department-staff")){goToDepartmentManage();}
+                }
+
+
             }
         } else if (!username.isEmpty() && !password.isEmpty() && isUseridInDatasource == null) {
             showError("ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง");
@@ -102,6 +119,28 @@ public class LoginController {
         }
 
     }
+
+    private void changePasswordPopup(User currentUser) {
+        try {
+            if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                currentPopupStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/change-password.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                ChangePasswordController controller = fxmlLoader.getController();
+                //controller.setUser(currentUser); // Assuming a setUser method exists in ChangePasswordController
+                controller.setStage(currentPopupStage);
+
+                currentPopupStage.setScene(scene);
+                currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+                currentPopupStage.setTitle("Change password");
+                currentPopupStage.show();
+            }
+        } catch (IOException e) {
+            System.out.println("Error :" + e.getMessage());
+        }
+    }
+
 
     private void showError(String message) {
         errorLabel.setText(message);
