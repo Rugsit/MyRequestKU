@@ -118,6 +118,7 @@ public class GeneralRequestFormController {
             Pane pane = fxmlLoader.load();
             ChooseRequestFromController controller = fxmlLoader.getController();
             controller.setBorderPane(this.borderPane);
+            controller.setLoginUser(loginUser);
             borderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -195,6 +196,7 @@ public class GeneralRequestFormController {
                 controller.setStage(this.currentConfirmStage);
                 controller.setBorderPane(this.borderPane);
                 controller.setRequestForm(generalRequestForm);
+                controller.setLoginUser(loginUser);
                 scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentConfirmStage.setScene(scene);
                 currentConfirmStage.initModality(Modality.APPLICATION_MODAL);

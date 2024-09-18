@@ -39,7 +39,7 @@ public class StudentRequestsController {
         showInfo();
     }
 
-    private void showTable(){
+    public void showTable(){
         requestListTable = new DefaultTableView<>(requestListTableView) {
             @Override
             protected void handleCLick() {
@@ -117,7 +117,7 @@ public class StudentRequestsController {
         this.borderPane = borderPane;
     }
 
-    void setLoginUser(Student loginUser) {
+    public void setLoginUser(Student loginUser) {
         if (loginUser == null) {return;}
         this.loginUser = loginUser;
     }

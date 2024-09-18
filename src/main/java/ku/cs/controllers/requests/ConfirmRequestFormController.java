@@ -8,14 +8,21 @@ import javafx.stage.Stage;
 import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
+import ku.cs.models.user.Student;
+import ku.cs.models.user.User;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class ConfirmRequestFormController {
     private Datasource<RequestList> datasource;
     private Stage stage;
+    private User loginUser;
 
     private Request request;
     private Request requestPair;
@@ -49,6 +56,8 @@ public class ConfirmRequestFormController {
         this.stage = stage;
     }
 
+    public void setLoginUser(User loginUser) { this.loginUser = loginUser;}
+
     @FXML
     public void onConfirmClick() {
         RequestList requestList = datasource.readData();
@@ -59,6 +68,10 @@ public class ConfirmRequestFormController {
             Pane pane = fxmlLoader.load();
             StudentRequestsController controller = fxmlLoader.getController();
             controller.setBorderPane(this.borderPane);
+            controller.setLoginUser((Student) loginUser);
+            ExecutorService executor = Executors.newFixedThreadPool(1);
+
+            controller.showTable();
             borderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);

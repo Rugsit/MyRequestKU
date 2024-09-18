@@ -19,11 +19,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" stylesheets="@../styles/general-request-form-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.GeneralRequestFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" stylesheets="@../styles/general-request-form-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.information.GeneralInformaitonRequestFormController">
    <children>
-      <ScrollPane fitToWidth="true" layoutX="38.0" layoutY="91.0" prefHeight="563.0" prefWidth="900.0">
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" layoutX="38.0" layoutY="91.0" prefHeight="563.0" prefWidth="900.0">
          <content>
-            <VBox prefWidth="753.0" styleClass="vbox-in-scroll-pane">
+            <VBox mouseTransparent="true" prefWidth="753.0" styleClass="vbox-in-scroll-pane">
                <children>
                   <HBox>
                      <children>
@@ -32,7 +32,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="2024/7/01 16.55">
+                        <Label fx:id="createDateTextField" text="2024/7/01 16.55">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -42,7 +42,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="2024/7/02 07.30" />
+                        <Label fx:id="updateDateTextField" text="2024/7/02 07.30" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -55,7 +55,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="นายเมมโมรี่โฟม">
+                        <Label fx:id="nameTextField" text="นายเมมโมรี่โฟม">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -65,7 +65,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="รักนอน">
+                        <Label fx:id="surnameTextField" text="รักนอน">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -75,7 +75,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="6610407777" />
+                        <Label fx:id="idTextField" text="6610407777" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -88,7 +88,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="วิทยาศาสตร์">
+                        <Label fx:id="facultyTextField" text="วิทยาศาสตร์">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -98,7 +98,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="วิทยาการคอมพิวเตอร์">
+                        <Label fx:id="departmentTextField" text="วิทยาการคอมพิวเตอร์">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -108,7 +108,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="memoryfoam.ru@ku.th" />
+                        <Label fx:id="gmailTextField" text="memoryfoam.ru@ku.th" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -121,7 +121,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="ผศ.ดร.โพลีเอสเตอร์ นอนไม่พอ">
+                        <Label fx:id="advisorTextField" text="ผศ.ดร.โพลีเอสเตอร์ นอนไม่พอ">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -131,7 +131,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="D1438">
+                        <Label fx:id="advisorIdTextField" text="D1438">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -164,7 +164,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
-                  <VBox prefHeight="66.0" prefWidth="883.0">
+                  <VBox fx:id="lostorDamageVbox" prefHeight="66.0" prefWidth="883.0">
                      <children>
                         <CheckBox fx:id="degreeCerCheckBox" mnemonicParsing="false" text="ใบแทนปริญญาบัตร">
                            <VBox.margin>
@@ -192,7 +192,7 @@
                         <Insets bottom="30.0" right="5.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox prefHeight="166.0" prefWidth="835.0">
+                  <VBox fx:id="changeNameVbox" prefHeight="166.0" prefWidth="835.0">
                      <children>
                         <CheckBox fx:id="changeNameCheckBox" mnemonicParsing="false" text="เปลี่ยนชื่อ (ต้องแนบใบเปลี่ยนชื่อ)" />
                         <Label styleClass="caution" text="*โปรดระบุทั้งภาษาไทย และภาษาอังกฤษ">
@@ -236,7 +236,7 @@
                         <Insets bottom="30.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox prefHeight="166.0" prefWidth="835.0">
+                  <VBox fx:id="changeSurNameVbox" prefHeight="166.0" prefWidth="835.0">
                      <children>
                         <CheckBox fx:id="surNameCheckBox" mnemonicParsing="false" text="เปลี่ยนชื่อสกุล (ต้องแนบใบเปลี่ยนชื่อสกุล)" />
                         <Label styleClass="caution" text="*โปรดระบุทั้งภาษาไทย และภาษาอังกฤษ">
@@ -280,7 +280,7 @@
                         <Insets bottom="30.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox fx:id="otherVbox" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <CheckBox fx:id="otherCheckBox" mnemonicParsing="false" text="อื่น ๆ (ระบุ)">
                            <VBox.margin>

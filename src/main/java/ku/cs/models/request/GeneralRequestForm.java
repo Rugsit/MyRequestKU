@@ -59,6 +59,54 @@ public class GeneralRequestForm extends Request{
         super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
     }
 
+    public String getTel() {
+        return tel;
+    }
+
+    public boolean isDegreeCertificateLost() {
+        return degreeCertificateLost;
+    }
+
+    public boolean isDegreeCertificateDamage() {
+        return degreeCertificateDamage;
+    }
+
+    public String getOldThaiName() {
+        return oldThaiName;
+    }
+
+    public String getNewThaiName() {
+        return newThaiName;
+    }
+
+    public String getOldEngName() {
+        return oldEngName;
+    }
+
+    public String getNewEngName() {
+        return newEngName;
+    }
+
+    public String getOldThaiSurName() {
+        return oldThaiSurName;
+    }
+
+    public String getNewThaiSurName() {
+        return newThaiSurName;
+    }
+
+    public String getOldEngSurName() {
+        return oldEngSurName;
+    }
+
+    public String getNewEngSurName() {
+        return newEngSurName;
+    }
+
+    public String getOthers() {
+        return others;
+    }
+
     public void setTel(String tel) {
         tel = tel.trim();
         Pattern pattern = Pattern.compile("^[0-9]{10}$");
