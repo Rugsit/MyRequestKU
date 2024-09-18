@@ -41,11 +41,9 @@ public class ChangePasswordController {
 
         if (password1.equals(password2)) {
             errorLabel.setVisible(false);
-            System.out.println("Password change confirm");
             return true;
         } else {
             errorLabel.setVisible(true);
-            errorLabel.setText("รหัสผ่านไม่ตรงกัน โปรดทำการกรอกรหัสผ่านใหม่อีกครั้ง");
             return false;
         }
     }
@@ -65,7 +63,6 @@ public class ChangePasswordController {
                 datasource.writeData(users);
 
                 stage.close();
-
 
             }catch (Exception e){
                 errorLabel.setVisible(true);
