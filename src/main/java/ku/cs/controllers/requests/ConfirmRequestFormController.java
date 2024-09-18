@@ -69,20 +69,19 @@ public class ConfirmRequestFormController {
             StudentRequestsController controller = fxmlLoader.getController();
             controller.setBorderPane(this.borderPane);
             controller.setLoginUser((Student) loginUser);
-            ExecutorService executor = Executors.newFixedThreadPool(1);
 
+            if (this.request != null) {
+                requestList.addRequest(request);
+            }
+            if (this.requestPair != null) {
+                requestList.addRequest(requestPair);
+            }
+            datasource.writeData(requestList);
             controller.showTable();
             borderPane.setCenter(pane);
+            stage.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (this.request != null) {
-            requestList.addRequest(request);
-        }
-        if (this.requestPair != null) {
-            requestList.addRequest(requestPair);
-        }
-        datasource.writeData(requestList);
-        stage.close();
     }
 }
