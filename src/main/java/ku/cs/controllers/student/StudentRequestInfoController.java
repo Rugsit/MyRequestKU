@@ -9,8 +9,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import ku.cs.models.request.Request;
-import ku.cs.models.request.RequestList;
+import ku.cs.controllers.requests.information.*;
+import ku.cs.models.request.*;
 import ku.cs.models.user.Student;
 import ku.cs.services.RequestListFileDatasource;
 import ku.cs.views.components.DefaultTableView;
@@ -37,7 +37,7 @@ public class StudentRequestInfoController {
         datasource = new RequestListFileDatasource("data");
     }
 
-    void showInfo(){
+    public void showInfo(){
         requestTypeLabel.setText(request.getRequestType());
         createdDateLabel.setText(request.getDate().toString());
         requestNumberLabel.setText(request.getUuid().toString());
@@ -87,7 +87,7 @@ public class StudentRequestInfoController {
         requestStatus2.setText(request.getStatusNext());
     }
 
-    void showTable() {
+    public void showTable() {
         tableView.getTableView().getColumns().clear();
         tableView.getTableView().getStylesheets().clear();
         TableColumn<Request, String> date = new TableColumn<>("วันที่และเวลา");
@@ -121,16 +121,99 @@ public class StudentRequestInfoController {
         }
     }
 
-    void setLoginUser(Student loginUser) {
+    public void setLoginUser(Student loginUser) {
         this.loginUser = loginUser;
     }
 
-    void setRequest(Request request) {
+    public void setRequest(Request request) {
         this.request = request;
     }
 
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
+    }
+
+    @FXML
+    private void seeInformation() {
+        try {
+            if (request instanceof AcademicLeaveRequestForm) {
+                showAcademicInformation();
+            } else if (request instanceof GeneralRequestForm) {
+                showGeneralInformation();
+            } else if (request instanceof RegisterRequestForm) {
+                showRegisterInformation();
+            } else if (request instanceof Ku1AndKu3RequestForm) {
+                if (request.getRequestType().equalsIgnoreCase("KU1")) {
+                    showKU1Information();
+                } else if (request.getRequestType().equalsIgnoreCase("KU3")) {
+                    showKU3Information();
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void showAcademicInformation() throws IOException{
+        String viewPath = "/ku/cs/views/academic-leave-form-information.fxml";
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(viewPath));
+        Pane pane = fxmlLoader.load();
+        AcademicLeaveInformationRequestFormController controller = fxmlLoader.getController();
+        controller.setLoginUser(loginUser);
+        controller.setRequest(request);
+        borderPane.setCenter(pane);
+        controller.setBorderPane(borderPane);
+        controller.showData();
+    }
+    private void showGeneralInformation() throws IOException{
+        String viewPath = "/ku/cs/views/general-request-form-information.fxml";
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(viewPath));
+        Pane pane = fxmlLoader.load();
+        GeneralInformaitonRequestFormController controller = fxmlLoader.getController();
+        controller.setLoginUser(loginUser);
+        controller.setRequest(request);
+        borderPane.setCenter(pane);
+        controller.setBorderPane(borderPane);
+        controller.showData();
+    }
+    private void showRegisterInformation() throws IOException{
+        String viewPath = "/ku/cs/views/register-request-form-information.fxml";
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(viewPath));
+        Pane pane = fxmlLoader.load();
+        RegisterInformationRequestFormController controller = fxmlLoader.getController();
+        controller.setLoginUser(loginUser);
+        controller.setRequest(request);
+        borderPane.setCenter(pane);
+        controller.setBorderPane(borderPane);
+        controller.showData();
+    }
+    private void showKU1Information() throws IOException{
+        String viewPath = "/ku/cs/views/ku1-form-information.fxml";
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(viewPath));
+        Pane pane = fxmlLoader.load();
+        Ku1InformationRequestFormController controller = fxmlLoader.getController();
+        controller.setLoginUser(loginUser);
+        controller.setRequest(request);
+        borderPane.setCenter(pane);
+        controller.setBorderPane(borderPane);
+        controller.showData();
+    }
+    private void showKU3Information() throws IOException{
+        String viewPath = "/ku/cs/views/ku3-form-information.fxml";
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(viewPath));
+        Pane pane = fxmlLoader.load();
+        Ku3InformationRequestFormController controller = fxmlLoader.getController();
+        controller.setLoginUser(loginUser);
+        controller.setRequest(request);
+        borderPane.setCenter(pane);
+        controller.setBorderPane(borderPane);
+        controller.showData();
     }
 
 }

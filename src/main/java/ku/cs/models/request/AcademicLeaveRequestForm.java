@@ -1,6 +1,5 @@
 package ku.cs.models.request;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -64,6 +63,54 @@ public class AcademicLeaveRequestForm extends Request{
             }
             i--;
         }
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public int getAmountSemester() {
+        return amountSemester;
+    }
+
+    public String getSemesterFrom() {
+        return semesterFrom;
+    }
+
+    public String getYearFrom() {
+        return yearFrom;
+    }
+
+    public String getSemesterTo() {
+        return semesterTo;
+    }
+
+    public String getYearTo() {
+        return yearTo;
+    }
+
+    public boolean isHaveRegister() {
+        return haveRegister;
+    }
+
+    public String getHaveRegisterSemester() {
+        return haveRegisterSemester;
+    }
+
+    public String getHaveRegisterYear() {
+        return haveRegisterYear;
+    }
+
+    public ArrayList<String> getSubject() {
+        return subject;
     }
 
     public void setTel(String tel) {

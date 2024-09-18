@@ -191,6 +191,66 @@ public class RegisterRequestForm extends Request{
         this.since = since;
     }
 
+    public boolean isLateRegister() {
+        return lateRegister;
+    }
+
+    public boolean isAddDrop() {
+        return addDrop;
+    }
+
+    public boolean isRegisterMoreThan22() {
+        return registerMoreThan22;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public int getSemesterYear() {
+        return semesterYear;
+    }
+
+    public int getOldCredit() {
+        return oldCredit;
+    }
+
+    public int getNewCredit() {
+        return newCredit;
+    }
+
+    public boolean isRegisterLessThan9() {
+        return registerLessThan9;
+    }
+
+    public boolean isLatePayment() {
+        return latePayment;
+    }
+
+    public String getLatePaymentSemester() {
+        return latePaymentSemester;
+    }
+
+    public int getLatePaymentYear() {
+        return latePaymentYear;
+    }
+
+    public boolean isTransferFaculty() {
+        return transferFaculty;
+    }
+
+    public String getOldFaculty() {
+        return oldFaculty;
+    }
+
+    public String getNewFaculty() {
+        return newFaculty;
+    }
+
+    public String getSince() {
+        return since;
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");

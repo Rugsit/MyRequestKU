@@ -95,6 +95,26 @@ public class Ku1AndKu3RequestForm extends Request{
         this.campus = campus;
     }
 
+    public String getCurriculum() {
+        return curriculum;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public String getCampus() {
+        return campus;
+    }
+
     public ArrayList<ArrayList<String>> getSubjectList() {
         return subjectList;
     }

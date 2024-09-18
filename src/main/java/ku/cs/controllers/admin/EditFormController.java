@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import ku.cs.models.department.Department;
 import ku.cs.models.department.DepartmentList;
@@ -96,20 +97,24 @@ public class EditFormController {
                     showDepartmentInChoiceBox();
                     errorLabel.setVisible(false);
                 } catch (IllegalArgumentException ex){
+                    departmentChoiceBox.getItems().clear();
                     errorLabel.setVisible(true);
                     errorLabel.setText(ex.getMessage());
                 }
             });
             departmentChoiceBox.setOnKeyPressed(e -> {
-                try {
-                    if (facultyChoiceBox.getValue() == null) {
-                        throw new IllegalArgumentException("กรุณาเลือกคณะก่อน");
+                if (e.getCode() != KeyCode.TAB) {
+                    try {
+                        if (facultyChoiceBox.getValue() == null) {
+                            throw new IllegalArgumentException("กรุณาเลือกคณะก่อน");
+                        }
+                        showDepartmentInChoiceBox();
+                        errorLabel.setVisible(false);
+                    } catch (IllegalArgumentException ex){
+                        departmentChoiceBox.getItems().clear();
+                        errorLabel.setVisible(true);
+                        errorLabel.setText(ex.getMessage());
                     }
-                    showDepartmentInChoiceBox();
-                    errorLabel.setVisible(false);
-                } catch (IllegalArgumentException ex){
-                    errorLabel.setVisible(true);
-                    errorLabel.setText(ex.getMessage());
                 }
             });
         }
@@ -164,13 +169,13 @@ public class EditFormController {
                 facultyChoiceBox.getItems().add(faculty.getName());
             }
         }
-//        if (departmentChoiceBox != null) {
-//            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
-//            DepartmentList departmentList = datasourceDepartment.readData();
-//            for (Department department : departmentList.getDepartments()) {
-//                departmentChoiceBox.getItems().add(department.getName());
-//            }
-//        }
+        if (departmentChoiceBox != null) {
+            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
+            DepartmentList departmentList = datasourceDepartment.readData();
+            for (Department department : departmentList.getDepartments()) {
+                departmentChoiceBox.getItems().add(department.getName());
+            }
+        }
     }
 
 

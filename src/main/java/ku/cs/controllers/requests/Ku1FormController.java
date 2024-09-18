@@ -168,9 +168,9 @@ public class Ku1FormController {
                 if (!((RadioButton)vBox.lookup(".lecture")).isSelected() && !((RadioButton)vBox.lookup(".lab")).isSelected()) {
                     throw new IllegalArgumentException("กรุณาเลือกประเภทหมู่เรียนในวิชาที่ " + (i + 1));
                 } else if (((RadioButton)vBox.lookup(".lecture")).isSelected()) {
-                    sectionType.add("lecture");
+                    sectionType.add("บรรยาย");
                 } else {
-                    sectionType.add("lab");
+                    sectionType.add("ปฏิบัติการ");
                 }
                 teacher.add(((TextField)vBox.lookup(".teacher")).getText());
             }
@@ -213,6 +213,7 @@ public class Ku1FormController {
             Pane pane = fxmlLoader.load();
             RegisterRequestFormController controller = fxmlLoader.getController();
             controller.setBorderPane(this.borderPane);
+            controller.setLoginUser(loginUser);
             borderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -245,6 +246,7 @@ public class Ku1FormController {
                 controller.setBorderPane(this.borderPane);
                 controller.setRequestForm(registerRequestForm);
                 controller.setRequestPair(ku1AndKu3RequestForm);
+                controller.setLoginUser(loginUser);
                 scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentConfirmStage.setScene(scene);
                 currentConfirmStage.initModality(Modality.APPLICATION_MODAL);
