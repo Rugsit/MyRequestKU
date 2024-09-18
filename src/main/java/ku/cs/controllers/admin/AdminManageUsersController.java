@@ -191,12 +191,6 @@ public class AdminManageUsersController {
     private void writeAllUsers(User user) {
         String role = user.getRole();
 
-//        UserList tmp;
-//        tmp = new UserList();
-//        tmp.getUsers(role).addAll(userlist.getUsers(role));
-//        datasource.writeData(tmp);
-//        สามารถเรียก ref ของ collection ภายในมาใช้ได้แต่รกนิสนึง
-
         if (role.equals("faculty-staff")) {
             datasource = new UserListFileDatasource("data", "faculty-staff.csv");
 //            datasource.writeData(userlist.getFacultyList());
