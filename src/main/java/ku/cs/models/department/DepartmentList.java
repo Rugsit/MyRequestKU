@@ -2,6 +2,7 @@ package ku.cs.models.department;
 
 import ku.cs.models.faculty.Faculty;
 import java.util.HashSet;
+import java.util.UUID;
 
 public class DepartmentList {
     HashSet<Department> departments;
@@ -61,6 +62,14 @@ public class DepartmentList {
                 departments.remove(department);
             }
         }
+    }
+    public Department getDepartmentByUuid(String uuid) {
+        for (Department department : departments) {
+            if (department.getUuid().equals(UUID.fromString(uuid))) {
+                return department;
+            }
+        }
+        return null;
     }
 
     public void updateFaculty(Faculty faculty, String old) throws NoFacultyException {

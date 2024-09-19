@@ -212,9 +212,9 @@ public class NisitAdvisorManagementController {
         UserList filterList;
         if(session != null && session.getUser() != null){
             filterList = new UserList();
-            String currentDepartment = ((DepartmentUser)session.getUser()).getDepartment();
+            UUID currentDepartment = ((DepartmentUser)session.getUser()).getDepartmentUUID();
             for(User user : nisitList.getUsers("student")){
-                if(((Student)user).getDepartment().equalsIgnoreCase(currentDepartment)){
+                if(((Student)user).getDepartmentUUID().equals(currentDepartment)){
                     try {
                         filterList.addUser(user);
                     } catch (UserException e) {
@@ -245,9 +245,9 @@ public class NisitAdvisorManagementController {
         UserList filterList;
         if(session != null && session.getUser() != null){
             filterList = new UserList();
-            String currentDepartment = ((DepartmentUser)session.getUser()).getDepartment();
+            UUID currentDepartment = ((DepartmentUser)session.getUser()).getDepartmentUUID();
             for(User user : advisorList.getUsers("advisor")){
-                if(((Advisor)user).getDepartment().equalsIgnoreCase(currentDepartment)){
+                if(((Advisor)user).getDepartmentUUID().equals(currentDepartment)){
                     try {
                         filterList.addUser(user);
                     } catch (UserException e) {

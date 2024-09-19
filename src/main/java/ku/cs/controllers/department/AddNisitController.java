@@ -13,11 +13,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
+import ku.cs.models.Session;
+import ku.cs.models.department.Department;
+import ku.cs.models.department.DepartmentList;
+import ku.cs.models.faculty.Faculty;
+import ku.cs.models.faculty.FacultyList;
+import ku.cs.models.user.DepartmentUser;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
+import ku.cs.services.DepartmentListFileDatasource;
 import ku.cs.services.FXRouter;
+import ku.cs.services.FacultyListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
@@ -49,9 +57,36 @@ public class AddNisitController {
     private DefaultLabel editorErrorLabel;
     private boolean editMode;
     private boolean showEdit;
+    private Department addDepartment;
+    private Faculty addFaculty;
+    private Session session;
+
+    private void initRouteData(){
+        Object object = FXRouter.getData();
+        if(object instanceof Session){
+            this.session = (Session) object;
+        }else{
+            session = null;
+        }
+        addDepartment = null;
+        addFaculty = null;
+        if(session != null && session.getUser() != null){
+            if(session.getUser() instanceof DepartmentUser){
+                DepartmentListFileDatasource departmentDatasource = new DepartmentListFileDatasource("data");
+                DepartmentList departmentList = departmentDatasource.readData();
+                DepartmentUser user = (DepartmentUser) session.getUser();
+                addDepartment = departmentList.getDepartmentByUuid(user.getDepartmentUUID().toString());
+
+                FacultyListFileDatasource facultyDatasource = new FacultyListFileDatasource("data");
+                FacultyList facultyList = facultyDatasource.readData();
+                addFaculty = facultyList.getFacultyByUuid(user.getFacultyUUID().toString());
+            }
+        }
+    }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
+        initRouteData();
         editorErrorLabel = new DefaultLabel("");
         initTableView();
         users = new UserList();
@@ -423,34 +458,48 @@ public class AddNisitController {
                                     t.toggleTextField(false);
                                 }
                             });
-                            try {
-                                tmpUserList.addUser(
-                                        addNisitIdTextField.getData(),
-                                        "no-username",
-                                        "student",
-                                        addNisitFirstnameTextField.getData(),
-                                        addNisitLastnameTextField.getData(),
-                                        DateTools.localDateTimeToFormatString(User.DATE_FORMAT,LocalDateTime.now()),
-                                        "no-email",
-                                        "DEFAULT",
-                                        "MyFaculty",
-                                        "MyDepartment"
-                                );
-                                users.concatenate(tmpUserList);
-                                setEditorErrorLabel("");
-                                mainStackPane.getChildren().removeLast();
-                                refreshTableData();
-                            } catch (UserException err){
-                                errorLabel.changeText(err.getMessage(),24,FontWeight.NORMAL);
+                            if(session != null && addDepartment != null && addFaculty != null){
+                                try {
+                                    tmpUserList.addUser(
+                                            addNisitIdTextField.getData(),
+                                            "no-username",
+                                            "student",
+                                            addNisitFirstnameTextField.getData(),
+                                            addNisitLastnameTextField.getData(),
+                                            DateTools.localDateTimeToFormatString(User.DATE_FORMAT,LocalDateTime.now()),
+                                            "no-email",
+                                            "DEFAULT",
+                                            addFaculty.getName(),
+                                            addDepartment.getName()
+                                    );
+                                    users.concatenate(tmpUserList);
+                                    setEditorErrorLabel("");
+                                    mainStackPane.getChildren().removeLast();
+                                    refreshTableData();
+                                } catch (UserException err){
+                                    errorLabel.changeText(err.getMessage(),24,FontWeight.NORMAL);
+                                    errorLabel.changeLabelColor("red");
+                                    System.out.println("UserException Error : " + err.getMessage());
+                                    children.forEach(child ->{
+                                        if(child instanceof TextFieldStack){
+                                            TextFieldStack t = (TextFieldStack) child;
+                                            t.toggleTextField(true);
+                                        }
+                                    });
+                                    err.printStackTrace();
+                                } catch (Exception err){
+                                    err.printStackTrace();
+                                }
+
+                            }else{
+                                errorLabel.changeText("not support for non-department user yet : null session",24,FontWeight.NORMAL);
                                 errorLabel.changeLabelColor("red");
-                                System.out.println("UserException Error : " + err.getMessage());
                                 children.forEach(child ->{
-                                    if(child instanceof TextFieldStack){
+                                if(child instanceof TextFieldStack){
                                         TextFieldStack t = (TextFieldStack) child;
                                         t.toggleTextField(true);
                                     }
                                 });
-                                err.printStackTrace();
                             }
                         });
                     }

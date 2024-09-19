@@ -1,9 +1,17 @@
 package ku.cs.models.user;
 
+import ku.cs.models.department.Department;
+import ku.cs.models.department.DepartmentList;
+import ku.cs.models.faculty.Faculty;
+import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.exceptions.UserException;
+import ku.cs.services.DepartmentListFileDatasource;
+import ku.cs.services.FacultyListFileDatasource;
+
+import java.util.UUID;
 
 public class DepartmentUser extends FacultyUser {
-    private String department;
+    private UUID department;
 
     public DepartmentUser(String id,
                           String username,
@@ -33,26 +41,57 @@ public class DepartmentUser extends FacultyUser {
                           String faculty,
                           String department) throws UserException {
         super(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty);
-        setDepartment(department);
+        setDepartment(UUID.fromString(department));
 
     }
 
-    public String getDepartment(){
+    public UUID getDepartmentUUID(){
         return this.department;
     }
-    public void setDepartment(String department) throws UserException {
-        if(isValidDepartment(department)){
-            this.department = department;
+    public String getDepartment(){
+        if(this.department != null){
+            try {
+                DepartmentListFileDatasource datasource = new DepartmentListFileDatasource("data");
+                DepartmentList departmentList = datasource.readData();
+                Department queryDepartment = departmentList.getDepartmentByUuid(this.department.toString());
+                if(queryDepartment != null){
+                    return queryDepartment.getName();
+                }else{
+                    return null;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+    public void setDepartment(UUID departmentUUID) throws UserException {
+        if(departmentUUID != null){
+            this.department = departmentUUID;
         }else{
-            throw new UserException("Invalid Department");
+            throw new UserException("Invalid department : null");
         }
     }
-    private boolean isValidDepartment(String department){
-        return true; //WAITING...
+    public void setDepartment(String facultyName) throws UserException {
+        try {
+            DepartmentListFileDatasource datasource = new DepartmentListFileDatasource("data");
+            DepartmentList departmentList = datasource.readData();
+            Department queryDepartment = departmentList.getDepartmentByName(facultyName);
+            if(queryDepartment != null){
+                this.department = queryDepartment.getUuid();
+            }else{
+                throw new UserException("Invalid department name : not found");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+//    private boolean isValidDepartment(String department){
+//        return true; //WAITING...
+//    }
     @Override
     public String toString() {
-        return super.toString() + "," + department;
+        return super.toString() + "," + department.toString();
     }
 
 }
