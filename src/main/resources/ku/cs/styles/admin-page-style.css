@@ -64,7 +64,7 @@ Button:hover {
     -fx-padding: 15px;
     -fx-font-size: 24px;
     -fx-text-fill: white;
-    -fx-background-color: FF4E4E;
+    -fx-background-color: #FF4E4E;
 }
 
 .searchTextField {
@@ -136,11 +136,20 @@ Button:hover {
 }
 
 .table-view .cell {
+    -fx-text-fill: #374957;
+    -fx-padding: 10px;
+    -fx-font-size: 20px;
+    -fx-border-color: transparent;
+}
+
+.table-view-user .cell {
      -fx-text-fill: #374957;
      -fx-padding: 10px;
      -fx-font-size: 20px;
      -fx-border-color: transparent;
+    /*-fx-alignment: CENTER_LEFT;*/
 }
+
 .table-view .cell:selected {
     -fx-border-radius: 2px;
     -fx-border-width: 2px;

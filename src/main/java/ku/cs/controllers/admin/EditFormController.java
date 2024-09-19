@@ -88,34 +88,21 @@ public class EditFormController {
 
     @FXML
     private void initialize() {
-        if (departmentChoiceBox != null) {
-            departmentChoiceBox.setOnMouseClicked(e -> {
-                try {
-                    if (facultyChoiceBox.getValue() == null) {
-                        throw new IllegalArgumentException("กรุณาเลือกคณะก่อน");
-                    }
-                    showDepartmentInChoiceBox();
-                    errorLabel.setVisible(false);
-                } catch (IllegalArgumentException ex){
-                    departmentChoiceBox.getItems().clear();
-                    errorLabel.setVisible(true);
-                    errorLabel.setText(ex.getMessage());
+        Datasource<DepartmentList> datasource = new DepartmentListFileDatasource("data");
+        departmentList = datasource.readData();
+        if (facultyChoiceBox != null && departmentChoiceBox != null) {
+            facultyChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    departmentChoiceBox.setValue("");
                 }
             });
+        }
+        if (departmentChoiceBox != null) {
+            departmentChoiceBox.setOnMouseClicked(e -> {
+                showDepartmentInChoiceBox();
+            });
             departmentChoiceBox.setOnKeyPressed(e -> {
-                if (e.getCode() != KeyCode.TAB) {
-                    try {
-                        if (facultyChoiceBox.getValue() == null) {
-                            throw new IllegalArgumentException("กรุณาเลือกคณะก่อน");
-                        }
-                        showDepartmentInChoiceBox();
-                        errorLabel.setVisible(false);
-                    } catch (IllegalArgumentException ex){
-                        departmentChoiceBox.getItems().clear();
-                        errorLabel.setVisible(true);
-                        errorLabel.setText(ex.getMessage());
-                    }
-                }
+                showDepartmentInChoiceBox();
             });
         }
     }
@@ -124,8 +111,6 @@ public class EditFormController {
         if (facultyChoiceBox.getValue() != null && prevFacaltyChose != facultyChoiceBox.getValue()) {
             prevFacaltyChose = facultyChoiceBox.getValue();
             departmentChoiceBox.getItems().clear();
-            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
-            DepartmentList departmentList = datasourceDepartment.readData();
             for (Department department : departmentList.getDepartments()) {
                 if (department.getFaculty().equals(facultyChoiceBox.getValue())) {
                     departmentChoiceBox.getItems().add(department.getName());
@@ -137,11 +122,16 @@ public class EditFormController {
     public void showOldFacultyDepartmentData() {
         if (faculty == null) {
             facultyNameLabel.setText(department.getFaculty());
+            facultyChoiceBox.setValue(department.getFaculty());
             departmentNameLabel.setText(department.getName());
+            departmentNameTextField.setText(department.getName());
             departmentIdLabel.setText(department.getId());
+            departmentIdTextField.setText(department.getId());
         } else if (department == null) {
             facultyNameLabel.setText(faculty.getName());
+            facultyNameTextField.setText(faculty.getName());
             facultyIdLabel.setText(faculty.getId());
+            facultyIdTextField.setText(faculty.getId());
         }
     }
 
@@ -149,15 +139,22 @@ public class EditFormController {
         currentRole = role;
         if (currentUser instanceof FacultyUser) {
             facultyLabel.setText(((FacultyUser)currentUser).getFaculty());
+            facultyChoiceBox.setValue(((FacultyUser)currentUser).getFaculty());
         }
         nameLabel.setText(currentUser.getName());
+        firstNameTextField.setText(currentUser.getFirstname());
+        lastNameTextField.setText(currentUser.getLastname());
         userNameLabel.setText(currentUser.getUsername());
+        userNameTextField.setText(currentUser.getUsername());
+        startPasswordTextField.setText("DEFAULT");
         startPasswordLabel.setText(currentUser.getDefaultPassword());
         if (currentUser instanceof DepartmentUser) {
             departmentLabel.setText(((DepartmentUser)currentUser).getDepartment());
+            departmentChoiceBox.setValue(((DepartmentUser)currentUser).getDepartment());
         }
         if (currentUser instanceof Advisor) {
             advisorIdLabel.setText(currentUser.getId());
+            advisorIdTextField.setText(currentUser.getId());
         }
     }
 

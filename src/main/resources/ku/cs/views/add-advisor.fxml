@@ -83,6 +83,15 @@
       <Label fx:id="errorLabel" alignment="CENTER_RIGHT" layoutX="382.0" layoutY="492.0" prefHeight="26.0" prefWidth="326.0" styleClass="error-label" text="error" visible="false" />
       <VBox layoutX="382.0" layoutY="104.0" prefHeight="324.0" prefWidth="326.0">
          <children>
+            <Label styleClass="text-desc-input" text="คณะ">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <ChoiceBox fx:id="facultyChoiceBox" prefHeight="50.0" prefWidth="350.0" styleClass="choice-box-select">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></ChoiceBox>
             <Label styleClass="text-desc-input" text="ภาควิชา">
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -93,15 +102,6 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </ChoiceBox>
-            <Label styleClass="text-desc-input" text="คณะ">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <ChoiceBox fx:id="facultyChoiceBox" prefHeight="50.0" prefWidth="350.0" styleClass="choice-box-select">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin></ChoiceBox>
             <Label styleClass="text-desc-input" text="รหัสประจำตัว">
                <VBox.margin>
                   <Insets bottom="5.0" />

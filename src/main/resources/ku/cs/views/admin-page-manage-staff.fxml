@@ -175,7 +175,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <TableView fx:id="userListTableview" layoutX="357.0" layoutY="154.0" prefHeight="470.0" prefWidth="876.0">
+      <TableView fx:id="userListTableview" layoutX="357.0" layoutY="154.0" prefHeight="470.0" prefWidth="876.0" styleClass="table-view-other">
          <columns>
             <TableColumn prefWidth="197.60004270076752" text="ชื่อ" />
             <TableColumn prefWidth="139.20001220703125" text="ชื่อผู้ใช้" />

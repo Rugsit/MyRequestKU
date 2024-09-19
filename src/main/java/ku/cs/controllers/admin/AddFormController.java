@@ -79,34 +79,21 @@ public class AddFormController {
 
     @FXML
     private void initialize() {
-        if (departmentChoiceBox != null) {
-            departmentChoiceBox.setOnMouseClicked(e -> {
-                try {
-                    if (facultyChoiceBox.getValue() == null) {
-                        throw new IllegalArgumentException("กรุณาเลือกคณะก่อน");
-                    }
-                    showDepartmentInChoiceBox();
-                    errorLabel.setVisible(false);
-                } catch (IllegalArgumentException ex){
-                    departmentChoiceBox.getItems().clear();
-                    errorLabel.setVisible(true);
-                    errorLabel.setText(ex.getMessage());
+        DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
+        departmentList = datasourceDepartment.readData();
+        if (facultyChoiceBox != null && departmentChoiceBox != null) {
+            facultyChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    departmentChoiceBox.setValue("");
                 }
             });
+        }
+        if (departmentChoiceBox != null) {
+            departmentChoiceBox.setOnMouseClicked(e -> {
+                showDepartmentInChoiceBox();
+            });
             departmentChoiceBox.setOnKeyPressed(e -> {
-                if (e.getCode() != KeyCode.TAB) {
-                    try {
-                        if (facultyChoiceBox.getValue() == null) {
-                            throw new IllegalArgumentException("กรุณาเลือกคณะก่อน");
-                        }
-                        showDepartmentInChoiceBox();
-                        errorLabel.setVisible(false);
-                    } catch (IllegalArgumentException ex){
-                        departmentChoiceBox.getItems().clear();
-                        errorLabel.setVisible(true);
-                        errorLabel.setText(ex.getMessage());
-                    }
-                }
+                showDepartmentInChoiceBox();
             });
         }
     }
@@ -115,8 +102,7 @@ public class AddFormController {
         if (facultyChoiceBox.getValue() != null && prevFacaltyChose != facultyChoiceBox.getValue()) {
             prevFacaltyChose = facultyChoiceBox.getValue();
             departmentChoiceBox.getItems().clear();
-            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
-            DepartmentList departmentList = datasourceDepartment.readData();
+
             for (Department department : departmentList.getDepartments()) {
                 if (department.getFaculty().equals(facultyChoiceBox.getValue())) {
                     departmentChoiceBox.getItems().add(department.getName());

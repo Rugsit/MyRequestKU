@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.StringConverter;
 import ku.cs.models.user.Admin;
 import ku.cs.models.user.User;
@@ -17,10 +19,8 @@ import ku.cs.services.UserListFileDatasource;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AdminManageUsersController {
     // store data what object that currently login now
@@ -60,6 +60,24 @@ public class AdminManageUsersController {
         userListTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         TableColumn<User, String> avatar = new TableColumn<>("รูปภาพผู้ใช้");
         avatar.setCellValueFactory(new PropertyValueFactory<>("avatar"));
+
+//        avatar.setCellFactory(column -> new TableCell<>() {
+//            private final ImageView imageView = new ImageView();
+//
+//            @Override
+//            protected void updateItem(String item, boolean empty) {
+//                super.updateItem(item, empty);
+//                if (empty || item == null) {
+//                    setGraphic(null);
+//                } else {
+//                    Image image = new Image(getClass().getResourceAsStream("/images/profile-test.png"));
+//                    imageView.setImage(image);
+//                    imageView.setFitHeight(70); // ตั้งขนาดของรูปภาพ
+//                    imageView.setFitWidth(150);
+//                    setGraphic(imageView);
+//                }
+//            }
+//        });
         TableColumn<User, String> userName = new TableColumn<>("ชื่อผู้ใช้");
         userName.setCellValueFactory(new PropertyValueFactory<>("username"));
         TableColumn<User, String> name = new TableColumn<>("ชื่อ-นามสกุล");
@@ -148,12 +166,11 @@ public class AdminManageUsersController {
     }
 
     private void search() {
-        HashSet<User> filter = new HashSet<>();
-        for (User user : userlist.getUsers()) {
-            if (user.getName().toLowerCase().contains(searchTextField.getText().toLowerCase())) {
-                filter.add(user);
-            }
-        }
+        Set<User> filter = userlist.getUsers()
+                .stream()
+                .filter(user -> user.getName().toLowerCase().contains(searchTextField.getText().toLowerCase()))
+                .collect(Collectors.toSet());
+
         userListTableView.getItems().clear();
         userListTableView.getItems().addAll(filter);
         TableColumn<User, LocalDateTime> lastTime = (TableColumn<User, LocalDateTime>) userListTableView.getColumns().get(4);

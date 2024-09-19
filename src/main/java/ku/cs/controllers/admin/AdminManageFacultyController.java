@@ -22,6 +22,8 @@ import ku.cs.services.FacultyListFileDatasource;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AdminManageFacultyController {
     // store data what object that currently login now
@@ -136,23 +138,21 @@ public class AdminManageFacultyController {
 
     }
     private void searchDepartment(String newValue) {
-        HashSet<Department> filter = new HashSet<>();
-        for (Department department : departmentList.getDepartments()) {
-            if (department.getName().toLowerCase().contains(newValue.toLowerCase())) {
-                filter.add(department);
-            }
-        }
+        Set<Department> filter = departmentList.getDepartments()
+                .stream()
+                .filter(department -> department.getName().toLowerCase().contains(newValue.toLowerCase()))
+                .collect(Collectors.toSet());
+
         departmentTableView.getItems().clear();
         departmentTableView.getItems().addAll(filter);
     }
 
     private void searchFaculty(String newValue) {
-        HashSet<Faculty> filter = new HashSet<>();
-        for (Faculty faculty : facultyList.getFacultyList()) {
-            if (faculty.getName().toLowerCase().contains(newValue.toLowerCase())) {
-                filter.add(faculty);
-            }
-        }
+        Set<Faculty> filter = facultyList.getFacultyList()
+                .stream()
+                .filter(faculty -> faculty.getName().toLowerCase().contains(newValue.toLowerCase()))
+                .collect(Collectors.toSet());
+
         facultyTableView.getItems().clear();
         facultyTableView.getItems().addAll(filter);
     }

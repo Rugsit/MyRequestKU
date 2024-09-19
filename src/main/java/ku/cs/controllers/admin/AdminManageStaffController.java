@@ -15,6 +15,8 @@ import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AdminManageStaffController {
     // store data what object that currently login now
@@ -110,12 +112,11 @@ public class AdminManageStaffController {
     }
 
     private void search(String newValue) {
-        HashSet<User> filter = new HashSet<>();
-        for (User user : userList.getUsers()) {
-            if (user.getName().toLowerCase().contains(newValue.toLowerCase())) {
-                filter.add(user);
-            }
-        }
+        Set<User> filter = userList.getUsers()
+                .stream()
+                .filter(user -> user.getName().toLowerCase().contains(newValue.toLowerCase()))
+                .collect(Collectors.toSet());
+
         userListTableview.getItems().clear();
         userListTableview.getItems().addAll(filter);
     }
