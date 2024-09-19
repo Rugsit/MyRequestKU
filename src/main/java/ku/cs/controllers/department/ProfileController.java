@@ -14,13 +14,20 @@ public class ProfileController {
     @FXML private AnchorPane mainAnchorPane;
     @FXML private StackPane mainStackPane;
     @FXML private Label pageTitleLabel;
-//    private Session session;
-
+    private Session session;
+private void initRouteData(){
+    Object object = FXRouter.getData();
+    if(object instanceof Session){
+        this.session = (Session) object;
+    }else{
+        session = null;
+    }
+}
     @FXML
     public void initialize() {
-//        this.session = (Session) FXRouter.getData();
+        initRouteData();
         initLabel();
-//        mainAnchorPane.getChildren().add(new SidebarController("profile",session).getVBox());
+        mainAnchorPane.getChildren().add(new SidebarController("profile",session).getVBox());
 
     }
     private void initLabel() {

@@ -7,7 +7,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import ku.cs.models.Session;
+import ku.cs.models.department.DepartmentList;
+import ku.cs.models.request.RequestList;
 import ku.cs.models.user.User;
+import ku.cs.services.DepartmentListFileDatasource;
+import ku.cs.services.RequestListFileDatasource;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.views.components.DefaultTableView;
 import ku.cs.views.components.RouteButton;
@@ -56,33 +60,21 @@ public class RequestListController {
             session = null;
         }
     }
+
     @FXML
     public void initialize() {
         initRouteData();
 
         initLabel();
-        initSidebar();
         initTableView();
         Image image = new Image(getClass().getResourceAsStream("/images/profile-test.png"));
         new SquareImage(userProfileImageView,image).setClipImage(100,100);
 
         mainAnchorPane.getChildren().add(new SidebarController("request-list",session).getVBox());
 
-//        UserListFileDatasource userDataSource = new UserListFileDatasource("data","users.csv");
-//        userList = userDataSource.readData();
-//        System.out.println(userList);
-
     }
     private void initLabel() {
         new DefaultLabel(pageTitleLabel);
-    }
-    private void initSidebar(){
-        new RouteButton(requestSideButton,"department-staff-request-list",HOVER_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
-        new RouteButton(nisitAdvisorManagementSideButton,"department-staff-nisit-advisor-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
-        new RouteButton(nisitManagementSideButton,"department-staff-nisit-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
-        new RouteButton(approverManagementSideButton,"department-staff-approver-list",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
-        new RouteButton(logoutButton,"login",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
-
     }
     private void initTableView(){
         DefaultTableView<Request> reqTable = new DefaultTableView(requestTableView){
@@ -108,8 +100,21 @@ public class RequestListController {
         reqTable.addColumn("ประเภทคำร้อง","requestType");
         reqTable.addColumn("สถานะคำร้อง","statusNow");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        Request request = new Request("ศิริสุข ทานธรรม", LocalDateTime.parse("2024/08/02 23:59:45", formatter), LocalDateTime.parse("2024/08/02 23:59:45", formatter), "6610402230", "คำร้องทั่วไป", "รอภาควิชา", "อนุมัติโดยอาจารย์ที่ปรึกษา");
-        reqTable.getTableView().getItems().add(request);
+
+
+//        Request request = new Request("ศิริสุข ทานธรรม", LocalDateTime.parse("2024/08/02 23:59:45", formatter), LocalDateTime.parse("2024/08/02 23:59:45", formatter), "6610402230", "คำร้องทั่วไป", "รอภาควิชา", "อนุมัติโดยอาจารย์ที่ปรึกษา");
+//        UserListFileDatasource userListDatasource = new UserListFileDatasource("data","department-staff.csv");
+//        UserList departmentStaff = userListDatasource.readData();
+//
+//        RequestListFileDatasource datasource = new RequestListFileDatasource("data");
+//        RequestList requestList = datasource.readData();
+//
+//        for(Request request : requestList.getRequests()){
+//
+//        }
+//        RequestList
+//        reqTable.getTableView().getItems().add(request);
+
 
     }
 

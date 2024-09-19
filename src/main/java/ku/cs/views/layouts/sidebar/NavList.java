@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
+import ku.cs.models.Session;
 import ku.cs.views.components.RouteButton;
 
 public class NavList {
@@ -16,8 +17,10 @@ public class NavList {
     private double vboxHeight;
     private double navButtonWidth;
     private double navButtonHeight = 50;
+    private Session session;
 
-    public NavList(double width, double height) {
+    public NavList(double width, double height, Session session) {
+        this.session = session;
         this.vboxWidth = width;
         this.vboxHeight = height;
         this.navButtonWidth = width * 0.85;
@@ -54,7 +57,8 @@ public class NavList {
                 routeName,
                 baseColorHex,
                 hoverColorHex,
-                baseLabelColorHex
+                baseLabelColorHex,
+                this.session
         );
         newButton.changeText(buttonText,fontSize,fontWeight);
         newButton.setButtonSize(navButtonWidth,navButtonHeight);

@@ -46,7 +46,7 @@ public class SidebarController {
         CenterImage centerImageLayout = new CenterImage(width,150,sidebarImage);
         centerImageLayout.setMount(0,0);
 
-        NavList navListLayout = new NavList(width,310);
+        NavList navListLayout = new NavList(width,310,this.session);
         String iconPath = "/images/pages/department/sidebar/";
         String requestIconPath = iconPath + "request-list.png";
         String nisitManageIconPath = iconPath + "nisit-management.png";
