@@ -207,3 +207,9 @@ Button:hover {
     -fx-background-color: #FF5D5D;
     -fx-text-fill: white;
 }
+
+.about-us {
+    -fx-font-size: 18px;
+    -fx-text-fill: #909194;
+    -fx-cursor: hand;
+}

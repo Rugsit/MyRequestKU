@@ -41,10 +41,7 @@ public class AdminManageStaffController {
     @FXML
     private TextField searchTextField;
 
-    @FXML
-    private void initialize() {
-        if (FXRouter.getData() instanceof Admin) loginUser = (Admin) FXRouter.getData();
-
+    public void initialize() {
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableview.setPlaceholder(placeHolder);
         userListTableview.setFocusTraversable(true);
@@ -97,6 +94,10 @@ public class AdminManageStaffController {
 //                }
 //            }
 //        });
+    }
+
+    public void setLoginUser(Admin loginUser) {
+        this.loginUser = loginUser;
     }
 
     private void showEditPopupWhenClickRow(User selectedUser) {

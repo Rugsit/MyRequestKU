@@ -50,10 +50,7 @@ public class AdminManageFacultyController {
     @FXML
     private TableView<Department> departmentTableView;
 
-    @FXML
-    private void initialize() {
-        if (FXRouter.getData() instanceof Admin) loginUser = (Admin) FXRouter.getData();
-
+    public void initialize() {
         Label placeHolder = new Label("ไม่พบข้อมูล");
         facultyTableView.setPlaceholder(placeHolder);
         departmentTableView.setPlaceholder(placeHolder);
@@ -137,6 +134,11 @@ public class AdminManageFacultyController {
         loadFaculty();
 
     }
+
+    public void setLoginUser(Admin loginUser) {
+        this.loginUser = loginUser;
+    }
+
     private void searchDepartment(String newValue) {
         Set<Department> filter = departmentList.getDepartments()
                 .stream()

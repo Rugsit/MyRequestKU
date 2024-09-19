@@ -1,7 +1,11 @@
 package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.user.Admin;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
@@ -24,7 +28,8 @@ public class AdminProfileController {
 
     private UserList userList;
 
-
+    @FXML
+    private BorderPane borderPane;
     @FXML
     private Label nameLabel;
     @FXML
@@ -38,58 +43,16 @@ public class AdminProfileController {
 
     @FXML
     public void initialize() {
-        if (FXRouter.getData() instanceof Admin) {
-            loginUser = (Admin) FXRouter.getData();
-        }
-        showDataOnCard();
-        datasource = new UserListFileDatasource("data", "admin.csv");
-        userList = ((UserListFileDatasource)datasource).readAllUser();
+
     }
 
-    private void showDataOnCard() {
+    public void showDataOnCard() {
         nameLabel.setText(loginUser.getName());
         userNameLabel.setText(loginUser.getUsername());
         dafaultPasswordLabel.setText(loginUser.getDefaultPassword());
     }
 
-    @FXML
-    protected void goToAdminManageStaff() {
-        try {
-            FXRouter.goTo("admin-manage-staff", loginUser);
-        } catch (
-                IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    protected void goToAdminManageFaculty() {
-        try {
-            FXRouter.goTo("admin-manage-faculty-department", loginUser);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    protected void goToAdminManageUsers() {
-        try {
-            HashMap<String, Object> pack = new HashMap<>();
-            pack.put("loginUser", loginUser);
-            pack.put("userList", userList);
-            FXRouter.goTo("admin-manage-users", loginUser);
-        } catch (
-                IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    protected void onLogoutClicked() {
-        try {
-            FXRouter.goTo("login");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void setLoginUser(Admin loginUser) {
+        this.loginUser = loginUser;
     }
 }

@@ -194,12 +194,12 @@ public class AddFormController {
     @FXML
     public void onAcceptFacultyDepartmentClick() {
         try {
-            if (departmentList != null) {
+            if (departmentList != null && departmentNameTextField != null) {
                 Datasource<DepartmentList> datasource = new DepartmentListFileDatasource("data");
                 departmentList.addDepartment(departmentNameTextField.getText(), departmentIdTextField.getText(), facultyChoiceBox.getValue());
                 datasource.writeData(departmentList);
                 adminFacultyController.loadDepartment();
-            } else if (facultyList != null) {
+            } else if (facultyList != null && facultyNameTextField != null) {
                 Datasource<FacultyList> datasource = new FacultyListFileDatasource("data");
                 facultyList.addFaculty(facultyNameTextField.getText(), facultyIdTextField.getText());
                 datasource.writeData(facultyList);

@@ -50,10 +50,7 @@ public class AdminManageUsersController {
     @FXML
     private TabPane userListTabPane;
 
-    @FXML
-    private void initialize() {
-        if (FXRouter.getData() instanceof Admin) loginUser = (Admin) FXRouter.getData();
-
+    public void initialize() {
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableView.setPlaceholder(placeHolder);
         userListTableView.getColumns().clear();
@@ -190,6 +187,10 @@ public class AdminManageUsersController {
         } else{
             search();
         }
+    }
+
+    public void setLoginUser(Admin loginUser) {
+        this.loginUser = loginUser;
     }
 //CONFLICTS FOR NEST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private void writeSpecificUsers(String fileName) {

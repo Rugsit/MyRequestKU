@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.AdminProfileController">
+   <children>
+      <Label layoutX="35.0" layoutY="36.0" text="ข้อมูลผู้ใช้">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <Pane layoutX="188.0" layoutY="189.0" prefHeight="342.0" prefWidth="662.0" styleClass="cardUserProfile">
+         <children>
+            <Label fx:id="nameLabel" layoutX="236.0" layoutY="30.0" prefHeight="68.0" prefWidth="321.0" styleClass="profile-card-header" text="นายรักษิต รุ่งรัตนไชย">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="image" fitHeight="210.0" fitWidth="152.0" layoutX="33.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/users/card-profile.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="237.0" layoutY="121.0" text="ชื่อผู้ใช้:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="userNameLabel" layoutX="319.0" layoutY="121.0" text="Sleepman">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="dafaultPasswordLabel" layoutX="322.0" layoutY="168.0" text="pwd.Sleepman">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="54.0" fitWidth="51.0" layoutX="237.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/default-key-icon.png" />
+               </image>
+            </ImageView>
+            <Line endX="277.20001220703125" layoutX="329.0" layoutY="99.0" startX="-86.79998779296875" stroke="#9f9f9f" />
+            <ImageView fitHeight="35.0" fitWidth="38.0" layoutX="242.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/key-icon.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="passwordLabel" layoutX="320.0" layoutY="234.0" text="XXXXXXXXXXX">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
