@@ -2,8 +2,15 @@ package ku.cs.views.layouts.sidebar;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import ku.cs.models.Session;
+import ku.cs.models.user.User;
+import ku.cs.services.FXRouter;
+import ku.cs.services.ImageDatasource;
+import ku.cs.views.components.DefaultImage;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.cs211671project.MainApplication;
+
+import java.io.IOException;
 
 public class SidebarController {
     private VBox vBox;
@@ -13,8 +20,12 @@ public class SidebarController {
     private final String BASE_COLOR = "transparent";
     private final String HOVER_COLOR = "#EBEBEB";
     private final String BASE_LABEL_COLOR = DefaultLabel.DEFAULT_LABEL_COLOR;
+    private Session session;
+    private String curPage;
 
-    public SidebarController(){
+    public SidebarController(String curPage, Session session){
+        this.session = session;
+        this.curPage = curPage;
         this.width = 260;
         this.height = MainApplication.windowHeight;//720
         initVBox();
@@ -42,14 +53,37 @@ public class SidebarController {
         String aprroverManageIconPath = iconPath + "approver-management.png";
         String nisitAdvisorManageIconPath = iconPath + "nisit-advisor-management.png";
 
-        navListLayout.addRouteButton("ใบคำร้อง","department-staff-request-list",HOVER_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,requestIconPath);
+        navListLayout.addRouteButton("ใบคำร้อง","department-staff-request-list",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,requestIconPath);
         navListLayout.addRouteButton("จัดการนิสิต","department-staff-nisit-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,nisitManageIconPath);
         navListLayout.addRouteButton("จัดการผู้อนุมัติ","department-staff-approver-list",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,aprroverManageIconPath);
         navListLayout.addRouteButton("จัดการที่ปรึกษานิสิต","department-staff-nisit-advisor-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR,nisitAdvisorManageIconPath);
         navListLayout.setMount(0,150);
 
-        Image userImage = new Image(getClass().getResourceAsStream("/images/profile-test.png"));
-        MiniProfile miniProfile = new MiniProfile(userImage,"Sirisuk Tharntham");
+        String name = "Firstname Lastname";
+        Image userImage = new Image(getClass().getResourceAsStream(DefaultImage.fallbackImagePath));
+        if(session != null && session.getUser() != null){
+            name = session.getUser().getName();
+            if(!session.getUser().getAvatar().equalsIgnoreCase("no-image")){
+                ImageDatasource imageDatasource = new ImageDatasource("users");
+                userImage = imageDatasource.openImage(session.getUser().getAvatar());
+            }
+        }
+
+        MiniProfile miniProfile = new MiniProfile(userImage,name){
+            @Override
+            protected void handleClickEvent(){
+                profileImage.setOnMouseClicked(e->{
+                    if(!curPage.equalsIgnoreCase("profile")){
+                        try {
+                            FXRouter.goTo("department-staff-profile",session);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+
+                    }
+                });
+            }
+        };
         miniProfile.mount(0,460);
         //The VBox bypass child mount location but still need
         vBox.getChildren().addAll(centerImageLayout.getVBox(),navListLayout.getVBox(),miniProfile.getVBox());

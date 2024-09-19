@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class RouteButton extends DefaultButton {
     private String routeName;
+    private Object data;
 
     public RouteButton(String routeName,String baseColorHex, String hoverColorHex, String baseLabelColorHex) {
         super(baseColorHex, hoverColorHex, baseLabelColorHex);

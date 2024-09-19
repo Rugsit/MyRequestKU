@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.models.Session;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.DateException;
@@ -195,7 +196,9 @@ public class LoginController {
 
     @FXML protected void goToDepartmentManage() {
         try {
-            FXRouter.goTo("department-staff-request-list");
+            Session session = new Session();
+            session.setUser(loginUser);
+            FXRouter.goTo("department-staff-request-list",session);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -135,6 +135,7 @@ public class NisitManagementController {
 //        nisitTable.addColumn("สถานะ/ล่าสุด","activeStatus");
         nisitTable.getTableView().getColumns().add(newUsernameEmailColumn("ชื่อผู้ใช้/อีเมล"));
         nisitTable.getTableView().getColumns().add(newStatusLatestColumn("สถานะ/ล่าสุด"));
+        nisitTable.addColumn("รหัสเริ่มต้น","defaultPassword");
         nisitTable.getTableView().getColumns().add(newDeleteColumn());
         nisitTable.addStyleSheet("/ku/cs/styles/department/pages/nisit-management/department-nisit-management-table-stylesheet.css");
 

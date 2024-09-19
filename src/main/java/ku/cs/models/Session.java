@@ -5,25 +5,26 @@ import ku.cs.models.user.User;
 import java.util.HashMap;
 
 public class Session {
-    private User user;
-    private HashMap<String,Object> data;
+    private HashMap<String,Object> map;
     public Session() {
-        this.user = null;
+        map = new HashMap<>();
+        map.put("user",null);
+        map.put("data",null);
     }
     public User getUser() {
-        return user;
+        return (User)map.get("user");
     }
     public void setUser(User user) {
-        if(user != null) this.user = user;
+        map.put("user",user);
     }
     public void clear(){
-        this.user = null;
+        map.put("user",null);
     }
-    public HashMap<String,Object> getData() {
-        return data;
+    public Object getData() {
+        return map.get("data");
     }
-    public void setData(HashMap<String,Object> data) {
-        this.data = data;
+    public void setData(Object data) {
+        map.put("data",data);
     }
 }
 

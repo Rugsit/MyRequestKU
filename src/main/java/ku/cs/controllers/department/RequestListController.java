@@ -6,6 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import ku.cs.models.Session;
+import ku.cs.models.user.User;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.views.components.DefaultTableView;
 import ku.cs.views.components.RouteButton;
@@ -44,17 +46,27 @@ public class RequestListController {
     private final String BASE_LABEL_COLOR = DefaultLabel.DEFAULT_LABEL_COLOR;
     private final String DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
     private final String FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
+    private Session session;
 
+    private void initRouteData(){
+        Object object = FXRouter.getData();
+        if(object instanceof Session){
+            this.session = (Session) object;
+        }else{
+            session = null;
+        }
+    }
     @FXML
     public void initialize() {
+        initRouteData();
+
         initLabel();
         initSidebar();
         initTableView();
         Image image = new Image(getClass().getResourceAsStream("/images/profile-test.png"));
         new SquareImage(userProfileImageView,image).setClipImage(100,100);
 
-
-        mainAnchorPane.getChildren().add(new SidebarController().getVBox());
+        mainAnchorPane.getChildren().add(new SidebarController("request-list",session).getVBox());
 
 //        UserListFileDatasource userDataSource = new UserListFileDatasource("data","users.csv");
 //        userList = userDataSource.readData();
