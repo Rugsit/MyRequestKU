@@ -19,7 +19,7 @@ public class DepartmentList {
 
     public void addDepartment(String[] department){
         try {
-            departments.add(new Department(department[0], department[1], department[2]));
+            departments.add(new Department(department));
         } catch (NoFacultyException | IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -46,7 +46,6 @@ public class DepartmentList {
         }
         return null;
     }
-
 
     public void removeDepartmentById(String id) {
         for (Department department : departments) {

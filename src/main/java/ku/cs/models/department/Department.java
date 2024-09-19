@@ -4,17 +4,27 @@ import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
 import ku.cs.services.Datasource;
 import ku.cs.services.FacultyListFileDatasource;
+import java.util.UUID;
 
 public class Department {
     private String name;
     private String id;
+    private UUID uuid;
     private String faculty;
-    private String facultyId;
+    private UUID facultyUuid;
 
     public Department(String name, String id, String faculty) throws NoFacultyException, IllegalArgumentException{
         setFaculty(faculty);
         setName(name);
         setId(id);
+        uuid = UUID.randomUUID();
+    }
+
+    public Department(String[] department) throws NoFacultyException, IllegalArgumentException{
+        uuid = UUID.fromString(department[0]);
+        setName(department[1]);
+        setId(department[2]);
+        setFaculty(department[3]);
     }
 
     public String getName() {
@@ -29,9 +39,14 @@ public class Department {
         return faculty;
     }
 
-    public String getFacultyId() {
-        return facultyId;
+    public UUID getUuid() {
+        return uuid;
     }
+
+    public UUID getFacultyUuid() {
+        return facultyUuid;
+    }
+
 
     public void setName(String name) {
         name = name.trim();
@@ -53,7 +68,7 @@ public class Department {
 
     @Override
     public String toString() {
-        return name + "," + id + "," + faculty + "," + facultyId;
+        return uuid + "," + name + "," + id + "," + faculty;
     }
 
     public void setFaculty(String faculty) throws NoFacultyException {
@@ -69,12 +84,12 @@ public class Department {
             throw new NoFacultyException("ไม่สามารถสร้างได้ เนื่องจากไม่มีคณะดังกล่าวอยู่ในระบบ");
         }
         this.faculty = faculty;
-        this.facultyId = facultyList.getFacultyByName(faculty).getId();
+        this.facultyUuid = facultyList.getFacultyByName(faculty).getUuid();
     }
 
     void setFaculty(Faculty faculty){
         this.faculty = faculty.getName();
-        this.facultyId = faculty.getId();
+        this.facultyUuid = faculty.getUuid();
     }
 
 }
