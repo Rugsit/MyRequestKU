@@ -145,6 +145,29 @@ public class UserList implements Serializable {
         }
         return found;
     }
+    public User findUserByUUID(UUID queryUUID){
+        if(queryUUID != null){
+            for(ArrayList<User> list : users.values()){
+                Collections.sort(list);
+                int low = 0;
+                int high = list.size()-1;
+                while(low <= high){
+                    int mid = low + (high - low) / 2;
+                    if(list.get(mid).getUUID().compareTo(queryUUID) == 0){
+                        return list.get(mid);
+                    }
+                    // If query greater, ignore left half
+                    if (list.get(mid).getUUID().compareTo(queryUUID) < 0)
+                        low = mid + 1;
+
+                        // If query is smaller, ignore right half
+                    else
+                        high = mid - 1;
+                }
+            }
+        }
+        return null;
+    }
     public User findUserByObject(User queryUser){
         if(queryUser != null){
             for(ArrayList<User> list : users.values()){

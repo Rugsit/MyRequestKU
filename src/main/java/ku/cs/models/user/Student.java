@@ -48,7 +48,7 @@ public class Student extends DepartmentUser {
             this.advisor = object.getUUID();
         }
     }
-    private void setAdvisor(String advisorUUID){
+    public void setAdvisor(String advisorUUID){
         this.advisor = (!advisorUUID.equalsIgnoreCase("no-advisor")) ? UUID.fromString(advisorUUID) : null;
     }
     public void deleteAdvisor(){
