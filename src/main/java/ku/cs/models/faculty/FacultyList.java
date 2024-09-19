@@ -1,6 +1,7 @@
 package ku.cs.models.faculty;
 
 import java.util.HashSet;
+import java.util.UUID;
 
 public class FacultyList {
     HashSet<Faculty> facultyList;
@@ -18,7 +19,7 @@ public class FacultyList {
 
     public void addFaculty(String[] faculty) {
         try {
-            facultyList.add(new Faculty(faculty[0], faculty[1]));
+            facultyList.add(new Faculty(faculty[0], faculty[1], faculty[2]));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -56,6 +57,15 @@ public class FacultyList {
     public Faculty getFacultyByName(String name) {
         for (Faculty faculty : facultyList) {
             if (faculty.getName().equals(name)) {
+                return faculty;
+            }
+        }
+        return null;
+    }
+
+    public Faculty getFacultyByUuid(String uuid) {
+        for (Faculty faculty : facultyList) {
+            if (faculty.getUuid().equals(UUID.fromString(uuid))) {
                 return faculty;
             }
         }
