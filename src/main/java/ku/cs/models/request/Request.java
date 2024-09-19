@@ -1,5 +1,7 @@
 package ku.cs.models.request;
 
+import ku.cs.models.request.approver.ApproverList;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -15,7 +17,7 @@ public class Request {
     private String requestType;
     private String statusNow;
     private String statusNext;
-    private RequestApproverList approverList;
+    private ApproverList approvers;
 
 
     public Request() {}
