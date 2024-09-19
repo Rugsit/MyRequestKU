@@ -58,7 +58,7 @@ public class ChangePasswordController {
 
                 datasource = new UserListFileDatasource("data", fileName+".csv");
                 UserList users = datasource.readData();
-                User existingUser = users.findUserById(currentUser.getId());
+                User existingUser = users.findUserByObject(currentUser);
                 existingUser.setPassword(passwordTextField.getText().trim());
                 datasource.writeData(users);
 
