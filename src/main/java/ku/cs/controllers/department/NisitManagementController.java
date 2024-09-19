@@ -19,9 +19,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import ku.cs.models.Session;
+import ku.cs.models.user.DepartmentUser;
+import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
+import ku.cs.services.FXRouter;
 import ku.cs.services.ImageDatasource;
 import ku.cs.services.UserListFileDatasource;
 import ku.cs.services.utils.DateTools;
@@ -29,6 +33,7 @@ import ku.cs.views.components.*;
 
 import java.awt.*;
 import java.util.Optional;
+import java.util.UUID;
 
 public class NisitManagementController {
     @FXML private Label pageTitleLabel;
@@ -64,8 +69,20 @@ public class NisitManagementController {
     private User selectedUser;
     private DefaultLabel editorErrorLabel;
     private UploadImageStack editorUploadImageStack;
+    private Session session;
 
-    @FXML public void initialize() {
+    private void initRouteData(){
+        Object object = FXRouter.getData();
+        if(object instanceof Session){
+            this.session = (Session) object;
+        }else{
+            session = null;
+        }
+    }
+
+    @FXML
+    public void initialize() {
+        initRouteData();
         editorErrorLabel = new DefaultLabel("");
         initTableView();
         refreshTableData();
@@ -92,7 +109,7 @@ public class NisitManagementController {
     }
     private void initButton(){
         new RouteButton(backButton,"department-staff-request-list","transparent","#a6a6a6","#000000");
-        new RouteButton(addNisitButton,"department-staff-add-nisit","#ABFFA4","#80BF7A","#000000").changeBackgroundRadius(100);
+        new RouteButton(addNisitButton,"department-staff-add-nisit","#ABFFA4","#80BF7A","#000000",session).changeBackgroundRadius(100);
         DefaultButton refreshBt = new DefaultButton(refreshButton,"transparent","white","#000000"){
             @Override
             protected void handleClickEvent() {
@@ -157,7 +174,24 @@ public class NisitManagementController {
         datasource = new UserListFileDatasource("data","student.csv");
         users = datasource.readData();
 
-        for(User user : users.getUsers("student")){
+        UserList filterList;
+        if(session != null && session.getUser() != null){
+            filterList = new UserList();
+            UUID currentDepartment = ((DepartmentUser)session.getUser()).getDepartmentUUID();
+            for(User user : users.getUsers("student")){
+                if(((Student)user).getDepartmentUUID().equals(currentDepartment)){
+                    try {
+                        filterList.addUser(user);
+                    } catch (UserException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }else{
+            filterList = users;
+        }
+
+        for(User user : filterList.getUsers("student")){
             if(user.isRole("student")){
 //                System.out.println(">>>> " + user);
                 nisitTableView.getItems().add(user);
