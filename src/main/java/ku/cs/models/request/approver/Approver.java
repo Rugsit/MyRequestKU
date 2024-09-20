@@ -147,12 +147,12 @@ public abstract class Approver implements Comparable<Approver> {
     public String toString() {
         return uuid.toString() + "," +
                 requestUUID.toString() + "," +
-                firstname + "," +
-                lastname + "," +
                 tier + "," +
                 role + "," +
                 status + "," +
-                signatureFile;
+                signatureFile + "," +
+                firstname + "," +
+                lastname;
     }
 
 }
