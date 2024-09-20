@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import ku.cs.controllers.requests.information.*;
@@ -30,6 +32,7 @@ public class StudentRequestInfoController {
     @FXML Button requestStatus1;
     @FXML Button requestStatus2;
     @FXML BorderPane borderPane;
+    @FXML ImageView statusIconImageView;
 
     @FXML
     public void initialize() {
@@ -45,6 +48,7 @@ public class StudentRequestInfoController {
         Pattern rejected = Pattern.compile(".*ปฏิเสธ.*");
         Pattern newlyCreated = Pattern.compile(".*ใหม่.*");
         Pattern inProgress = Pattern.compile(".*ต่อ.*");
+        Pattern completed = Pattern.compile(".*ครบถ้วน.*");
         if (newlyCreated.matcher(status1).matches()){
             requestStatus1.setStyle(
                     "-fx-background-color: #EBEEFF; " +
@@ -80,7 +84,14 @@ public class StudentRequestInfoController {
                             "-fx-border-color: #FE6463; " +
                             "-fx-text-fill: #FE6463;"
             );
+            Image statusIcon = new Image(getClass().getResourceAsStream("/images/icons/request-status-rejected.png"));
+            statusIconImageView.setImage(statusIcon);
 
+        }
+
+        if (completed.matcher(status2).matches()){
+            Image statusIcon = new Image(getClass().getResourceAsStream("/images/icons/request-status-approved.png"));
+            statusIconImageView.setImage(statusIcon);
         }
 
         requestStatus1.setText(request.getStatusNow());
