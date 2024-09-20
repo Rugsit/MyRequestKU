@@ -83,5 +83,10 @@
          <font>
             <Font size="18.0" />
          </font></Button>
+      <ImageView fx:id="statusIconImageView" fitHeight="30.0" fitWidth="30.0" layoutX="230.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/icons/request-status-in-progress.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
