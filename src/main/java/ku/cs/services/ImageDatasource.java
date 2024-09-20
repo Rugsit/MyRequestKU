@@ -88,6 +88,9 @@ public class ImageDatasource{
     public String saveImage() {
         BufferedImage bufferedImage;
         File tmpFile = new File(imageDirectory + File.separator + "tmp.png");
+        if (!tmpFile.exists()) {
+            return fileName;
+        }
         File fileDestination = new File(imageDirectory + File.separator + fileName + ".png");
         try {
             bufferedImage = ImageIO.read(tmpFile);
