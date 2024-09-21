@@ -25,6 +25,11 @@ public class DepartmentList {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
+    public void addDepartment(Department department){
+        if(department != null && !departments.contains(department)){
+            departments.add(department);
+        }
+    }
 
     public HashSet<Department> getDepartments() {
         return departments;

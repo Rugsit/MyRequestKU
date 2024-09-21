@@ -102,13 +102,6 @@ public class RegisterInformationRequestFormController {
     @FXML
     private VBox transferFacultyVbox;
 
-    @FXML
-    private void initialize() {
-        Platform.runLater(() -> {
-            scrollPane.requestFocus(); // ให้ ScrollPane ได้รับโฟกัสแทน
-        });
-    }
-
     public void showData() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         createDateTextField.setText(request.getDate().format(formatter));
@@ -190,44 +183,6 @@ public class RegisterInformationRequestFormController {
 
     public void setBackPage(String backPage) {
         this.backPage = backPage;
-    }
-
-    @FXML
-    private void onBackButtonClick() {
-        if (backPage != null && backPage.equalsIgnoreCase("advisorRequest")) {
-            goToAdvisorRequest();
-            return;
-        }
-        try {
-            String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
-            Pane pane = fxmlLoader.load();
-            StudentRequestInfoController controller = fxmlLoader.getController();
-            controller.setLoginUser((Student) loginUser);
-            controller.setRequest(request);
-            controller.initialize();
-            controller.showInfo();
-            controller.showTable();
-            borderPane.setCenter(pane);
-            controller.setBorderPane(borderPane);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void goToAdvisorRequest() {
-        try {
-            String viewPath = "/ku/cs/views/advisor-requests-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
-            Pane pane = fxmlLoader.load();
-            AdvisorRequestsController controller = fxmlLoader.getController();
-            borderPane.setCenter(pane);
-            controller.setBorderPane(borderPane);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void setVisibleApproveButton() {

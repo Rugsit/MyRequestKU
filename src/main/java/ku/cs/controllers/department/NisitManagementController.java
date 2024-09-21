@@ -3,13 +3,13 @@ package ku.cs.controllers.department;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -31,8 +31,9 @@ import ku.cs.services.UserListFileDatasource;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 
-import java.awt.*;
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 public class NisitManagementController {
@@ -145,14 +146,12 @@ public class NisitManagementController {
         nisitTable.getTableView().getColumns().clear();
         nisitTable.getTableView().getItems().clear();
 
-//        nisitTable.getTableView().getColumns().add(newUserAvatarColumn());
+        nisitTable.getTableView().getColumns().add(newAvatarImageColumn());
         nisitTable.addColumn("รหัสนิสิต","id");
         nisitTable.addColumn("ชื่อ-นามสกุล","name");
-//        nisitTable.addColumn("อีเมล","email");
-//        nisitTable.addColumn("สถานะ/ล่าสุด","activeStatus");
         nisitTable.getTableView().getColumns().add(newUsernameEmailColumn("ชื่อผู้ใช้/อีเมล"));
         nisitTable.getTableView().getColumns().add(newStatusLatestColumn("สถานะ/ล่าสุด"));
-        nisitTable.addColumn("รหัสเริ่มต้น","defaultPassword");
+//        nisitTable.addColumn("รหัสเริ่มต้น","defaultPassword");
         nisitTable.getTableView().getColumns().add(newDeleteColumn());
         nisitTable.addStyleSheet("/ku/cs/styles/department/pages/nisit-management/department-nisit-management-table-stylesheet.css");
 
@@ -198,7 +197,7 @@ public class NisitManagementController {
             }
         }
         nisitTableView.getSortOrder().clear();
-        TableColumn nisitedCol = nisitTableView.getColumns().get(0);
+        TableColumn nisitedCol = nisitTableView.getColumns().get(1);
         nisitedCol.setSortable(true);
         nisitTableView.getSortOrder().add(nisitedCol);
         nisitedCol.setSortType(TableColumn.SortType.ASCENDING);
@@ -395,6 +394,10 @@ public class NisitManagementController {
             if(selectedUser != null && selectedUser.equals(user)){
                 selectedUser = null;
             }
+            if(!user.getAvatar().equalsIgnoreCase("no-image")){
+                ImageDatasource imageDatasource = new ImageDatasource("users");
+                imageDatasource.deleteFile(user.getAvatar());
+            }
             users.deleteUserByObject(user);
             datasource.writeData(users);
             refreshTableData();
@@ -403,6 +406,57 @@ public class NisitManagementController {
             e.printStackTrace();
         }
 
+    }
+    private TableColumn<User,?> newAvatarImageColumn(){
+        TableColumn<User,VBox> column = new TableColumn<>("");
+        column.setSortable(false);//BLOCK SORT BY CLICK
+        column.setReorderable(false);//BLOCK DRAG BY MOUSE
+        column.setCellFactory(c -> new TableCell<>(){
+            private SquareImage avatar;
+            private HashMap<String,Image> imageCache = new HashMap<>();
+            User user;
+            @Override
+            protected void updateItem(VBox item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || getTableView() == null || getTableView().getItems().get(getIndex()) == null) {
+                    setGraphic(null);
+                } else {
+                    setAlignment(Pos.CENTER);
+                    avatar = new SquareImage(new ImageView());
+                    avatar.getImageView().setFitHeight(50);
+                    avatar.getImageView().setFitWidth(50);
+                    avatar.getImageView().setPreserveRatio(true);
+                    avatar.getImageView().setSmooth(true);
+                    avatar.setClipImage(50,50);
+//                    setStyle("-fx-background-color: red");
+                    setGraphic(avatar.getImageView());
+                    Task<Image> loadImageTask = new Task<>() {
+                        @Override
+                        protected Image call() {
+                            user = getTableView().getItems().get(getIndex());
+                            if(user != null & !user.getAvatar().equalsIgnoreCase("no-image")){
+                                if(imageCache.keySet().contains(user.getAvatar())){
+                                    return imageCache.get(user.getAvatar());
+                                }
+                                ImageDatasource imageDatasource = new ImageDatasource("users");
+                                imageCache.put(user.getAvatar(),imageDatasource.openImage(user.getAvatar()));
+                                return imageCache.get(user.getAvatar());
+                            }
+                            return null;
+                        }
+                    };
+                    loadImageTask.setOnSucceeded(event ->{
+                        if(loadImageTask.getValue() != null){
+                            avatar.setImage(loadImageTask.getValue());
+                        }
+                        setGraphic(avatar.getImageView());
+                    });
+                    new Thread(loadImageTask).start();
+
+                }
+            }
+        });
+        return column;
     }
     private TableColumn<User,?> newUsernameEmailColumn(String colName){
         TableColumn<User,VBox> column = new TableColumn<>(colName);

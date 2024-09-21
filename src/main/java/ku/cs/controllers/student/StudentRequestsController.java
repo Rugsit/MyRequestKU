@@ -110,9 +110,17 @@ public class StudentRequestsController {
     public void onCreateFromClick() {
         try {
             if (loginUser.getAdvisor() == null) {
-                throw new IllegalArgumentException("คุณยังไม่มีอาจารที่ปรึกษาไม่สามารถสร้างใบคำร้องได้");
+                throw new IllegalArgumentException("คุณยังไม่มีอาจารย์ที่ปรึกษาไม่สามารถสร้าง ใบคำร้องได้");
             }
-        } catch (IllegalArgumentException e) {
+            String viewPath = "/ku/cs/views/choose-request-form-pane.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            ChooseRequestFromController controller = fxmlLoader.getController();
+            controller.setBorderPane(this.borderPane);
+            borderPane.setCenter(pane);
+
+        } catch (IOException | IllegalArgumentException e) {
             try {
                 if (currentErrorStage == null || !currentErrorStage.isShowing()) {
                     currentErrorStage = new Stage();
@@ -131,18 +139,6 @@ public class StudentRequestsController {
             } catch (IOException ee) {
                 System.err.println("Error: " + ee.getMessage());
             }
-        }
-        try {
-            String viewPath = "/ku/cs/views/choose-request-form-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
-            Pane pane = fxmlLoader.load();
-            ChooseRequestFromController controller = fxmlLoader.getController();
-            controller.setBorderPane(this.borderPane);
-            borderPane.setCenter(pane);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 

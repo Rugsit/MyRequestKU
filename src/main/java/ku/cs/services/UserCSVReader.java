@@ -4,6 +4,7 @@ import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UserCSVReader {
     public static ArrayList<String[]> read(int column) {
@@ -37,9 +38,16 @@ public class UserCSVReader {
         try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)){
             while((line = bufferedReader.readLine()) != null) {
                 dataLines = line.split(",");
-                if (dataLines.length == column) {
-                    data.add(dataLines);
+                if(dataLines.length < column){
+                    dataLines = Arrays.copyOf(dataLines, column);
+                    for (int i = line.split(",").length; i < column; i++) {
+                        dataLines[i] = "";
+                    }
                 }
+                if(dataLines.length > column){
+                    dataLines = Arrays.copyOf(dataLines, column);
+                }
+                data.add(dataLines);
             }
 
         } catch (IOException e) {

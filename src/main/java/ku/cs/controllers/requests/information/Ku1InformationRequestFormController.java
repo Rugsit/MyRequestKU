@@ -78,13 +78,6 @@ public class Ku1InformationRequestFormController {
     @FXML
     private BorderPane borderPane;
 
-    @FXML
-    private void initialize() {
-        Platform.runLater(() -> {
-            scrollPane.requestFocus(); // ให้ ScrollPane ได้รับโฟกัสแทน
-        });
-    }
-
     public void showData() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         createDateTextField.setText(request.getDate().format(formatter));
@@ -139,29 +132,6 @@ public class Ku1InformationRequestFormController {
         this.backPage = backPage;
     }
 
-    @FXML
-    private void onBackButtonClick() {
-        if (backPage != null && backPage.equalsIgnoreCase("advisorRequest")) {
-            goToAdvisorRequest();
-            return;
-        }
-        try {
-            String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
-            Pane pane = fxmlLoader.load();
-            StudentRequestInfoController controller = fxmlLoader.getController();
-            controller.setLoginUser((Student) loginUser);
-            controller.setRequest(request);
-            controller.initialize();
-            controller.showInfo();
-            controller.showTable();
-            borderPane.setCenter(pane);
-            controller.setBorderPane(borderPane);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     private VBox deepCopyVbox(VBox vbox, ArrayList<String> data) {
         int[] count = {0};
@@ -211,20 +181,6 @@ public class Ku1InformationRequestFormController {
             }
         }
         return newHbox;
-    }
-
-    private void goToAdvisorRequest() {
-        try {
-            String viewPath = "/ku/cs/views/advisor-requests-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
-            Pane pane = fxmlLoader.load();
-            AdvisorRequestsController controller = fxmlLoader.getController();
-            borderPane.setCenter(pane);
-            controller.setBorderPane(borderPane);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }
