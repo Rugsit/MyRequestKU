@@ -204,17 +204,17 @@
                         <Label text="รายการวิชาที่ลงทะเบียน" />
                         <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                            <children>
-                              <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onRemoveSubjectClick" styleClass="remove-subject-button" text="ลบวิชา">
+                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#onRemoveSubjectClick" styleClass="remove-subject-button" text="ลบวิชา">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#addSubject" styleClass="add-subject-button" text="เพิ่มวิชา" />
+                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#addSubject" styleClass="add-subject-button" text="เพิ่มวิชา" />
                            </children>
                         </HBox>
                      </children>
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="20.0" />
                      </VBox.margin>
                   </GridPane>
                   <VBox fx:id="subjectVbox" prefWidth="100.0">
@@ -231,9 +231,9 @@
                                     <Insets right="20.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Label text="อาจารย์ประจำวิชา">
+                              <Label text="อาจารย์ประจำวิชา (ชื่อ นามสกุล)">
                                  <HBox.margin>
-                                    <Insets right="10.0" />
+                                    <Insets right="20.0" />
                                  </HBox.margin>
                               </Label>
                               <TextField prefHeight="34.0" prefWidth="180.0" styleClass="teacher" />
@@ -246,7 +246,7 @@
                   </VBox>
                   <HBox alignment="BASELINE_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="createFormButton" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onCreateRegisterForm" styleClass="create-form-button" text="ส่งใบคำร้อง">
+                        <Button fx:id="createFormButton" focusTraversable="false" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onCreateRegisterForm" styleClass="create-form-button" text="ส่งใบคำร้อง">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
