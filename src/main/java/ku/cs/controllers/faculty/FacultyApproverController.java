@@ -8,10 +8,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import ku.cs.services.FXRouter;
 import ku.cs.views.components.CropImage;
 import ku.cs.views.components.DefaultButton;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.views.components.RouteButton;
+
+import java.io.IOException;
 
 public class FacultyApproverController {
     @FXML private Label pageTitleLabel;
@@ -51,7 +54,7 @@ public class FacultyApproverController {
         new DefaultLabel(fileNameLabel);
     }
     private void initButton(){
-        new RouteButton(backButton,"faculty-requests","transparent","#a6a6a6","#000000");
+        new RouteButton(backButton,"faculty-page","transparent","#a6a6a6","#000000");
         new DefaultButton(addApproverButton,"#FFE0A4","#a6a6a6","#000000").changeBackgroundRadius(15);
         new DefaultButton(removeFileButton,"transparent","#a6a6a6","#000000");
         new DefaultButton(uploadFileButton,"#ABFFA4","#a6a6a6","#000000").changeBackgroundRadius(15);
@@ -65,7 +68,5 @@ public class FacultyApproverController {
         imageEditorVBox.setSpacing(5);
         approverNameLabel.setPadding(new Insets(15,0,0,0));
     }
-
-
 
 }

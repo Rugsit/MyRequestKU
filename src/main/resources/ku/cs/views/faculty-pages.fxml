@@ -18,14 +18,14 @@
          <children>
             <VBox layoutX="-2.0" layoutY="102.0" prefHeight="169.0" prefWidth="292.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onStudentClicked" prefHeight="70.0" prefWidth="274.0" styleClass="manageRequestTab" text="จัดการนิสิตในที่ปรึกษา">
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onRequestsButtonClicked" prefHeight="70.0" prefWidth="274.0" styleClass="manageRequestTab" text="ใบคำร้อง">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../images/icons/advisee-icon.png" />
+                              <Image url="@../../../images/icons/requests-icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -36,14 +36,14 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onRequestsClicked" prefHeight="75.0" prefWidth="330.0" styleClass="manageRequestTab" text="จัดการคำร้องที่รออนุมัติ">
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onApproverButtonClicked" prefHeight="75.0" prefWidth="330.0" styleClass="manageRequestTab" text="จัดการผู้อนุมัติ">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../images/icons/requests-icon.png" />
+                              <Image url="@../../../images/icons/advisee-icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
