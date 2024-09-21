@@ -3,7 +3,6 @@ package ku.cs.controllers;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -18,8 +17,6 @@ import ku.cs.services.Datasource;
 import ku.cs.services.ImageDatasource;
 import ku.cs.services.UserListFileDatasource;
 import ku.cs.views.components.DefaultImage;
-
-import java.io.IOException;
 
 
 public class UserProfileCardController {
@@ -51,6 +48,7 @@ public class UserProfileCardController {
     private User loginUser;
     private ImageDatasource imageDatasource;
     private String userRole;
+    private ParentController parent;
     Datasource<UserList> datasource;
     UserList users;
 
@@ -139,6 +137,10 @@ public class UserProfileCardController {
         this.loginUser = loginUser;
     }
 
+    public void setParentController(ParentController parent) {
+            this.parent = parent;
+    }
+
     @FXML
     protected void onEmailEditButtonClicked(){
         emailTextField.setEditable(true);
@@ -208,6 +210,10 @@ public class UserProfileCardController {
             if (isChanged) {
                 showNotification("บันทึก" + changedData + "สำเร็จ!", false);
                 datasource.writeData(users);
+                if (parent != null) {
+                    parent.setLoginUser(loginUser);
+                    parent.loadProfile();
+                }
             }
         } catch (EmailException e) {
             showNotification(e.getMessage(), true);

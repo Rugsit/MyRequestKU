@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import ku.cs.controllers.ParentController;
 import ku.cs.controllers.UserProfileCardController;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
@@ -15,7 +16,7 @@ import ku.cs.services.FXRouter;
 
 import java.io.IOException;
 
-public class StudentPageController {
+public class StudentPageController implements ParentController {
     @FXML private BorderPane contentBorderPane;
     @FXML private ImageView tabProfilePicImageView;
     @FXML private Label tabAccountNameLabel;
@@ -78,6 +79,7 @@ public class StudentPageController {
             Pane pane = fxmlLoader.load();
             UserProfileCardController controller = fxmlLoader.getController();
             controller.setLoginUser(loginUser);
+            controller.setParentController(this);
             controller.initialize();
             contentBorderPane.setCenter(pane);
         } catch (IOException e) {
