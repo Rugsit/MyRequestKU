@@ -3,14 +3,12 @@ package ku.cs.controllers;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import ku.cs.controllers.student.StudentPageController;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.EmailException;
 import ku.cs.models.user.exceptions.PasswordException;
@@ -18,8 +16,6 @@ import ku.cs.services.Datasource;
 import ku.cs.services.ImageDatasource;
 import ku.cs.services.UserListFileDatasource;
 import ku.cs.views.components.DefaultImage;
-
-import java.io.IOException;
 
 
 public class UserProfileCardController {
@@ -51,6 +47,8 @@ public class UserProfileCardController {
     private User loginUser;
     private ImageDatasource imageDatasource;
     private String userRole;
+    private ParentController parent;
+    private String emailTextBeforeEdit;
     Datasource<UserList> datasource;
     UserList users;
 
@@ -105,8 +103,7 @@ public class UserProfileCardController {
         usernameLabel.setText(loginUser.getUsername());
         userTypeLabel.setText(loginUser.getRole());
         emailTextField.setText(loginUser.getEmail());
-        emailTextField.setVisible(true);
-        emailTextField.setEditable(false);
+        onEmailSaveButtonClicked();
         profilePicture.setImage(imageDatasource.openImage(loginUser.getAvatar()));
         if (userRole.equals("faculty-staff")){
             FacultyUser facultyUser = (FacultyUser) loginUser;
@@ -139,16 +136,24 @@ public class UserProfileCardController {
         this.loginUser = loginUser;
     }
 
+    public void setParentController(ParentController parent) {
+            this.parent = parent;
+    }
+
     @FXML
     protected void onEmailEditButtonClicked(){
+        emailTextBeforeEdit = emailTextField.getText();
         emailTextField.setEditable(true);
         emailEditButton.setDisable(true);
         emailEditButton.setVisible(false);
         emailSaveButton.setDisable(false);
         emailSaveButton.setVisible(true);
+        emailSaveButton.setDefaultButton(true);
         cancelEmailEditButton.setDisable(false);
         cancelEmailEditButton.setVisible(true);
+        cancelEmailEditButton.setCancelButton(true);
         emailTextField.requestFocus();
+        emailTextField.positionCaret(emailTextField.getText().length());
         emailTextField.setStyle("-fx-border-color: #b3b1b1;");
     }
     @FXML
@@ -158,22 +163,17 @@ public class UserProfileCardController {
         emailEditButton.setVisible(true);
         emailSaveButton.setDisable(true);
         emailSaveButton.setVisible(false);
+        emailSaveButton.setDefaultButton(false);
         cancelEmailEditButton.setDisable(true);
         cancelEmailEditButton.setVisible(false);
+        cancelEmailEditButton.setCancelButton(false);
         emailTextField.setStyle("-fx-border-color: white;");
     }
 
     @FXML
     protected void onCancelEmailEditButtonClicked(){
-        emailTextField.setText(loginUser.getEmail());
-        emailTextField.setEditable(false);
-        emailEditButton.setDisable(false);
-        emailEditButton.setVisible(true);
-        emailSaveButton.setDisable(true);
-        emailSaveButton.setVisible(false);
-        cancelEmailEditButton.setDisable(true);
-        cancelEmailEditButton.setVisible(false);
-        emailTextField.setStyle("-fx-border-color: white;");
+        emailTextField.setText(emailTextBeforeEdit);
+        onEmailSaveButtonClicked();
     }
 
     @FXML
@@ -208,6 +208,10 @@ public class UserProfileCardController {
             if (isChanged) {
                 showNotification("บันทึก" + changedData + "สำเร็จ!", false);
                 datasource.writeData(users);
+                if (parent != null) {
+                    parent.setLoginUser(loginUser);
+                    parent.loadProfile();
+                }
             }
         } catch (EmailException e) {
             showNotification(e.getMessage(), true);
