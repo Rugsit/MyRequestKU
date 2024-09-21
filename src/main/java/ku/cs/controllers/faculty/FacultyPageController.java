@@ -86,4 +86,14 @@ public class FacultyPageController {
         }
     }
 
+    @FXML
+    public void onApproverButtonClicked() {
+        try {
+            FXRouter.goTo("faculty-approver", loginUser);
+        } catch (
+                IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
