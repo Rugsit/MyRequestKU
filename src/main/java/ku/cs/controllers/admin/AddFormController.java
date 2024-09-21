@@ -20,7 +20,9 @@ import org.w3c.dom.Text;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class AddFormController {
     // store controller ref for user their method example. reload main page when edit data
@@ -102,12 +104,13 @@ public class AddFormController {
         if (facultyChoiceBox.getValue() != null && prevFacaltyChose != facultyChoiceBox.getValue()) {
             prevFacaltyChose = facultyChoiceBox.getValue();
             departmentChoiceBox.getItems().clear();
+            Set<String> filter = departmentList.getDepartments()
+                    .stream()
+                    .filter(department -> department.getFaculty().equals(facultyChoiceBox.getValue()))
+                    .map(Department::getName)
+                    .collect(Collectors.toSet());
 
-            for (Department department : departmentList.getDepartments()) {
-                if (department.getFaculty().equals(facultyChoiceBox.getValue())) {
-                    departmentChoiceBox.getItems().add(department.getName());
-                }
-            }
+            departmentChoiceBox.getItems().addAll(filter);
         }
     }
 

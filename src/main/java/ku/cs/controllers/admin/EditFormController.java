@@ -19,6 +19,9 @@ import ku.cs.services.FacultyListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 import org.w3c.dom.Text;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class EditFormController {
     // store controller ref for user their method example. reload main page when edit data
     private AdminManageStaffController currentControllStaffPage;
@@ -111,11 +114,13 @@ public class EditFormController {
         if (facultyChoiceBox.getValue() != null && prevFacaltyChose != facultyChoiceBox.getValue()) {
             prevFacaltyChose = facultyChoiceBox.getValue();
             departmentChoiceBox.getItems().clear();
-            for (Department department : departmentList.getDepartments()) {
-                if (department.getFaculty().equals(facultyChoiceBox.getValue())) {
-                    departmentChoiceBox.getItems().add(department.getName());
-                }
-            }
+            Set<String> filter = departmentList.getDepartments()
+                    .stream()
+                    .filter(department -> department.getFaculty().equals(facultyChoiceBox.getValue()))
+                    .map(Department::getName)
+                    .collect(Collectors.toSet());
+
+            departmentChoiceBox.getItems().addAll(filter);
         }
     }
 

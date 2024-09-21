@@ -107,7 +107,7 @@
             <Insets left="10.0" />
          </padding>
       </HBox>
-      <TableView layoutX="332.0" layoutY="130.0" prefHeight="454.0" prefWidth="896.0" styleClass="requestsTable">
+      <TableView layoutX="332.0" layoutY="130.0" prefHeight="454.0" prefWidth="899.0" styleClass="requestsTable">
          <columns>
             <TableColumn prefWidth="200.79995727539062" text="ชื่อ" />
             <TableColumn prefWidth="148.79998779296875" text="วันที่ยื่นคำร้อง" />

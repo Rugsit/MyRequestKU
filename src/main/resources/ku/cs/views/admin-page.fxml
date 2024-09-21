@@ -98,12 +98,12 @@
                   <Image url="@../../../images/logos/side-bar-ku-logo.png" />
                </image>
             </ImageView>
-            <Label layoutX="21.0" layoutY="616.0" maxWidth="250.0" prefWidth="250.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
+            <Label layoutY="616.0" maxWidth="292.0" prefHeight="18.0" prefWidth="292.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="21.0" layoutY="646.0" maxWidth="250.0" onMouseClicked="#onLogoutClicked" prefWidth="250.0" styleClass="signOut" text="ออกจากระบบ">
+            <Label layoutY="646.0" maxWidth="292.0" onMouseClicked="#onLogoutClicked" prefHeight="18.0" prefWidth="292.0" styleClass="signOut" text="ออกจากระบบ">
                <font>
                   <Font size="16.0" />
                </font>
@@ -111,7 +111,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label alignment="CENTER" layoutX="21.0" layoutY="678.0" maxWidth="250.0" onMouseClicked="#onAboutUsClicked" prefWidth="250.0" styleClass="about-us" text="เกี่ยวกับพวกเรา" textFill="#909194">
+            <Label alignment="CENTER" layoutY="678.0" maxWidth="292.0" onMouseClicked="#onAboutUsClicked" prefHeight="18.0" prefWidth="292.0" styleClass="about-us" text="เกี่ยวกับพวกเรา" textFill="#909194">
                <font>
                   <Font size="16.0" />
                </font>

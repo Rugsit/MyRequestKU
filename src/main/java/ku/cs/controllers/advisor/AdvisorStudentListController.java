@@ -2,15 +2,18 @@ package ku.cs.controllers.advisor;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import ku.cs.models.request.RequestList;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
+import ku.cs.services.RequestListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
@@ -32,6 +35,9 @@ public class AdvisorStudentListController {
     private void showTable() {
         requestListTableView.getColumns().clear();
 
+        Label placeHolder = new Label("ไม่พบข้อมูล");
+        requestListTableView.setPlaceholder(placeHolder);
+        requestListTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         // Create and configure name column
         TableColumn<User, String> nameColumn = new TableColumn<>("ชื่อ-นามสกุล");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name")); // Bind to getName() method

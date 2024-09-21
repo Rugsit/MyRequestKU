@@ -2,12 +2,16 @@ package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import ku.cs.controllers.requests.ChooseRequestFromController;
+import ku.cs.controllers.requests.ErrorGeneralRequestFormController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.user.Student;
@@ -19,6 +23,8 @@ import java.io.IOException;
 
 
 public class StudentRequestsController {
+    @FXML
+    private Stage currentErrorStage;
     @FXML Label requestsNumberLabel;
     @FXML Label approvedNumberLabel;
     @FXML Label rejectedNumberLabel;
@@ -68,6 +74,9 @@ public class StudentRequestsController {
         requestListTable.getTableView().getStylesheets().clear();
         requestListTable.addStyleSheet("/ku/cs/styles/admin-page-style.css");
         requestListTableView.getColumns().clear();
+        Label placeHolder = new Label("ไม่พบข้อมูล");
+        requestListTableView.setPlaceholder(placeHolder);
+        requestListTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         requestListTable.addColumn("ประเภทคำร้อง", "requestType");
         requestListTable.addColumn("วันที่ยื่นคำร้อง", "Date");
         requestListTable.addColumn("วันที่อัพเดทล่าสุด", "TimeStamp");
@@ -99,6 +108,30 @@ public class StudentRequestsController {
 
     @FXML
     public void onCreateFromClick() {
+        try {
+            if (loginUser.getAdvisor() == null) {
+                throw new IllegalArgumentException("คุณยังไม่มีอาจารที่ปรึกษาไม่สามารถสร้างใบคำร้องได้");
+            }
+        } catch (IllegalArgumentException e) {
+            try {
+                if (currentErrorStage == null || !currentErrorStage.isShowing()) {
+                    currentErrorStage = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/error-page.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+                    ErrorGeneralRequestFormController errorGeneralRequestFormController = fxmlLoader.getController();
+                    errorGeneralRequestFormController.setErrorMessage(e.getMessage());
+                    ErrorGeneralRequestFormController controller = fxmlLoader.getController();
+                    controller.setStage(this.currentErrorStage);
+                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
+                    currentErrorStage.setScene(scene);
+                    currentErrorStage.initModality(Modality.APPLICATION_MODAL);
+                    currentErrorStage.setTitle("Error");
+                    currentErrorStage.show();
+                }
+            } catch (IOException ee) {
+                System.err.println("Error: " + ee.getMessage());
+            }
+        }
         try {
             String viewPath = "/ku/cs/views/choose-request-form-pane.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader();

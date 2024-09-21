@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.request.AcademicLeaveRequestForm;
@@ -29,6 +30,7 @@ import java.util.UUID;
 public class AcademicLeaveInformationRequestFormController {
     private AcademicLeaveRequestForm request;
     private User loginUser;
+    private String backPage;
 
     @FXML
     private VBox subjectVbox;
@@ -107,19 +109,14 @@ public class AcademicLeaveInformationRequestFormController {
         idTextField.setText(String.valueOf(loginUser.getId()));
         facultyTextField.setText(((Student)loginUser).getFaculty());
         departmentTextField.setText(((Student)loginUser).getDepartment());
-        gmailTextField.setText(((Student)loginUser).getEmail());
-        UUID advisorUUID = ((Student)loginUser).getAdvisor();
+        gmailTextField.setText(loginUser.getEmail());
         Datasource<UserList> datasource = new UserListFileDatasource("data", "advisor.csv");
         UserList list = datasource.readData();
-//        Advisor advisor = null;
-//        for (User target : list.getUsers()) {
-//           if (target.getUUID().toString().equals(advisorUUID.toString())) {
-//               advisor = (Advisor) target;
-//           }
-//        }
-//        if (advisor == null) throw new IllegalArgumentException("ขออภัยไม่พบอาจารย์ที่ปรึกษาที่มีรหัสตรงกับรหัสของอาจารย์ที่ปรึกษาของนักเรียน");
-//        advisorIdTextField.setText(advisor.getName());
-//        advisorIdTextField.setText(advisor.getId());
+        Advisor advisor = (Advisor) list.findUserByUUID(((Student)loginUser).getAdvisor());
+
+        if (advisor == null) throw new IllegalArgumentException("ขออภัยไม่พบอาจารย์ที่ปรึกษาที่มีรหัสตรงกับรหัสของอาจารย์ที่ปรึกษาของนักเรียน");
+        advisorTextField.setText(advisor.getName());
+        advisorIdTextField.setText(advisor.getId());
         telTextField.setText(request.getTel());
         addressTextArea.setText(request.getAddress());
         sinceLeaveTextArea.setText(request.getReason());
@@ -172,8 +169,17 @@ public class AcademicLeaveInformationRequestFormController {
         this.borderPane = borderPane;
     }
 
+    public void setBackPage(String backPage) {
+        this.backPage = backPage;
+    }
+
     @FXML
     private void onBackButtonClick() {
+        if (backPage != null && backPage.equalsIgnoreCase("advisorRequest")) {
+            goToAdvisorRequest();
+            return;
+        }
+
         try {
             String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -219,5 +225,19 @@ public class AcademicLeaveInformationRequestFormController {
             }
         }
         return newHbox;
+    }
+
+    private void goToAdvisorRequest() {
+        try {
+            String viewPath = "/ku/cs/views/advisor-requests-pane.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            AdvisorRequestsController controller = fxmlLoader.getController();
+            borderPane.setCenter(pane);
+            controller.setBorderPane(borderPane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

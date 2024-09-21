@@ -21,11 +21,6 @@
          <content>
             <VBox prefWidth="850.0" styleClass="vbox-in-scroll-pane">
                <children>
-                  <Label styleClass="require" text="ความประสงค์">
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Label>
                   <VBox prefHeight="600.0" prefWidth="834.0">
                      <children>
                         <HBox>
@@ -149,6 +144,11 @@
                               <Insets bottom="30.0" />
                            </VBox.margin>
                         </Line>
+                        <Label styleClass="require" text="ความประสงค์">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Label>
                         <RadioButton fx:id="lateRegistrationRadio" mnemonicParsing="false" text="ลงทะเบียนเรียนล่าช้า หรือ รักษาสถานภาพนิสิตล่าช้า ( มีกรอก KU1 เพิ่มเติม )">
                            <VBox.margin>
                               <Insets bottom="20.0" />

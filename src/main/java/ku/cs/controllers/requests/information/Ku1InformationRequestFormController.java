@@ -9,10 +9,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.AcademicLeaveRequestForm;
 import ku.cs.models.request.Ku1AndKu3RequestForm;
 import ku.cs.models.request.Request;
+import ku.cs.models.user.Advisor;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
@@ -27,6 +29,7 @@ import java.util.UUID;
 public class Ku1InformationRequestFormController {
     private Ku1AndKu3RequestForm request;
     private User loginUser;
+    private String backPage;
 
     @FXML
     private Label advisorIdTextField;
@@ -91,19 +94,14 @@ public class Ku1InformationRequestFormController {
         idTextField.setText(String.valueOf(loginUser.getId()));
         facultyTextField.setText(((Student)loginUser).getFaculty());
         departmentTextField.setText(((Student)loginUser).getDepartment());
-        gmailTextField.setText(((Student)loginUser).getEmail());
-        UUID advisorUUID = ((Student)loginUser).getAdvisor();
+        gmailTextField.setText(loginUser.getEmail());
         Datasource<UserList> datasource = new UserListFileDatasource("data", "advisor.csv");
         UserList list = datasource.readData();
-//        Advisor advisor = null;
-//        for (User target : list.getUsers()) {
-//           if (target.getUUID().toString().equals(advisorUUID.toString())) {
-//               advisor = (Advisor) target;
-//           }
-//        }
-//        if (advisor == null) throw new IllegalArgumentException("ขออภัยไม่พบอาจารย์ที่ปรึกษาที่มีรหัสตรงกับรหัสของอาจารย์ที่ปรึกษาของนักเรียน");
-//        advisorIdTextField.setText(advisor.getName());
-//        advisorIdTextField.setText(advisor.getId());
+        Advisor advisor = (Advisor) list.findUserByUUID(((Student)loginUser).getAdvisor());
+
+        if (advisor == null) throw new IllegalArgumentException("ขออภัยไม่พบอาจารย์ที่ปรึกษาที่มีรหัสตรงกับรหัสของอาจารย์ที่ปรึกษาของนักเรียน");
+        advisorTextField.setText(advisor.getName());
+        advisorIdTextField.setText(advisor.getId());
         if (request.getCurriculum().equals("Thai")) {
             thaiRadio.setSelected(true);
         } else if (request.getCurriculum().equals("International")) {
@@ -137,8 +135,16 @@ public class Ku1InformationRequestFormController {
         this.borderPane = borderPane;
     }
 
+    public void setBackPage(String backPage) {
+        this.backPage = backPage;
+    }
+
     @FXML
     private void onBackButtonClick() {
+        if (backPage != null && backPage.equalsIgnoreCase("advisorRequest")) {
+            goToAdvisorRequest();
+            return;
+        }
         try {
             String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -207,5 +213,18 @@ public class Ku1InformationRequestFormController {
         return newHbox;
     }
 
+    private void goToAdvisorRequest() {
+        try {
+            String viewPath = "/ku/cs/views/advisor-requests-pane.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            AdvisorRequestsController controller = fxmlLoader.getController();
+            borderPane.setCenter(pane);
+            controller.setBorderPane(borderPane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
