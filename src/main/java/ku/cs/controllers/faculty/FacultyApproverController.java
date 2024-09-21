@@ -54,7 +54,7 @@ public class FacultyApproverController {
         new DefaultLabel(fileNameLabel);
     }
     private void initButton(){
-        new RouteButton(backButton,"department-staff-request-list","transparent","#a6a6a6","#000000");
+        new RouteButton(backButton,"faculty-page","transparent","#a6a6a6","#000000");
         new DefaultButton(addApproverButton,"#FFE0A4","#a6a6a6","#000000").changeBackgroundRadius(15);
         new DefaultButton(removeFileButton,"transparent","#a6a6a6","#000000");
         new DefaultButton(uploadFileButton,"#ABFFA4","#a6a6a6","#000000").changeBackgroundRadius(15);
@@ -69,12 +69,4 @@ public class FacultyApproverController {
         approverNameLabel.setPadding(new Insets(15,0,0,0));
     }
 
-    public void onBackButtonClicked(){
-        try {
-            FXRouter.goTo("faculty-page");
-        } catch (
-                IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
