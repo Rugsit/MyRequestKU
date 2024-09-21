@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import ku.cs.controllers.UserProfileCardController;
+import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.user.Advisor;
 import ku.cs.models.user.FacultyUser;
@@ -39,6 +40,7 @@ public class FacultyPageController {
         profilePic.setClipImage(150, 150);
         profilePic.setImage(datasource.openImage(loginUser.getAvatar()));
         tabAccountNameLabel.setText(loginUser.getName());
+        onRequestsButtonClicked();
     }
 
     @FXML
@@ -61,6 +63,23 @@ public class FacultyPageController {
             controller.setLoginUser(loginUser);
             //controller.setParentController(this);
             controller.initialize();
+            contentBorderPane.setCenter(pane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onRequestsButtonClicked(){
+        try {
+            String viewPath = "/ku/cs/views/faculty-requests-pane.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            FacultyRequestsController controller = fxmlLoader.getController();
+            controller.setLoginUser(loginUser);
+            controller.initialize();
+            controller.setBorderPane(this.contentBorderPane);
             contentBorderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);

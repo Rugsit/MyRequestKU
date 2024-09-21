@@ -18,7 +18,7 @@
          <children>
             <VBox layoutX="-2.0" layoutY="102.0" prefHeight="169.0" prefWidth="292.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="274.0" styleClass="manageRequestTab" text="ใบคำร้อง">
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onRequestsButtonClicked" prefHeight="70.0" prefWidth="274.0" styleClass="manageRequestTab" text="ใบคำร้อง">
                      <font>
                         <Font size="18.0" />
                      </font>
