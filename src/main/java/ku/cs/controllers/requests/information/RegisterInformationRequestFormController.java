@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import ku.cs.controllers.advisor.AdvisorRequestsController;
@@ -28,6 +29,8 @@ public class RegisterInformationRequestFormController {
     private User loginUser;
     private String backPage;
 
+    @FXML
+    private HBox approveButtonHbox;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -225,5 +228,9 @@ public class RegisterInformationRequestFormController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setVisibleApproveButton() {
+        approveButtonHbox.setVisible(true);
     }
 }

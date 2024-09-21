@@ -141,4 +141,8 @@ public class Request {
             throw new RuntimeException(e);
         }
     }
+
+    public ApproverList getApprovers() {
+        return approvers;
+    }
 }

@@ -9,10 +9,12 @@ import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.request.approver.Approver;
+import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.Advisor;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
+import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
@@ -75,11 +77,13 @@ public class ConfirmRequestFormController {
             controller.setLoginUser((Student) loginUser);
 
             if (this.request != null) {
+                Datasource<ApproverList> approverDatasource = new ApproverListFileDatasource();
                 Datasource<UserList> datasource = new UserListFileDatasource("data", "advisor.csv");
                 UserList userList = datasource.readData();
                 Advisor advisor = (Advisor) userList.findUserByUUID(((Student)loginUser).getAdvisor());
                 request.addApprover(request.getUuid().toString(), "advisor", "อาจารย์ที่ปรึกษา", advisor.getFirstname(), advisor.getLastname());
                 requestList.addRequest(request);
+                approverDatasource.writeData(request.getApprovers());
             }
             if (this.requestPair != null) {
                 requestList.addRequest(requestPair);

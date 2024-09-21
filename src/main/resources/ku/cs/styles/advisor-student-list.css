@@ -54,3 +54,12 @@
 .table-view .cell:hover {
     -fx-cursor: hand;
 }
+.table-view .scroll-bar:vertical {
+    -fx-pref-width: 20px;
+    -fx-background-color: white; /* Thumb (the part that moves) color */
+    -fx-background-radius: 1px;    /* Rounded corners */
+}
+
+.table-view .scroll-bar:vertical .thumb{
+    -fx-background-color: #374957;
+}

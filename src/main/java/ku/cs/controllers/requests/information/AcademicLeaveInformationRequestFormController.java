@@ -33,6 +33,8 @@ public class AcademicLeaveInformationRequestFormController {
     private String backPage;
 
     @FXML
+    private HBox approveButtonHbox;
+    @FXML
     private VBox subjectVbox;
     @FXML
     private HBox subjectHbox;
@@ -239,5 +241,9 @@ public class AcademicLeaveInformationRequestFormController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setVisibleApproveButton() {
+        approveButtonHbox.setVisible(true);
     }
 }
