@@ -10,6 +10,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
+import ku.cs.controllers.admin.AdminProfileController;
 import ku.cs.controllers.requests.information.*;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.*;
@@ -76,23 +77,7 @@ public class AdvisorRequestsController {
         requestListTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 Student student = (Student) userlist.findUserByUUID(((Request) newValue).getOwnerUUID());
-                try {
-                    if (newValue instanceof GeneralRequestForm) {
-                        showGeneralInformation((Request) newValue, student);
-                    } else if (newValue instanceof RegisterRequestForm) {
-                        showRegisterInformation((Request) newValue, student);
-                    } else if (newValue instanceof AcademicLeaveRequestForm) {
-                        showAcademicInformation((Request) newValue, student);
-                    } else if (newValue instanceof Ku1AndKu3RequestForm) {
-                        if (((Request) newValue).getRequestType().equalsIgnoreCase("KU1")) {
-                            showKU1Information((Request) newValue, student);
-                        } else {
-                            showKU3Information((Request) newValue, student);
-                        }
-                    }
-                } catch (IOException e) {
-                    System.err.println(e.getMessage());
-                }
+                goToInformationPage((Request) newValue, student);
             }
         });
 
@@ -144,70 +129,35 @@ public class AdvisorRequestsController {
         this.borderPane = borderPane;
     }
 
-    private void showAcademicInformation(Request request, Student student) throws IOException{
-        String viewPath = "/ku/cs/views/academic-leave-form-information.fxml";
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(viewPath));
-        Pane pane = fxmlLoader.load();
-        AcademicLeaveInformationRequestFormController controller = fxmlLoader.getController();
-        controller.setLoginUser(student);
-        controller.setRequest(request);
-        controller.setBackPage("advisorRequest");
-        borderPane.setCenter(pane);
-        controller.setBorderPane(borderPane);
-        controller.showData();
-    }
-    private void showGeneralInformation(Request request, Student student) throws IOException{
-        String viewPath = "/ku/cs/views/general-request-form-information.fxml";
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(viewPath));
-        Pane pane = fxmlLoader.load();
-        GeneralInformaitonRequestFormController controller = fxmlLoader.getController();
-        controller.setLoginUser(student);
-        controller.setRequest(request);
-        controller.setBackPage("advisorRequest");
-        borderPane.setCenter(pane);
-        controller.setBorderPane(borderPane);
-        controller.showData();
-    }
-    private void showRegisterInformation(Request request, Student student) throws IOException{
-        String viewPath = "/ku/cs/views/register-request-form-information.fxml";
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(viewPath));
-        Pane pane = fxmlLoader.load();
-        RegisterInformationRequestFormController controller = fxmlLoader.getController();
-        controller.setLoginUser(student);
-        controller.setRequest(request);
-        controller.setBackPage("advisorRequest");
-        borderPane.setCenter(pane);
-        controller.setBorderPane(borderPane);
-        controller.showData();
-    }
-    private void showKU1Information(Request request, Student student) throws IOException{
-        String viewPath = "/ku/cs/views/ku1-form-information.fxml";
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(viewPath));
-        Pane pane = fxmlLoader.load();
-        Ku1InformationRequestFormController controller = fxmlLoader.getController();
-        controller.setLoginUser(student);
-        controller.setRequest(request);
-        controller.setBackPage("advisorRequest");
-        borderPane.setCenter(pane);
-        controller.setBorderPane(borderPane);
-        controller.showData();
-    }
-    private void showKU3Information(Request request, Student student) throws IOException{
-        String viewPath = "/ku/cs/views/ku3-form-information.fxml";
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(viewPath));
-        Pane pane = fxmlLoader.load();
-        Ku3InformationRequestFormController controller = fxmlLoader.getController();
-        controller.setLoginUser(student);
-        controller.setRequest(request);
-        controller.setBackPage("advisorRequest");
-        borderPane.setCenter(pane);
-        controller.setBorderPane(borderPane);
-        controller.showData();
+    private void goToInformationPage(Request request, Student student) {
+        try {
+            String viewPath = "/ku/cs/views/main-information.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            MainInformationController controller = fxmlLoader.getController();
+            controller.setLoginUser(student);
+            controller.setRequest(request);
+            controller.setBorderPane(borderPane);
+            controller.setBackPage("advisorRequest");
+            controller.initializeMainInformation();
+            if (request instanceof GeneralRequestForm) {
+                controller.setTitleLabel("ใบคำร้องทั่วไป");
+            } else if (request instanceof RegisterRequestForm) {
+                controller.setTitleLabel("คำร้องขอลงทะเบียน");
+            } else if (request instanceof AcademicLeaveRequestForm) {
+                controller.setTitleLabel("ใบคำร้องขอลาพักการศึกษา");
+            } else if (request instanceof Ku1AndKu3RequestForm) {
+                if (request.getRequestType().equalsIgnoreCase("KU1")) {
+                    controller.setTitleLabel("แบบลงทะเบียนเรียน KU1");
+                } else {
+                    controller.setTitleLabel("แบบขอเปลี่ยนแปลงการลงทะเบียนเรียน KU3");
+                }
+            }
+            borderPane.setCenter(pane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
