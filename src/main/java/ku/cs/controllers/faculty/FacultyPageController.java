@@ -1,10 +1,13 @@
 package ku.cs.controllers.faculty;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import ku.cs.controllers.UserProfileCardController;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.user.Advisor;
 import ku.cs.models.user.FacultyUser;
@@ -48,11 +51,20 @@ public class FacultyPageController {
     }
 
     @FXML
-    protected void onSideProfileClicked() {
+    public void onSideProfileClicked(){
         try {
-            FXRouter.goTo("login");
+            String viewPath = "/ku/cs/views/user-profile-card.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            UserProfileCardController controller = fxmlLoader.getController();
+            controller.setLoginUser(loginUser);
+            //controller.setParentController(this);
+            controller.initialize();
+            contentBorderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 }
