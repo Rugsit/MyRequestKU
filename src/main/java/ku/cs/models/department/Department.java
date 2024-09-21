@@ -2,10 +2,7 @@ package ku.cs.models.department;
 
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
-import ku.cs.models.user.DepartmentUser;
-import ku.cs.models.user.Student;
-import ku.cs.models.user.User;
-import ku.cs.models.user.UserList;
+import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.Datasource;
 import ku.cs.services.FacultyListFileDatasource;
@@ -13,7 +10,7 @@ import ku.cs.services.UserListFileDatasource;
 
 import java.util.UUID;
 
-public class Department {
+public class Department implements Comparable<Department>{
     private String name;
     private String id;
     private final UUID uuid;
@@ -32,6 +29,23 @@ public class Department {
         setName(department[1]);
         setId(department[2]);
         setFaculty(department[3]);
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Department){
+            Department department = (Department) obj;
+            if(this.uuid.equals(department.getUuid()))
+                return true;
+        }
+        return false;
+    }
+    @Override
+    public int hashCode(){
+        return this.uuid.hashCode();
+    }
+    @Override
+    public int compareTo(Department department) {
+        return this.uuid.compareTo(department.getUuid());
     }
 
     public String getName() {

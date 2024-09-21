@@ -13,7 +13,7 @@ import ku.cs.services.UserListFileDatasource;
 import java.util.HashSet;
 import java.util.UUID;
 
-public class Faculty {
+public class Faculty implements Comparable<Faculty>{
     private String name;
     private String id;
     private final UUID uuid;
@@ -36,7 +36,23 @@ public class Faculty {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
-
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Faculty){
+            Faculty faculty = (Faculty) obj;
+            if(this.uuid.equals(faculty.getUuid()))
+                return true;
+        }
+        return false;
+    }
+    @Override
+    public int hashCode(){
+        return this.uuid.hashCode();
+    }
+    @Override
+    public int compareTo(Faculty faculty) {
+        return this.uuid.compareTo(faculty.getUuid());
+    }
     public void setName(String name) {
         name = name.trim();
         if (name.isEmpty()){
