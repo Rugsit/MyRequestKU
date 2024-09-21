@@ -99,6 +99,7 @@ public class RequestListController {
         reqTable.addColumn("รหัสนิสิต","nisitId");
         reqTable.addColumn("ประเภทคำร้อง","requestType");
         reqTable.addColumn("สถานะคำร้อง","statusNow");
+        reqTable.addStyleSheet("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet.css");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
 

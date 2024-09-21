@@ -28,8 +28,8 @@
 
 
 .table-row-cell:filled {
-    -fx-background-insets: 10; /* Create spacing effect padding! */
-    -fx-padding: 20 0 20 0;
+    -fx-background-insets: 5 10 5 0; /* Create spacing effect padding! */
+    -fx-padding: 9 0 9 0;
     -fx-background-radius: 20;
     -fx-background-color: white;
 }
