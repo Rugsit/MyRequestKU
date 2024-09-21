@@ -207,7 +207,7 @@ public class LoginController {
     @FXML
     protected void goToFacultyManage() {
         try {
-            FXRouter.goTo("faculty-requests");
+            FXRouter.goTo("faculty-page", loginUser);
         } catch (
                 IOException e) {
             throw new RuntimeException(e);

@@ -52,7 +52,7 @@ public class MainApplication extends Application {
 
 
         // Faculty
-        FXRouter.when("faculty-requests", viewPath + "faculty-requests.fxml");
+        FXRouter.when("faculty-page", viewPath + "faculty-pages.fxml");
         FXRouter.when("faculty-approver", viewPath + "faculty-approver.fxml");
     }
 
