@@ -66,14 +66,17 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="788.0" layoutY="110.0" mnemonicParsing="false" onAction="#seeInformation" prefHeight="45.0" prefWidth="126.0" styleClass="Button" text="ดูข้อมูลคำร้อง">
+      <Button graphicTextGap="10.0" layoutX="788.0" layoutY="110.0" mnemonicParsing="false" onAction="#seeInformation" prefHeight="45.0" styleClass="Button" text="ดูข้อมูลคำร้อง">
          <graphic>
             <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/icons/general-request-icon.png" />
+                  <Image url="@../../../images/icons/white-request-icon.png" />
                </image>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button fx:id="requestStatus1" layoutX="271.0" layoutY="176.0" maxHeight="35.0" maxWidth="234.0" minHeight="35.0" minWidth="234.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="234.0" styleClass="RequestStatus" text="status1">
          <font>
@@ -83,5 +86,10 @@
          <font>
             <Font size="18.0" />
          </font></Button>
+      <ImageView fx:id="statusIconImageView" fitHeight="30.0" fitWidth="30.0" layoutX="230.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/icons/request-status-in-progress.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

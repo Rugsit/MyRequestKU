@@ -132,4 +132,18 @@
     -fx-pref-width: 30px;
 }
 
+.approve {
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-background-color: #49A267;
+    -fx-font-size: 24px;
+}
+
+.not-approve {
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-background-color: #FF5D5D;
+    -fx-font-size: 24px;
+}
+
 

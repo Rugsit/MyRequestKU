@@ -143,16 +143,15 @@ public class AdminManageUsersController {
                 userListTableView.getItems().addAll(userlist.getUsers());
                 TableColumn<User, LocalDateTime> lastTimeInSearch = (TableColumn<User, LocalDateTime>) userListTableView.getColumns().get(4);
                 lastTimeInSearch.setSortType(TableColumn.SortType.DESCENDING);
-                userListTableView.getSortOrder().add(lastTime);
+                userListTableView.getSortOrder().add(lastTimeInSearch);
             }
         });
+        lastTime.setSortable(false);
     }
 
     private void loadAllUsers() {
         datasource = new UserListFileDatasource("data", "admin.csv");
         userlist = ((UserListFileDatasource)datasource).readAllUser();
-        Collection<User> HashUser = userlist.getUsers();
-        HashUser.removeIf(user -> user.getRole().equals("admin"));
         updateTableView();
     }
 
@@ -176,10 +175,11 @@ public class AdminManageUsersController {
     }
 
     private void updateTableView() {
-
+        Collection<User> HashUser = userlist.getUsers();
+        HashUser.removeIf(user -> user.getRole().equalsIgnoreCase("admin"));
         if (searchTextField.getText().trim().isEmpty()) {
         userListTableView.getItems().clear();
-        userListTableView.getItems().addAll(userlist.getUsers());
+        userListTableView.getItems().addAll(HashUser);
 
         TableColumn<User, LocalDateTime> lastTime = (TableColumn<User, LocalDateTime>) userListTableView.getColumns().get(4);
         lastTime.setSortType(TableColumn.SortType.DESCENDING);
@@ -192,6 +192,11 @@ public class AdminManageUsersController {
     public void setLoginUser(Admin loginUser) {
         this.loginUser = loginUser;
     }
+
+    public void setUserlist (UserList userlist) {
+        this.userlist = userlist;
+    }
+
 //CONFLICTS FOR NEST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private void writeSpecificUsers(String fileName) {
         datasource = new UserListFileDatasource("data", fileName);

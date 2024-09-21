@@ -142,7 +142,8 @@ public class AdminManageFacultyController {
     private void searchDepartment(String newValue) {
         Set<Department> filter = departmentList.getDepartments()
                 .stream()
-                .filter(department -> department.getName().toLowerCase().contains(newValue.toLowerCase()))
+                .filter(department -> department.getName().toLowerCase().contains(newValue.toLowerCase()) ||
+                        department.getFaculty().toLowerCase().contains(newValue.toLowerCase()))
                 .collect(Collectors.toSet());
 
         departmentTableView.getItems().clear();

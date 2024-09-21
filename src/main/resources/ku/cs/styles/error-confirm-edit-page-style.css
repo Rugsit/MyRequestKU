@@ -127,3 +127,36 @@
     -fx-text-fill: #FF5D5D;
     -fx-font-size: 24px;
 }
+
+.text-area {
+    -fx-background-color: #F2F2F2;
+    -fx-border-width: 0px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 24px;
+}
+
+.text-area .content {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.text-area:focused {
+    -fx-border-color: #374957;
+    -fx-border-width: 1px;
+}
+
+.not-approve {
+    -fx-cursor: hand;
+    -fx-font-size: 30px;
+    -fx-background-color: #FF5D5D;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+}
+
+.not-approve:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #FF5D5D;
+    -fx-border-color: #FF5D5D;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}

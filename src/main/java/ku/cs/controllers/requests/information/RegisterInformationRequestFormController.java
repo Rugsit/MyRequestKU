@@ -5,12 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.GeneralRequestForm;
 import ku.cs.models.request.RegisterRequestForm;
 import ku.cs.models.request.Request;
+import ku.cs.models.user.Advisor;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
@@ -24,7 +27,10 @@ import java.util.UUID;
 public class RegisterInformationRequestFormController {
     private RegisterRequestForm request;
     private User loginUser;
+    private String backPage;
 
+    @FXML
+    private HBox approveButtonHbox;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -96,13 +102,6 @@ public class RegisterInformationRequestFormController {
     @FXML
     private VBox transferFacultyVbox;
 
-    @FXML
-    private void initialize() {
-        Platform.runLater(() -> {
-            scrollPane.requestFocus(); // ให้ ScrollPane ได้รับโฟกัสแทน
-        });
-    }
-
     public void showData() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         createDateTextField.setText(request.getDate().format(formatter));
@@ -112,19 +111,14 @@ public class RegisterInformationRequestFormController {
         idTextField.setText(String.valueOf(loginUser.getId()));
         facultyTextField.setText(((Student)loginUser).getFaculty());
         departmentTextField.setText(((Student)loginUser).getDepartment());
-        gmailTextField.setText(((Student)loginUser).getEmail());
-        UUID advisorUUID = ((Student)loginUser).getAdvisor();
+        gmailTextField.setText(loginUser.getEmail());
         Datasource<UserList> datasource = new UserListFileDatasource("data", "advisor.csv");
         UserList list = datasource.readData();
-//        Advisor advisor = null;
-//        for (User target : list.getUsers()) {
-//           if (target.getUUID().toString().equals(advisorUUID.toString())) {
-//               advisor = (Advisor) target;
-//           }
-//        }
-//        if (advisor == null) throw new IllegalArgumentException("ขออภัยไม่พบอาจารย์ที่ปรึกษาที่มีรหัสตรงกับรหัสของอาจารย์ที่ปรึกษาของนักเรียน");
-//        advisorIdTextField.setText(advisor.getName());
-//        advisorIdTextField.setText(advisor.getId());
+        Advisor advisor = (Advisor) list.findUserByUUID(((Student)loginUser).getAdvisor());
+
+        if (advisor == null) throw new IllegalArgumentException("ขออภัยไม่พบอาจารย์ที่ปรึกษาที่มีรหัสตรงกับรหัสของอาจารย์ที่ปรึกษาของนักเรียน");
+        advisorTextField.setText(advisor.getName());
+        advisorIdTextField.setText(advisor.getId());
         if (request.isLateRegister()) {
             lateRegistrationRadio.setSelected(true);
         } else {
@@ -187,23 +181,11 @@ public class RegisterInformationRequestFormController {
         this.borderPane = borderPane;
     }
 
-    @FXML
-    private void onBackButtonClick() {
-        try {
-            String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
-            Pane pane = fxmlLoader.load();
-            StudentRequestInfoController controller = fxmlLoader.getController();
-            controller.setLoginUser((Student) loginUser);
-            controller.setRequest(request);
-            controller.initialize();
-            controller.showInfo();
-            controller.showTable();
-            borderPane.setCenter(pane);
-            controller.setBorderPane(borderPane);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void setBackPage(String backPage) {
+        this.backPage = backPage;
+    }
+
+    public void setVisibleApproveButton() {
+        approveButtonHbox.setVisible(true);
     }
 }

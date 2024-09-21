@@ -1,12 +1,19 @@
 package ku.cs.controllers.advisor;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
-import ku.cs.models.request.Request;
-import ku.cs.models.request.RequestList;
+import javafx.scene.layout.Pane;
+import javafx.util.StringConverter;
+import ku.cs.controllers.admin.AdminProfileController;
+import ku.cs.controllers.requests.information.*;
+import ku.cs.controllers.student.StudentRequestInfoController;
+import ku.cs.models.request.*;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
@@ -14,6 +21,9 @@ import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class AdvisorRequestsController {
@@ -35,11 +45,13 @@ public class AdvisorRequestsController {
 
     private void showTable() {
         requestListTableView.getColumns().clear();
-
+        Label placeHolder = new Label("ไม่พบข้อมูล");
+        requestListTableView.setPlaceholder(placeHolder);
+        requestListTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         // Create and configure columns with correct type
         TableColumn<Request, String> nameColumn = new TableColumn<>("ชื่อ-นามสกุล");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        TableColumn<Request, String> dateColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
+        TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
         TableColumn<Request, String> typeColumn = new TableColumn<>("ประเภทคำร้อง");
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("requestType"));
@@ -47,12 +59,33 @@ public class AdvisorRequestsController {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
         TableColumn<Request, String> statusNextColumn = new TableColumn<>("สถานะคำร้องต่อไป");
         statusNextColumn.setCellValueFactory(new PropertyValueFactory<>("statusNext"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
 
-        nameColumn.setMinWidth(150);
-        dateColumn.setMinWidth(200);
-        typeColumn.setMinWidth(150);
-        statusColumn.setMinWidth(190);
-        statusNextColumn.setMinWidth(241);
+        // Set the cellFactory to format the LocalDateTime
+        dateColumn.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
+            @Override
+            public String toString(LocalDateTime lastLogin) {
+                return lastLogin != null ? lastLogin.format(formatter) : "";
+            }
+
+            @Override
+            public LocalDateTime fromString(String string) {
+                return LocalDateTime.parse(string, formatter);
+            }
+        }));
+
+        requestListTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                Student student = (Student) userlist.findUserByUUID(((Request) newValue).getOwnerUUID());
+                goToInformationPage((Request) newValue, student);
+            }
+        });
+
+//        nameColumn.setMinWidth(150);
+//        dateColumn.setMinWidth(200);
+//        typeColumn.setMinWidth(150);
+//        statusColumn.setMinWidth(190);
+//        statusNextColumn.setMinWidth(241);
 
         requestListTableView.getColumns().add(nameColumn);
         requestListTableView.getColumns().add(dateColumn);
@@ -85,12 +118,46 @@ public class AdvisorRequestsController {
                     requestListTableView.getItems().add(request);
                 }
             }
+            TableColumn<Request, LocalDateTime> dateColumn = (TableColumn<Request, LocalDateTime>) requestListTableView.getColumns().get(1);
+            dateColumn.setSortType(TableColumn.SortType.DESCENDING);
+            requestListTableView.getSortOrder().add(dateColumn);
         }
     }
 
 
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
+    }
+
+    private void goToInformationPage(Request request, Student student) {
+        try {
+            String viewPath = "/ku/cs/views/main-information.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            MainInformationController controller = fxmlLoader.getController();
+            controller.setLoginUser(student);
+            controller.setRequest(request);
+            controller.setBorderPane(borderPane);
+            controller.setBackPage("advisorRequest");
+            controller.initializeMainInformation();
+            if (request instanceof GeneralRequestForm) {
+                controller.setTitleLabel("ใบคำร้องทั่วไป");
+            } else if (request instanceof RegisterRequestForm) {
+                controller.setTitleLabel("คำร้องขอลงทะเบียน");
+            } else if (request instanceof AcademicLeaveRequestForm) {
+                controller.setTitleLabel("ใบคำร้องขอลาพักการศึกษา");
+            } else if (request instanceof Ku1AndKu3RequestForm) {
+                if (request.getRequestType().equalsIgnoreCase("KU1")) {
+                    controller.setTitleLabel("แบบลงทะเบียนเรียน KU1");
+                } else {
+                    controller.setTitleLabel("แบบขอเปลี่ยนแปลงการลงทะเบียนเรียน KU3");
+                }
+            }
+            borderPane.setCenter(pane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

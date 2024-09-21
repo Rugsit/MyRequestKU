@@ -6,14 +6,17 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import ku.cs.controllers.ParentController;
+import ku.cs.controllers.UserProfileCardController;
 import ku.cs.models.user.Student;
+import ku.cs.models.user.User;
 import ku.cs.services.ImageDatasource;
 import ku.cs.views.components.SquareImage;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
 
-public class StudentPageController {
+public class StudentPageController implements ParentController {
     @FXML private BorderPane contentBorderPane;
     @FXML private ImageView tabProfilePicImageView;
     @FXML private Label tabAccountNameLabel;
@@ -26,15 +29,17 @@ public class StudentPageController {
         {
             loginUser = (Student)FXRouter.getData();
         }
-        datasource = new ImageDatasource("users");
-        SquareImage profilePic = new SquareImage(tabProfilePicImageView);
-        profilePic.setClipImage(150,150);
-        profilePic.setImage(datasource.openImage(loginUser.getAvatar()));
-
+        loadProfile();
         onRequestsButtonClicked();
         tabAccountNameLabel.setText(loginUser.getName());
     }
 
+    public void loadProfile() {
+        datasource = new ImageDatasource("users");
+        SquareImage profilePic = new SquareImage(tabProfilePicImageView);
+        profilePic.setClipImage(150,150);
+        profilePic.setImage(datasource.openImage(loginUser.getAvatar()));
+    }
     @FXML
     public void onRequestsButtonClicked(){
         try {
@@ -68,24 +73,24 @@ public class StudentPageController {
     @FXML
     public void onSideProfileClicked(){
         try {
-            String viewPath = "/ku/cs/views/student-profile-card.fxml";
+            String viewPath = "/ku/cs/views/user-profile-card.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
-            StudentProfileController studentProfileController = fxmlLoader.getController();
-            studentProfileController.usernameLabel.setText(loginUser.getUsername());
-            studentProfileController.departmentLabel.setText(loginUser.getDepartment());
-            studentProfileController.idLabel.setText(loginUser.getId());
-            studentProfileController.studentNameLabel.setText(loginUser.getName());
-            studentProfileController.facultyLabel.setText(loginUser.getFaculty());
-            studentProfileController.profilePicture.setImage(datasource.openImage(loginUser.getAvatar()));
-            studentProfileController.profilePicture.setClipImage(50,50);
-            studentProfileController.userTypeLabel.setText(loginUser.getRole());
-            studentProfileController.advisorLabel.setText("None");
-
+            UserProfileCardController controller = fxmlLoader.getController();
+            controller.setLoginUser(loginUser);
+            controller.setParentController(this);
+            controller.initialize();
             contentBorderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void setLoginUser(User loginUser) {
+        if (loginUser == null) {return;}
+        if (loginUser instanceof Student) {
+            loginUser = (Student)loginUser;
         }
     }
 

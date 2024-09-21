@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.request.AcademicLeaveRequestForm;
@@ -29,7 +30,12 @@ import java.util.UUID;
 public class AcademicLeaveInformationRequestFormController {
     private AcademicLeaveRequestForm request;
     private User loginUser;
+    private String backPage;
 
+    @FXML
+    private Label subjectHaveRegister;
+    @FXML
+    private HBox approveButtonHbox;
     @FXML
     private VBox subjectVbox;
     @FXML
@@ -91,13 +97,6 @@ public class AcademicLeaveInformationRequestFormController {
     @FXML
     private HBox haveRegisterHBox;
 
-    @FXML
-    private void initialize() {
-        Platform.runLater(() -> {
-            scrollPane.requestFocus(); // ให้ ScrollPane ได้รับโฟกัสแทน
-        });
-    }
-
     public void showData() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         createDateTextField.setText(request.getDate().format(formatter));
@@ -107,19 +106,14 @@ public class AcademicLeaveInformationRequestFormController {
         idTextField.setText(String.valueOf(loginUser.getId()));
         facultyTextField.setText(((Student)loginUser).getFaculty());
         departmentTextField.setText(((Student)loginUser).getDepartment());
-        gmailTextField.setText(((Student)loginUser).getEmail());
-        UUID advisorUUID = ((Student)loginUser).getAdvisor();
+        gmailTextField.setText(loginUser.getEmail());
         Datasource<UserList> datasource = new UserListFileDatasource("data", "advisor.csv");
         UserList list = datasource.readData();
-//        Advisor advisor = null;
-//        for (User target : list.getUsers()) {
-//           if (target.getUUID().toString().equals(advisorUUID.toString())) {
-//               advisor = (Advisor) target;
-//           }
-//        }
-//        if (advisor == null) throw new IllegalArgumentException("ขออภัยไม่พบอาจารย์ที่ปรึกษาที่มีรหัสตรงกับรหัสของอาจารย์ที่ปรึกษาของนักเรียน");
-//        advisorIdTextField.setText(advisor.getName());
-//        advisorIdTextField.setText(advisor.getId());
+        Advisor advisor = (Advisor) list.findUserByUUID(((Student)loginUser).getAdvisor());
+
+        if (advisor == null) throw new IllegalArgumentException("ขออภัยไม่พบอาจารย์ที่ปรึกษาที่มีรหัสตรงกับรหัสของอาจารย์ที่ปรึกษาของนักเรียน");
+        advisorTextField.setText(advisor.getName());
+        advisorIdTextField.setText(advisor.getId());
         telTextField.setText(request.getTel());
         addressTextArea.setText(request.getAddress());
         sinceLeaveTextArea.setText(request.getReason());
@@ -154,9 +148,11 @@ public class AcademicLeaveInformationRequestFormController {
                     subjectVbox.getChildren().add(newHbox);
                 }
             }
+            subjectVbox.getChildren().removeFirst();
         } else {
             haveRegisterHBox.setDisable(true);
             subjectHbox.setDisable(true);
+            subjectHaveRegister.setVisible(false);
         }
     }
 
@@ -172,24 +168,8 @@ public class AcademicLeaveInformationRequestFormController {
         this.borderPane = borderPane;
     }
 
-    @FXML
-    private void onBackButtonClick() {
-        try {
-            String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
-            Pane pane = fxmlLoader.load();
-            StudentRequestInfoController controller = fxmlLoader.getController();
-            controller.setLoginUser((Student) loginUser);
-            controller.setRequest(request);
-            controller.initialize();
-            controller.showInfo();
-            controller.showTable();
-            borderPane.setCenter(pane);
-            controller.setBorderPane(borderPane);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void setBackPage(String backPage) {
+        this.backPage = backPage;
     }
 
     private HBox deepCopyHBox(HBox hbox, String subjectId, String subjectAdvisor) {
@@ -219,5 +199,9 @@ public class AcademicLeaveInformationRequestFormController {
             }
         }
         return newHbox;
+    }
+
+    public void setVisibleApproveButton() {
+        approveButtonHbox.setVisible(true);
     }
 }

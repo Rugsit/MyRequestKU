@@ -60,7 +60,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <ImageView fx:id="tabProfilePicImageView" fitHeight="100.0" fitWidth="100.0" layoutX="96.0" onMouseClicked="#onSideProfileClicked" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="tabProfilePicImageView" fitHeight="100.0" fitWidth="100.0" layoutX="96.0" onMouseClicked="#onSideProfileClicked" pickOnBounds="true" preserveRatio="true" styleClass="TabProfilePic" />
             </children>
         </Pane>
       <BorderPane fx:id="contentBorderPane" layoutX="292.0" prefHeight="720.0" prefWidth="988.0" />

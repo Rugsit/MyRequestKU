@@ -1,28 +1,23 @@
 * {
     -fx-font-family: PrintAble4U;
+    -fx-text-fill: #374957;
 }
 .signOut {
     -fx-underline: true;
     -fx-text-fill: #0000FF;
-    -fx-font-size: 18;
+    -fx-font-size: 18px;
     -fx-alignment: center;
 }
 
 .tabName{
-    -fx-font-size: 18;
+    -fx-font-size: 18px;
     -fx-alignment: center;
     -fx-font-weight: bold;
 }
 
-.manageStudentTab {
-    -fx-background-color: #EBEBEB;
-    -fx-font-size: 18;
-    -fx-padding: 3;
-}
-
 .manageRequestTab {
     -fx-background-color: #FFFFFF;
-    -fx-font-size: 18;
+    -fx-font-size: 24px;
     -fx-padding: 3;
 }
 
@@ -33,4 +28,38 @@
 
 .studentTable {
     -fx-font-size: 18;
+}
+
+.table-view .cell {
+    -fx-text-fill: #374957;
+    -fx-padding: 10px;
+    -fx-font-size: 20px;
+    -fx-border-color: transparent;
+}
+
+.table-view-user .cell {
+    -fx-text-fill: #374957;
+    -fx-padding: 10px;
+    -fx-font-size: 20px;
+    -fx-border-color: transparent;
+    /*-fx-alignment: CENTER_LEFT;*/
+}
+
+.table-view .cell:selected {
+    -fx-border-radius: 2px;
+    -fx-border-width: 2px;
+    -fx-border-color: #374957;
+    -fx-background-color: #F3F3F3;
+}
+.table-view .cell:hover {
+    -fx-cursor: hand;
+}
+.table-view .scroll-bar:vertical {
+    -fx-pref-width: 20px;
+    -fx-background-color: white; /* Thumb (the part that moves) color */
+    -fx-background-radius: 1px;    /* Rounded corners */
+}
+
+.table-view .scroll-bar:vertical .thumb{
+    -fx-background-color: #374957;
 }

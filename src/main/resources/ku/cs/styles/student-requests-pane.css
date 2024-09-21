@@ -47,3 +47,8 @@
     -fx-prompt-text-fill: #909090;
     -fx-background-color: transparent;
 }
+
+.back-button {
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
