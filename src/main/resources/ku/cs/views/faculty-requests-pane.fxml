@@ -28,7 +28,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label styleClass="header" text="รายชื่อนิสิตในความดูแล">
+                  <Label styleClass="header" text="จัดการคำร้อง">
                      <font>
                         <Font size="36.0" />
                      </font>

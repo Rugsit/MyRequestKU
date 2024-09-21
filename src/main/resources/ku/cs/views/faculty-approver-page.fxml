@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.faculty.FacultyApproverController">
    <children>
-      <Label fx:id="pageTitleLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="37.0" prefHeight="55.0" prefWidth="1281.0" text="จัดการผู้อนุมัติ (ภาควิชา)" textAlignment="CENTER">
+      <Label fx:id="pageTitleLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="37.0" prefHeight="55.0" prefWidth="1281.0" text="จัดการผู้อนุมัติ (คณะ)" textAlignment="CENTER">
          <font>
             <Font name="Arial Bold" size="48.0" />
          </font>
@@ -23,7 +23,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Button>
-      <TableView fx:id="approverTableView" layoutX="53.0" layoutY="163.0" prefHeight="508.0" prefWidth="806.0">
+      <TableView fx:id="approverTableView" layoutX="53.0" layoutY="163.0" prefHeight="508.0" prefWidth="806.0" styleClass="RequestsTable" stylesheets="@../styles/student-requests-pane.css">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
