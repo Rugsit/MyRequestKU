@@ -19,19 +19,18 @@ import ku.cs.models.department.DepartmentList;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.DepartmentUser;
-import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
+import ku.cs.models.user.exceptions.IDException;
 import ku.cs.models.user.exceptions.UserException;
-import ku.cs.services.DepartmentListFileDatasource;
-import ku.cs.services.FXRouter;
-import ku.cs.services.FacultyListFileDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 import ku.cs.services.utils.DateTools;
+import ku.cs.services.utils.StringCompare;
 import ku.cs.views.components.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 
 public class AddNisitController {
@@ -57,6 +56,12 @@ public class AddNisitController {
     private DefaultLabel editorErrorLabel;
     private boolean editMode;
     private boolean showEdit;
+    DefaultComboBoxes departmentComboBox;
+    DefaultComboBoxes facultyComboBox;
+    private FacultyListFileDatasource facultyDatasource;
+    private FacultyList facultyList;
+    private DepartmentListFileDatasource departmentDatasource;
+    private DepartmentList departmentList;
     private Department addDepartment;
     private Faculty addFaculty;
     private Session session;
@@ -70,18 +75,10 @@ public class AddNisitController {
         }
         addDepartment = null;
         addFaculty = null;
-        if(session != null && session.getUser() != null){
-            if(session.getUser() instanceof DepartmentUser){
-                DepartmentListFileDatasource departmentDatasource = new DepartmentListFileDatasource("data");
-                DepartmentList departmentList = departmentDatasource.readData();
-                DepartmentUser user = (DepartmentUser) session.getUser();
-                addDepartment = departmentList.getDepartmentByUuid(user.getDepartmentUUID().toString());
-
-                FacultyListFileDatasource facultyDatasource = new FacultyListFileDatasource("data");
-                FacultyList facultyList = facultyDatasource.readData();
-                addFaculty = facultyList.getFacultyByUuid(user.getFacultyUUID().toString());
-            }
-        }
+        facultyDatasource = new FacultyListFileDatasource("data");
+        departmentDatasource = new DepartmentListFileDatasource("data");
+        facultyList = facultyDatasource.readData();
+        departmentList = departmentDatasource.readData();
     }
 
     @FXML
@@ -90,12 +87,6 @@ public class AddNisitController {
         editorErrorLabel = new DefaultLabel("");
         initTableView();
         users = new UserList();
-//        try {
-//            users.addUser("6610402230","no-username","student","ศิริสุข","ทานธรรม", DateTools.localDateTimeToFormatString(User.DATE_FORMAT, LocalDateTime.now()),"no-email","123456789","science","computer science");
-//
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
         refreshTableData();
 
         selectedUser = null;
@@ -150,6 +141,11 @@ public class AddNisitController {
             protected void handleClickEvent() {
                 getButton().setOnMouseClicked(e -> {
                     System.out.println("addNisitButton clicked");
+                    if(session != null && (session.getUser() != null && session.getUser() instanceof DepartmentUser)){
+                            DepartmentUser user = (DepartmentUser) session.getUser();
+                            addDepartment = departmentList.getDepartmentByUuid(user.getDepartmentUUID().toString());
+                            addFaculty = facultyList.getFacultyByUuid(user.getFacultyUUID().toString());
+                    }
                     onAddNisitButton();
                 });
             }
@@ -160,28 +156,12 @@ public class AddNisitController {
             protected void handleClickEvent() {
                 getButton().setOnMouseClicked(e -> {
                     System.out.println("addNisitCSVButton clicked");
-                    mainStackPane.getChildren().add(new ConfirmStack("Alert","ระบบยังไม่ได้ทำโปรดเข้าใจ"){
-                        @Override
-                        protected void initialize(){
-                            super.initialize();
-                            getAcceptButton().changeText("เข้าใจ");
-                            getDeclineButton().changeText("เข้าใจ");
-                        }
-                        @Override
-                        protected void handleAcceptButton(){
-                            getAcceptButton().setOnMouseClicked(e -> {
-                                System.out.println("Accept button clicked");
-                                mainStackPane.getChildren().removeLast();
-                            });
-                        }
-                        @Override
-                        protected void handleDeclineButton(){
-                            getDeclineButton().setOnMouseClicked(e -> {
-                                System.out.println("Decline button clicked");
-                                mainStackPane.getChildren().removeLast();
-                            });
-                        }
-                    });
+                    if(session != null && (session.getUser() != null && session.getUser() instanceof DepartmentUser)){
+                        DepartmentUser user = (DepartmentUser) session.getUser();
+                        addDepartment = departmentList.getDepartmentByUuid(user.getDepartmentUUID().toString());
+                        addFaculty = facultyList.getFacultyByUuid(user.getFacultyUUID().toString());
+                    }
+                    onAddNisitCSVButton();
                 });
             }
         };
@@ -216,7 +196,7 @@ public class AddNisitController {
         nisitTable.addColumn("คณะ","faculty");
         nisitTable.addColumn("ภาควิชา","department");
         nisitTable.getTableView().getColumns().add(newDeleteColumn());
-//        nisitTable.addStyleSheet("/ku/cs/styles/department/pages/nisit-management/department-nisit-management-table-stylesheet.css");
+        nisitTable.addStyleSheet("/ku/cs/styles/department/pages/add-nisit/department-add-nisit-table-stylesheet.css");
 
     }
     private void selectedUserListener(){
@@ -420,6 +400,74 @@ public class AddNisitController {
                         children.add(addNisitIdTextField = new TextFieldStack("NisitID",mainWidth-100,60));
                         children.add(addNisitFirstnameTextField = new TextFieldStack("Firstname",mainWidth-100,60));
                         children.add(addNisitLastnameTextField = new TextFieldStack("Lastname",mainWidth-100,60));
+
+                        if(session == null || (session.getUser() != null && !(session.getUser() instanceof DepartmentUser))){
+                            facultyComboBox = new DefaultComboBoxes<Faculty>(){
+                                @Override
+                                protected void setStringExtractor() {
+                                    this.extractor = new StringExtractor<Faculty>() {
+                                        @Override
+                                        public String extract(Faculty obj) {
+                                            return obj.getName();
+                                        }
+                                    };
+                                }
+                            };
+
+                            departmentComboBox = new DefaultComboBoxes<Department>(){
+                                @Override
+                                protected void setStringExtractor() {
+                                    this.extractor = new StringExtractor<Department>() {
+                                        @Override
+                                        public String extract(Department obj) {
+                                            return obj.getName();
+                                        }
+                                    };
+                                }
+                            };
+                            departmentComboBox.valueProperty().addListener(new ChangeListener<Department>() {
+                                @Override
+                                public void changed(ObservableValue<? extends Department> observableValue, Department oldValue, Department newValue) {
+                                    addDepartment = newValue;
+                                }
+                            });
+//                            departmentComboBox.getItems().addAll(departmentList.getDepartments());
+                            departmentComboBox.changeBackgroundRadius(10);
+                            departmentComboBox.setPromptText("กรุณาเลือกภาควิชา");
+
+                            facultyComboBox.valueProperty().addListener(new ChangeListener<Faculty>() {
+                                @Override
+                                public void changed(ObservableValue<? extends Faculty> observableValue, Faculty oldValue, Faculty newValue) {
+                                    addFaculty = newValue;
+                                    addDepartment = null;
+                                    departmentComboBox.getSelectionModel().clearSelection();
+                                    departmentComboBox.getItems().clear();
+
+                                    DepartmentList filterList = new DepartmentList();
+                                    for(Department department : departmentList.getDepartments()){
+                                        if(department.getFacultyUuid().equals(addFaculty.getUuid())){
+                                            filterList.addDepartment(department);
+                                        }
+                                    }
+                                    departmentComboBox.getItems().addAll(filterList.getDepartments());
+
+                                }
+                            });
+                            facultyComboBox.getItems().addAll(facultyList.getFacultyList());
+                            facultyComboBox.changeBackgroundRadius(10);
+                            facultyComboBox.setPromptText("กรุณาเลือกคณะ");
+
+                            facultyComboBox.setPrefSize(mainWidth-100,30);
+                            departmentComboBox.setPrefSize(mainWidth-100,30);
+
+                            HBox parentsSelector = new HBox(facultyComboBox, departmentComboBox);
+                            parentsSelector.setAlignment(Pos.CENTER);
+                            parentsSelector.setSpacing(10);
+                            parentsSelector.setMaxSize(mainWidth-100,30);
+                            parentsSelector.setPrefSize(mainWidth-100,30);
+
+                            children.add(parentsSelector);
+                        }
                         children.add(errorLabel = new DefaultLabel(""));
 
                         children.forEach(child ->{
@@ -458,7 +506,7 @@ public class AddNisitController {
                                     t.toggleTextField(false);
                                 }
                             });
-                            if(session != null && addDepartment != null && addFaculty != null){
+                            if(addDepartment != null && addFaculty != null){
                                 try {
                                     tmpUserList.addUser(
                                             addNisitIdTextField.getData(),
@@ -476,6 +524,10 @@ public class AddNisitController {
                                     setEditorErrorLabel("");
                                     mainStackPane.getChildren().removeLast();
                                     refreshTableData();
+                                    selectedUser = null;
+                                    addFaculty = null;
+                                    addDepartment = null;
+                                    selectedUserListener();
                                 } catch (UserException err){
                                     errorLabel.changeText(err.getMessage(),24,FontWeight.NORMAL);
                                     errorLabel.changeLabelColor("red");
@@ -492,7 +544,7 @@ public class AddNisitController {
                                 }
 
                             }else{
-                                errorLabel.changeText("not support for non-department user yet : null session",24,FontWeight.NORMAL);
+                                errorLabel.changeText("non-department executor must provide complete faculty and department",24,FontWeight.NORMAL);
                                 errorLabel.changeLabelColor("red");
                                 children.forEach(child ->{
                                 if(child instanceof TextFieldStack){
@@ -508,11 +560,97 @@ public class AddNisitController {
                         declineButton.setOnMouseClicked(e ->{
                             System.out.println("Decline button clicked");
                             mainStackPane.getChildren().removeLast();
+                            addFaculty = null;
+                            addDepartment = null;
                         });
                     }
 
                 }
         );
+    }
+
+    private void onAddNisitCSVButton(){
+        ArrayList<String[]> nisitCSVRead;
+        UserList csvUserList = new UserList();
+        int readColum;
+        if(session == null || (session.getUser() != null && !(session.getUser() instanceof DepartmentUser))){
+            readColum = 5;
+        }else{
+            readColum = 3;
+        }
+        nisitCSVRead = UserCSVReader.read(readColum);
+
+        if(nisitCSVRead != null){
+            try {
+                if(nisitCSVRead.size() == 0)throw new UserException("File is empty");
+                for(int r = 0 ; r < nisitCSVRead.size() ; r++){
+                    String row = "Row " + (r+1) + " - ";
+                    try {
+                        String[] data = nisitCSVRead.get(r);
+                        for(int c = 0; c < readColum; c++){
+                            if(data[c].isEmpty())throw new UserException("Data is empty, row must be " + readColum +
+                                    " columns\n" +
+                                    "ID, FIRSTNAME, LASTNAME" + (readColum == 5 ? ", \nFACULTY, DEPARTMENT":"")
+                            );
+                        }
+                        if(readColum == 5){
+                            addFaculty = facultyList.getFacultyByName(data[3]);
+                            if(addFaculty == null)throw new UserException("Not a valid faculty");
+                            addDepartment = departmentList.getDepartmentByName(data[4]);
+                            if(addDepartment == null)throw new UserException("Not a valid department");
+                        }
+                        csvUserList.addUser(
+                                data[0],
+                                "no-username",
+                                "student",
+                                data[1],
+                                data[2],
+                                DateTools.localDateTimeToFormatString(User.DATE_FORMAT,LocalDateTime.now()),
+                                "no-email",
+                                "DEFAULT",
+                                addFaculty.getName(),
+                                addDepartment.getName()
+                        );
+                    }catch (UserException e){
+                        throw new UserException(row + e.getMessage());
+                    }
+                }
+                users.concatenate(csvUserList);
+                refreshTableData();
+                selectedUser = null;
+                addFaculty = null;
+                addDepartment = null;
+                selectedUserListener();
+
+            } catch (UserException e){
+                e.printStackTrace();
+                mainStackPane.getChildren().add(new ConfirmStack("Error","โปรดอ่านและทำความเข้าใจ\n" + e.getMessage()){
+                    @Override
+                    protected void initialize(){
+                        super.initialize();
+                        getAcceptButton().changeText("เข้าใจ");
+                        getDeclineButton().changeText("เข้าใจ");
+                    }
+                    @Override
+                    protected void handleAcceptButton(){
+                        getAcceptButton().setOnMouseClicked(e -> {
+                            System.out.println("Accept button clicked");
+                            mainStackPane.getChildren().removeLast();
+                        });
+                    }
+                    @Override
+                    protected void handleDeclineButton(){
+                        getDeclineButton().setOnMouseClicked(e -> {
+                            System.out.println("Decline button clicked");
+                            mainStackPane.getChildren().removeLast();
+                        });
+                    }
+                });
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
     }
     private void onResetButton(){
         users = new UserList();
@@ -622,8 +760,8 @@ public class AddNisitController {
             private Button actionButton = new Button();
             private final HBox hbox = new HBox(actionButton);
             {
-                hbox.setAlignment(Pos.CENTER_LEFT);
-                hbox.setPrefSize(35,35);
+                hbox.setAlignment(Pos.CENTER);
+//                hbox.setPrefSize(35,35);
                 DefaultButton b =new DefaultButton(actionButton,"transparent", "#e0e0e0", "#000000"){
                     @Override
                     protected void handleClickEvent() {
@@ -663,6 +801,7 @@ public class AddNisitController {
                 if (empty) {
                     setGraphic(null); // No content for empty cells
                 } else {
+//                    setStyle("-fx-background-color: red");
                     setGraphic(hbox); // Set the HBox with the button as the cell's graphic
                 }
             }

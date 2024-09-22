@@ -19,7 +19,7 @@
 .table-view .table-cell{
     -fx-alignment: CENTER;
     -fx-border-color: transparent;
-    -fx-font-size: 18;
+    -fx-font-size: 20;
 }
 
 .table-row-cell  {
@@ -28,8 +28,8 @@
 
 
 .table-row-cell:filled {
-    -fx-background-insets: 5 10 5 0; /* Create spacing effect padding! */
-    -fx-padding: 9 0 9 0;
+    -fx-background-insets: 5 10 5 10; /* Create spacing effect padding! */
+    -fx-padding: 6 0 6 0;
     -fx-background-radius: 20;
     -fx-background-color: white;
 }

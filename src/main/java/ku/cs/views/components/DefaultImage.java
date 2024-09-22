@@ -28,6 +28,9 @@ public class DefaultImage {
     public Image getImage(){
         return imageView.getImage();
     }
+    public ImageView getImageView(){
+        return imageView;
+    }
     public void removeImage(){
         setImage(null);
     }
