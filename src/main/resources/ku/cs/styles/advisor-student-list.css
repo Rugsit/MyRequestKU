@@ -95,7 +95,7 @@
     -fx-background-color: white;
 }
 .table-row-cell:hover {
-    -fx-background-color: #F3F3F3;
+    -fx-background-color: #e0e0e0;
 }
 
 .table-view .cell:hover {

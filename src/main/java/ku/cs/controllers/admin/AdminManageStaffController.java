@@ -8,6 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.models.faculty.Faculty;
 import ku.cs.models.user.*;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
@@ -115,7 +116,8 @@ public class AdminManageStaffController {
     private void search(String newValue) {
         Set<User> filter = userList.getUsers()
                 .stream()
-                .filter(user -> user.getName().toLowerCase().contains(newValue.toLowerCase()))
+                .filter(user -> user.getName().toLowerCase().contains(newValue.toLowerCase()) ||
+                        user.getUsername().toLowerCase().contains(newValue.toLowerCase()))
                 .collect(Collectors.toSet());
 
         userListTableview.getItems().clear();

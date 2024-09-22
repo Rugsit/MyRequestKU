@@ -90,7 +90,7 @@ public class StudentPageController implements ParentController {
     public void setLoginUser(User loginUser) {
         if (loginUser == null) {return;}
         if (loginUser instanceof Student) {
-            loginUser = (Student)loginUser;
+            this.loginUser = (Student)loginUser;
         }
     }
 

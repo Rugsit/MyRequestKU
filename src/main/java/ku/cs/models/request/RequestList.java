@@ -14,12 +14,12 @@ public class RequestList {
     public void addRequest(String[] data) {
         Request request;
         switch (data[0]) {
-            case "Register":
+            case "ลงทะเบียนเรียน":
                 request = new RegisterRequestForm(data);
                 break;
-            case "General":
+            case "ทั่วไป":
                 request = new GeneralRequestForm(data); break;
-            case "AcademicLeave":
+            case "ลาพักการศึกษา":
                 String[] first = Arrays.copyOfRange(data, 0, 21);
                 String[] second = Arrays.copyOfRange(data, 21, data.length);
                 request = new AcademicLeaveRequestForm(first, second); break;

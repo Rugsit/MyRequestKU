@@ -120,6 +120,19 @@ public class AdvisorPageController implements ParentController {
         profilePic.setClipImage(150,150);
         profilePic.setImage(datasource.openImage(loginUser.getAvatar()));
     }
+
+    @FXML
+    public void onAboutUsClicked() {
+        try {
+            String viewPath = "/ku/cs/views/about-us-pane.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            contentBorderPane.setCenter(pane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 

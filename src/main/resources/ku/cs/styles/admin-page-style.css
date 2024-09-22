@@ -146,7 +146,7 @@ Button:hover {
 
 .table-view-user .cell {
     -fx-text-fill: #374957;
-    -fx-padding: 5px;
+    -fx-padding: 3px 0px 3px 10px;
     -fx-font-size: 20px;
     -fx-border-color: transparent;
     -fx-alignment: CENTER_LEFT;
@@ -181,7 +181,7 @@ Button:hover {
     -fx-background-color: white;
 }
 .table-row-cell:hover {
-    -fx-background-color: #F3F3F3;
+    -fx-background-color: #e0e0e0;
 }
 
 .table-view .cell:hover {
@@ -190,17 +190,20 @@ Button:hover {
 
 .row-active {
     -fx-cursor: hand;
-    -fx-border-style: solid;
-    -fx-border-width: 1px;
-    -fx-border-color: #49A267;
     -fx-background-color: #D3FFE1;
+}
+
+.row-active:hover {
+    -fx-background-color: #9df5b9;
 }
 
 .row-inactive {
     -fx-cursor: hand;
-    -fx-border-style: solid;
     -fx-background-color: #FFD0D0;
-    -fx-border-color: #FF5D5D;
+}
+
+.row-inactive:hover {
+    -fx-background-color: #faa7a7;
 }
 
 .table-view .scroll-bar:vertical {

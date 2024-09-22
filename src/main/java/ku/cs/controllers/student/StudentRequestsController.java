@@ -3,13 +3,13 @@ package ku.cs.controllers.student;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import ku.cs.controllers.requests.ChooseRequestFromController;
 import ku.cs.controllers.requests.ErrorGeneralRequestFormController;
 import ku.cs.models.request.Request;
@@ -20,6 +20,11 @@ import ku.cs.services.RequestListFileDatasource;
 import ku.cs.views.components.DefaultTableView;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class StudentRequestsController {
@@ -32,6 +37,8 @@ public class StudentRequestsController {
     @FXML BorderPane borderPane;
     @FXML
     Button createRequestFormButton;
+    @FXML
+    TextField searchTextField;
 
     private Datasource<RequestList> requestListDatasource;
     private RequestList requestList;
@@ -43,6 +50,7 @@ public class StudentRequestsController {
     public void initialize() {
         showTable();
         showInfo();
+
     }
 
     public void showTable(){
@@ -82,6 +90,33 @@ public class StudentRequestsController {
         requestListTable.addColumn("วันที่อัพเดทล่าสุด", "TimeStamp");
         requestListTable.addColumn("สถานะคำร้อง", "statusNow");
         requestListTable.addColumn("", "statusNext");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+
+        TableColumn<Request, LocalDateTime> date = (TableColumn<Request, LocalDateTime>) requestListTable.getTableView().getColumns().get(1);
+        date.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
+            @Override
+            public String toString(LocalDateTime lastLogin) {
+                return lastLogin != null ? lastLogin.format(formatter) : "";
+            }
+
+            @Override
+            public LocalDateTime fromString(String string) {
+                return LocalDateTime.parse(string, formatter);
+            }
+        }));
+
+        TableColumn<Request, LocalDateTime> timestamp = (TableColumn<Request, LocalDateTime>) requestListTable.getTableView().getColumns().get(2);
+        timestamp.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
+            @Override
+            public String toString(LocalDateTime lastLogin) {
+                return lastLogin != null ? lastLogin.format(formatter) : "";
+            }
+
+            @Override
+            public LocalDateTime fromString(String string) {
+                return LocalDateTime.parse(string, formatter);
+            }
+        }));
 
         if (loginUser == null) {return;}
         requestListDatasource = new RequestListFileDatasource("data");
@@ -93,6 +128,33 @@ public class StudentRequestsController {
                 requestListTable.getTableView().getItems().add(request);
             }
         }
+
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()) {
+                search();
+                timestamp.setSortable(true);
+                timestamp.setSortType(TableColumn.SortType.DESCENDING);
+                requestListTableView.getSortOrder().add(timestamp);
+                timestamp.setSortable(false);
+            } else {
+                requestListTableView.getItems().clear();
+                myRequests = new RequestList();
+                for (Request request : requestList.getRequests()) {
+                    if (request.getOwnerUUID().equals(loginUser.getUUID())) {
+                        myRequests.addRequest(request);
+                        requestListTable.getTableView().getItems().add(request);
+                    }
+                }
+                timestamp.setSortable(true);
+                timestamp.setSortType(TableColumn.SortType.DESCENDING);
+                requestListTableView.getSortOrder().add(timestamp);
+                timestamp.setSortable(false);
+            }
+        });
+        timestamp.setSortable(true);
+        timestamp.setSortType(TableColumn.SortType.DESCENDING);
+        requestListTableView.getSortOrder().add(timestamp);
+        timestamp.setSortable(false);
     }
 
     // TODO: fetch data from datasource instead
@@ -149,5 +211,25 @@ public class StudentRequestsController {
     public void setLoginUser(Student loginUser) {
         if (loginUser == null) {return;}
         this.loginUser = loginUser;
+    }
+
+    private void search() {
+        myRequests = new RequestList();
+        for (Request request : requestList.getRequests()) {
+            if (request.getOwnerUUID().equals(loginUser.getUUID())) {
+                myRequests.addRequest(request);
+                requestListTable.getTableView().getItems().add(request);
+            }
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        Set<Request> filter = myRequests.getRequests()
+                .stream()
+                .filter(request -> request.getRequestType().toLowerCase().contains(searchTextField.getText().toLowerCase()) ||
+                        request.getStatusNow().contains(searchTextField.getText()) ||
+                        request.getStatusNext().contains(searchTextField.getText()))
+                .collect(Collectors.toSet());
+
+        requestListTableView.getItems().clear();
+        requestListTableView.getItems().addAll(filter);
     }
 }

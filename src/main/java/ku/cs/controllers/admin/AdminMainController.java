@@ -54,6 +54,7 @@ public class AdminMainController implements ParentController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        gotoProfilePage();
         loadProfile();
     }
 
@@ -98,7 +99,7 @@ public class AdminMainController implements ParentController {
             Pane pane = fxmlLoader.load();
             AdminManageUsersController controller = fxmlLoader.getController();
             controller.setLoginUser(loginUser);
-            controller.initialize();
+            controller.initializeUser();
             borderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);

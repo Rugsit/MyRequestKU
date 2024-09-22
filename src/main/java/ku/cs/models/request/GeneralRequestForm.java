@@ -203,7 +203,7 @@ public class GeneralRequestForm extends Request{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         String timestamp = super.getTimeStamp().format(formatter);
         String date = super.getDate().format(formatter);
-        return "General" + "," +
+        return  super.getRequestType() + "," +
                 super.getUuid().toString() + "," +
                 super.getOwnerUUID().toString() + "," +
                 super.getName() + "," +

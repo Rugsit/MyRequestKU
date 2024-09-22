@@ -53,7 +53,7 @@ public class AdminManageUsersController {
     @FXML
     private TabPane userListTabPane;
 
-    public void initialize() {
+    public void initializeUser() {
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableView.setPlaceholder(placeHolder);
         userListTableView.getColumns().clear();
@@ -63,42 +63,63 @@ public class AdminManageUsersController {
 
         avatar.setCellFactory(column -> new TableCell<>() {
             private final ImageView imageView = new ImageView();
+            SquareImage squareImage = new SquareImage(imageView);
+            private final HashMap<String, Image> imageCache = new HashMap<>(); // ใช้ cache
+            private Task<Image> currentTask; // เก็บ Task ปัจจุบัน
 
             @Override
             protected void updateItem(String item, boolean empty) {
-                ImageDatasource imageDatasource = new ImageDatasource("users");
                 super.updateItem(item, empty);
+
                 if (empty || item == null) {
+                    // รีเซ็ตสถานะเซลล์ถ้าไม่มีข้อมูล
+                    if (currentTask != null) {
+                        currentTask.cancel(); // ยกเลิก Task ถ้าไม่ต้องการแล้ว
+                    }
                     setGraphic(null);
+                    setText(null);
                 } else {
-                    // สร้าง Task เพื่อโหลดภาพใน Thread อื่น
-                    Task<Image> loadImageTask = new Task<>() {
-                        @Override
-                        protected Image call() throws Exception {
-                            // โหลดภาพใน Thread พื้นหลัง
-                            if (item.equalsIgnoreCase("no-image")) {
-                                return new Image(getClass().getResourceAsStream("/images/no-img.png"));
-                            } else {
-                                return imageDatasource.openImage(item);
-                            }
-
+                    if (imageCache.containsKey(item)) {
+                        // ใช้ภาพจาก cache ถ้ามี
+                        imageView.setImage(imageCache.get(item));
+                        squareImage.setClipImage(70, 70);
+                        setGraphic(imageView);
+                    } else {
+                        if (currentTask != null) {
+                            currentTask.cancel(); // ยกเลิก Task เก่าก่อน
                         }
-                    };
 
-                    // เมื่อ Task เสร็จ ให้เรียกใช้งาน Platform.runLater เพื่ออัพเดต UI
-                    loadImageTask.setOnSucceeded(event -> {
-//                        SquareImage circleImage = new SquareImage(new ImageView());
-                        imageView.setImage(loadImageTask.getValue());
-                        imageView.setFitHeight(70); // ตั้งขนาดของรูปภาพ
-                        imageView.setFitWidth(70);
-                        setGraphic(imageView); // ตั้ง graphic ให้ ImageView
-                    });
+                        // สร้าง Task ใหม่เพื่อโหลดรูปภาพ
+                        currentTask = new Task<>() {
+                            @Override
+                            protected Image call() throws Exception {
+                                ImageDatasource imageDatasource = new ImageDatasource("users");
+                                if (item.equals("no-image")) {
+                                    return new Image(getClass().getResourceAsStream("/images/no-img.png"));
+                                } else {
+                                    return imageDatasource.openImage(item);
+                                }
+                            }
+                        };
 
-                    // เริ่ม Task ใน Thread พื้นหลัง
-                    new Thread(loadImageTask).start();
+                        currentTask.setOnSucceeded(event -> {
+                            Image loadedImage = currentTask.getValue();
+                            imageView.setImage(loadedImage);
+                            imageCache.put(item, loadedImage); // ใส่รูปภาพใน cache
+                            squareImage.setClipImage(70, 70);
+                            setGraphic(imageView);
+                        });
+
+                        // เริ่ม Task ใน Thread พื้นหลัง
+                        new Thread(currentTask).start();
+                    }
+
+                    imageView.setFitHeight(70); // ตั้งขนาดของรูปภาพ
+                    imageView.setFitWidth(70);
                 }
             }
         });
+
 
         TableColumn<User, String> userName = new TableColumn<>("ชื่อผู้ใช้");
         userName.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -158,19 +179,33 @@ public class AdminManageUsersController {
             } else if (newValue == adviserTab) {
                 loadSpecificUsers("advisor.csv");
             }
+            search();
+            lastTime.setSortable(true);
+            lastTime.setSortType(TableColumn.SortType.DESCENDING);
+            userListTableView.getSortOrder().add(lastTime);
+            lastTime.setSortable(false);
         });
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.trim().isEmpty()) {
                 search();
+                lastTime.setSortable(true);
+                lastTime.setSortType(TableColumn.SortType.DESCENDING);
+                userListTableView.getSortOrder().add(lastTime);
+                lastTime.setSortable(false);
             } else {
                 userListTableView.getItems().clear();
                 userListTableView.getItems().addAll(userlist.getUsers());
-                TableColumn<User, LocalDateTime> lastTimeInSearch = (TableColumn<User, LocalDateTime>) userListTableView.getColumns().get(4);
-                lastTimeInSearch.setSortType(TableColumn.SortType.DESCENDING);
-                userListTableView.getSortOrder().add(lastTimeInSearch);
+
+                lastTime.setSortable(true);
+                lastTime.setSortType(TableColumn.SortType.DESCENDING);
+                userListTableView.getSortOrder().add(lastTime);
+                lastTime.setSortable(false);
             }
         });
+        lastTime.setSortType(TableColumn.SortType.DESCENDING);
+        userListTableView.getSortOrder().add(lastTime);
+
         lastTime.setSortable(false);
         avatar.setSortable(false);
         userName.setSortable(false);
@@ -191,31 +226,23 @@ public class AdminManageUsersController {
     }
 
     private void search() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         Set<User> filter = userlist.getUsers()
                 .stream()
-                .filter(user -> user.getName().toLowerCase().contains(searchTextField.getText().toLowerCase()))
+                .filter(user -> user.getName().toLowerCase().contains(searchTextField.getText().toLowerCase()) ||
+                        user.getUsername().toLowerCase().contains(searchTextField.getText().toLowerCase()) ||
+                        user.getActiveStatus().toLowerCase().contains(searchTextField.getText().toLowerCase()) ||
+                        user.getLastLogin().format(formatter).contains(searchTextField.getText()))
                 .collect(Collectors.toSet());
 
         userListTableView.getItems().clear();
         userListTableView.getItems().addAll(filter);
-        TableColumn<User, LocalDateTime> lastTime = (TableColumn<User, LocalDateTime>) userListTableView.getColumns().get(4);
-        lastTime.setSortType(TableColumn.SortType.DESCENDING);
-        userListTableView.getSortOrder().add(lastTime);
     }
 
     private void updateTableView() {
-        Collection<User> HashUser = userlist.getUsers();
-        HashUser.removeIf(user -> user.getRole().equalsIgnoreCase("admin"));
-        if (searchTextField.getText().trim().isEmpty()) {
+        userlist.deleteUserByObject(userlist.findUserByUUID(loginUser.getUUID()));
         userListTableView.getItems().clear();
-        userListTableView.getItems().addAll(HashUser);
-
-        TableColumn<User, LocalDateTime> lastTime = (TableColumn<User, LocalDateTime>) userListTableView.getColumns().get(4);
-        lastTime.setSortType(TableColumn.SortType.DESCENDING);
-        userListTableView.getSortOrder().add(lastTime);
-        } else{
-            search();
-        }
+        userListTableView.getItems().addAll(userlist.getUsers());
     }
 
     public void setLoginUser(Admin loginUser) {
