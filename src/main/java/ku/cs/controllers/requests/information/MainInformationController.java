@@ -207,9 +207,10 @@ public class MainInformationController {
     @FXML
     private void approve() {
         LocalDateTime now = LocalDateTime.now();
-        Datasource<RequestList> requestListDatasource = new RequestListFileDatasource("data");
+        RequestListFileDatasource requestListDatasource = new RequestListFileDatasource("data");
         RequestList requestList = requestListDatasource.readData();
         Request targetRequest = requestList.findByRequestUUID(request.getUuid());
+        requestListDatasource.appendToLog(targetRequest);
         targetRequest.setStatusNow("อนุมัติโดยอาจารย์ที่ปรึกษา");
         targetRequest.setStatusNext("คำร้องส่งต่อให้หัวหน้าภาควิชา");
         targetRequest.setTimeStamp(now);

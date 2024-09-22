@@ -57,9 +57,10 @@ public class NotApproveController {
     public void onAgreeClick() {
         try {
             LocalDateTime now = LocalDateTime.now();
-            Datasource<RequestList> requestListDatasource = new RequestListFileDatasource("data");
+            RequestListFileDatasource requestListDatasource = new RequestListFileDatasource("data");
             RequestList requestList = requestListDatasource.readData();
             Request targetRequest = requestList.findByRequestUUID(request.getUuid());
+            requestListDatasource.appendToLog(targetRequest);
             targetRequest.setStatusNow("ปฏิเสธโดยอาจารย์ที่ปรึกษา");
             targetRequest.setStatusNext("คำร้องถูกปฏิเสธ");
             targetRequest.setTimeStamp(now);

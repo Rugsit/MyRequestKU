@@ -3,19 +3,26 @@ package ku.cs.controllers.admin;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import ku.cs.controllers.ParentController;
+import ku.cs.controllers.UserProfileCardController;
 import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.user.Admin;
+import ku.cs.models.user.Advisor;
+import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
+import ku.cs.services.ImageDatasource;
 import ku.cs.services.UserListFileDatasource;
+import ku.cs.views.components.SquareImage;
 
 import java.io.IOException;
 
-public class AdminMainController {
+public class AdminMainController implements ParentController {
     private Datasource<UserList> datasource;
 
     private Admin loginUser;
@@ -24,6 +31,8 @@ public class AdminMainController {
 
     @FXML
     private BorderPane borderPane;
+    @FXML
+    private ImageView tabProfilePicImageView;
 
     @FXML
     public void initialize() {
@@ -45,6 +54,7 @@ public class AdminMainController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        loadProfile();
     }
 
     @FXML
@@ -120,16 +130,37 @@ public class AdminMainController {
     @FXML
     private void gotoProfilePage() {
         try {
-            String viewPath = "/ku/cs/views/admin-profile-pane.fxml";
+            String viewPath = "/ku/cs/views/user-profile-card.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
-            AdminProfileController controller = fxmlLoader.getController();
+            UserProfileCardController controller = fxmlLoader.getController();
             controller.setLoginUser(loginUser);
-            controller.showDataOnCard();
+            controller.setParentController(this);
+            controller.initialize();
             borderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void setLoginUser(User loginUser) {
+        if (loginUser == null) {return;}
+        if (loginUser instanceof Admin) {
+            this.loginUser = (Admin)loginUser;
+        }
+    }
+
+    @Override
+    public void loadProfile() {
+        ImageDatasource datasource = new ImageDatasource("users");
+        SquareImage profilePic = new SquareImage(tabProfilePicImageView);
+        profilePic.setClipImage(150,150);
+        if (loginUser.getAvatar().equalsIgnoreCase("no-image")) {
+            profilePic.setImage(new Image(getClass().getResourceAsStream("/images/no-img.png")));
+        } else {
+            profilePic.setImage(datasource.openImage(loginUser.getAvatar()));
         }
     }
 }

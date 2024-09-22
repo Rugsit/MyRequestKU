@@ -2,6 +2,7 @@ package ku.cs.controllers.admin;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,7 +15,9 @@ import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
+import ku.cs.services.ImageDatasource;
 import ku.cs.services.UserListFileDatasource;
+import ku.cs.views.components.SquareImage;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -58,23 +61,45 @@ public class AdminManageUsersController {
         TableColumn<User, String> avatar = new TableColumn<>("รูปภาพผู้ใช้");
         avatar.setCellValueFactory(new PropertyValueFactory<>("avatar"));
 
-//        avatar.setCellFactory(column -> new TableCell<>() {
-//            private final ImageView imageView = new ImageView();
-//
-//            @Override
-//            protected void updateItem(String item, boolean empty) {
-//                super.updateItem(item, empty);
-//                if (empty || item == null) {
-//                    setGraphic(null);
-//                } else {
-//                    Image image = new Image(getClass().getResourceAsStream("/images/profile-test.png"));
-//                    imageView.setImage(image);
-//                    imageView.setFitHeight(70); // ตั้งขนาดของรูปภาพ
-//                    imageView.setFitWidth(150);
-//                    setGraphic(imageView);
-//                }
-//            }
-//        });
+        avatar.setCellFactory(column -> new TableCell<>() {
+            private final ImageView imageView = new ImageView();
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                ImageDatasource imageDatasource = new ImageDatasource("users");
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    // สร้าง Task เพื่อโหลดภาพใน Thread อื่น
+                    Task<Image> loadImageTask = new Task<>() {
+                        @Override
+                        protected Image call() throws Exception {
+                            // โหลดภาพใน Thread พื้นหลัง
+                            if (item.equalsIgnoreCase("no-image")) {
+                                return new Image(getClass().getResourceAsStream("/images/no-img.png"));
+                            } else {
+                                return imageDatasource.openImage(item);
+                            }
+
+                        }
+                    };
+
+                    // เมื่อ Task เสร็จ ให้เรียกใช้งาน Platform.runLater เพื่ออัพเดต UI
+                    loadImageTask.setOnSucceeded(event -> {
+//                        SquareImage circleImage = new SquareImage(new ImageView());
+                        imageView.setImage(loadImageTask.getValue());
+                        imageView.setFitHeight(70); // ตั้งขนาดของรูปภาพ
+                        imageView.setFitWidth(70);
+                        setGraphic(imageView); // ตั้ง graphic ให้ ImageView
+                    });
+
+                    // เริ่ม Task ใน Thread พื้นหลัง
+                    new Thread(loadImageTask).start();
+                }
+            }
+        });
+
         TableColumn<User, String> userName = new TableColumn<>("ชื่อผู้ใช้");
         userName.setCellValueFactory(new PropertyValueFactory<>("username"));
         TableColumn<User, String> name = new TableColumn<>("ชื่อ-นามสกุล");
@@ -83,7 +108,7 @@ public class AdminManageUsersController {
         status.setCellValueFactory(new PropertyValueFactory<>("ActiveStatus"));
         TableColumn<User, LocalDateTime> lastTime = new TableColumn<>("เวลาที่เข้าใช้ล่าสุด");
         lastTime.setCellValueFactory(new PropertyValueFactory<>("lastLogin"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
         // Set the cellFactory to format the LocalDateTime
         lastTime.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {

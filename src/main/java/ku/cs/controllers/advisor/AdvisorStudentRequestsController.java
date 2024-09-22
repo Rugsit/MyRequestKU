@@ -79,7 +79,7 @@ public class AdvisorStudentRequestsController {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
         TableColumn<Request, String> statusNextColumn = new TableColumn<>("สถานะคำร้องต่อไป");
         statusNextColumn.setCellValueFactory(new PropertyValueFactory<>("statusNext"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
         requestListTableView.getColumns().add(nameColumn);
         requestListTableView.getColumns().add(dateColumn);
@@ -175,7 +175,7 @@ public class AdvisorStudentRequestsController {
                 requests.add(request);
             }
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         Set<Request> filter = requests
                 .stream()
                 .filter(request -> request.getName().toLowerCase().contains(searchTextField.getText().toLowerCase()) ||

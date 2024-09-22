@@ -278,7 +278,7 @@ public class Ku3FormController {
     private Ku1AndKu3RequestForm createKu3Form() {
         UUID uuid = UUID.randomUUID();
         LocalDateTime now = LocalDateTime.now();
-        return new Ku1AndKu3RequestForm(uuid,loginUser.getUUID(), loginUser.getName(), loginUser.getId(), now, now, "KU3", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา", "none");
+        return new Ku1AndKu3RequestForm(uuid,loginUser.getUUID(), loginUser.getName(), loginUser.getId(), now, now, "KU3", "ใบคำร้องใหม่", "คำร้องส่งต่อให้อาจารย์ที่ปรึกษา", "none");
     }
 
     private void showConfirmPane(RegisterRequestForm registerRequestForm, Ku1AndKu3RequestForm ku1AndKu3RequestForm) {

@@ -109,7 +109,7 @@ public class AdvisorPageController implements ParentController {
     public void setLoginUser(User loginUser) {
         if (loginUser == null) {return;}
         if (loginUser instanceof Advisor) {
-            loginUser = (Advisor)loginUser;
+            AdvisorPageController.loginUser = (Advisor)loginUser;
         }
     }
 

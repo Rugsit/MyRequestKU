@@ -118,7 +118,7 @@
             </Label>
             <Button layoutX="81.0" layoutY="489.0" mnemonicParsing="false" onAction="#gotoProfilePage" styleClass="profileButton">
                <graphic>
-                  <ImageView fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" styleClass="profileImage">
+                  <ImageView fx:id="tabProfilePicImageView" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" styleClass="profileImage">
                      <image>
                         <Image url="@../../../images/users/side-bar-profile.png" />
                      </image>
