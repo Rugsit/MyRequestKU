@@ -171,7 +171,7 @@ public class Request {
     }
 
     public HashMap<String, HashMap<String, Integer>> getRequireTier() {
-        Datasource<ApproverList> approverListDatasource = new ApproverListFileDatasource();
+        Datasource<ApproverList> approverListDatasource = new ApproverListFileDatasource("request");
         ApproverList approverList = approverListDatasource.readData();
         for (Approver approver : approverList.getApprovers()) {
             if (approver.getRequestUUID().equals(uuid)) {

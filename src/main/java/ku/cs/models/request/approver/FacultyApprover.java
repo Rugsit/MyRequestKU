@@ -18,6 +18,10 @@ public class FacultyApprover extends Approver{
         super(requestUUID, tier, role, firstname, lastname);
     }
 
+    public FacultyApprover(String tier, String role, String firstname, String lastname) throws ApproverException {
+        super(tier, role, firstname, lastname);
+    }
+
     public FacultyApprover(String uuid, String requestUUID, String tier, String role, String status, String signatureFile, String firstname, String lastname) throws ApproverException {
         super(uuid, requestUUID, tier, role, status, signatureFile, firstname, lastname);
     }

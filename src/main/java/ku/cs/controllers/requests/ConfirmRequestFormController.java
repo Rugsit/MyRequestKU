@@ -77,7 +77,7 @@ public class ConfirmRequestFormController {
             controller.setBorderPane(this.borderPane);
             controller.setLoginUser((Student) loginUser);
 
-            Datasource<ApproverList> approverDatasource = new ApproverListFileDatasource();
+            Datasource<ApproverList> approverDatasource = new ApproverListFileDatasource("request");
             Datasource<UserList> userListDatasource = new UserListFileDatasource("data", "advisor.csv");
             UserList userList = userListDatasource.readData();
             ApproverList approverList = approverDatasource.readData();
