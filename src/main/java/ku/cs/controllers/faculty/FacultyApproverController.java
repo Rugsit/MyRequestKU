@@ -54,7 +54,7 @@ public class FacultyApproverController {
         new DefaultLabel(fileNameLabel);
     }
     private void initButton(){
-        new RouteButton(backButton,"faculty-pagejru","transparent","#a6a6a6","#000000");
+        new RouteButton(backButton,"faculty-page","transparent","#a6a6a6","#000000");
         new DefaultButton(addApproverButton,"#FFE0A4","#a6a6a6","#000000").changeBackgroundRadius(15);
         new DefaultButton(removeFileButton,"transparent","#a6a6a6","#000000");
         new DefaultButton(uploadFileButton,"#ABFFA4","#a6a6a6","#000000").changeBackgroundRadius(15);
