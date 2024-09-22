@@ -114,6 +114,7 @@ public class StudentRequestInfoController {
             tableView.getTableView().getItems().add(req);
         }
         tableView.getTableView().sort();
+        date.setSortable(false);
     }
 
     public void onBackButtonClick() {
