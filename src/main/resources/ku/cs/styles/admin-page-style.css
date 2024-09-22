@@ -95,26 +95,6 @@ Button:hover {
     -fx-background-color: #374957;
 }
 
-
-.table-view .column-header {
-    -fx-background-color: transparent;
-    -fx-pref-height: 40px;
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
-}
-
-.table-view {
-    -fx-font-size: 24px;
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
-    -fx-border-color: transparent;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: transparent;
-}
-
 .profileImage {
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
@@ -135,6 +115,28 @@ Button:hover {
     -fx-pref-width: 100px;
 }
 
+/*Table view style*/
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-pref-height: 40px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-font-size: 24px;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
 .table-view .cell {
     -fx-text-fill: #374957;
     -fx-padding: 10px;
@@ -143,11 +145,11 @@ Button:hover {
 }
 
 .table-view-user .cell {
-     -fx-text-fill: #374957;
-     -fx-padding: 10px;
-     -fx-font-size: 20px;
-     -fx-border-color: transparent;
-    /*-fx-alignment: CENTER_LEFT;*/
+    -fx-text-fill: #374957;
+    -fx-padding: 5px;
+    -fx-font-size: 20px;
+    -fx-border-color: transparent;
+    -fx-alignment: CENTER_LEFT;
 }
 
 .table-view .cell:selected {
@@ -156,6 +158,32 @@ Button:hover {
     -fx-border-color: #374957;
     -fx-background-color: #F3F3F3;
 }
+
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+
+.table-row-cell {
+    -fx-border-width: 0px;
+    -fx-background-color: white;
+}
+.table-row-cell:hover {
+    -fx-background-color: #F3F3F3;
+}
+
 .table-view .cell:hover {
     -fx-cursor: hand;
 }
@@ -184,6 +212,8 @@ Button:hover {
 .table-view .scroll-bar:vertical .thumb{
     -fx-background-color: #374957;
 }
+/*Table view style*/
+
 /*Admin profile style*/
 
 .profile-card-header {
@@ -213,3 +243,4 @@ Button:hover {
     -fx-text-fill: #909194;
     -fx-cursor: hand;
 }
+/*Admin profile style*/

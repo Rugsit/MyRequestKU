@@ -5,6 +5,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ku.cs.models.department.Department;
 import ku.cs.models.department.DepartmentList;
@@ -78,6 +79,8 @@ public class AddFormController {
     private Label startPasswordLabel;
     @FXML
     private Label userNameLabel;
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private void initialize() {
@@ -98,6 +101,16 @@ public class AddFormController {
                 showDepartmentInChoiceBox();
             });
         }
+
+        anchorPane.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                if (adminFacultyController != null) {
+                    onAcceptFacultyDepartmentClick();
+                } else if (adminStaffController != null) {
+                    onAcceptClick();
+                }
+            }
+        });
     }
 
     private void showDepartmentInChoiceBox() {

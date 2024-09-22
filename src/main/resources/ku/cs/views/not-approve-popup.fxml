@@ -7,15 +7,16 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="658.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.ErrorGeneralRequestFormController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="658.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.information.NotApproveController">
    <children>
       <Label layoutX="29.0" layoutY="14.0" prefHeight="90.0" prefWidth="600.0" styleClass="header" text="กรุณากรอกเหตุที่ปฏิเสธคำร้อง" textAlignment="CENTER">
          <font>
             <Font name="PrintAble4U Bold" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="393.0" layoutY="352.0" mnemonicParsing="false" onAction="#onAgreeClick" styleClass="not-approve" text="ยืนยันการปฏิเสธคำร้อง" />
+      <Button layoutX="388.0" layoutY="403.0" mnemonicParsing="false" onAction="#onAgreeClick" styleClass="not-approve" text="ยืนยันการปฏิเสธคำร้อง" />
       <Line endX="434.0" endY="-1.52587890625E-5" layoutX="161.0" layoutY="97.0" startX="-100.0" styleClass="line" />
-      <TextArea layoutX="34.0" layoutY="119.0" prefHeight="214.0" prefWidth="589.0" />
+      <TextArea fx:id="reason" layoutX="34.0" layoutY="119.0" prefHeight="214.0" prefWidth="589.0" />
+      <Label fx:id="errorLabel" layoutX="383.0" layoutY="371.0" prefWidth="255.0" styleClass="error-label" text="error" visible="false" wrapText="true" />
    </children>
 </AnchorPane>

@@ -49,7 +49,7 @@
       </ImageView>
       <HBox fx:id="approveButtonHbox" layoutX="38.0" layoutY="650.0" prefWidth="900.0" visible="false">
          <children>
-            <Button graphicTextGap="10.0" mnemonicParsing="false" styleClass="not-approve" text="ปฎิเสธคำร้อง">
+            <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#notApprove" styleClass="not-approve" text="ปฎิเสธคำร้อง">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,7 +58,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button graphicTextGap="10.0" mnemonicParsing="false" styleClass="approve" text="อนุมัติคำร้อง">
+            <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#approve" styleClass="approve" text="อนุมัติคำร้อง">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>

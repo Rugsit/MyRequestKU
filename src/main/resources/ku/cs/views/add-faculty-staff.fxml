@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="730.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.AddFormController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="730.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.AddFormController">
    <children>
       <Label layoutX="24.0" layoutY="6.0" prefHeight="90.0" prefWidth="289.0" styleClass="edit-data-header" text="เพิ่มข้อมูล">
          <font>
