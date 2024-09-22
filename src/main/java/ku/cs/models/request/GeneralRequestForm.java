@@ -52,11 +52,12 @@ public class GeneralRequestForm extends Request{
         this.oldEngSurName = data[18];
         this.newEngSurName = data[19];
         this.others = data[20];
+        super.setReasonForNotApprove(data[21]);
     }
 
     public GeneralRequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
-                              LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
-        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
+                              LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext, String reason) {
+        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext, reason);
     }
 
     public String getTel() {
@@ -222,6 +223,7 @@ public class GeneralRequestForm extends Request{
                 newThaiSurName + "," +
                 oldEngSurName + "," +
                 newEngSurName + "," +
-                others;
+                others + "," +
+                super.getReasonForNotApprove();
     }
 }

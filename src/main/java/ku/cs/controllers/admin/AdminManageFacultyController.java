@@ -174,6 +174,8 @@ public class AdminManageFacultyController {
         departmentId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         departmentTableView.getColumns().setAll(department, faculty, departmentId);
+        faculty.setSortType(TableColumn.SortType.ASCENDING);
+        departmentTableView.getSortOrder().add(faculty);
         readFacultyOrDepartment("department");
         departmentTableView.getItems().addAll(departmentList.getDepartments());
     }

@@ -74,7 +74,10 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <ImageView fx:id="tabProfilePicImageView" fitHeight="100.0" fitWidth="100.0" layoutX="96.0" layoutY="522.0" onMouseClicked="#onSideProfileClicked" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="tabProfilePicImageView" fitHeight="100.0" fitWidth="100.0" layoutX="96.0" layoutY="522.0" onMouseClicked="#onSideProfileClicked" pickOnBounds="true" preserveRatio="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
          </children>
       </Pane>
       <BorderPane fx:id="contentBorderPane" layoutX="292.0" layoutY="-1.0" prefHeight="720.0" prefWidth="988.0" />

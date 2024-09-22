@@ -1,28 +1,30 @@
 package ku.cs.controllers.requests.information;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.*;
-import ku.cs.models.user.Advisor;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
-import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.RequestListFileDatasource;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class MainInformationController {
     private Request request;
     private User loginUser;
     private String backPage;
 
+    @FXML
+    private Stage currentNotApprove;
     @FXML
     private HBox approveButtonHbox;
     @FXML
@@ -200,5 +202,41 @@ public class MainInformationController {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    @FXML
+    private void approve() {
+        LocalDateTime now = LocalDateTime.now();
+        Datasource<RequestList> requestListDatasource = new RequestListFileDatasource("data");
+        RequestList requestList = requestListDatasource.readData();
+        Request targetRequest = requestList.findByRequestUUID(request.getUuid());
+        targetRequest.setStatusNow("อนุมัติโดยอาจารย์ที่ปรึกษา");
+        targetRequest.setStatusNext("คำร้องส่งต่อให้หัวหน้าภาควิชา");
+        targetRequest.setTimeStamp(now);
+        requestListDatasource.writeData(requestList);
+        goToAdvisorRequest();
+    }
+
+    @FXML
+    private void notApprove() {
+            if (currentNotApprove == null || !currentNotApprove.isShowing()) {
+                currentNotApprove = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/not-approve-popup.fxml"));
+                Scene scene = null;
+                try {
+                    scene = new Scene(fxmlLoader.load());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                NotApproveController notApproveController = fxmlLoader.getController();
+                notApproveController.setRequest(request);
+                notApproveController.setStage(currentNotApprove);
+                notApproveController.setBorderPane(borderPane);
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
+                currentNotApprove.setScene(scene);
+                currentNotApprove.initModality(Modality.APPLICATION_MODAL);
+                currentNotApprove.setTitle("Not Approve");
+                currentNotApprove.show();
+            }
     }
 }

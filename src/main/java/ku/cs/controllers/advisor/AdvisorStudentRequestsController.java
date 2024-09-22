@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
@@ -18,12 +19,15 @@ import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class AdvisorStudentRequestsController {
     @FXML
@@ -32,6 +36,8 @@ public class AdvisorStudentRequestsController {
     BorderPane borderPane;
     @FXML
     Label displayName;
+    @FXML
+    private TextField searchTextField;
 
     private Datasource<RequestList> requestListDatasource;
     private Datasource<UserList> datasource;
@@ -41,8 +47,7 @@ public class AdvisorStudentRequestsController {
     private String selectedStudentId;
     private String studentName;
 
-    public void initialize() {
-        studentId = new ArrayList<>();
+    public void initializeStudentRequests() {
         showTable();
     }
 
@@ -53,6 +58,7 @@ public class AdvisorStudentRequestsController {
 
     public void setSelectedStudentId(String selectedStudentId) {
         this.selectedStudentId = selectedStudentId;
+        studentId = new ArrayList<>();
         loadRequests();
     }
 
@@ -75,6 +81,31 @@ public class AdvisorStudentRequestsController {
         statusNextColumn.setCellValueFactory(new PropertyValueFactory<>("statusNext"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
 
+        requestListTableView.getColumns().add(nameColumn);
+        requestListTableView.getColumns().add(dateColumn);
+        requestListTableView.getColumns().add(typeColumn);
+        requestListTableView.getColumns().add(statusColumn);
+        requestListTableView.getColumns().add(statusNextColumn);
+
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()) {
+                search();
+                dateColumn.setSortable(true);
+                dateColumn.setSortType(TableColumn.SortType.DESCENDING);
+                requestListTableView.getSortOrder().add(dateColumn);
+                dateColumn.setSortable(false);
+            } else {
+                loadRequests();
+                dateColumn.setSortable(true);
+                dateColumn.setSortType(TableColumn.SortType.DESCENDING);
+                requestListTableView.getSortOrder().add(dateColumn);
+                dateColumn.setSortable(false);
+            }
+        });
+
+        dateColumn.setSortType(TableColumn.SortType.DESCENDING);
+        requestListTableView.getSortOrder().add(dateColumn);
+
         // Set the cellFactory to format the LocalDateTime
         dateColumn.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
             @Override
@@ -94,11 +125,12 @@ public class AdvisorStudentRequestsController {
         statusColumn.setMinWidth(190);
         statusNextColumn.setMinWidth(241);
 
-        requestListTableView.getColumns().add(nameColumn);
-        requestListTableView.getColumns().add(dateColumn);
-        requestListTableView.getColumns().add(typeColumn);
-        requestListTableView.getColumns().add(statusColumn);
-        requestListTableView.getColumns().add(statusNextColumn);
+
+        nameColumn.setSortable(false);
+        dateColumn.setSortable(false);
+        typeColumn.setSortable(false);
+        statusColumn.setSortable(false);
+        statusNextColumn.setSortable(false);
     }
 
     private void loadRequests() {
@@ -112,9 +144,6 @@ public class AdvisorStudentRequestsController {
                     requestListTableView.getItems().add(request);
                 }
             }
-            TableColumn<Request, LocalDateTime> dateColumn = (TableColumn<Request, LocalDateTime>) requestListTableView.getColumns().get(1);
-            dateColumn.setSortType(TableColumn.SortType.DESCENDING);
-            requestListTableView.getSortOrder().add(dateColumn);
         }
     }
 
@@ -139,4 +168,25 @@ public class AdvisorStudentRequestsController {
         this.borderPane = borderPane;
     }
 
+    private void search() {
+        ArrayList<Request> requests = new ArrayList<>();
+        for (Request request : requestList.getRequests()) {
+            if (selectedStudentId.equals(request.getNisitId())){
+                requests.add(request);
+            }
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
+        Set<Request> filter = requests
+                .stream()
+                .filter(request -> request.getName().toLowerCase().contains(searchTextField.getText().toLowerCase()) ||
+                        request.getRequestType().toLowerCase().contains(searchTextField.getText().toLowerCase()) ||
+                        request.getStatusNow().contains(searchTextField.getText()) ||
+                        request.getStatusNext().contains(searchTextField.getText()) ||
+                        request.getDate().format(formatter).contains(searchTextField.getText()))
+                .collect(Collectors.toSet());
+
+        requestListTableView.getItems().clear();
+        requestListTableView.getItems().addAll(filter);
+
+    }
 }

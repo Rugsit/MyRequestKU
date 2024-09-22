@@ -32,7 +32,6 @@ module ku.cs {
     exports ku.cs.controllers.student;
     opens ku.cs.controllers.student to javafx.fxml;
     exports ku.cs.controllers.advisor;
-    opens ku.cs.controllers.advisor to javafx.fxml;
     exports ku.cs.controllers.faculty;
     opens ku.cs.controllers.faculty to javafx.fxml;
     exports ku.cs.models.request;
@@ -41,8 +40,9 @@ module ku.cs {
     opens ku.cs.models.department to javafx.fxml;
     exports ku.cs.models.faculty;
     opens ku.cs.models.faculty to javafx.fxml;
-    exports ku.cs.controllers.requests.information to javafx.fxml;
-    opens ku.cs.controllers.requests.information to javafx.fxml;
     exports ku.cs.models.request.approver to javafx.fxml;
     opens ku.cs.models.request.approver to javafx.fxml;
+    opens ku.cs.controllers.advisor to javafx.base, javafx.fxml;
+    exports ku.cs.controllers.requests.information;
+    opens ku.cs.controllers.requests.information to javafx.base, javafx.fxml;
 }

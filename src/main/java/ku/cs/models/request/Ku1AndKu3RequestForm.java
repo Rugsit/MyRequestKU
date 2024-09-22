@@ -16,8 +16,8 @@ public class Ku1AndKu3RequestForm extends Request{
     private ArrayList<ArrayList<String>> subjectList;
 
     public Ku1AndKu3RequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
-                                LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
-        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
+                                LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext, String reason) {
+        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext, reason);
         subjectList = new ArrayList<>();
     }
 
@@ -38,6 +38,7 @@ public class Ku1AndKu3RequestForm extends Request{
         semester = data[11];
         year = data[12];
         campus = data[13];
+        super.setReasonForNotApprove(data[14]);
         if (type == 1) {
             for (int i = 0; i < subject.length; i++) {
                 ArrayList<String> newEachSubjectList = new ArrayList<>();
@@ -252,7 +253,8 @@ public class Ku1AndKu3RequestForm extends Request{
                 + tel + ","
                 + semester + ","
                 + year + ","
-                + campus;
+                + campus + "," +
+                super.getReasonForNotApprove();
         for (ArrayList<String> eachSubject : subjectList) {
             for (String eachString : eachSubject) {
                 text += "," + eachString;

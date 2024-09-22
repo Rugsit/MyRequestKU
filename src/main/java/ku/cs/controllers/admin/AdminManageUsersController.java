@@ -147,6 +147,10 @@ public class AdminManageUsersController {
             }
         });
         lastTime.setSortable(false);
+        avatar.setSortable(false);
+        userName.setSortable(false);
+        name.setSortable(false);
+        status.setSortable(false);
     }
 
     private void loadAllUsers() {

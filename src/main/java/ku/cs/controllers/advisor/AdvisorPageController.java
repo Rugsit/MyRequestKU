@@ -7,8 +7,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import ku.cs.controllers.ParentController;
+import ku.cs.controllers.UserProfileCardController;
 import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.user.Advisor;
+import ku.cs.models.user.Student;
+import ku.cs.models.user.User;
 import ku.cs.services.FXRouter;
 import ku.cs.services.ImageDatasource;
 import ku.cs.views.components.SquareImage;
@@ -17,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class AdvisorPageController {
+public class AdvisorPageController implements ParentController {
     @FXML Circle imageCircle;
     @FXML Label tabAccountNameLabel;
     @FXML ImageView tabProfilePicImageView;
@@ -85,28 +89,36 @@ public class AdvisorPageController {
     }
 
     @FXML
-    public void onSideProfileClicked(){
+    public void onSideProfileClicked() {
         try {
-            String viewPath = "/ku/cs/views/advisor-profile-card.fxml";
+            String viewPath = "/ku/cs/views/user-profile-card.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
-            AdvisorProfileController advisorProfileController = fxmlLoader.getController();
-            advisorProfileController.usernameLabel.setText(loginUser.getUsername());
-            advisorProfileController.departmentLabel.setText(loginUser.getDepartment());
-            advisorProfileController.idLabel.setText(loginUser.getId());
-            advisorProfileController.studentNameLabel.setText(loginUser.getName());
-            advisorProfileController.facultyLabel.setText(loginUser.getFaculty());
-            advisorProfileController.profilePicture.setImage(datasource.openImage(loginUser.getAvatar()));
-            advisorProfileController.profilePicture.setClipImage(50,50);
-            advisorProfileController.userTypeLabel.setText(loginUser.getRole());
-            advisorProfileController.advisorLabel.setText("None");
-
-
+            UserProfileCardController controller = fxmlLoader.getController();
+            controller.setLoginUser(loginUser);
+            controller.setParentController(this);
+            controller.initialize();
             contentBorderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void setLoginUser(User loginUser) {
+        if (loginUser == null) {return;}
+        if (loginUser instanceof Advisor) {
+            loginUser = (Advisor)loginUser;
+        }
+    }
+
+    @Override
+    public void loadProfile() {
+        datasource = new ImageDatasource("users");
+        SquareImage profilePic = new SquareImage(tabProfilePicImageView);
+        profilePic.setClipImage(150,150);
+        profilePic.setImage(datasource.openImage(loginUser.getAvatar()));
     }
 }
 
