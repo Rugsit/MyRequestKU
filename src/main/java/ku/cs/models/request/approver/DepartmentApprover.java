@@ -17,6 +17,10 @@ public class DepartmentApprover extends Approver{
         super(requestUUID, tier, role, firstname, lastname);
     }
 
+    public DepartmentApprover(String tier, String role, String firstname, String lastname) throws ApproverException {
+        super(tier, role, firstname, lastname);
+    }
+
     public DepartmentApprover(String uuid, String requestUUID, String tier, String role, String status, String signatureFile, String firstname, String lastname) throws ApproverException {
         super(uuid, requestUUID, tier, role, status, signatureFile, firstname, lastname);
     }

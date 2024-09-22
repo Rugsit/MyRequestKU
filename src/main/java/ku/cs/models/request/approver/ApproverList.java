@@ -55,6 +55,28 @@ public class ApproverList {
         }
         approvers.get(tier).add(approver);
     }
+
+    // CONSTRUCTOR FOR ADDING NEW APPROVER TO APPROVER-LIST
+    public void addApprover(String tier, String role, String firstname, String lastname) throws ApproverException {
+        Approver approver;
+        switch (tier){
+            case "advisor":
+                approver = new AdvisorApprover(tier,role,firstname,lastname);
+                break;
+            case "department":
+                approver = new DepartmentApprover(tier,role,firstname,lastname);
+                break;
+            case "faculty":
+                approver = new FacultyApprover(tier,role,firstname,lastname);
+                break;
+            case "other":
+                approver = new OtherApprover(tier,role,firstname,lastname);
+                break;
+            default:
+                throw new ApproverTierException("Invalid approver tier");
+        }
+        approvers.get(tier).add(approver);
+    }
     public void addApprover(Approver approver){
         if(approver != null){
             if(!haveApprover(approver)){

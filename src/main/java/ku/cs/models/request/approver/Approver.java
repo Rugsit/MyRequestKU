@@ -1,5 +1,6 @@
 package ku.cs.models.request.approver;
 
+import ku.cs.models.request.Request;
 import ku.cs.models.request.approver.exception.ApproverException;
 import ku.cs.models.request.approver.exception.ApproverRoleException;
 import ku.cs.models.request.approver.exception.ApproverStatusException;
@@ -18,7 +19,7 @@ public abstract class Approver implements Comparable<Approver> {
             "other"
     ));
     protected final UUID uuid;
-    protected final UUID requestUUID;
+    protected UUID requestUUID;
     protected String firstname;
     protected String lastname;
     protected final String tier;
@@ -32,13 +33,20 @@ public abstract class Approver implements Comparable<Approver> {
         setInitialStatus();
     }
 
+    public Approver(String tier, String role, String firstname, String lastname) throws ApproverException {
+        this(UUID.randomUUID().toString(), null, tier, role, "no-status", "no-signature", firstname, lastname);
+        setInitialStatus();
+    }
+
     public Approver(String uuid, String requestUUID, String tier, String role, String status, String signatureFile, String firstname, String lastname) throws ApproverException {
         if (uuid == null) throw new ApproverException("uuid must not be null");
         if (uuid.isEmpty()) throw new ApproverException("uuid must not be empty");
         this.uuid = UUID.fromString(uuid);
-        if (requestUUID == null) throw new ApproverException("requestUUID must not be null");
-        if (requestUUID.isEmpty()) throw new ApproverException("requestUUID must not be empty");
-        this.requestUUID = UUID.fromString(requestUUID);
+//        if (requestUUID == null) throw new ApproverException("requestUUID must not be null");
+        if (requestUUID != null && !requestUUID.equals("no-request")) {
+            if (requestUUID.isEmpty()) throw new ApproverException("requestUUID must not be empty");
+            this.requestUUID = UUID.fromString(requestUUID);
+        }
         //Tier Checker
         if (tier == null) throw new ApproverTierException("tier must not be null");
         if (tier.isEmpty()) throw new ApproverTierException("tier must not be empty");
@@ -124,6 +132,13 @@ public abstract class Approver implements Comparable<Approver> {
         this.lastname = lastname;
     }
 
+    public void setRequestUUID(Request request) {
+        if (request == null) {
+            return;
+        }
+        requestUUID = request.getUuid();
+    }
+
 
     protected abstract void setInitialStatus();
 
@@ -145,8 +160,14 @@ public abstract class Approver implements Comparable<Approver> {
     }
     @Override
     public String toString() {
+        String reqUUID = null;
+        if (requestUUID == null) {
+            reqUUID = "no-request";
+        } else {
+            reqUUID = requestUUID.toString();
+        }
         return uuid.toString() + "," +
-                requestUUID.toString() + "," +
+                reqUUID + "," +
                 tier + "," +
                 role + "," +
                 status + "," +
