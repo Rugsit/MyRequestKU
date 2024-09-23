@@ -1,13 +1,18 @@
 package ku.cs.controllers.faculty;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import ku.cs.controllers.ChangePasswordController;
 import ku.cs.services.FXRouter;
 import ku.cs.views.components.CropImage;
 import ku.cs.views.components.DefaultButton;
@@ -38,6 +43,8 @@ public class FacultyApproverController {
     @FXML private Button uploadFileButton;
 
     @FXML private Button backButton;
+    @FXML private Stage currentPopupStage;
+
     @FXML
     public void initialize() {
         initLabel();
@@ -68,5 +75,29 @@ public class FacultyApproverController {
         imageEditorVBox.setSpacing(5);
         approverNameLabel.setPadding(new Insets(15,0,0,0));
     }
+
+    @FXML
+    private void onAddApproverButtonClicked(){
+        try {
+            if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                System.out.println("Showing new stage");
+                currentPopupStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/faculty-add-approver-pane.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                AddApproverController controller = fxmlLoader.getController();
+                //controller.setCurrentUser(currentUser);
+                controller.setStage(currentPopupStage);
+
+                currentPopupStage.setScene(scene);
+                currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+                currentPopupStage.setTitle("Add approver");
+                currentPopupStage.show();
+            }
+        } catch (IOException e) {
+            System.out.println("Error :" + e.getMessage());
+        }
+    }
+
 
 }

@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import ku.cs.controllers.UserProfileCardController;
 import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.faculty.Faculty;

@@ -36,7 +36,7 @@
                   <Font name="Arial Bold" size="40.0" />
                </font>
             </Label>
-            <Button fx:id="addApproverButton" mnemonicParsing="false" text="เพิ่มผู้อนุมัติ">
+            <Button fx:id="addApproverButton" mnemonicParsing="false" onAction="#onAddApproverButtonClicked" text="เพิ่มผู้อนุมัติ">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
