@@ -11,13 +11,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.controllers.ChangePasswordController;
+import ku.cs.controllers.advisor.AdvisorStudentRequestsController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
+import ku.cs.models.user.Student;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.FXRouter;
 import ku.cs.views.components.CropImage;
@@ -73,6 +76,7 @@ public class FacultyApproverController {
     public void initialize() {
         loadApprover();
         showTable();
+        approverEditPopUp();
         initLabel();
         initButton();
         initTableHeaderHBox();
@@ -126,6 +130,49 @@ public class FacultyApproverController {
 
     }
 
+    private void approverEditPopUp() {
+        approverTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                String popUpPath = "/ku/cs/views/faculty-edit-approver-pane.fxml";
+                try {
+                    // Check if the popup is already open or create a new one
+                    if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                        currentPopupStage = new Stage();
+                    }
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(popUpPath));
+                    Pane editPane = fxmlLoader.load();
+
+                    Approver selectedApprover = (Approver) newValue;
+                    EditApproverController controller = fxmlLoader.getController();
+                    controller.setApproverDetail(
+                            selectedApprover.getFirstname(),
+                            selectedApprover.getLastname(),
+                            selectedApprover.getRole()
+                    );
+
+                    // Set up the stage
+                    Scene scene = new Scene(editPane);
+                    currentPopupStage.setScene(scene);
+                    currentPopupStage.setTitle("Edit Approver");
+                    currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+
+                    // Reload data when popup is closed
+                    currentPopupStage.setOnHidden(event -> {
+                        loadApprover(); // Reload approvers after editing
+                        approverTableView.refresh(); // Refresh the table view
+                    });
+
+                    currentPopupStage.show();
+
+                } catch (IOException e) {
+                    System.out.println("Error loading popup: " + e.getMessage());
+                }
+            }
+        });
+    }
+
+
     private void loadApprover() {
         ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("approver");
         String tier = "faculty";
@@ -149,11 +196,9 @@ public class FacultyApproverController {
                 currentPopupStage.initModality(Modality.APPLICATION_MODAL);
                 currentPopupStage.setTitle("Add approver");
 
-                // Add listener to detect when the popup is closed
                 currentPopupStage.setOnHidden(event -> {
-                    // Reload the approver list and refresh the table
                     loadApprover();
-                    approverTableView.refresh(); // Refresh the table view
+                    approverTableView.refresh();
                 });
 
                 currentPopupStage.show();
