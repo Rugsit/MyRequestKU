@@ -5,9 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
@@ -17,11 +19,18 @@ import ku.cs.services.RequestListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class AdvisorStudentListController {
     @FXML TableView requestListTableView;
     @FXML BorderPane borderPane;
+    @FXML
+    private TextField searchTextField;
+
     private Datasource<UserList> datasource;
     private UserList userlist;
 
@@ -47,6 +56,14 @@ public class AdvisorStudentListController {
         TableColumn<User, String> idColumn = new TableColumn<>("รหัสนิสิต");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         idColumn.setMinWidth(400);
+
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.trim().isEmpty()) {
+                search();
+            } else {
+                loadStudents();
+            }
+        });
 
         requestListTableView.getColumns().add(nameColumn);
         requestListTableView.getColumns().add(idColumn);
@@ -84,6 +101,7 @@ public class AdvisorStudentListController {
                         String  selectedStudentId = selectedStudent.getId();
 
                         controller.setSelectedStudentId(selectedStudentId);
+                        controller.initializeStudentRequests();
                         controller.setStudentName(selectedStudent.getName());
                     }
 
@@ -99,6 +117,27 @@ public class AdvisorStudentListController {
 
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
+    }
+
+    private void search() {
+        ArrayList<User> users = new ArrayList<>();
+        for (User user : userlist.getUsers()) {
+            if (user instanceof Student) {
+                Student student = (Student) user;
+                if (AdvisorPageController.getAdvisorUUID().equals(student.getAdvisor())) {
+                    users.add(student);
+                }
+            }
+        }
+
+        Set<User> filter = users
+                .stream()
+                .filter(user -> user.getName().toLowerCase().contains(searchTextField.getText().toLowerCase()) ||
+                        user.getId().contains(searchTextField.getText()))
+                .collect(Collectors.toSet());
+
+        requestListTableView.getItems().clear();
+        requestListTableView.getItems().addAll(filter);
     }
 
 }

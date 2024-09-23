@@ -125,7 +125,6 @@ public class RequestListFileDatasource implements Datasource<RequestList> {
     public void appendToLog(Request request) {
         Datasource<RequestList> datasource = new RequestListFileDatasource("data");
         RequestList requestList = datasource.readData();
-        String dataToLog;
 
         for (Request req : requestList.getRequests()) {
             if (req.getUuid().equals(request.getUuid())) {

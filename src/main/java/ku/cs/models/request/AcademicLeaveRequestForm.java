@@ -29,8 +29,8 @@ public class AcademicLeaveRequestForm extends Request{
     private ArrayList<String> subject;
 
     public AcademicLeaveRequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
-                                    LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
-        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
+                                    LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext, String reason) {
+        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext, reason);
         subject = new ArrayList<>();
     }
 
@@ -57,6 +57,7 @@ public class AcademicLeaveRequestForm extends Request{
         this.haveRegister = Boolean.parseBoolean(data[17]);
         this.haveRegisterSemester = data[18];
         this.haveRegisterYear = data[19];
+        super.setReasonForNotApprove(data[20]);
         for (int i = 0; i < subject.length; i++) {
             for (int j = 0; j < 2; j++, i++) {
                  this.subject.add(subject[i]);
@@ -237,7 +238,8 @@ public class AcademicLeaveRequestForm extends Request{
                 this.yearTo + "," +
                 this.haveRegister + "," +
                 this.haveRegisterSemester + "," +
-                this.haveRegisterYear;
+                this.haveRegisterYear + "," +
+                super.getReasonForNotApprove();
         if (haveRegister) {
             for (String eachSubject : subject) {
                 text += "," + eachSubject;

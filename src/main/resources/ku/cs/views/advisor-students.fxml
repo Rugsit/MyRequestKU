@@ -74,7 +74,18 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <ImageView fx:id="tabProfilePicImageView" fitHeight="100.0" fitWidth="100.0" layoutX="96.0" layoutY="522.0" onMouseClicked="#onSideProfileClicked" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="tabProfilePicImageView" fitHeight="100.0" fitWidth="100.0" layoutX="96.0" layoutY="522.0" onMouseClicked="#onSideProfileClicked" pickOnBounds="true" preserveRatio="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
+            <Label alignment="CENTER" layoutX="19.0" layoutY="687.0" maxWidth="250.0" onMouseClicked="#onAboutUsClicked" prefWidth="250.0" styleClass="aboutUsText" text="เกี่ยวกับพวกเรา" textFill="#909194">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
          </children>
       </Pane>
       <BorderPane fx:id="contentBorderPane" layoutX="292.0" layoutY="-1.0" prefHeight="720.0" prefWidth="988.0" />

@@ -36,8 +36,8 @@ public class RegisterRequestForm extends Request{
     private String since;
 
     public RegisterRequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
-                                LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
-        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
+                                LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext, String reason) {
+        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext, reason);
     }
 
     public RegisterRequestForm(String[] data) {
@@ -66,6 +66,7 @@ public class RegisterRequestForm extends Request{
         this.oldFaculty = data[21];
         this.newFaculty = data[22];
         this.since = data[23];
+        super.setReasonForNotApprove(data[24]);
     }
 
     public void setLateRegister(boolean lateRegister) {
@@ -279,7 +280,8 @@ public class RegisterRequestForm extends Request{
                 transferFaculty + "," +
                 oldFaculty + "," +
                 newFaculty + "," +
-                since;
+                since + "," +
+                super.getReasonForNotApprove();
 
     }
 }

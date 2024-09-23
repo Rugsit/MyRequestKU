@@ -26,11 +26,12 @@ public class Request {
     private String statusNext;
     private ApproverList approvers;
     private HashMap<String, HashMap<String, Integer>> requireTier;
+    private String reasonForNotApprove;
 
 
     public Request() {}
 
-    public Request(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate, LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext){
+    public Request(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate, LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext, String reasonForNotApprove){
 //        User user = null;
 //        String[] nameArray = name.split(" ");
 //        try {
@@ -51,6 +52,7 @@ public class Request {
         this.requestType = requestType;
         this.statusNow = statusNow;
         this.statusNext = statusNext;
+        this.reasonForNotApprove = reasonForNotApprove;
         approvers = new ApproverList();
         requireTier = new HashMap<>();
     }
@@ -156,8 +158,20 @@ public class Request {
         this.facultyUUID = facultyUUID;
     }
 
+    public String getReasonForNotApprove() {
+        return reasonForNotApprove;
+    }
+
+    public void setReasonForNotApprove(String reasonForNotApprove) {
+        reasonForNotApprove = reasonForNotApprove.trim();
+        if (reasonForNotApprove.isEmpty()) {
+            throw new IllegalArgumentException("กรุณาระบุเหตุผลที่ไม่อนุมัติคำร้อง");
+        }
+        this.reasonForNotApprove = reasonForNotApprove;
+    }
+
     public HashMap<String, HashMap<String, Integer>> getRequireTier() {
-        Datasource<ApproverList> approverListDatasource = new ApproverListFileDatasource();
+        Datasource<ApproverList> approverListDatasource = new ApproverListFileDatasource("request");
         ApproverList approverList = approverListDatasource.readData();
         for (Approver approver : approverList.getApprovers()) {
             if (approver.getRequestUUID().equals(uuid)) {

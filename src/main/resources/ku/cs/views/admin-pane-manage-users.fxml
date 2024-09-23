@@ -46,7 +46,7 @@
             <Tab fx:id="studentTab" text="นิสิต" />
         </tabs>
       </TabPane>
-      <TableView fx:id="userListTableView" layoutX="60.0" layoutY="150.0" prefHeight="470.0" prefWidth="869.0">
+      <TableView fx:id="userListTableView" layoutX="60.0" layoutY="150.0" prefHeight="470.0" prefWidth="869.0" styleClass="table-view-user">
          <columns>
             <TableColumn prefWidth="137.59998166561127" text="รูปภาพ" />
             <TableColumn prefWidth="131.99996948242188" text="ชื่อผู้ใช้" />
