@@ -230,6 +230,8 @@ public class StudentRequestsController {
             Button statusCell = new Button();
             public void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
+                statusCell.setMouseTransparent(true);
+                statusCell.setFocusTraversable(false);
                 String buttonStyle = "-fx-border-radius: 3;" +
                         "-fx-font-size: 18;" +
                         "-fx-text-alignment: center;" +
