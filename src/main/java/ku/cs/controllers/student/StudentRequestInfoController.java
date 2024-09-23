@@ -7,10 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.util.StringConverter;
 import ku.cs.controllers.requests.information.*;
 import ku.cs.models.request.*;
 import ku.cs.models.user.Student;
@@ -18,6 +20,8 @@ import ku.cs.services.RequestListFileDatasource;
 import ku.cs.views.components.DefaultTableView;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 public class StudentRequestInfoController {
@@ -42,7 +46,8 @@ public class StudentRequestInfoController {
 
     public void showInfo(){
         requestTypeLabel.setText(request.getRequestType());
-        createdDateLabel.setText(request.getDate().toString());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        createdDateLabel.setText(request.getDate().format(formatter));
         requestNumberLabel.setText(request.getUuid().toString());
         String status1 = request.getStatusNow(), status2 = request.getStatusNext();
         Pattern rejected = Pattern.compile(".*ปฏิเสธ.*");
@@ -101,10 +106,24 @@ public class StudentRequestInfoController {
     public void showTable() {
         tableView.getTableView().getColumns().clear();
         tableView.getTableView().getStylesheets().clear();
-        TableColumn<Request, String> date = new TableColumn<>("วันที่และเวลา");
+        TableColumn<Request, LocalDateTime> date = new TableColumn<>("วันที่และเวลา");
         date.setCellValueFactory(new PropertyValueFactory<>("TimeStamp"));
         date.setSortType(TableColumn.SortType.DESCENDING);
         requestLogTableView.getColumns().add(date);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+
+        date.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
+            @Override
+            public String toString(LocalDateTime lastLogin) {
+                return lastLogin != null ? lastLogin.format(formatter) : "";
+            }
+
+            @Override
+            public LocalDateTime fromString(String string) {
+                return LocalDateTime.parse(string, formatter);
+            }
+        }));
+
         tableView.getTableView().getSortOrder().add(date);
         tableView.addStyleSheet("/ku/cs/styles/admin-page-style.css");
         tableView.addColumn("สถานะคำร้อง", "statusNow");

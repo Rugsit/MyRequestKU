@@ -207,8 +207,10 @@ public class AcademicLeaveRequestForm extends Request{
                 throw new IllegalArgumentException("กรุณากรอกรหัสวิชาให้ถูกต้องในวิชาที่ " + (i + 1));
             }
             subject.add(subjectId.get(i));
-            if (teacher.get(i).isEmpty()) {
-                throw new IllegalArgumentException("กรุณากรอกชื่ออาจารย์ประจำวิชาให้ถูกต้องในวิชาที่ " + (i + 1));
+            Pattern pattern = Pattern.compile("^[ก-๙a-zA-Z]+[ \t]+[ก-๙a-zA-Z]+$");
+            Matcher matcher = pattern.matcher(teacher.get(i).trim());
+            if (teacher.get(i).isEmpty() || !matcher.find()) {
+                throw new IllegalArgumentException("กรุณากรอกชื่ออาจารย์ประจำวิชาให้ถูกต้อง ในวิชาที่ " + (i + 1));
             }
             subject.add(teacher.get(i));
         }

@@ -167,8 +167,10 @@ public class Ku1AndKu3RequestForm extends Request{
             } else {
                 eachSuject.add(sectionType.get(i).trim());
             }
-            if (teacher.get(i) == null || teacher.get(i).isEmpty()) {
-                throw new IllegalArgumentException("กรุณากรอกชื่ออาจารย์ประจำวิชาในวิชาที่ " + (i + 1));
+            Pattern pattern = Pattern.compile("^[ก-๙a-zA-Z]+[ \t]+[ก-๙a-zA-Z]+$");
+            Matcher matcher = pattern.matcher(teacher.get(i).trim());
+            if (teacher.get(i) == null || teacher.get(i).isEmpty() || !matcher.find()) {
+                throw new IllegalArgumentException("กรุณากรอกชื่ออาจารย์ประจำวิชาให้ถูกต้อง ในวิชาที่ " + (i + 1));
             } else {
                 eachSuject.add(teacher.get(i).trim());
             }
@@ -225,7 +227,7 @@ public class Ku1AndKu3RequestForm extends Request{
                 eachSuject.add(sectionType.get(i).trim());
             }
             if (teacher.get(i) == null || teacher.get(i).isEmpty()) {
-                throw new IllegalArgumentException("กรุณากรอกชื่ออาจารย์ประจำวิชาในวิชาที่ " + (i + 1));
+                throw new IllegalArgumentException("กรุณากรอกชื่ออาจารย์ประจำวิชาให้ถูกต้อง ในวิชาที่ " + (i + 1));
             } else {
                 eachSuject.add(teacher.get(i).trim());
             }

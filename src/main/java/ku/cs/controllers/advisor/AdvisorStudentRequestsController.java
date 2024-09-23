@@ -69,42 +69,42 @@ public class AdvisorStudentRequestsController {
         requestListTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         // Create and configure columns with correct type
-        TableColumn<Request, String> nameColumn = new TableColumn<>("ชื่อ-นามสกุล");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
         TableColumn<Request, String> typeColumn = new TableColumn<>("ประเภทคำร้อง");
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("requestType"));
+        TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        TableColumn<Request, LocalDateTime> timestampColumn = new TableColumn<>("วันที่อัพเดทล่าสุด");
+        timestampColumn.setCellValueFactory(new PropertyValueFactory<>("TimeStamp"));
         TableColumn<Request, String> statusColumn = new TableColumn<>("สถานะคำร้อง");
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
-        TableColumn<Request, String> statusNextColumn = new TableColumn<>("สถานะคำร้องต่อไป");
+        TableColumn<Request, String> statusNextColumn = new TableColumn<>("");
         statusNextColumn.setCellValueFactory(new PropertyValueFactory<>("statusNext"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
-        requestListTableView.getColumns().add(nameColumn);
-        requestListTableView.getColumns().add(dateColumn);
         requestListTableView.getColumns().add(typeColumn);
+        requestListTableView.getColumns().add(dateColumn);
+        requestListTableView.getColumns().add(timestampColumn);
         requestListTableView.getColumns().add(statusColumn);
         requestListTableView.getColumns().add(statusNextColumn);
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.trim().isEmpty()) {
                 search();
-                dateColumn.setSortable(true);
-                dateColumn.setSortType(TableColumn.SortType.DESCENDING);
-                requestListTableView.getSortOrder().add(dateColumn);
-                dateColumn.setSortable(false);
+                timestampColumn.setSortable(true);
+                timestampColumn.setSortType(TableColumn.SortType.DESCENDING);
+                requestListTableView.getSortOrder().add(timestampColumn);
+                timestampColumn.setSortable(false);
             } else {
                 loadRequests();
-                dateColumn.setSortable(true);
-                dateColumn.setSortType(TableColumn.SortType.DESCENDING);
-                requestListTableView.getSortOrder().add(dateColumn);
-                dateColumn.setSortable(false);
+                timestampColumn.setSortable(true);
+                timestampColumn.setSortType(TableColumn.SortType.DESCENDING);
+                requestListTableView.getSortOrder().add(timestampColumn);
+                timestampColumn.setSortable(false);
             }
         });
 
-        dateColumn.setSortType(TableColumn.SortType.DESCENDING);
-        requestListTableView.getSortOrder().add(dateColumn);
+        timestampColumn.setSortType(TableColumn.SortType.DESCENDING);
+        requestListTableView.getSortOrder().add(timestampColumn);
 
         // Set the cellFactory to format the LocalDateTime
         dateColumn.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
@@ -118,17 +118,21 @@ public class AdvisorStudentRequestsController {
                 return LocalDateTime.parse(string, formatter);
             }
         }));
+        timestampColumn.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
+            @Override
+            public String toString(LocalDateTime lastLogin) {
+                return lastLogin != null ? lastLogin.format(formatter) : "";
+            }
 
-        nameColumn.setMinWidth(150);
-        dateColumn.setMinWidth(200);
-        typeColumn.setMinWidth(150);
-        statusColumn.setMinWidth(190);
-        statusNextColumn.setMinWidth(241);
+            @Override
+            public LocalDateTime fromString(String string) {
+                return LocalDateTime.parse(string, formatter);
+            }
+        }));
 
-
-        nameColumn.setSortable(false);
-        dateColumn.setSortable(false);
         typeColumn.setSortable(false);
+        dateColumn.setSortable(false);
+        timestampColumn.setSortable(false);
         statusColumn.setSortable(false);
         statusNextColumn.setSortable(false);
     }

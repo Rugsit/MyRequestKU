@@ -18,7 +18,7 @@
          <children>
             <VBox layoutY="106.0" prefHeight="299.0" prefWidth="292.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="70.0" prefWidth="434.0" text="  สรุปข้อมูล">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="70.0" prefWidth="434.0" styleClass="side-bar-button" text="  สรุปข้อมูล">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -36,7 +36,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToAdminManageUsers" prefHeight="75.0" prefWidth="330.0" text="  จัดการข้อมูลผู้ใช้">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToAdminManageUsers" prefHeight="75.0" prefWidth="330.0" styleClass="side-bar-button" text="  จัดการข้อมูลผู้ใช้">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -54,7 +54,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToAdminManageFaculty" prefHeight="79.0" prefWidth="430.0" text="  จัดการข้อมูลคณะหรือ&#10;  ภาควิชา">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToAdminManageFaculty" prefHeight="79.0" prefWidth="430.0" styleClass="side-bar-button" text="  จัดการข้อมูลคณะหรือ&#10;  ภาควิชา">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -72,7 +72,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToAdminManageStaff" prefHeight="82.0" prefWidth="418.0" text="  จัดการข้อมูลเจ้าหน้าที่&#10;  และอาจารย์ที่ปรึกษา">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToAdminManageStaff" prefHeight="82.0" prefWidth="418.0" styleClass="side-bar-button" text="  จัดการข้อมูลเจ้าหน้าที่&#10;  และอาจารย์ที่ปรึกษา">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -98,39 +98,52 @@
                   <Image url="@../../../images/logos/side-bar-ku-logo.png" />
                </image>
             </ImageView>
-            <Label layoutY="616.0" maxWidth="292.0" prefHeight="18.0" prefWidth="292.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label layoutY="646.0" maxWidth="292.0" onMouseClicked="#onLogoutClicked" prefHeight="18.0" prefWidth="292.0" styleClass="signOut" text="ออกจากระบบ">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Label>
-            <Label alignment="CENTER" layoutY="678.0" maxWidth="292.0" onMouseClicked="#onAboutUsClicked" prefHeight="18.0" prefWidth="292.0" styleClass="about-us" text="เกี่ยวกับพวกเรา" textFill="#909194">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Button layoutX="81.0" layoutY="489.0" mnemonicParsing="false" onAction="#gotoProfilePage" styleClass="profileButton">
-               <graphic>
-                  <ImageView fx:id="tabProfilePicImageView" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" styleClass="profileImage">
-                     <image>
-                        <Image url="@../../../images/users/side-bar-profile.png" />
-                     </image>
+            <VBox alignment="CENTER" layoutY="497.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#gotoProfilePage" styleClass="profile-button">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                  </ImageView>
-               </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
+                     <graphic>
+                        <ImageView fx:id="tabProfilePicImageView" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" styleClass="profileImage">
+                           <image>
+                              <Image url="@../../../images/users/side-bar-profile.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label fx:id="nameLabel" alignment="CENTER" maxWidth="292.0" prefHeight="18.0" prefWidth="292.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label maxWidth="292.0" onMouseClicked="#onLogoutClicked" prefHeight="18.0" prefWidth="292.0" styleClass="signOut" text="ออกจากระบบ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label alignment="CENTER" maxWidth="292.0" onMouseClicked="#onAboutUsClicked" prefHeight="18.0" prefWidth="292.0" styleClass="about-us" text="เกี่ยวกับพวกเรา" textFill="#909194">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
          </children>
       </Pane>
       <BorderPane fx:id="borderPane" layoutX="292.0" prefHeight="720.0" prefWidth="988.0" />

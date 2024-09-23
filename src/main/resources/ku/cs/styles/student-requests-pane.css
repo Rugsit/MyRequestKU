@@ -39,6 +39,7 @@
 
 .searchHBox {
     -fx-border-color: #C7C8C8;
+    -fx-border-radius: 5px;
 }
 
 .searchTextField {
