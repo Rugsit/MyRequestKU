@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -168,13 +169,31 @@ public class StudentRequestsController {
 
     // TODO: fetch data from datasource instead
     private void showInfo(){
+        RequestList rejectedRequest = new RequestList();
+        RequestList acceptedRequest = new RequestList();
         if (myRequests == null) {
             requestsNumberLabel.setText("0");
-        } else{
-            requestsNumberLabel.setText("" + myRequests.getRequests().size());
+            approvedNumberLabel.setText("0");
+            rejectedNumberLabel.setText("0");
+            return;
         }
-        approvedNumberLabel.setText("0");
-        rejectedNumberLabel.setText("0");
+
+        Pattern rejected = Pattern.compile(".*ปฏิเสธ.*");
+        Pattern complete = Pattern.compile(".*ครบถ้วน.*");
+        for (Request request : myRequests.getRequests()) {
+            String status = request.getStatusNext();
+            if(rejected.matcher(status).matches()) {
+                rejectedRequest.addRequest(request);
+            }
+            else if(complete.matcher(status).matches()) {
+                acceptedRequest.addRequest(request);
+            }
+        }
+
+        requestsNumberLabel.setText("" + myRequests.getRequests().size());
+        approvedNumberLabel.setText("" + rejectedRequest.getRequests().size());
+        rejectedNumberLabel.setText("" + acceptedRequest.getRequests().size());
+
     }
 
     @FXML
