@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import ku.cs.models.faculty.Faculty;
 import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.request.approver.FacultyApprover;
 import ku.cs.services.ApproverListFileDatasource;

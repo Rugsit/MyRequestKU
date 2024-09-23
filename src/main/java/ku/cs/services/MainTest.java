@@ -13,24 +13,24 @@ import ku.cs.services.RequestListFileDatasource;
 public class MainTest {
     public static void main(String[] args) throws ApproverException {
         ApproverListFileDatasource approverDatasource = new ApproverListFileDatasource("approver");
-        //ApproverListFileDatasource datasource = new ApproverListFileDatasource("request");
+        ApproverListFileDatasource datasource = new ApproverListFileDatasource("request");
         ApproverList approverList = new ApproverList();
-        //RequestListFileDatasource requestDatasource = new RequestListFileDatasource("data");
-//        RequestList requestList = requestDatasource.readData();
-//        Request request = requestList.getRequests().get(1);
-//        System.out.println("Data is : " + request);
+        RequestListFileDatasource requestDatasource = new RequestListFileDatasource("data");
+        RequestList requestList = requestDatasource.readData();
+        Request request = requestList.getRequests().get(1);
+        System.out.println("Data is : " + request);
         FacultyApprover FApprover = new FacultyApprover("21eb3fb8-3a83-4353-a833-c39dd43f73a6","no-request","faculty","หัวหน้าภาควิชาวิทยาการคอมพิวเตอร์","รออัพโหลด","no-signature","สมโชค","สมโชค");
         approverList.addApprover("department", "หัวหน้าภาควิชาวิทยาการคอมพิวเตอร์", "สมโชค", "สมโชค");
         approverList.addApprover("department", "อาจารย์ที่ปรึกษา", "อุษา", "สัมมาพันธ์");
         approverDatasource.writeData(approverList);
         approverDatasource.appendData(FApprover, "approver");
-        //DepartmentApprover departmentApprover = new DepartmentApprover("department", "อาจารย์ที่ปรึกษา", "ธรรมกร", "แซ่ตั้ง");
-//        approverDatasource.appendData(departmentApprover, "approver");
-//        approverDatasource.appendDataFromList(FApprover, request);
+        DepartmentApprover departmentApprover = new DepartmentApprover("department", "อาจารย์ที่ปรึกษา", "ธรรมกร", "แซ่ตั้ง");
+        approverDatasource.appendData(departmentApprover, "approver");
+        approverDatasource.appendDataFromList(FApprover, request);
 
-//        approverList = approverDatasource.query("faculty", request);
-//        for (Approver approver : approverList.getApprovers()) {
-//            System.out.println(approver);
-//        }
+        approverList = approverDatasource.query("faculty", request);
+        for (Approver approver : approverList.getApprovers()) {
+            System.out.println(approver);
+        }
     }
 }
