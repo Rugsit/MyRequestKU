@@ -8,6 +8,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
+import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.user.Student;
@@ -28,6 +29,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class AdvisorStudentRequestsController {
+    Student student;
+
     @FXML
     TableView requestListTableView;
     @FXML
@@ -47,6 +50,10 @@ public class AdvisorStudentRequestsController {
 
     public void initializeStudentRequests() {
         showTable();
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public void setStudentName(String studentName){
@@ -136,6 +143,27 @@ public class AdvisorStudentRequestsController {
         timestampColumn.setSortable(false);
         statusColumn.setSortable(false);
         statusNextColumn.setSortable(false);
+
+        requestListTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                try {
+                    String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource(viewPath));
+                    Pane pane = fxmlLoader.load();
+                    StudentRequestInfoController controller = fxmlLoader.getController();
+                    controller.setLoginUser(student);
+                    controller.setRequest((Request) newValue);
+                    controller.setBackPage("advisorStudentRequest");
+                    controller.showInfo();
+                    controller.showTable();
+                    controller.setBorderPane(borderPane);
+                    borderPane.setCenter(pane);
+                } catch (IOException exception) {
+                    System.err.println("Error: handle click");
+                }
+            }
+        });
     }
 
     private void loadRequests() {

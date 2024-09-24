@@ -93,6 +93,7 @@ public class MainInformationController {
             StudentRequestInfoController controller = fxmlLoader.getController();
             controller.setLoginUser((Student) loginUser);
             controller.setRequest(request);
+            controller.setBackPage("advisorStudentRequest");
             controller.initialize();
             controller.showInfo();
             controller.showTable();

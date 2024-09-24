@@ -2,14 +2,20 @@ package ku.cs.controllers.student;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import ku.cs.controllers.advisor.AdvisorStudentRequestsController;
 import ku.cs.controllers.requests.information.*;
 import ku.cs.models.request.*;
 import ku.cs.models.user.Student;
@@ -28,6 +34,8 @@ public class StudentRequestInfoController {
     private DefaultTableView<Request> tableView;
     private RequestListFileDatasource datasource;
     private DateTimeFormatter dateTimeFormatter;
+    private String backPage;
+
     @FXML TableView requestLogTableView;
     @FXML Label requestTypeLabel;
     @FXML Label createdDateLabel;
@@ -36,6 +44,12 @@ public class StudentRequestInfoController {
     @FXML Button requestStatus2;
     @FXML BorderPane borderPane;
     @FXML ImageView statusIconImageView;
+    @FXML
+    private Stage currentNotApprove;
+    @FXML
+    private HBox buttonHbox;
+    @FXML
+    private Button seeReject;
 
     @FXML
     public void initialize() {
@@ -45,6 +59,11 @@ public class StudentRequestInfoController {
     }
 
     public void showInfo(){
+        if (request.getStatusNext().equals("คำร้องถูกปฏิเสธ")) {
+            seeReject.setVisible(true);
+            HBox.setMargin(seeReject, new Insets(0, 0, 0, 20));
+            buttonHbox.getChildren().add(seeReject);
+        }
         requestTypeLabel.setText(request.getRequestType());
         createdDateLabel.setText(request.getDate().format(dateTimeFormatter));
         requestNumberLabel.setText(request.getUuid().toString());
@@ -132,18 +151,22 @@ public class StudentRequestInfoController {
     }
 
     public void onBackButtonClick() {
-        try {
-            String viewPath = "/ku/cs/views/student-requests-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
-            Pane pane = fxmlLoader.load();
-            StudentRequestsController controller = fxmlLoader.getController();
-            controller.setLoginUser(loginUser);
-            controller.initialize();
-            borderPane.setCenter(pane);
-            controller.setBorderPane(borderPane);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (backPage != null && backPage.equalsIgnoreCase("advisorStudentRequest")) {
+            goToAdvisorPage();
+        } else {
+            try {
+                String viewPath = "/ku/cs/views/student-requests-pane.fxml";
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource(viewPath));
+                Pane pane = fxmlLoader.load();
+                StudentRequestsController controller = fxmlLoader.getController();
+                controller.setLoginUser(loginUser);
+                controller.initialize();
+                borderPane.setCenter(pane);
+                controller.setBorderPane(borderPane);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -281,4 +304,56 @@ public class StudentRequestInfoController {
         }
     }
 
+    @FXML
+    private void seeRejectReason() {
+        if (currentNotApprove == null || !currentNotApprove.isShowing()) {
+            currentNotApprove = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/not-approve-popup.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            NotApproveController notApproveController = fxmlLoader.getController();
+            notApproveController.setRequest(request);
+            notApproveController.setStage(currentNotApprove);
+            notApproveController.setBorderPane(borderPane);
+            scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
+            currentNotApprove.setScene(scene);
+            currentNotApprove.initModality(Modality.APPLICATION_MODAL);
+            currentNotApprove.setTitle("Not Approve");
+            currentNotApprove.show();
+        }
+    }
+
+    private void goToAdvisorPage() {
+        try {
+            String viewPath = "/ku/cs/views/advisor-student-requests-pane.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            AdvisorStudentRequestsController controller = fxmlLoader.getController();
+
+            // Pass selected student details to the controller
+            if (loginUser instanceof Student) {
+                Student selectedStudent = loginUser;
+                String  selectedStudentId = selectedStudent.getId();
+
+                controller.setSelectedStudentId(selectedStudentId);
+                controller.initializeStudentRequests();
+                controller.setStudentName(selectedStudent.getName());
+            }
+
+            borderPane.setCenter(pane);
+            controller.setBorderPane(borderPane);
+            controller.setStudent(loginUser);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setBackPage(String backPage) {
+        this.backPage = backPage;
+    }
 }

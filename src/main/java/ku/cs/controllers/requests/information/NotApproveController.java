@@ -2,6 +2,7 @@ package ku.cs.controllers.requests.information;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -31,6 +32,10 @@ public class NotApproveController {
     private Label errorLabel;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private Label headerNotApprove;
+    @FXML
+    private Button agreeClickButton;
 
     @FXML
     public void initialize() {
@@ -43,6 +48,7 @@ public class NotApproveController {
 
     public void setRequest(Request request) {
         this.request = request;
+        setUpUI();
     }
 
     public void setStage(Stage stage) {
@@ -51,6 +57,17 @@ public class NotApproveController {
 
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
+    }
+
+    private void setUpUI() {
+        if (request.getStatusNext().equals("คำร้องถูกปฏิเสธ")) {
+            agreeClickButton.setVisible(false);
+            reason.setMouseTransparent(true);
+            reason.setFocusTraversable(false);
+            reason.setText(request.getReasonForNotApprove());
+            headerNotApprove.setText("เหตุผลที่ถูกปฏิเสธคำร้อง");
+            anchorPane.requestFocus();
+        }
     }
 
     @FXML
@@ -81,5 +98,10 @@ public class NotApproveController {
             errorLabel.setVisible(true);
             errorLabel.setText(e.getMessage());
         }
+    }
+
+    @FXML
+    private void onExitClick() {
+        stage.close();
     }
 }

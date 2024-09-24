@@ -107,6 +107,7 @@ public class AdvisorStudentListController {
 
                     borderPane.setCenter(pane);
                     controller.setBorderPane(borderPane);
+                    if (newValue instanceof Student) {controller.setStudent((Student) newValue);}
 
                 } catch (IOException e) {
                     e.printStackTrace();
