@@ -33,6 +33,8 @@ public class AdminMainController implements ParentController {
     private BorderPane borderPane;
     @FXML
     private ImageView tabProfilePicImageView;
+    @FXML
+    private Label nameLabel;
 
     @FXML
     public void initialize() {
@@ -41,6 +43,7 @@ public class AdminMainController implements ParentController {
         }
         datasource = new UserListFileDatasource("data", "admin.csv");
         userList = ((UserListFileDatasource)datasource).readAllUser();
+        nameLabel.setText(loginUser.getName());
 
         try {
             String viewPath = "/ku/cs/views/admin-profile-pane.fxml";

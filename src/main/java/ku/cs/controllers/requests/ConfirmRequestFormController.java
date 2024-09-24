@@ -114,7 +114,7 @@ public class ConfirmRequestFormController {
                 requestPair.addApprover(requestPair.getUuid().toString(), "advisor", "อาจารย์ที่ปรึกษา", advisor.getFirstname(), advisor.getLastname());
                 approverList.addApprover(requestPair.getUuid().toString(), "advisor", "อาจารย์ที่ปรึกษา", advisor.getFirstname(), advisor.getLastname());
                 for (ArrayList<String> each : ((Ku1AndKu3RequestForm)requestPair).getSubjectList()) {
-                    String[] arr = each.get(6).split(" +");
+                    String[] arr = each.get(6).split("[ \t]+");
                     String firstname = arr[0].trim();
                     String lastname = arr[1].trim();
                     requestPair.addApprover(requestPair.getUuid().toString(), "other", "อาจารย์ประจำวิชา", firstname, lastname);

@@ -139,7 +139,6 @@ public class Ku1InformationRequestFormController {
         VBox.setMargin(newVbox, VBox.getMargin(vbox));
         for (Node node : vbox.getChildren()) {
             newVbox.getChildren().add(deepCopyHBox((HBox) node, count, data));
-            System.out.println(count[0]);
         }
         return newVbox;
     }
@@ -171,7 +170,6 @@ public class Ku1InformationRequestFormController {
                 HBox.setMargin(newRadioButton, HBox.getMargin(radioButton));
                 newRadioButton.getStyleClass().addAll(radioButton.getStyleClass());
                 newRadioButton.setToggleGroup(toggleGroup);
-                System.out.println(data.get(count[0]));
                 if (data.get(count[0]).equalsIgnoreCase(newRadioButton.getText())) {
                     newRadioButton.setSelected(true);
                     count[0]++;

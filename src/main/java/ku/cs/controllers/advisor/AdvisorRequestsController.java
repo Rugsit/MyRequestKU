@@ -167,7 +167,7 @@ public class AdvisorRequestsController {
 
         if (requestList != null) {
             for (Request request : requestList.getRequests()) {
-                if (studentId.contains(request.getNisitId())){
+                if (studentId.contains(request.getNisitId()) && request.getStatusNext().equals("คำร้องส่งต่อให้อาจารย์ที่ปรึกษา")){
                     requestListTableView.getItems().add(request);
                 }
             }

@@ -18,6 +18,10 @@
     -fx-border-color: transparent;
 }
 
+.table-view .cell {
+    -fx-alignment: CENTER_LEFT;
+}
+
 .RequestsTable {
     -fx-font-size: 24px;
     -fx-border-color: transparent;
@@ -39,6 +43,7 @@
 
 .searchHBox {
     -fx-border-color: #C7C8C8;
+    -fx-border-radius: 5px;
 }
 
 .searchTextField {

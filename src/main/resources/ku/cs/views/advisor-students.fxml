@@ -61,33 +61,54 @@
                   <Image url="@../../../images/logos/side-bar-ku-logo.png" />
                </image>
             </ImageView>
-            <Label fx:id="tabAccountNameLabel" layoutX="19.0" layoutY="633.0" maxWidth="250.0" prefWidth="250.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="19.0" layoutY="658.0" maxWidth="250.0" onMouseClicked="#onLogoutClicked" prefWidth="250.0" styleClass="signOut" text="ออกจากระบบ">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Label>
-            <ImageView fx:id="tabProfilePicImageView" fitHeight="100.0" fitWidth="100.0" layoutX="96.0" layoutY="522.0" onMouseClicked="#onSideProfileClicked" pickOnBounds="true" preserveRatio="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></ImageView>
-            <Label alignment="CENTER" layoutX="19.0" layoutY="687.0" maxWidth="250.0" onMouseClicked="#onAboutUsClicked" prefWidth="250.0" styleClass="aboutUsText" text="เกี่ยวกับพวกเรา" textFill="#909194">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Label>
          </children>
       </Pane>
       <BorderPane fx:id="contentBorderPane" layoutX="292.0" layoutY="-1.0" prefHeight="720.0" prefWidth="988.0" />
+      <VBox alignment="CENTER" layoutY="497.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onSideProfileClicked" styleClass="profile-button">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fx:id="tabProfilePicImageView" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" styleClass="profileImage">
+                     <image>
+                        <Image url="@../../../images/users/side-bar-profile.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="tabAccountNameLabel" alignment="CENTER" maxWidth="292.0" prefHeight="18.0" prefWidth="292.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label maxWidth="292.0" onMouseClicked="#onLogoutClicked" prefHeight="18.0" prefWidth="292.0" styleClass="signOut" text="ออกจากระบบ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" maxWidth="292.0" onMouseClicked="#onAboutUsClicked" prefHeight="18.0" prefWidth="292.0" styleClass="about-us" text="เกี่ยวกับพวกเรา" textFill="#909194">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
