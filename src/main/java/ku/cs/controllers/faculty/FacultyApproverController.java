@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -21,6 +18,7 @@ import ku.cs.models.request.Request;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.Student;
+import ku.cs.models.user.User;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.FXRouter;
 import ku.cs.views.components.CropImage;
@@ -30,6 +28,8 @@ import ku.cs.views.components.RouteButton;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class FacultyApproverController {
     @FXML
@@ -73,6 +73,9 @@ public class FacultyApproverController {
     private Stage currentPopupStage;
 
     @FXML
+    private TextField searchTextField;
+
+    @FXML
     public void initialize() {
         loadApprover();
         showTable();
@@ -82,6 +85,10 @@ public class FacultyApproverController {
         initTableHeaderHBox();
         initImageEditorVBox();
         new CropImage(approverImageView).setClipImage(50, 50);
+
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            search(newValue);
+        });
     }
 
     private void initLabel() {
@@ -99,13 +106,27 @@ public class FacultyApproverController {
         new DefaultButton(uploadFileButton, "#ABFFA4", "#a6a6a6", "#000000").changeBackgroundRadius(15);
     }
 
+    private void search(String newValue) {
+        ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("approver");
+        String tier = "faculty";
+        ApproverList approverList = approverListFileDatasource.query(tier, null);
+
+        Set<Approver> filteredApprovers = approverList.getApprovers()
+                .stream()
+                .filter(approver -> approver.getFirstname().toLowerCase().contains(newValue.toLowerCase()) ||
+                        approver.getLastname().toLowerCase().contains(newValue.toLowerCase()))
+                .collect(Collectors.toSet());
+
+        approverTableView.getItems().clear();
+        approverTableView.getItems().addAll(filteredApprovers);
+    }
+
+
     private void initTableHeaderHBox() {
         tableHeaderHBox.setSpacing(20);
     }
 
     private void initImageEditorVBox() {
-//        imageEditorVBox.setStyle("-fx-spacing: 5px;");
-//        imageEditorVBox.setPadding(new Insets(0,0,0,0));
         imageEditorVBox.setSpacing(5);
         approverNameLabel.setPadding(new Insets(15, 0, 0, 0));
     }
@@ -127,7 +148,7 @@ public class FacultyApproverController {
 
 
         approverTableView.getColumns().addAll(nameColumn, lastnameColumn, tierColumn);
-
+        search(searchTextField.getText());
     }
     private void approverEditPopUp() {
         approverTableView.setOnMouseClicked(e -> {
@@ -205,30 +226,6 @@ public class FacultyApproverController {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
-//
-//
-//
-//    public static void main(String[] args) {
-//        // Instantiate the datasource for the approver list
-//        ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("approver");
-//
-//        // Query approvers based on the "tier" value (e.g., faculty)
-//        String tier = "faculty";
-//
-//        // If you're querying just based on the tier without a specific request, pass null for the request
-//        ApproverList approverList = approverListFileDatasource.query(tier, null);
-//
-//        // Print out the approvers in the list
-//        for (Approver approver : approverList.getApprovers()) {
-//            //System.out.println(approver.toString());
-//            System.out.println(approver.getName() + approver.getLastname() + approver.getRole());
-//        }
-//
-//
-//        System.out.println("Size of approver list: " + approverList.getApprovers().size());
-//
-//    }
 
 
 }
