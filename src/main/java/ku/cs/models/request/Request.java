@@ -37,7 +37,7 @@ public class Request {
 //        try {
 ////            System.out.println(nameArray[0]+nameArray[1]);
 //            user = new User("6610402230","b6610402230","student",nameArray[0],nameArray[1],"2004-11-29","sirisuk.t@ku.th","123456789");
-//            this.name = user.getName();
+//            this.name = user.gettName();
 //            this.nisitId = user.getID();
 //        } catch (UserException e){
 //            e.printStackTrace();

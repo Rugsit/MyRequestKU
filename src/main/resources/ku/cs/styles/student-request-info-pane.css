@@ -41,7 +41,7 @@
 .Button {
     -fx-background-color: #4E7FFF;
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 18;
+    -fx-font-size: 20px;
     -fx-text-alignment: center;
 }
 
@@ -52,5 +52,12 @@
     -fx-border-radius: 3;
     -fx-text-fill: #00B448;
     -fx-font-size: 18;
+    -fx-text-alignment: center;
+}
+
+.view-reject-reason-button {
+    -fx-background-color: #FF4E4E;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 20px;
     -fx-text-alignment: center;
 }

@@ -191,8 +191,8 @@ public class StudentRequestsController {
         }
 
         requestsNumberLabel.setText("" + myRequests.getRequests().size());
-        approvedNumberLabel.setText("" + rejectedRequest.getRequests().size());
-        rejectedNumberLabel.setText("" + acceptedRequest.getRequests().size());
+        approvedNumberLabel.setText("" + acceptedRequest.getRequests().size());
+        rejectedNumberLabel.setText("" + rejectedRequest.getRequests().size());
 
     }
 
