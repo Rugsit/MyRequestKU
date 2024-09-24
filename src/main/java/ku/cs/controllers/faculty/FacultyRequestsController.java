@@ -49,15 +49,14 @@ public class FacultyRequestsController {
         loadRequests();
         showTable();
 
-        // Real-time search
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            search(newValue);  // Perform search as user types
+            search(newValue);
         });
     }
 
     private void search(String newValue) {
         if (requestList != null) {
-            requestListTableView.getItems().clear(); // Clear the table before adding filtered requests
+            requestListTableView.getItems().clear();
             requestListTableView.getItems().addAll(requestList.getRequests()
                     .stream()
                     .filter(request -> request.getStatusNow().equals("อนุมัติโดยหัวหน้าภาควิชา") &&
@@ -67,7 +66,6 @@ public class FacultyRequestsController {
                                     request.getRequestType().toLowerCase().contains(newValue.toLowerCase())))
                     .collect(Collectors.toList()));
 
-            // Sort by date after filtering
             TableColumn<Request, LocalDateTime> dateColumn = (TableColumn<Request, LocalDateTime>) requestListTableView.getColumns().get(1);
             dateColumn.setSortType(TableColumn.SortType.DESCENDING);
             requestListTableView.getSortOrder().add(dateColumn);
@@ -86,7 +84,6 @@ public class FacultyRequestsController {
         requestListTableView.setPlaceholder(placeHolder);
         requestListTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        // Create and configure columns
         TableColumn<Request, String> nameColumn = new TableColumn<>("ชื่อ-นามสกุล");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
@@ -100,7 +97,6 @@ public class FacultyRequestsController {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
 
-        // Set the cellFactory to format the LocalDateTime
         dateColumn.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
             @Override
             public String toString(LocalDateTime lastLogin) {
@@ -113,14 +109,12 @@ public class FacultyRequestsController {
             }
         }));
 
-        // Set column widths
         nameColumn.setMinWidth(150);
         dateColumn.setMinWidth(200);
         typeColumn.setMinWidth(150);
         statusColumn.setMinWidth(190);
         statusNextColumn.setMinWidth(241);
 
-        // Add columns to the TableView
         requestListTableView.getColumns().addAll(nameColumn, dateColumn, typeColumn, statusColumn, statusNextColumn);
     }
 
