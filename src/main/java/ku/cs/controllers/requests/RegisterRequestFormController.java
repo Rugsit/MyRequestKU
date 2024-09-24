@@ -278,9 +278,7 @@ public class RegisterRequestFormController {
     }
 
     private RegisterRequestForm createRegisterForm() {
-        UUID uuid = UUID.randomUUID();
-        LocalDateTime now = LocalDateTime.now();
-        return new RegisterRequestForm(uuid,loginUser.getUUID(), loginUser.getName(), loginUser.getId(), now, now, "ลงทะเบียนเรียน", "ใบคำร้องใหม่", "คำร้องส่งต่อให้อาจารย์ที่ปรึกษา", "none");
+        return new RegisterRequestForm(loginUser.getUUID(), loginUser.getName(), loginUser.getId(), "ลงทะเบียนเรียน");
     }
 
     private void showConfirmPane(RegisterRequestForm registerRequestForm) {

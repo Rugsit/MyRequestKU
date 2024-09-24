@@ -3,10 +3,16 @@ package ku.cs.models.request;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.request.approver.exception.ApproverException;
+import ku.cs.models.user.Student;
+import ku.cs.models.user.User;
+import ku.cs.models.user.UserList;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.Datasource;
+import ku.cs.services.RequestListFileDatasource;
+import ku.cs.services.UserListFileDatasource;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,51 +37,34 @@ public class Request {
 
     public Request() {}
 
-    public Request(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate, LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext, String reasonForNotApprove){
-//        User user = null;
-//        String[] nameArray = name.split(" ");
-//        try {
-////            System.out.println(nameArray[0]+nameArray[1]);
-//            user = new User("6610402230","b6610402230","student",nameArray[0],nameArray[1],"2004-11-29","sirisuk.t@ku.th","123456789");
-//            this.name = user.gettName();
-//            this.nisitId = user.getID();
-//        } catch (UserException e){
-//            e.printStackTrace();
-//        }
-        this.uuid = uuid;
-        this.ownerUUID = ownerUUID;
-
-        this.name = name;
-        this.nisitId = nisitId;
-        this.timeStampLastUpdate = timeStampLastUpdate;
-        this.timeStampCreateForm = timeStampCreateForm;
-        this.requestType = requestType;
-        this.statusNow = statusNow;
-        this.statusNext = statusNext;
-        this.reasonForNotApprove = reasonForNotApprove;
+    public Request(String uuid, String ownerUUID, String name, String nisitId, String timeStampLastUpdate, String timeStampCreateForm, String requestType, String statusNow, String statusNext, String reasonForNotApprove){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
+        setUuid(UUID.fromString(uuid));
+        setOwnerUUID(UUID.fromString(ownerUUID));
+        setName(name);
+        setNisitId(nisitId);
+        if (timeStampCreateForm != null) {
+            setDate(LocalDateTime.parse(timeStampCreateForm, formatter));
+            setTimeStamp(LocalDateTime.parse(timeStampLastUpdate, formatter));
+        } else {
+            setTimeStamp(LocalDateTime.now());
+            setDate(LocalDateTime.now());
+        }
+        setRequestType(requestType);
+        setStatusNow(statusNow);
+        setStatusNext(statusNext);
+        setReasonForNotApprove(reasonForNotApprove);
         approvers = new ApproverList();
         requireTier = new HashMap<>();
+        Datasource<UserList> datasource = new UserListFileDatasource("data", "student.csv");
+        UserList userList = datasource.readData();
+        Student owner = (Student)userList.findUserByUUID(this.ownerUUID);
+        this.departmentUUID = owner.getDepartmentUUID();
+        this.facultyUUID = owner.getFacultyUUID();
     }
 
-    public Request(String name, LocalDateTime timeStamp, LocalDateTime date, String nisitId, String requestType, String statusNow, String statusNext){
-//        User user = null;
-//        String[] nameArray = name.split(" ");
-//        try {
-////            System.out.println(nameArray[0]+nameArray[1]);
-//            user = new User("6610402230","b6610402230","student",nameArray[0],nameArray[1],"2004-11-29","sirisuk.t@ku.th","123456789");
-//            this.name = user.getName();
-//            this.nisitId = user.getID();
-//        } catch (UserException e){
-//            e.printStackTrace();
-//        }
-
-        this.name = name;
-        this.nisitId = nisitId;
-        this.timeStampLastUpdate = timeStamp;
-        this.timeStampCreateForm = date;
-        this.requestType = requestType;
-        this.statusNow = statusNow;
-        this.statusNext = statusNext;
+    public Request(UUID ownerUUID, String name, String nisitId, String requestType){
+        this(UUID.randomUUID().toString(), ownerUUID.toString(), name, nisitId, null, null, requestType, "ใบคำร้องใหม่", "คำร้องส่งต่อให้อาจารย์ที่ปรึกษา", "none");
     }
 
     public String getName() {
