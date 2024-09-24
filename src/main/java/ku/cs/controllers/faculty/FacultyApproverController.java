@@ -79,6 +79,9 @@ public class FacultyApproverController {
     private TextField searchTextField;
 
     @FXML
+    private TextField searchTextField;
+
+    @FXML
     public void initialize() {
         loadApprover();
         showTable();
