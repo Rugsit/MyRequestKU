@@ -129,13 +129,12 @@ public class FacultyApproverController {
         approverTableView.getColumns().addAll(nameColumn, lastnameColumn, tierColumn);
 
     }
-
     private void approverEditPopUp() {
-        approverTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
+        approverTableView.setOnMouseClicked(e -> {
+            Object selected = approverTableView.getSelectionModel().getSelectedItem();
+            if (selected != null) {
                 String popUpPath = "/ku/cs/views/faculty-edit-approver-pane.fxml";
                 try {
-                    // Check if the popup is already open or create a new one
                     if (currentPopupStage == null || !currentPopupStage.isShowing()) {
                         currentPopupStage = new Stage();
                     }
@@ -143,7 +142,7 @@ public class FacultyApproverController {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(popUpPath));
                     Pane editPane = fxmlLoader.load();
 
-                    Approver selectedApprover = (Approver) newValue;
+                    Approver selectedApprover = (Approver) selected;
                     EditApproverController controller = fxmlLoader.getController();
                     controller.setApprover(selectedApprover);
                     controller.setStage(currentPopupStage);
@@ -153,27 +152,24 @@ public class FacultyApproverController {
                             selectedApprover.getRole()
                     );
 
-                    // Set up the stage
                     Scene scene = new Scene(editPane);
                     currentPopupStage.setScene(scene);
                     currentPopupStage.setTitle("Edit Approver");
                     currentPopupStage.initModality(Modality.APPLICATION_MODAL);
 
-                    // Reload data when popup is closed
                     currentPopupStage.setOnHidden(event -> {
-                        loadApprover(); // Reload approvers after editing
-                        approverTableView.refresh(); // Refresh the table view
+                        loadApprover();
+                        approverTableView.refresh();
                     });
 
                     currentPopupStage.show();
 
-                } catch (IOException e) {
-                    System.out.println("Error loading popup: " + e.getMessage());
+                } catch (IOException ex) {
+                    System.err.println("Error loading popup: " + ex.getMessage());
                 }
             }
         });
     }
-
 
     private void loadApprover() {
         ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("approver");
