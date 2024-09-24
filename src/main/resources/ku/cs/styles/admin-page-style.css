@@ -226,6 +226,59 @@
 }
 /*Table view style*/
 
-/*Admin profile style*/
-
-/*Admin profile style*/
+/*Admin dashboard style*/
+.box-all, .box-process,
+.box-success, .box-reject {
+    -fx-background-radius: 5px;
+}
+.box-all {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #DBE5FF, #95B2FF);
+}
+.box-process {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #FFEACB, #FFC46E);
+}
+.box-success {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #D3FFE2, #45CA72);
+}
+.box-reject {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #FFD5D5, #F66262);
+}
+.header-inbox {
+    -fx-font-size: 24   px;
+}
+.label-all {
+    -fx-text-fill: #4E7FFF;
+}
+.label-process {
+    -fx-text-fill: #ED9B22;
+}
+.label-success {
+    -fx-text-fill: #49A267;
+}
+.label-reject {
+    -fx-text-fill: #FF5D5D;
+}
+.number-inbox {
+    -fx-font-size: 36px;
+}
+.number-all {
+    -fx-text-fill: #375AB3;
+}
+.number-process {
+    -fx-text-fill: #895F20;
+}
+.number-success {
+    -fx-text-fill: #327448;
+}
+.number-reject {
+    -fx-text-fill: #953D3D;
+}
+.box-amount-user {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0, 0, 1);
+}
+.label-amount-user {
+    -fx-font-size: 24px;
+}
+/*Admin dashboard style*/

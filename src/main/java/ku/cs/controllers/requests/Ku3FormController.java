@@ -237,9 +237,9 @@ public class Ku3FormController {
                     if (!((RadioButton)vBox.lookup(".lecture")).isSelected() && !((RadioButton)vBox.lookup(".lab")).isSelected()) {
                         throw new IllegalArgumentException("กรุณาเลือกประเภทหมู่เรียนในวิชาที่ " + (i + 1));
                     } else if (((RadioButton)vBox.lookup(".lecture")).isSelected()) {
-                        sectionType.add("lecture");
+                        sectionType.add("บรรยาย");
                     } else {
-                        sectionType.add("lab");
+                        sectionType.add("ปฏิบัติการ");
                     }
                     teacher.add(((TextField)vBox.lookup(".teacher")).getText());
                 }

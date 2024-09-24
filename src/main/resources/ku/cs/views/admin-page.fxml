@@ -18,7 +18,7 @@
          <children>
             <VBox layoutY="106.0" prefHeight="299.0" prefWidth="292.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="70.0" prefWidth="434.0" styleClass="side-bar-button" text="  สรุปข้อมูล">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#gotoDashBoard" prefHeight="70.0" prefWidth="434.0" styleClass="side-bar-button" text="  สรุปข้อมูล">
                      <font>
                         <Font size="18.0" />
                      </font>

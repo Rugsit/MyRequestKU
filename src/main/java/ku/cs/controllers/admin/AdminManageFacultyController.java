@@ -118,19 +118,6 @@ public class AdminManageFacultyController {
                 showEditPopup("department", department, departmentList);
             }
         });
-
-//        facultyTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//           if (newValue != null) {
-//               Faculty faculty = facultyTableView.getSelectionModel().getSelectedItem();
-//               showEditPopup("faculty", faculty, facultyList);
-//           }
-//        });
-//        departmentTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            if(newValue != null) {
-//                Department department = departmentTableView.getSelectionModel().getSelectedItem();
-//                showEditPopup("department", department, departmentList);
-//            }
-//        });
         loadFaculty();
 
     }
@@ -259,33 +246,6 @@ public class AdminManageFacultyController {
             }
         } catch (IOException ee) {
             System.err.println("Error: " + ee.getMessage());
-        }
-    }
-
-    @FXML
-    protected void goToAdminManageUsers() {
-        try {
-            FXRouter.goTo("admin-manage-users", loginUser);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    protected void goToAdminManageStaff() {
-        try {
-            FXRouter.goTo("admin-manage-staff", loginUser);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    protected void goToUserProfile() {
-        try {
-            FXRouter.goTo("admin-user-profile", loginUser);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
