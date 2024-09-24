@@ -50,6 +50,7 @@ public class AddNisitController {
     private TextFieldStack nisitFirstnameTextField;
     private TextFieldStack nisitLastnameTextField;
     private TextFieldStack nisitIdTextField;
+    private TextFieldStack nisitEmailTextField;
     private UserList users;
     private UserListFileDatasource datasource;
     private User selectedUser;
@@ -191,6 +192,7 @@ public class AddNisitController {
         nisitTable.getTableView().getColumns().clear();
         nisitTable.getTableView().getItems().clear();
 
+        nisitTable.addColumn("email","Email");
         nisitTable.addColumn("รหัสนิสิต","id");
         nisitTable.addColumn("ชื่อ-นามสกุล","name");
         nisitTable.addColumn("คณะ","faculty");
@@ -254,6 +256,10 @@ public class AddNisitController {
             children.add(container);
             container = newEditorContainerHBox();
             container.getChildren().add(nisitLastnameTextField = new TextFieldStack(user.getLastname(),editorHBoxWidth,editorHBoxHeight));
+            container.setAlignment(Pos.CENTER);
+            children.add(container);
+            container = newEditorContainerHBox();
+            container.getChildren().add(nisitEmailTextField = new TextFieldStack(user.getEmail(),editorHBoxWidth,editorHBoxHeight));
             container.setAlignment(Pos.CENTER);
             children.add(container);
 
@@ -363,6 +369,7 @@ public class AddNisitController {
                     private TextFieldStack addNisitIdTextField;
                     private TextFieldStack addNisitFirstnameTextField;
                     private TextFieldStack addNisitLastnameTextField;
+                    private TextFieldStack addNisitEmailTextField;
                     private DefaultLabel errorLabel;
 
                     @Override
@@ -397,9 +404,21 @@ public class AddNisitController {
                         ObservableList<Node> children =  verticalTextFieldBox.getChildren();
                         children.clear();
 
-                        children.add(addNisitIdTextField = new TextFieldStack("NisitID",mainWidth-100,60));
-                        children.add(addNisitFirstnameTextField = new TextFieldStack("Firstname",mainWidth-100,60));
-                        children.add(addNisitLastnameTextField = new TextFieldStack("Lastname",mainWidth-100,60));
+                        addNisitIdTextField = new TextFieldStack("NisitID",mainWidth-100,60);
+                        addNisitIdTextField.setPlaceholder("Student ID");
+                        children.add(addNisitIdTextField);
+
+                        addNisitFirstnameTextField = new TextFieldStack("Firstname",mainWidth-100,60);
+                        addNisitFirstnameTextField.setPlaceholder("Firstname");
+                        children.add(addNisitFirstnameTextField);
+
+                        addNisitLastnameTextField = new TextFieldStack("Lastname",mainWidth-100,60);
+                        addNisitLastnameTextField.setPlaceholder("Lastname");
+                        children.add(addNisitLastnameTextField);
+
+                        addNisitEmailTextField = new TextFieldStack("Email",mainWidth-100,60);
+                        addNisitEmailTextField.setPlaceholder("Email");
+                        children.add(addNisitEmailTextField);
 
                         if(session == null || (session.getUser() != null && !(session.getUser() instanceof DepartmentUser))){
                             facultyComboBox = new DefaultComboBoxes<Faculty>(){
@@ -515,7 +534,7 @@ public class AddNisitController {
                                             addNisitFirstnameTextField.getData(),
                                             addNisitLastnameTextField.getData(),
                                             DateTools.localDateTimeToFormatString(User.DATE_FORMAT,LocalDateTime.now()),
-                                            "no-email",
+                                            addNisitEmailTextField.getData(),
                                             "DEFAULT",
                                             addFaculty.getName(),
                                             addDepartment.getName()
@@ -574,9 +593,9 @@ public class AddNisitController {
         UserList csvUserList = new UserList();
         int readColum;
         if(session == null || (session.getUser() != null && !(session.getUser() instanceof DepartmentUser))){
-            readColum = 5;
+            readColum = 6;
         }else{
-            readColum = 3;
+            readColum = 4;
         }
         nisitCSVRead = UserCSVReader.read(readColum);
 
@@ -725,6 +744,7 @@ public class AddNisitController {
             selectedUser.setId(nisitIdTextField.getData());
             selectedUser.setFirstname(nisitFirstnameTextField.getData());
             selectedUser.setLastname(nisitLastnameTextField.getData());
+            selectedUser.setEmail(nisitEmailTextField.getData());
 
             nisitTableView.refresh();
             selectedUserListener();

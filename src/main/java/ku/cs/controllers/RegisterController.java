@@ -72,7 +72,8 @@ public class RegisterController {
         User existingUser = users.findUserById(id);
         // No username in datasource
         if (existingUser == null || !existingUser.getFirstname().equalsIgnoreCase(name) ||
-                !existingUser.getLastname().equalsIgnoreCase(lastName)) {
+                !existingUser.getLastname().equalsIgnoreCase(lastName) ||
+                !existingUser.getEmail().equalsIgnoreCase(email)) {
             showError("ไม่มีชื่อผู้ใช้งานในระบบ");
         }
         // Display basic warning.

@@ -3,6 +3,7 @@ package ku.cs.views.components;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
@@ -90,7 +91,9 @@ public class TextFieldStack extends StackPane{
         textField.setEditable(editable);
 
         resetButton.setVisible(editable);
+        resetButton.setFocusTraversable(false);
         clearButton.setVisible(editable);
+        clearButton.setFocusTraversable(false);
 
 
         currentData = textField.getText();
@@ -103,6 +106,7 @@ public class TextFieldStack extends StackPane{
     }
     public void setPlaceholder(String placeholder){
         textField.setPromptText(placeholder);
+        clearText();
     }
     public String getData(){
         return currentData;
