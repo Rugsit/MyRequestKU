@@ -145,6 +145,8 @@ public class FacultyApproverController {
 
                     Approver selectedApprover = (Approver) newValue;
                     EditApproverController controller = fxmlLoader.getController();
+                    controller.setApprover(selectedApprover);
+                    controller.setStage(currentPopupStage);
                     controller.setApproverDetail(
                             selectedApprover.getFirstname(),
                             selectedApprover.getLastname(),
