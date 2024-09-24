@@ -148,6 +148,23 @@ public class AdminMainController implements ParentController {
         }
     }
 
+    @FXML
+    private void gotoDashBoard() {
+        try {
+            String viewPath = "/ku/cs/views/admin-dashboard.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            DashBoardController controller = fxmlLoader.getController();
+            controller.setLoginUser(loginUser);
+//            controller.setParentController(this);
+            controller.initializeDashBoard();
+            borderPane.setCenter(pane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void setLoginUser(User loginUser) {
         if (loginUser == null) {return;}

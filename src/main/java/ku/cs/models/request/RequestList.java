@@ -54,5 +54,15 @@ public class RequestList {
      return null;
     }
 
+    public ArrayList<Request> getRequests(String status) {
+        ArrayList<Request> newRequests = new ArrayList<>();
+        for (Request request : requests) {
+            if (request.getStatusNext().equals(status) || request.getStatusNow().equals(status)) {
+                newRequests.add(request);
+            }
+        }
+        return newRequests;
+    }
+
 
 }

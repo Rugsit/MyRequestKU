@@ -226,13 +226,17 @@ public class Ku1AndKu3RequestForm extends Request{
             } else {
                 eachSuject.add(sectionType.get(i).trim());
             }
-            if (teacher.get(i) == null || teacher.get(i).isEmpty()) {
+            Pattern pattern = Pattern.compile("^[ก-๙a-zA-Z]+[ \t]+[ก-๙a-zA-Z]+$");
+            Matcher matcher = pattern.matcher(teacher.get(i).trim());
+            if (teacher.get(i) == null || teacher.get(i).isEmpty() || !matcher.find()) {
                 throw new IllegalArgumentException("กรุณากรอกชื่ออาจารย์ประจำวิชาให้ถูกต้อง ในวิชาที่ " + (i + 1));
             } else {
                 eachSuject.add(teacher.get(i).trim());
             }
+
             if (type == 1) eachSuject.add("add");
             else eachSuject.add("drop");
+
             subjectList.add(eachSuject);
         }
     }
