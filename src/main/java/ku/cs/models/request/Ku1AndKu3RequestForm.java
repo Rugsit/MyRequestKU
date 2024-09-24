@@ -15,30 +15,19 @@ public class Ku1AndKu3RequestForm extends Request{
     private String campus;
     private ArrayList<ArrayList<String>> subjectList;
 
-    public Ku1AndKu3RequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
-                                LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext, String reason) {
-        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext, reason);
+    public Ku1AndKu3RequestForm(UUID ownerUUID, String name, String nisitId, String requestType) {
+        super(ownerUUID, name, nisitId, requestType);
         subjectList = new ArrayList<>();
     }
 
     public Ku1AndKu3RequestForm(String[]data, String[]subject, byte type) {
+        super(data[1], data[2], data[3], data[4], data[5], data[6], data[0], data[7], data[8], data[14]);
         this.subjectList = new ArrayList<>();
-        super.setRequestType(data[0]);
-        super.setUuid(UUID.fromString(data[1]));
-        super.setOwnerUUID(UUID.fromString(data[2]));
-        super.setName(data[3]);
-        super.setNisitId(data[4]);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
-        super.setTimeStamp(LocalDateTime.parse(data[5], formatter));
-        super.setDate(LocalDateTime.parse(data[6], formatter));
-        super.setStatusNow(data[7]);
-        super.setStatusNext(data[8]);
         curriculum = data[9];
         tel = data[10];
         semester = data[11];
         year = data[12];
         campus = data[13];
-        super.setReasonForNotApprove(data[14]);
         if (type == 1) {
             for (int i = 0; i < subject.length; i++) {
                 ArrayList<String> newEachSubjectList = new ArrayList<>();

@@ -235,9 +235,7 @@ public class AcademicLeaveController {
     }
 
     private AcademicLeaveRequestForm createAcademicLeaveRequestForm() {
-        UUID uuid = UUID.randomUUID();
-        LocalDateTime now = LocalDateTime.now();
-        return new AcademicLeaveRequestForm(uuid,loginUser.getUUID(), loginUser.getName(), loginUser.getId(), now, now, "ลาพักการศึกษา", "ใบคำร้องใหม่", "คำร้องส่งต่อให้อาจารย์ที่ปรึกษา", "none");
+        return new AcademicLeaveRequestForm(loginUser.getUUID(), loginUser.getName(), loginUser.getId(), "ลาพักการศึกษา");
     }
 
     private void showConfirmPane(AcademicLeaveRequestForm academicLeaveRequestForm) {
