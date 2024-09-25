@@ -18,6 +18,7 @@ import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
+import ku.cs.views.components.RequestStatusColumn;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -64,8 +65,8 @@ public class AdvisorRequestsController {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
         TableColumn<Request, String> statusNextColumn = new TableColumn<>("สถานะคำร้องต่อไป");
         statusNextColumn.setCellValueFactory(new PropertyValueFactory<>("statusNext"));
-        setTableStatus(statusColumn, "now");
-        setTableStatus(statusNextColumn, "next");
+        RequestStatusColumn.setTableStatus(statusColumn, "now");
+        RequestStatusColumn.setTableStatus(statusNextColumn, "next");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
         requestListTableView.getColumns().add(nameColumn);
@@ -208,78 +209,5 @@ public class AdvisorRequestsController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void setTableStatus(TableColumn<Request, String> status, String whichStatus) {
-        status.setMaxWidth(250);
-        status.setSortable(false);
-        status.setCellFactory(c -> new TableCell<Request, String>() {
-            Request request;
-            Button statusCell = new Button();
-
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                statusCell.setMouseTransparent(true);
-                statusCell.setFocusTraversable(false);
-                String buttonStyle = "-fx-border-radius: 3;" +
-                        "-fx-font-size: 18;" +
-                        "-fx-text-alignment: center;" +
-                        "-fx-cursor: none;" +
-                        "-fx-pref-width: 234;" +
-                        "-fx-pref-height: 35;";
-                if (empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()) {
-                    setGraphic(null);
-                } else {
-                    request = getTableView().getItems().get(getIndex());
-                    if (whichStatus.equals("now")) {
-                        statusCell.setText(request.getStatusNow());
-                    } else if (whichStatus.equals("next")) {
-                        statusCell.setText(request.getStatusNext());
-                    }
-                    setGraphic(statusCell);
-                    statusCell.setStyle("-fx-background-color: #F2FFF7;" +
-                            "-fx-border-color: #00B448;" +
-                            "-fx-text-fill: #00B448;" +
-                            buttonStyle);
-                    Pattern rejected = Pattern.compile(".*ปฏิเสธ.*");
-                    Pattern newlyCreated = Pattern.compile(".*ใหม่.*");
-                    Pattern inProgress = Pattern.compile(".*ต่อ.*");
-                    if (newlyCreated.matcher(statusCell.getText()).matches()) {
-                        statusCell.setStyle(
-                                "-fx-background-color: #EBEEFF; " +
-                                        "-fx-border-color: #4E7FFF; " +
-                                        "-fx-text-fill: #4E7FFF;" +
-                                        buttonStyle
-                        );
-                    }
-                    if (rejected.matcher(statusCell.getText()).matches()) {
-                        statusCell.setStyle(
-                                "-fx-background-color: #FFDEDE; " +
-                                        "-fx-border-color: #FE6463; " +
-                                        "-fx-text-fill: #FE6463;" +
-                                        buttonStyle
-                        );
-                    }
-                    if (inProgress.matcher(statusCell.getText()).matches()) {
-                        statusCell.setStyle(
-                                "-fx-background-color: #FFF6E8; " +
-                                        "-fx-border-color: #ED9B22; " +
-                                        "-fx-text-fill: #ED9B22;" +
-                                        buttonStyle
-                        );
-
-                    }
-
-                    if (rejected.matcher(statusCell.getText()).matches()) {
-                        statusCell.setStyle(
-                                "-fx-background-color: #FFDEDE; " +
-                                        "-fx-border-color: #FE6463; " +
-                                        "-fx-text-fill: #FE6463;" +
-                                        buttonStyle
-                        );
-                    }
-                }
-            }
-        });
     }
 }
