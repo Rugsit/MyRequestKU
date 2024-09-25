@@ -8,6 +8,7 @@ import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.Datasource;
 import ku.cs.services.DepartmentListFileDatasource;
+import ku.cs.services.FacultyListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 
 import java.util.HashSet;
@@ -120,5 +121,48 @@ public class Faculty implements Comparable<Faculty>{
         }
         datasource.writeData(facultyStaff);
 
+    }
+
+    public UserList getUsers() {
+        DepartmentList departments = getDepartmentsByFaculty();
+        UserList facultyUsers = new UserList();
+        for (Department department : departments.getDepartments()) {
+            facultyUsers.concatenate(department.getUsers());
+        }
+
+        Datasource<UserList> datasource = new UserListFileDatasource("data", "faculty-staff.csv");
+        UserList allFacultyStaff = datasource.readData();
+        try {
+            for (User user : allFacultyStaff.getUsers()) {
+                if ( ((FacultyUser) user).getFacultyUUID().equals(uuid) ){
+                        facultyUsers.addUser(user);
+                }
+            }
+        } catch (UserException e) {
+            System.err.println("error reading specific faculty's users");;
+        }
+        return facultyUsers;
+    }
+
+    public static void main(String[] args) {
+        UserList users = null;
+        Datasource<FacultyList> facultyListDatasource = new FacultyListFileDatasource("data");
+        FacultyList facultyList = facultyListDatasource.readData();
+        Faculty faculty = facultyList.getFacultyByName("วิทยาศาสตร์");
+        DepartmentList departments = faculty.getDepartmentsByFaculty();
+
+
+        for (Department department : departments.getDepartments()) {
+            System.out.println(department.getName());
+//            UserList userList = department.getUsers();
+            System.out.println(department.getUsers().getUsers().size());
+//            users.concatenate(userList);
+            System.out.println("==========================================");
+        }
+        users = faculty.getUsers();
+        System.out.println(users.getUsers().size());
+        for (User user : users.getUsers()) {
+            System.out.println(user);
+        }
     }
 }

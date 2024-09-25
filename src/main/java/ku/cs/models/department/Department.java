@@ -1,10 +1,12 @@
 package ku.cs.models.department;
 
+import javafx.scene.chart.PieChart;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.Datasource;
+import ku.cs.services.DepartmentListFileDatasource;
 import ku.cs.services.FacultyListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 
@@ -184,32 +186,24 @@ public class Department implements Comparable<Department>{
     }
 
 
-    public UserList getUsers(String userType) {
-        Datasource<UserList> datasource = null;
 
-        if (userType.equalsIgnoreCase("student")) {
-             datasource = new UserListFileDatasource("data", "student.csv");
-
-        } else if (userType.equalsIgnoreCase("staff")) {
-            datasource = new UserListFileDatasource("data", "department-staff.csv");
-        } else return null;
-
+    public UserList getUsers() {
+        Datasource<UserList> datasource = new UserListFileDatasource("data", "department-staff.csv");
         UserList departmentUsers = new UserList();
+        UserList allUsers = new UserList();
+        allUsers.concatenate(datasource.readData());
+        datasource = new UserListFileDatasource("data", "advisor.csv");
+        allUsers.concatenate(datasource.readData());
+        datasource = new UserListFileDatasource("data", "student.csv");
+        allUsers.concatenate(datasource.readData());
         try {
-            UserList allUsers = datasource.readData();
-            if (userType.equals("student")) {
-                for (User user : allUsers.getUsers()) {
-                    Student departmentUser = (Student) user;
-                    if (departmentUser.getDepartment().equals(name)) {
-                        departmentUsers.addUser(departmentUser);
-                    }
-                }
-            } else {
-                for (User user : allUsers.getUsers()) {
-                    DepartmentUser departmentUser = (DepartmentUser) user;
-                    if (departmentUser.getDepartment().equals(name)) {
-                        departmentUsers.addUser(departmentUser);
-                    }
+            for (User user : allUsers.getUsers()) {
+                if (user instanceof Student && ((Student)user).getDepartmentUUID().equals(uuid)) {
+                    departmentUsers.addUser(user);
+                } else if (user instanceof Advisor && ((Advisor)user).getDepartmentUUID().equals(uuid)) {
+                    departmentUsers.addUser(user);
+                } else if (user instanceof DepartmentUser && ((DepartmentUser)user).getDepartmentUUID().equals(uuid)) {
+                    departmentUsers.addUser(user);
                 }
             }
         } catch (UserException e) {
