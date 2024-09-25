@@ -4,14 +4,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.*;
+import ku.cs.models.request.approver.Approver;
+import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
+import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
 
@@ -24,6 +28,8 @@ public class MainInformationController {
     private String backPage;
 
     @FXML
+    private Stage currentPopupStage;
+    @FXML
     private Stage currentNotApprove;
     @FXML
     private HBox approveButtonHbox;
@@ -35,6 +41,10 @@ public class MainInformationController {
     private Label titleLabel;
     @FXML
     private BorderPane borderPane;
+    @FXML
+    private Button exitButton;
+    @FXML
+    private ImageView backImageView;
 
     public void initializeMainInformation() {
         scrollPane.requestFocus();// ให้ ScrollPane ได้รับโฟกัสแทน
@@ -242,5 +252,21 @@ public class MainInformationController {
                 currentNotApprove.setTitle("Not Approve");
                 currentNotApprove.show();
             }
+    }
+
+    public void setBackPageVisible(boolean status) {
+        backImageView.setVisible(status);
+    }
+
+    public void setCurrentPopupStage(Stage currentPopupStage) {
+        this.currentPopupStage = currentPopupStage;
+    }
+
+    public void setVisibleExitButton(boolean status) {
+        exitButton.setVisible(status);
+    }
+    @FXML
+    private void onExitClick() {
+        currentPopupStage.close();
     }
 }

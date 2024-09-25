@@ -3,21 +3,31 @@ package ku.cs.controllers.department;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import ku.cs.controllers.requests.ErrorGeneralRequestFormController;
+import ku.cs.controllers.requests.information.MainInformationController;
 import ku.cs.models.Session;
 import ku.cs.models.department.Department;
 import ku.cs.models.department.DepartmentList;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
+import ku.cs.models.request.*;
 import ku.cs.models.request.approver.*;
 import ku.cs.models.user.DepartmentUser;
 import ku.cs.models.user.User;
@@ -25,8 +35,8 @@ import ku.cs.models.user.UserList;
 import ku.cs.services.*;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
-import ku.cs.models.request.Request;
 
+import java.io.IOException;
 import java.util.UUID;
 
 public class RequestController {
@@ -46,6 +56,9 @@ public class RequestController {
 
     private Request request;
     private User requestOwner;
+
+    @FXML
+    private Stage currentPopupStage;
 
     private UserListFileDatasource studentDatasource;
     DepartmentListFileDatasource departmentDatasource;
@@ -204,7 +217,80 @@ public class RequestController {
         addApproverButton = new DefaultButton("#7FE8FF","#a6a6a6","#000000");
         addApproverButton.changeText("เพิ่มผู้อนุมัติ",28, FontWeight.NORMAL);
 
-        requestInfoButton = new DefaultButton("#FFA1D9","#a6a6a6","#000000");
+        requestInfoButton = new DefaultButton("#FFA1D9","#a6a6a6","#000000"){
+          @Override
+          protected void handleClickEvent(){
+              button.setOnMouseClicked(e ->{
+                  try {
+                      if (request == null || requestOwner == null) throw new NullPointerException("Request or Request owner is null");
+                      if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                          currentPopupStage = new Stage();
+                          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/main-information.fxml"));
+                          AnchorPane scene = fxmlLoader.load();
+                          MainInformationController controller = fxmlLoader.getController();
+                          controller.setRequest(request);
+                          controller.setLoginUser(requestOwner);
+                          controller.setBackPageVisible(false);
+                          controller.setCurrentPopupStage(currentPopupStage);
+                          controller.initializeMainInformation();
+                          if (request instanceof GeneralRequestForm) {
+                              controller.setTitleLabel("ใบคำร้องทั่วไป");
+                          } else if (request instanceof RegisterRequestForm) {
+                              controller.setTitleLabel("คำร้องขอลงทะเบียน");
+                          } else if (request instanceof AcademicLeaveRequestForm) {
+                              controller.setTitleLabel("ใบคำร้องขอลาพักการศึกษา");
+                          } else if (request instanceof Ku1AndKu3RequestForm) {
+                              if (request.getRequestType().equalsIgnoreCase("KU1")) {
+                                  controller.setTitleLabel("แบบลงทะเบียนเรียน KU1");
+                              } else {
+                                  controller.setTitleLabel("แบบขอเปลี่ยนแปลงการลงทะเบียนเรียน KU3");
+                              }
+                          }
+                          scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/general-request-form-page-style.css").toExternalForm());
+//                          currentPopupStage.setTitle("Request");
+//                          currentPopupStage.setScene(scene);
+//                          currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+//                          currentPopupStage.setTitle("Error");
+//                          currentPopupStage.show();
+
+                          mainStackPane.getChildren().add(new BlankPopupStack() {
+
+                              @Override
+                              protected void initPopupView() {
+                                  declineButton.setText("ปิด");
+                                  HBox lineEnd = new HBox(declineButton);
+                                  VBox mainBox = new VBox(scene);
+                                  mainBox.setMaxWidth(600);
+                                  mainBox.setMaxHeight(620);
+                                  mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                                  lineEnd.setAlignment(Pos.CENTER);
+                                  scene.setStyle("-fx-pref-height: 620px");
+                                  stackPane.getChildren().add(mainBox);
+                                  mainBox.getChildren().add(lineEnd);
+                                  VBox.setMargin(lineEnd,new Insets(20,0,20,0));
+                              }
+
+                              @Override
+                              protected void handleAcceptButton() {
+                                  acceptButton.setOnMouseClicked(e->{
+                                      mainStackPane.getChildren().removeLast();
+                                  });
+                              }
+
+                              @Override
+                              protected void handleDeclineButton() {
+                                  declineButton.setOnMouseClicked(e->{
+                                      mainStackPane.getChildren().removeLast();
+                                  });
+                              }
+                          });
+                      }
+                  } catch (IOException ee) {
+                      System.err.println("Error: " + ee.getMessage());
+                  }
+              });
+          }
+        };
         requestInfoButton.changeText("ข้อมูลคำร้อง",28, FontWeight.NORMAL);
         menuHBox.getChildren().addAll(addApproverButton,requestInfoButton);
 
