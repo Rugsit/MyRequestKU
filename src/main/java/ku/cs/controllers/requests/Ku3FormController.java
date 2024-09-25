@@ -67,7 +67,7 @@ public class Ku3FormController {
     @FXML
     public void initialize() {
         amountSubjectPart1 = 1;
-        amountSubjectPart2 = 2;
+        amountSubjectPart2 = 1;
         subjectVbox.disableProperty().bind(Bindings.not(part1Checkbox.selectedProperty()));
         subjectDropVbox.disableProperty().bind(Bindings.not(part2CheckBox.selectedProperty()));
 
@@ -115,7 +115,9 @@ public class Ku3FormController {
         VBox newVbox = new VBox();
         VBox.setMargin(newVbox, VBox.getMargin(vbox));
         if (id == 1) {newVbox.getStyleClass().add(vbox.getStyleClass().getFirst() + amountSubjectPart1);}
-        else {newVbox.getStyleClass().add(vbox.getStyleClass().getFirst() + amountSubjectPart2);}
+        else {
+            newVbox.getStyleClass().add(vbox.getStyleClass().getFirst() + amountSubjectPart2);
+        }
         for (Node node : vbox.getChildren()) {
             newVbox.getChildren().add(deepCopyHBox((HBox) node));
         }
@@ -221,7 +223,7 @@ public class Ku3FormController {
                     if (i == 0) {
                         vBox = (VBox)targetVBox.lookup("." + group);
                     } else {
-                        vBox = (VBox)subjectVbox.lookup("." + group + i);
+                        vBox = (VBox)targetVBox.lookup("." + group + i);
                     }
                     idSubject.add(((TextField)vBox.lookup(".subjectId")).getText());
                     subject.add(((TextField)vBox.lookup(".subjectName")).getText());

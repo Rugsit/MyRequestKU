@@ -235,13 +235,15 @@ public class EditFormController {
                 currentUser.setFirstname(firstNameTextField.getText());
                 currentUser.setLastname(lastNameTextField.getText());
                 currentUser.setUsername(userNameTextField.getText());
-                currentUser.setPassword(startPasswordTextField.getText());
+                if (startPasswordTextField.getText().isEmpty()) {
+                    currentUser.setPassword("DEFAULT");
+                } else {
+                    currentUser.setPassword(startPasswordTextField.getText());
+                }
                 if (currentUser instanceof FacultyUser) {
-                    if (facultyChoiceBox.getValue() == null) throw new UserException("กรุณาเลือกคณะที่ต้องการแก้ไข");
                     ((FacultyUser)currentUser).setFaculty(facultyChoiceBox.getValue());
                 }
                 if (currentUser instanceof DepartmentUser) {
-                    if (departmentChoiceBox.getValue() == null) throw new UserException("กรุณาเลือกภาควิชาที่ต้องการแก้ไข");
                     ((DepartmentUser)currentUser).setDepartment(departmentChoiceBox.getValue());
                 }
                 if (currentRole.equals("advisor")) currentUser.setId(advisorIdTextField.getText());

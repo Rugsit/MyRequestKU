@@ -74,6 +74,7 @@ public class StudentRequestsController {
                             controller.showInfo();
                             controller.showTable();
                             controller.setBorderPane(borderPane);
+                            controller.setBackPage("student");
                             borderPane.setCenter(pane);
                         } catch (IOException exception) {
                             System.err.println("Error: handle click");

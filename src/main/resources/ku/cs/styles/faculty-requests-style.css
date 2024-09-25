@@ -30,3 +30,104 @@
 .requestsTable {
     -fx-font-size: 18;
 }
+/*Table view style*/
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-pref-height: 40px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-font-size: 24px;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .cell {
+    -fx-text-fill: #374957;
+    -fx-padding: 10px;
+    -fx-font-size: 20px;
+    -fx-border-color: transparent;
+}
+
+.table-view-user .cell {
+    -fx-text-fill: #374957;
+    -fx-padding: 3px 0px 3px 10px;
+    -fx-font-size: 20px;
+    -fx-border-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .cell:selected {
+    -fx-border-radius: 2px;
+    -fx-border-width: 2px;
+    -fx-border-color: #374957;
+    -fx-background-color: #F3F3F3;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+
+.table-row-cell {
+    -fx-border-width: 0px;
+    -fx-background-color: white;
+}
+.table-row-cell:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+.table-view .cell:hover {
+    -fx-cursor: hand;
+}
+
+.row-active {
+    -fx-cursor: hand;
+    -fx-background-color: #D3FFE1;
+}
+
+.row-active:hover {
+    -fx-background-color: #9df5b9;
+}
+
+.row-inactive {
+    -fx-cursor: hand;
+    -fx-background-color: #FFD0D0;
+}
+
+.row-inactive:hover {
+    -fx-background-color: #faa7a7;
+}
+
+.table-view .scroll-bar:vertical {
+    -fx-pref-width: 20px;
+    -fx-background-color: white; /* Thumb (the part that moves) color */
+    -fx-background-radius: 1px;    /* Rounded corners */
+}
+
+.table-view .scroll-bar:vertical .thumb{
+    -fx-background-color: #374957;
+}
+/*Table view style*/

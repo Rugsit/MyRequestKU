@@ -93,25 +93,12 @@ public class MainInformationController {
     private void onBackButtonClick() {
         if (backPage != null && backPage.equalsIgnoreCase("advisorRequest")) {
             goToAdvisorRequest();
-            return;
+        } else if (backPage != null && backPage.equalsIgnoreCase("student")) {
+            goToStudentPage(backPage);
+        } else if (backPage != null && backPage.equalsIgnoreCase("advisorStudentRequest")) {
+            goToStudentPage(backPage);
         }
-        try {
-            String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
-            Pane pane = fxmlLoader.load();
-            StudentRequestInfoController controller = fxmlLoader.getController();
-            controller.setLoginUser((Student) loginUser);
-            controller.setRequest(request);
-            controller.setBackPage("advisorStudentRequest");
-            controller.initialize();
-            controller.showInfo();
-            controller.showTable();
-            borderPane.setCenter(pane);
-            controller.setBorderPane(borderPane);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     private void goToAdvisorRequest() {
@@ -121,6 +108,26 @@ public class MainInformationController {
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
             AdvisorRequestsController controller = fxmlLoader.getController();
+            borderPane.setCenter(pane);
+            controller.setBorderPane(borderPane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void goToStudentPage(String destination) {
+        try {
+            String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            Pane pane = fxmlLoader.load();
+            StudentRequestInfoController controller = fxmlLoader.getController();
+            controller.setLoginUser((Student) loginUser);
+            controller.setRequest(request);
+            controller.setBackPage(destination);
+            controller.initialize();
+            controller.showInfo();
+            controller.showTable();
             borderPane.setCenter(pane);
             controller.setBorderPane(borderPane);
         } catch (IOException e) {
