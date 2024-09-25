@@ -5,8 +5,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ku.cs.models.faculty.Faculty;
+import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
+import ku.cs.models.request.approver.DepartmentApprover;
 import ku.cs.models.request.approver.FacultyApprover;
+import ku.cs.models.user.DepartmentUser;
+import ku.cs.models.user.FacultyUser;
+import ku.cs.models.user.User;
 import ku.cs.services.ApproverListFileDatasource;
 
 public class AddApproverController {
@@ -20,6 +25,8 @@ public class AddApproverController {
     @FXML
     private Label errorLabel;
     private Stage stage;
+
+    private User loginUser;
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -35,8 +42,14 @@ public class AddApproverController {
             errorLabel.setVisible(false);
             ApproverListFileDatasource approverDatasource = new ApproverListFileDatasource("approver");
             try {
-                FacultyApprover FApprover = new FacultyApprover("faculty", academicRole, name, lastName);
-                approverDatasource.appendData(FApprover, "approver");
+                Approver approver = null;
+                if (loginUser instanceof FacultyUser) {
+                    approver = new FacultyApprover("faculty", ((FacultyUser) loginUser).getFacultyUUID().toString(), academicRole, name, lastName);
+                } else if (loginUser instanceof DepartmentUser) {
+                    approver = new DepartmentApprover("department", ((DepartmentUser) loginUser).getDepartmentUUID().toString(), academicRole, name, lastName);
+                }
+                System.out.println("test");
+                approverDatasource.appendData(approver, "approver");
             } catch (Exception e) {
                 errorLabel.setVisible(true);
                 errorLabel.setText("ไม่สามารถบันทึกข้อมูลลงในฐานข้อมูลได้");
@@ -60,5 +73,9 @@ public class AddApproverController {
         if (stage != null) {
             stage.close(); // Close the window when exit button is clicked
         }
+    }
+
+    public void setLoginUser(User loginUser) {
+        this.loginUser = loginUser;
     }
 }

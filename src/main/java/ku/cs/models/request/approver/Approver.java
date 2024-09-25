@@ -27,22 +27,26 @@ public abstract class Approver implements Comparable<Approver> {
     protected String status;
     protected String signatureFile;
     private boolean disableView = false;
+    private UUID associateUUID;
 
 
-    public Approver(String requestUUID, String tier, String role, String firstname, String lastname) throws ApproverException {
-        this(UUID.randomUUID().toString(), requestUUID, tier, role, "no-status", "no-signature", firstname, lastname);
+    public Approver(String requestUUID, String tier, String associateUUID, String role, String firstname, String lastname) throws ApproverException {
+        this(UUID.randomUUID().toString(), requestUUID, tier, associateUUID, role, "no-status", "no-signature", firstname, lastname);
         setInitialStatus();
     }
 
-    public Approver(String tier, String role, String firstname, String lastname) throws ApproverException {
-        this(UUID.randomUUID().toString(), null, tier, role, "no-status", "no-signature", firstname, lastname);
+    public Approver(String tier, String associateUUID, String role, String firstname, String lastname) throws ApproverException {
+        this(UUID.randomUUID().toString(), null, tier, associateUUID,role, "no-status", "no-signature", firstname, lastname);
         setInitialStatus();
     }
 
-    public Approver(String uuid, String requestUUID, String tier, String role, String status, String signatureFile, String firstname, String lastname) throws ApproverException {
+    public Approver(String uuid, String requestUUID, String tier, String associateUUID,String role, String status, String signatureFile, String firstname, String lastname) throws ApproverException {
         if (uuid == null) throw new ApproverException("uuid must not be null");
         if (uuid.isEmpty()) throw new ApproverException("uuid must not be empty");
+        if (associateUUID == null) throw new ApproverException("associate uuid must not be null");
+        if (associateUUID.isEmpty()) throw new ApproverException("associate uuid must not be null");
         this.uuid = UUID.fromString(uuid);
+        this.associateUUID = UUID.fromString(associateUUID);
 //        if (requestUUID == null) throw new ApproverException("requestUUID must not be null");
         if (requestUUID != null && !requestUUID.equals("no-request")) {
             if (requestUUID.isEmpty()) throw new ApproverException("requestUUID must not be empty");
@@ -179,6 +183,7 @@ public abstract class Approver implements Comparable<Approver> {
         return uuid.toString() + "," +
                 reqUUID + "," +
                 tier + "," +
+                associateUUID + "," +
                 role + "," +
                 status + "," +
                 signatureFile + "," +

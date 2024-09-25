@@ -13,16 +13,16 @@ public class OtherApprover extends Approver{
             "ไม่อนุมัติ"
     ));
 
-    public OtherApprover(String requestUUID, String tier, String role, String firstname, String lastname) throws ApproverException {
-        super(requestUUID, tier, role, firstname, lastname);
+    public OtherApprover(String requestUUID, String tier, String associateUUID, String role, String firstname, String lastname) throws ApproverException {
+        super(requestUUID, tier, associateUUID, role, firstname, lastname);
     }
 
-    public OtherApprover(String tier, String role, String firstname, String lastname) throws ApproverException {
-        super(tier, role, firstname, lastname);
+    public OtherApprover(String tier, String associateUUID, String role, String firstname, String lastname) throws ApproverException {
+        super(tier, associateUUID, role, firstname, lastname);
     }
 
-    public OtherApprover(String uuid, String requestUUID, String tier, String role, String status, String signatureFile, String firstname, String lastname) throws ApproverException {
-        super(uuid, requestUUID, tier, role, status, signatureFile, firstname, lastname);
+    public OtherApprover(String uuid, String requestUUID, String tier, String associateUUID, String role, String status, String signatureFile, String firstname, String lastname) throws ApproverException {
+        super(uuid, requestUUID, tier, associateUUID, role, status, signatureFile, firstname, lastname);
     }
 
 
