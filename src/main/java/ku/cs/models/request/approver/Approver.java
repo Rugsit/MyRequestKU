@@ -129,10 +129,10 @@ public abstract class Approver implements Comparable<Approver> {
     }
 
     public void setSignatureFile(String signatureFile) {
-        if(signatureFile!=null){
+        if(signatureFile!=null && !signatureFile.equals("no-image")){
             this.signatureFile = signatureFile;
         }else{
-            this.signatureFile = "no-signature";
+            this.signatureFile = "no-image";
         }
     }
 
