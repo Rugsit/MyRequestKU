@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -12,23 +13,24 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.StringConverter;
 import ku.cs.models.request.*;
+import ku.cs.models.request.approver.Approver;
+import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.FacultyUser;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
-import ku.cs.services.Datasource;
-import ku.cs.services.FXRouter;
-import ku.cs.services.RequestListFileDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class FacultyRequestsController {
     @FXML
-    TableView requestListTableView;
+    TableView<Request> requestListTableView;
     @FXML
     BorderPane borderPane;
     private Datasource<RequestList> requestListDatasource;
@@ -37,6 +39,8 @@ public class FacultyRequestsController {
     private UserList userlist;
     private ArrayList<String> studentId;
     FacultyUser loginUser;
+    @FXML
+    private TextField searchTextField;
 
     @FXML
     public void initialize() {
@@ -44,11 +48,33 @@ public class FacultyRequestsController {
         getStudentId();
         loadRequests();
         showTable();
+
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            search(newValue);
+        });
+    }
+
+    private void search(String newValue) {
+        if (requestList != null) {
+            requestListTableView.getItems().clear();
+            requestListTableView.getItems().addAll(requestList.getRequests()
+                    .stream()
+                    .filter(request -> request.getStatusNow().equals("อนุมัติโดยหัวหน้าภาควิชา") &&
+                            request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") &&
+                            studentId.contains(request.getNisitId()) &&
+                            (request.getName().toLowerCase().contains(newValue.toLowerCase()) ||
+                                    request.getRequestType().toLowerCase().contains(newValue.toLowerCase())))
+                    .collect(Collectors.toList()));
+
+            TableColumn<Request, LocalDateTime> dateColumn = (TableColumn<Request, LocalDateTime>) requestListTableView.getColumns().get(1);
+            dateColumn.setSortType(TableColumn.SortType.DESCENDING);
+            requestListTableView.getSortOrder().add(dateColumn);
+        }
     }
 
 
-    public void setLoginUser(FacultyUser loginUser){
-        if (loginUser == null) {return;}
+    public void setLoginUser(FacultyUser loginUser) {
+        if (loginUser == null) return;
         this.loginUser = loginUser;
     }
 
@@ -57,7 +83,7 @@ public class FacultyRequestsController {
         Label placeHolder = new Label("ไม่พบข้อมูล");
         requestListTableView.setPlaceholder(placeHolder);
         requestListTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        // Create and configure columns with correct type
+
         TableColumn<Request, String> nameColumn = new TableColumn<>("ชื่อ-นามสกุล");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
@@ -68,9 +94,9 @@ public class FacultyRequestsController {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
         TableColumn<Request, String> statusNextColumn = new TableColumn<>("สถานะคำร้องต่อไป");
         statusNextColumn.setCellValueFactory(new PropertyValueFactory<>("statusNext"));
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
 
-        // Set the cellFactory to format the LocalDateTime
         dateColumn.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
             @Override
             public String toString(LocalDateTime lastLogin) {
@@ -83,25 +109,20 @@ public class FacultyRequestsController {
             }
         }));
 
-
         nameColumn.setMinWidth(150);
         dateColumn.setMinWidth(200);
         typeColumn.setMinWidth(150);
         statusColumn.setMinWidth(190);
         statusNextColumn.setMinWidth(241);
 
-        requestListTableView.getColumns().add(nameColumn);
-        requestListTableView.getColumns().add(dateColumn);
-        requestListTableView.getColumns().add(typeColumn);
-        requestListTableView.getColumns().add(statusColumn);
-        requestListTableView.getColumns().add(statusNextColumn);
+        requestListTableView.getColumns().addAll(nameColumn, dateColumn, typeColumn, statusColumn, statusNextColumn);
     }
 
-    private void getStudentId(){
+    private void getStudentId() {
         datasource = new UserListFileDatasource("data", "student.csv");
         userlist = datasource.readData();
-        for (User user : userlist.getUsers()){
-            if (user instanceof Student){
+        for (User user : userlist.getUsers()) {
+            if (user instanceof Student) {
                 Student student = (Student) user;
                 if (loginUser != null && loginUser.getFaculty().equals(student.getFaculty())) {
                     studentId.add(student.getId());
@@ -116,11 +137,13 @@ public class FacultyRequestsController {
         requestListTableView.getItems().clear();
 
         if (requestList != null) {
-            for (Request request : requestList.getRequests()) {
-                if (request.getStatusNow().equals("อนุมัติโดยหัวหน้าภาควิชา") && request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") && studentId.contains(request.getNisitId())){
-                    requestListTableView.getItems().add(request);
-                }
-            }
+            requestListTableView.getItems().addAll(requestList.getRequests()
+                    .stream()
+                    .filter(request -> request.getStatusNow().equals("อนุมัติโดยหัวหน้าภาควิชา") &&
+                            request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") &&
+                            studentId.contains(request.getNisitId()))
+                    .collect(Collectors.toList()));
+
             TableColumn<Request, LocalDateTime> dateColumn = (TableColumn<Request, LocalDateTime>) requestListTableView.getColumns().get(1);
             dateColumn.setSortType(TableColumn.SortType.DESCENDING);
             requestListTableView.getSortOrder().add(dateColumn);
