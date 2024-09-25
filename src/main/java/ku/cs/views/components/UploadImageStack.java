@@ -29,6 +29,8 @@ public class UploadImageStack extends StackPane {
         hBoxLine2 = new HBox();
 
         fileLabel = new DefaultLabel("");
+        fileLabel.setMaxWidth(300);
+        fileLabel.setWrapText(true);
         uploadButton = new DefaultButton("#FF4E4E","#D03E3E","#FFFFFF");
         deleteButton = new DefaultButton("#FF4E4E","#D03E3E","#FFFFFF");
 
