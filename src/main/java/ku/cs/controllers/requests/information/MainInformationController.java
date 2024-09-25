@@ -13,6 +13,8 @@ import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.*;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
+
+import ku.cs.models.request.approver.exception.ApproverStatusException;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.services.ApproverListFileDatasource;
@@ -229,13 +231,22 @@ public class MainInformationController {
     private void approve() {
         LocalDateTime now = LocalDateTime.now();
         RequestListFileDatasource requestListDatasource = new RequestListFileDatasource("data");
+        ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("data");
         RequestList requestList = requestListDatasource.readData();
+        ApproverList approverList = approverListFileDatasource.readData();
         Request targetRequest = requestList.findByRequestUUID(request.getUuid());
+        Approver approver = approverList.getApproverList(targetRequest.getUuid()).getApprovers("advisor").stream().toList().getFirst();
+        try {
+            approver.setStatus("เรียบร้อย");
+        } catch (ApproverStatusException e) {
+            System.out.println(e.getMessage());
+        }
         requestListDatasource.appendToLog(targetRequest);
         targetRequest.setStatusNow("อนุมัติโดยอาจารย์ที่ปรึกษา");
         targetRequest.setStatusNext("คำร้องส่งต่อให้หัวหน้าภาควิชา");
         targetRequest.setTimeStamp(now);
         requestListDatasource.writeData(requestList);
+        approverListFileDatasource.writeData(approverList);
         goToAdvisorRequest();
     }
 

@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
+import ku.cs.models.request.approver.Approver;
+import ku.cs.models.request.approver.ApproverList;
+import ku.cs.models.request.approver.exception.ApproverStatusException;
+import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
 
@@ -75,14 +79,23 @@ public class NotApproveController {
         try {
             LocalDateTime now = LocalDateTime.now();
             RequestListFileDatasource requestListDatasource = new RequestListFileDatasource("data");
+            ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("data");
+            ApproverList approverList = approverListFileDatasource.readData();
             RequestList requestList = requestListDatasource.readData();
             Request targetRequest = requestList.findByRequestUUID(request.getUuid());
+            Approver approver = approverList.getApproverList(targetRequest.getUuid()).getApprovers("advisor").stream().toList().getFirst();
+            try {
+                approver.setStatus("ไม่อนุมัติ");
+            } catch (ApproverStatusException e) {
+                System.out.println(e.getMessage());
+            }
             requestListDatasource.appendToLog(targetRequest);
             targetRequest.setStatusNow("ปฏิเสธโดยอาจารย์ที่ปรึกษา");
             targetRequest.setStatusNext("คำร้องถูกปฏิเสธ");
             targetRequest.setTimeStamp(now);
             targetRequest.setReasonForNotApprove(reason.getText());
             requestListDatasource.writeData(requestList);
+            approverListFileDatasource.writeData(approverList);
             stage.close();
 
             String viewPath = "/ku/cs/views/advisor-requests-pane.fxml";
