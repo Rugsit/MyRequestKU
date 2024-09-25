@@ -26,6 +26,7 @@ public abstract class Approver implements Comparable<Approver> {
     protected String role;
     protected String status;
     protected String signatureFile;
+    private boolean disableView = false;
 
 
     public Approver(String requestUUID, String tier, String role, String firstname, String lastname) throws ApproverException {
@@ -108,12 +109,19 @@ public abstract class Approver implements Comparable<Approver> {
         return getFirstname() + " " + getLastname();
     }
 
+    public boolean getDisableView() {
+        return disableView;
+    }
+
     public void setRole(String role) {
         this.role = role;
     }
 
     public void setStatus(String status) throws ApproverStatusException {
         this.status = status;
+    }
+    public void setDisableView(boolean disableView){
+        this.disableView = disableView;
     }
 
     public void setSignatureFile(String signatureFile) {
@@ -144,9 +152,11 @@ public abstract class Approver implements Comparable<Approver> {
 
     @Override
     public boolean equals(Object obj) {
-        Approver approver = (Approver) obj;
-        if (this.uuid.equals(approver.getUUID()))
-            return true;
+        if(obj instanceof Approver){
+            Approver approver = (Approver) obj;
+            if (this.uuid.equals(approver.getUUID()))
+                return true;
+        }
         return false;
     }
 

@@ -196,9 +196,8 @@ public class LoginController {
 
     @FXML protected void goToDepartmentManage() {
         try {
-            Session session = null;
+            Session session = new Session();
             if(loginUser != null){
-                session = new Session();
                 session.setUser(loginUser);
             }
             FXRouter.goTo("department-staff-request-list",session);
