@@ -283,7 +283,7 @@ public class StudentRequestInfoController {
             controller.setLoginUser(loginUser);
             controller.setRequest(request);
             controller.setBorderPane(borderPane);
-            controller.setBackPage("student");
+            controller.setBackPage(backPage);
             controller.initializeMainInformation();
             if (request instanceof GeneralRequestForm) {
                 controller.setTitleLabel("ใบคำร้องทั่วไป");

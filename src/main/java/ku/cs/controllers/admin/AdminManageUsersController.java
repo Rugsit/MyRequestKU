@@ -310,6 +310,7 @@ public class AdminManageUsersController {
             writeSpecificUsers("advisor.csv");
         }
         updateTableView();
+        searchTextField.setText("");
     }
 
     @FXML
@@ -332,6 +333,7 @@ public class AdminManageUsersController {
             writeSpecificUsers("advisor.csv");
         }
         updateTableView();
+        searchTextField.setText("");
     }
 
 

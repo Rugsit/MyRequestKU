@@ -59,7 +59,7 @@
                </BorderPane.margin>
             </GridPane>
          </top></BorderPane>
-      <TableView fx:id="requestListTableView" layoutX="29.0" layoutY="125.0" prefHeight="510.0" prefWidth="586.0" styleClass="RequestsTable">
+      <TableView fx:id="requestListTableView" layoutX="29.0" layoutY="125.0" prefHeight="510.0" prefWidth="936.0" styleClass="RequestsTable">
          <columns>
             <TableColumn prefWidth="75.0" text="C1" />
             <TableColumn prefWidth="75.0" text="C2" />
