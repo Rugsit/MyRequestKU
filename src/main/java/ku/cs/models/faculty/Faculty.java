@@ -144,25 +144,7 @@ public class Faculty implements Comparable<Faculty>{
         return facultyUsers;
     }
 
-    public static void main(String[] args) {
-        UserList users = null;
-        Datasource<FacultyList> facultyListDatasource = new FacultyListFileDatasource("data");
-        FacultyList facultyList = facultyListDatasource.readData();
-        Faculty faculty = facultyList.getFacultyByName("วิทยาศาสตร์");
-        DepartmentList departments = faculty.getDepartmentsByFaculty();
-
-
-        for (Department department : departments.getDepartments()) {
-            System.out.println(department.getName());
-//            UserList userList = department.getUsers();
-            System.out.println(department.getUsers().getUsers().size());
-//            users.concatenate(userList);
-            System.out.println("==========================================");
-        }
-        users = faculty.getUsers();
-        System.out.println(users.getUsers().size());
-        for (User user : users.getUsers()) {
-            System.out.println(user);
-        }
+    public int getUsersCount() {
+        return getUsers().getUsers().size();
     }
 }
