@@ -1,4 +1,4 @@
-package ku.cs;
+package ku.cs.services;
 
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
@@ -19,12 +19,12 @@ public class MainTest {
         RequestList requestList = requestDatasource.readData();
         Request request = requestList.getRequests().get(1);
         System.out.println("Data is : " + request);
-        FacultyApprover FApprover = new FacultyApprover("21eb3fb8-3a83-4353-a833-c39dd43f73a6","no-request","faculty","หัวหน้าภาควิชาวิทยาการคอมพิวเตอร์","รออัพโหลด","no-signature","สมโชค","สมโชค");
-        approverList.addApprover("department", "หัวหน้าภาควิชาวิทยาการคอมพิวเตอร์", "สมโชค", "สมโชค");
-        approverList.addApprover("department", "อาจารย์ที่ปรึกษา", "อุษา", "สัมมาพันธ์");
+        FacultyApprover FApprover = new FacultyApprover("21eb3fb8-3a83-4353-a833-c39dd43f73a6","no-request","faculty","aea023cf-9e5d-4a5c-8d57-2cfbfb291900","หัวหน้าภาควิชาวิทยาการคอมพิวเตอร์","รออัพโหลด","no-signature","สมโชค","สมโชค");
+        approverList.addApprover("department","aea023cf-9e5d-4a5c-8d57-2cfbfb291900", "หัวหน้าภาควิชาวิทยาการคอมพิวเตอร์", "สมโชค", "สมโชค");
+        approverList.addApprover("department","aea023cf-9e5d-4a5c-8d57-2cfbfb291900", "อาจารย์ที่ปรึกษา", "อุษา", "สัมมาพันธ์");
         approverDatasource.writeData(approverList);
         approverDatasource.appendData(FApprover, "approver");
-        DepartmentApprover departmentApprover = new DepartmentApprover("department", "อาจารย์ที่ปรึกษา", "ธรรมกร", "แซ่ตั้ง");
+        DepartmentApprover departmentApprover = new DepartmentApprover("department",",aea023cf-9e5d-4a5c-8d57-2cfbfb291900", "อาจารย์ที่ปรึกษา", "ธรรมกร", "แซ่ตั้ง");
         approverDatasource.appendData(departmentApprover, "approver");
         approverDatasource.appendDataFromList(FApprover, request);
 

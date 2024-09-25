@@ -20,6 +20,7 @@ import ku.cs.controllers.advisor.AdvisorStudentRequestsController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
+import ku.cs.models.user.FacultyUser;
 import ku.cs.models.user.Student;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.FXRouter;
@@ -72,6 +73,8 @@ public class FacultyApproverController {
     @FXML
     private Stage currentPopupStage;
 
+    private FacultyUser loginUser;
+
     @FXML
     public void initialize() {
         loadApprover();
@@ -81,6 +84,7 @@ public class FacultyApproverController {
         initButton();
         initTableHeaderHBox();
         initImageEditorVBox();
+        loginUser = (FacultyUser) FXRouter.getData();
         new CropImage(approverImageView).setClipImage(50, 50);
     }
 
@@ -188,6 +192,7 @@ public class FacultyApproverController {
                 Scene scene = new Scene(fxmlLoader.load());
 
                 AddApproverController controller = fxmlLoader.getController();
+                controller.setLoginUser(loginUser);
                 controller.setStage(currentPopupStage);
 
                 currentPopupStage.setScene(scene);
