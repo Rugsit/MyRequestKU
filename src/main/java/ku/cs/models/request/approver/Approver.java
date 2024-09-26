@@ -101,6 +101,10 @@ public abstract class Approver implements Comparable<Approver> {
         return "signature-" + requestUUID.toString() + "-" + uuid.toString();
     }
 
+    public UUID getAssociateUUID() {
+        return associateUUID;
+    }
+
     public String getFirstname() {
         return firstname;
     }

@@ -80,14 +80,13 @@ public class FacultyApproverController {
 
     @FXML
     public void initialize() {
-        loadApprover();
+        loginUser = (FacultyUser) FXRouter.getData();
         showTable();
         approverEditPopUp();
         initLabel();
         initButton();
         initTableHeaderHBox();
         initImageEditorVBox();
-        loginUser = (FacultyUser) FXRouter.getData();
         new CropImage(approverImageView).setClipImage(50, 50);
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -118,8 +117,10 @@ public class FacultyApproverController {
         Set<Approver> filteredApprovers = approverList.getApprovers()
                 .stream()
                 .filter(approver -> approver.getFirstname().toLowerCase().contains(newValue.toLowerCase()) ||
-                        approver.getLastname().toLowerCase().contains(newValue.toLowerCase()))
+                        approver.getLastname().toLowerCase().contains(newValue.toLowerCase()) &&
+                                approver.getAssociateUUID().equals(loginUser.getFacultyUUID()))
                 .collect(Collectors.toSet());
+        System.out.println(loginUser.getFacultyUUID());
 
         approverTableView.getItems().clear();
         approverTableView.getItems().addAll(filteredApprovers);
@@ -153,6 +154,7 @@ public class FacultyApproverController {
 
         approverTableView.getColumns().addAll(nameColumn, lastnameColumn, tierColumn);
         search(searchTextField.getText());
+        loadApprover();
     }
     private void approverEditPopUp() {
         approverTableView.setOnMouseClicked(e -> {
@@ -201,7 +203,17 @@ public class FacultyApproverController {
         String tier = "faculty";
         ApproverList approverList = approverListFileDatasource.query(tier, null);
 
-        approverTableView.getItems().setAll(approverList.getApprovers());
+
+        Set<Approver> filteredApprovers = approverList.getApprovers()
+                .stream()
+                .filter(approver -> approver.getAssociateUUID().equals(loginUser.getFacultyUUID()))
+                .collect(Collectors.toSet());
+        System.out.println(loginUser.getFacultyUUID());
+        for (Approver a : filteredApprovers){
+            System.out.println(a.getAssociateUUID());
+        }
+        approverTableView.getItems().clear();
+        approverTableView.getItems().setAll(filteredApprovers);
     }
 
     @FXML

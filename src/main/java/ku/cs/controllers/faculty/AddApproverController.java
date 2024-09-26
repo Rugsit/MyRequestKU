@@ -33,7 +33,6 @@ public class AddApproverController {
     }
 
     private void writeApprover() {
-        // Retrieve the input values here
         String name = nameTextField.getText().trim();
         String lastName = lastnameTextField.getText().trim();
         String academicRole = academicRoleTextField.getText().trim();
@@ -54,7 +53,7 @@ public class AddApproverController {
                 errorLabel.setVisible(true);
                 errorLabel.setText("ไม่สามารถบันทึกข้อมูลลงในฐานข้อมูลได้");
             }
-            stage.close(); // Close the window after successful save
+            stage.close();
         } else {
             errorLabel.setVisible(true);
             errorLabel.setText("โปรดกรอกข้อมูลให้ครบถ้วน");
@@ -63,15 +62,13 @@ public class AddApproverController {
 
     @FXML
     private void onAcceptClick() {
-        System.out.println("Accept button clicked");
-        writeApprover(); // Call writeApprover() to handle the logic
+        writeApprover();
     }
 
     @FXML
     private void onExitClick() {
-        System.out.println("Exit button clicked");
         if (stage != null) {
-            stage.close(); // Close the window when exit button is clicked
+            stage.close();
         }
     }
 
