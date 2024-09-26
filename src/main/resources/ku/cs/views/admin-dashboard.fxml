@@ -34,18 +34,13 @@
             <TableColumn prefWidth="196.8000030517578" text="จำนวนคำร้อง" />
          </columns>
       </TableView>
-      <TabPane fx:id="staffTabPane1" layoutX="509.0" layoutY="360.0" prefHeight="310.0" prefWidth="426.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="300.0" tabMinHeight="50.0" tabMinWidth="180.0">
+      <TabPane fx:id="userTabPane" layoutX="509.0" layoutY="360.0" prefHeight="310.0" prefWidth="426.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="300.0" tabMinHeight="50.0" tabMinWidth="180.0">
          <tabs>
-            <Tab fx:id="facultyTab1" text="คณะ" />
-            <Tab fx:id="departmentTab1" text="ภาควิชา" />
+            <Tab fx:id="facultyUserTab" text="คณะ" />
+            <Tab fx:id="departmentUserTab" text="ภาควิชา" />
          </tabs>
       </TabPane>
-      <TableView fx:id="userListTableview11" layoutX="515.0" layoutY="426.0" prefHeight="236.0" prefWidth="410.0" styleClass="table-view-other">
-         <columns>
-            <TableColumn prefWidth="164.800048828125" text="ชื่อ" />
-            <TableColumn prefWidth="196.8000030517578" text="จำนวนผู้ใช้" />
-         </columns>
-      </TableView>
+      <TableView fx:id="userInFacultyTableView" layoutX="515.0" layoutY="426.0" prefHeight="236.0" prefWidth="410.0" styleClass="table-view-other" />
       <Label layoutX="116.0" layoutY="327.0" text="จำนวนคำร้องที่ได้รับการอนุมัติ">
          <font>
             <Font name="System Bold" size="30.0" />

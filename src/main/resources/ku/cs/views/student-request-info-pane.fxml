@@ -29,7 +29,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="50.0" fitWidth="45.0" layoutX="914.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backImageView" fitHeight="50.0" fitWidth="45.0" layoutX="914.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/icons/back-icon.png" />
          </image>
@@ -82,7 +82,7 @@
       </ImageView>
       <HBox fx:id="buttonHbox" alignment="TOP_RIGHT" layoutX="481.0" layoutY="89.0" prefHeight="46.0" prefWidth="434.0">
          <children>
-            <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#seeInformation" prefHeight="45.0" styleClass="Button" text="ดูข้อมูลคำร้อง">
+            <Button fx:id="seeInformationButton" graphicTextGap="10.0" mnemonicParsing="false" onAction="#seeInformation" prefHeight="45.0" styleClass="Button" text="ดูข้อมูลคำร้อง">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>

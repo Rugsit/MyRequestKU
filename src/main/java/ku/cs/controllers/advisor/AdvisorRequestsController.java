@@ -130,10 +130,11 @@ public class AdvisorRequestsController {
     private void search() {
         ArrayList<Request> requests = new ArrayList<>();
         for (Request request : requestList.getRequests()) {
-            if (studentId.contains(request.getNisitId())){
+            if (studentId.contains(request.getNisitId()) && request.getStatusNext().equals("คำร้องส่งต่อให้อาจารย์ที่ปรึกษา")){
                 requests.add(request);
             }
         }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         Set<Request> filter = requests
                 .stream()

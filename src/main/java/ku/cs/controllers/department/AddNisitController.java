@@ -625,7 +625,7 @@ public class AddNisitController {
                                 data[1],
                                 data[2],
                                 DateTools.localDateTimeToFormatString(User.DATE_FORMAT,LocalDateTime.now()),
-                                "no-email",
+                                data[3],
                                 "DEFAULT",
                                 addFaculty.getName(),
                                 addDepartment.getName()

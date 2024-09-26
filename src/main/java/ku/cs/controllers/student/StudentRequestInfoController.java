@@ -51,6 +51,10 @@ public class StudentRequestInfoController {
     private HBox buttonHbox;
     @FXML
     private Button seeReject;
+    @FXML
+    private Button seeInformationButton;
+    @FXML
+    private ImageView backImageView;
 
     @FXML
     public void initialize() {
@@ -284,5 +288,13 @@ public class StudentRequestInfoController {
 
     public void setBackPage(String backPage) {
         this.backPage = backPage;
+    }
+
+    public void setSeeInformationVisible(boolean status) {
+        seeInformationButton.setVisible(status);
+    }
+
+    public void setBackButtonVisible(boolean status) {
+        backImageView.setVisible(status);
     }
 }
