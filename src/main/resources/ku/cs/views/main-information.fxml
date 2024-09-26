@@ -39,7 +39,7 @@
          </padding>
       </ScrollPane>
       <Label fx:id="titleLabel" layoutY="27.0" prefHeight="47.0" prefWidth="988.0" styleClass="header" text="ใบคำร้องขอลาพักการศึกษา" />
-      <ImageView fitHeight="50.0" fitWidth="45.0" layoutX="914.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backImageView" fitHeight="50.0" fitWidth="45.0" layoutX="914.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/icons/back-icon.png" />
          </image>
@@ -72,5 +72,17 @@
             </Button>
          </children>
       </HBox>
+      <Button fx:id="exitButton" focusTraversable="false" layoutX="907.0" layoutY="10.0" mnemonicParsing="false" onAction="#onExitClick" prefHeight="44.0" prefWidth="34.0" style="-fx-background-color: transparent;" styleClass="exit-button" visible="false">
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/exit-button.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

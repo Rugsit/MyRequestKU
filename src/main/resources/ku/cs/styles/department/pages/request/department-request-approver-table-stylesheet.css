@@ -14,12 +14,17 @@
     -fx-background-color: transparent;
     -fx-font-weight: Bold;
     -fx-font-size: 28;
+
+    /*hide column header*/
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
 }
 
 .table-view .table-cell{
     -fx-alignment: CENTER;
     -fx-border-color: transparent;
-    -fx-font-size: 20;
+    -fx-font-size: 24;
 }
 
 .table-row-cell  {
@@ -28,9 +33,13 @@
 
 
 .table-row-cell:filled {
-    -fx-background-insets: 10 0 10 0; /* Create spacing effect padding! */
+    -fx-background-insets: 0 5 10 0; /* Create spacing effect padding! */
+    -fx-border-insets: 0 5 10 0;
     -fx-padding: 10 0 10 0;
     -fx-background-radius: 20;
+    -fx-border-color: black;       /* Set border color to black */
+    -fx-border-radius: 20;       /* Set border radius to 10px (rounded corners) */
+    -fx-border-width: 1;         /* Set the border width (thickness) */
     -fx-background-color: white;
 }
 .table-row-cell:filled .table-cell{
