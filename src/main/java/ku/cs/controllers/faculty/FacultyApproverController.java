@@ -17,6 +17,7 @@ import ku.cs.controllers.advisor.AdvisorStudentRequestsController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
+import ku.cs.models.user.FacultyUser;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.services.ApproverListFileDatasource;
@@ -72,6 +73,8 @@ public class FacultyApproverController {
     @FXML
     private Stage currentPopupStage;
 
+    private FacultyUser loginUser;
+
     @FXML
     private TextField searchTextField;
 
@@ -84,6 +87,7 @@ public class FacultyApproverController {
         initButton();
         initTableHeaderHBox();
         initImageEditorVBox();
+        loginUser = (FacultyUser) FXRouter.getData();
         new CropImage(approverImageView).setClipImage(50, 50);
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -209,6 +213,7 @@ public class FacultyApproverController {
                 Scene scene = new Scene(fxmlLoader.load());
 
                 AddApproverController controller = fxmlLoader.getController();
+                controller.setLoginUser(loginUser);
                 controller.setStage(currentPopupStage);
 
                 currentPopupStage.setScene(scene);

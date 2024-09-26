@@ -58,13 +58,14 @@ public class ApproverListFileDatasource implements Datasource<ApproverList> {
                 String uuid = data[0];
                 String requestUuid = data[1];
                 String tier = data[2];
-                String role = data[3];
-                String status = data[4];
-                String signatureFile = data[5];
-                String firstName = data[6];
-                String lastName = data[7];
+                String associateUUID = data[3];
+                String role = data[4];
+                String status = data[5];
+                String signatureFile = data[6];
+                String firstName = data[7];
+                String lastName = data[8];
 
-                approverList.addApprover(uuid, requestUuid, tier, role, status, signatureFile, firstName, lastName);
+                approverList.addApprover(uuid, requestUuid, tier, associateUUID,  role, status, signatureFile, firstName, lastName);
             }
         } catch (IOException | ApproverException e) {
             System.err.println("Error reading file: " + filePath);
@@ -152,21 +153,22 @@ public class ApproverListFileDatasource implements Datasource<ApproverList> {
         String uuid = approverData[0];
         String requestUuid = approverData[1];
         String tier = approverData[2];
-        String role = approverData[3];
-        String status = approverData[4];
-        String signatureFile = approverData[5];
-        String firstName = approverData[6];
-        String lastName = approverData[7];
+        String associateUUID = approverData[3];
+        String role = approverData[4];
+        String status = approverData[5];
+        String signatureFile = approverData[6];
+        String firstName = approverData[7];
+        String lastName = approverData[8];
         Approver approver = null;
         try {
             if (selectedApprover instanceof FacultyApprover) {
-                    approver = new FacultyApprover(uuid, requestUuid, tier, role, status, signatureFile, firstName, lastName);
+                    approver = new FacultyApprover(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
             } else if (selectedApprover instanceof DepartmentApprover) {
-                approver = new DepartmentApprover(uuid, requestUuid, tier, role, status, signatureFile, firstName, lastName);
+                approver = new DepartmentApprover(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
             } else if (selectedApprover instanceof AdvisorApprover) {
-                approver = new AdvisorApprover(uuid, requestUuid, tier, role, status, signatureFile, firstName, lastName);
+                approver = new AdvisorApprover(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
             } else {
-                approver = new OtherApprover(uuid, requestUuid, tier, role, status, signatureFile, firstName, lastName);
+                approver = new OtherApprover(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
             }
         } catch (ApproverException e) {
             throw new RuntimeException(e);

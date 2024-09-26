@@ -14,20 +14,20 @@ public class ApproverList {
         }
     }
     //CONSTRUCTOR FOR NEW APPROVER
-    public void addApprover(String requestUUID,String tier, String role, String firstname, String lastname) throws ApproverException {
+    public void addApprover(String requestUUID,String tier, String associateUUID, String role, String firstname, String lastname) throws ApproverException {
         Approver approver;
         switch (tier){
             case "advisor":
-                approver = new AdvisorApprover(requestUUID,tier,role,firstname,lastname);
+                approver = new AdvisorApprover(requestUUID,tier,associateUUID,role,firstname,lastname);
                 break;
             case "department":
-                approver = new DepartmentApprover(requestUUID,tier,role,firstname,lastname);
+                approver = new DepartmentApprover(requestUUID,tier,associateUUID,role,firstname,lastname);
                 break;
             case "faculty":
-                approver = new FacultyApprover(requestUUID,tier,role,firstname,lastname);
+                approver = new FacultyApprover(requestUUID,tier,associateUUID,role,firstname,lastname);
                 break;
             case "other":
-                approver = new OtherApprover(requestUUID,tier,role,firstname,lastname);
+                approver = new OtherApprover(requestUUID,tier,associateUUID,role,firstname,lastname);
                 break;
             default:
                 throw new ApproverTierException("Invalid approver tier");
@@ -35,20 +35,20 @@ public class ApproverList {
         approvers.get(tier).add(approver);
     }
     //CONSTRUCTOR FOR DATASOURCE
-    public void addApprover(String uuid, String requestUUID, String tier, String role, String status,String signatureFile, String firstname, String lastname) throws ApproverException {
+    public void addApprover(String uuid, String requestUUID, String tier, String associateUUID, String role, String status,String signatureFile, String firstname, String lastname) throws ApproverException {
         Approver approver;
         switch (tier){
             case "advisor":
-                approver = new AdvisorApprover(uuid,requestUUID,tier,role,status,signatureFile,firstname,lastname);
+                approver = new AdvisorApprover(uuid,requestUUID,tier,associateUUID,role,status,signatureFile,firstname,lastname);
                 break;
             case "department":
-                approver = new DepartmentApprover(uuid,requestUUID,tier,role,status,signatureFile,firstname,lastname);
+                approver = new DepartmentApprover(uuid,requestUUID,tier,associateUUID,role,status,signatureFile,firstname,lastname);
                 break;
             case "faculty":
-                approver = new FacultyApprover(uuid,requestUUID,tier,role,status,signatureFile,firstname,lastname);
+                approver = new FacultyApprover(uuid,requestUUID,tier,associateUUID,role,status,signatureFile,firstname,lastname);
                 break;
             case "other":
-                approver = new OtherApprover(uuid,requestUUID,tier,role,status,signatureFile,firstname,lastname);
+                approver = new OtherApprover(uuid,requestUUID,tier,associateUUID,role,status,signatureFile,firstname,lastname);
                 break;
             default:
                 throw new ApproverTierException("Invalid approver tier");
@@ -57,20 +57,20 @@ public class ApproverList {
     }
 
     // CONSTRUCTOR FOR ADDING NEW APPROVER TO APPROVER-LIST
-    public void addApprover(String tier, String role, String firstname, String lastname) throws ApproverException {
+    public void addApprover(String tier, String associateUUID, String role, String firstname, String lastname) throws ApproverException {
         Approver approver;
         switch (tier){
             case "advisor":
-                approver = new AdvisorApprover(tier,role,firstname,lastname);
+                approver = new AdvisorApprover(tier,associateUUID,role,firstname,lastname);
                 break;
             case "department":
-                approver = new DepartmentApprover(tier,role,firstname,lastname);
+                approver = new DepartmentApprover(tier,associateUUID,role,firstname,lastname);
                 break;
             case "faculty":
-                approver = new FacultyApprover(tier,role,firstname,lastname);
+                approver = new FacultyApprover(tier,associateUUID,role,firstname,lastname);
                 break;
             case "other":
-                approver = new OtherApprover(tier,role,firstname,lastname);
+                approver = new OtherApprover(tier,associateUUID,role,firstname,lastname);
                 break;
             default:
                 throw new ApproverTierException("Invalid approver tier");

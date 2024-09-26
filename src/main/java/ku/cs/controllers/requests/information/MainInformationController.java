@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -28,6 +29,8 @@ public class MainInformationController {
     private String backPage;
 
     @FXML
+    private Stage currentPopupStage;
+    @FXML
     private Stage currentNotApprove;
     @FXML
     private HBox approveButtonHbox;
@@ -39,6 +42,10 @@ public class MainInformationController {
     private Label titleLabel;
     @FXML
     private BorderPane borderPane;
+    @FXML
+    private Button exitButton;
+    @FXML
+    private ImageView backImageView;
 
     public void initializeMainInformation() {
         scrollPane.requestFocus();// ให้ ScrollPane ได้รับโฟกัสแทน
@@ -263,5 +270,21 @@ public class MainInformationController {
                 currentNotApprove.setTitle("Not Approve");
                 currentNotApprove.show();
             }
+    }
+
+    public void setBackPageVisible(boolean status) {
+        backImageView.setVisible(status);
+    }
+
+    public void setCurrentPopupStage(Stage currentPopupStage) {
+        this.currentPopupStage = currentPopupStage;
+    }
+
+    public void setVisibleExitButton(boolean status) {
+        exitButton.setVisible(status);
+    }
+    @FXML
+    private void onExitClick() {
+        currentPopupStage.close();
     }
 }
