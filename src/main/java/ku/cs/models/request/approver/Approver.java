@@ -31,12 +31,12 @@ public abstract class Approver implements Comparable<Approver> {
 
 
     public Approver(String requestUUID, String tier, String associateUUID, String role, String firstname, String lastname) throws ApproverException {
-        this(UUID.randomUUID().toString(), requestUUID, tier, associateUUID, role, "no-status", "no-signature", firstname, lastname);
+        this(UUID.randomUUID().toString(), requestUUID, tier, associateUUID, role, "no-status", "no-image", firstname, lastname);
         setInitialStatus();
     }
 
     public Approver(String tier, String associateUUID, String role, String firstname, String lastname) throws ApproverException {
-        this(UUID.randomUUID().toString(), null, tier, associateUUID,role, "no-status", "no-signature", firstname, lastname);
+        this(UUID.randomUUID().toString(), null, tier, associateUUID,role, "no-status", "no-image", firstname, lastname);
         setInitialStatus();
     }
 

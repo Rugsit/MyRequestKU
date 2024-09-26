@@ -78,8 +78,6 @@ public class FacultyApproverController {
     @FXML
     private TextField searchTextField;
 
-    @FXML
-    private TextField searchTextField;
 
     @FXML
     public void initialize() {
