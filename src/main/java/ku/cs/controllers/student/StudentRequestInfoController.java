@@ -19,10 +19,9 @@ import ku.cs.controllers.advisor.AdvisorStudentRequestsController;
 import ku.cs.controllers.requests.information.*;
 import ku.cs.models.request.*;
 import ku.cs.models.user.Student;
-import ku.cs.models.user.User;
 import ku.cs.services.RequestListFileDatasource;
 import ku.cs.views.components.DefaultTableView;
-import ku.cs.views.components.RequestStatusColumn;
+import ku.cs.services.RequestStatusColumn;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

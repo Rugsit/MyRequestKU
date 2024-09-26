@@ -12,21 +12,16 @@ import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.user.Student;
-import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
-import ku.cs.services.UserListFileDatasource;
-import ku.cs.views.components.RequestStatusColumn;
-import org.w3c.dom.Text;
+import ku.cs.services.RequestStatusColumn;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.UUID;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class AdvisorStudentRequestsController {
