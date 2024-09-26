@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
@@ -231,86 +232,95 @@ public class RequestController {
               button.setOnMouseClicked(e ->{
                   try {
                       if (request == null || requestOwner == null) throw new NullPointerException("Request or Request owner is null");
-                      if (currentPopupStage == null || !currentPopupStage.isShowing()) {
-                          currentPopupStage = new Stage();
-                          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/main-information.fxml"));
-                          AnchorPane scene = fxmlLoader.load();
-                          MainInformationController controller = fxmlLoader.getController();
-                          controller.setRequest(request);
-                          controller.setLoginUser(requestOwner);
-                          controller.setBackPageVisible(false);
-                          controller.setCurrentPopupStage(currentPopupStage);
-                          controller.initializeMainInformation();
-                          if (request instanceof GeneralRequestForm) {
-                              controller.setTitleLabel("ใบคำร้องทั่วไป");
-                          } else if (request instanceof RegisterRequestForm) {
-                              controller.setTitleLabel("คำร้องขอลงทะเบียน");
-                          } else if (request instanceof AcademicLeaveRequestForm) {
-                              controller.setTitleLabel("ใบคำร้องขอลาพักการศึกษา");
-                          } else if (request instanceof Ku1AndKu3RequestForm) {
-                              if (request.getRequestType().equalsIgnoreCase("KU1")) {
-                                  controller.setTitleLabel("แบบลงทะเบียนเรียน KU1");
-                              } else {
-                                  controller.setTitleLabel("แบบขอเปลี่ยนแปลงการลงทะเบียนเรียน KU3");
-                              }
+                      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/main-information.fxml"));
+                      AnchorPane scene = fxmlLoader.load();
+                      MainInformationController controller = fxmlLoader.getController();
+                      controller.setRequest(request);
+                      controller.setLoginUser(requestOwner);
+                      controller.setBackPageVisible(false);
+                      controller.initializeMainInformation();
+                      if (request instanceof GeneralRequestForm) {
+                          controller.setTitleLabel("ใบคำร้องทั่วไป");
+                      } else if (request instanceof RegisterRequestForm) {
+                          controller.setTitleLabel("คำร้องขอลงทะเบียน");
+                      } else if (request instanceof AcademicLeaveRequestForm) {
+                          controller.setTitleLabel("ใบคำร้องขอลาพักการศึกษา");
+                      } else if (request instanceof Ku1AndKu3RequestForm) {
+                          if (request.getRequestType().equalsIgnoreCase("KU1")) {
+                              controller.setTitleLabel("แบบลงทะเบียนเรียน KU1");
+                          } else {
+                              controller.setTitleLabel("แบบขอเปลี่ยนแปลงการลงทะเบียนเรียน KU3");
                           }
-                          scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/general-request-form-page-style.css").toExternalForm());
-
-                          mainStackPane.getChildren().add(new BlankPopupStack() {
-                              VBox mainBox;
-                              HBox lineEnd;
-                              @Override
-                              protected void initPopupView() {
-                                  declineButton.setText("ปิด");
-                                  acceptButton.setText("เพิ่มเติม");
-                                  lineEnd = new HBox(declineButton, acceptButton);
-                                  HBox.setMargin(declineButton, new Insets(0, 10, 0, 0));
-                                  mainBox = new VBox(scene, lineEnd);
-                                  mainBox.setMaxWidth(600);
-                                  mainBox.setMaxHeight(620);
-                                  mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
-                                  lineEnd.setAlignment(Pos.CENTER);
-                                  scene.setStyle("-fx-pref-height: 620px");
-                                  stackPane.getChildren().add(mainBox);
-                                  VBox.setMargin(lineEnd,new Insets(20,0,20,0));
-                              }
-
-                              @Override
-                              protected void handleAcceptButton() {
-                                  acceptButton.setOnMouseClicked(e->{
-                                      try {
-                                          String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
-                                          FXMLLoader fxmlLoader = new FXMLLoader();
-                                          fxmlLoader.setLocation(getClass().getResource(viewPath));
-                                          AnchorPane pane = fxmlLoader.load();
-                                          StudentRequestInfoController controller = fxmlLoader.getController();
-                                          controller.setLoginUser((Student) requestOwner);
-                                          controller.setRequest(request);
-                                          controller.showInfo();
-                                          controller.showTable();
-                                          controller.setSeeInformationVisible(false);
-                                          controller.setBackButtonVisible(false);
-                                          lineEnd.getChildren().removeLast();
-                                          mainBox.getChildren().clear();
-                                          mainBox.getChildren().addAll(pane, lineEnd);
-                                          mainBox.setMaxHeight(620);
-                                          mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
-                                          pane.setStyle("-fx-pref-height: 620px");
-                                          VBox.setMargin(lineEnd,new Insets(20,0,20,0));
-                                      } catch (IOException exception) {
-                                          System.err.println("Error: handle click");
-                                      }
-                                  });
-                              }
-
-                              @Override
-                              protected void handleDeclineButton() {
-                                  declineButton.setOnMouseClicked(e->{
-                                      mainStackPane.getChildren().removeLast();
-                                  });
-                              }
-                          });
                       }
+                      scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/general-request-form-page-style.css").toExternalForm());
+
+                      mainStackPane.getChildren().add(new BlankPopupStack() {
+                          VBox mainBox;
+                          HBox lineEnd;
+                          @Override
+                          protected void initPopupView() {
+                              declineButton.setText("ปิด");
+                              acceptButton.setText("เพิ่มเติม");
+                              lineEnd = new HBox(declineButton, acceptButton);
+                              HBox.setMargin(declineButton, new Insets(0, 10, 0, 0));
+                              mainBox = new VBox(scene, lineEnd);
+                              mainBox.setMaxWidth(600);
+                              mainBox.setMaxHeight(620);
+                              mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                              lineEnd.setAlignment(Pos.CENTER);
+                              scene.setStyle("-fx-pref-height: 620px");
+                              stackPane.getChildren().add(mainBox);
+                              VBox.setMargin(lineEnd,new Insets(20,0,20,0));
+                          }
+
+                          @Override
+                          protected void handleAcceptButton() {
+                              acceptButton.setOnMouseClicked(e->{
+                                  try {
+                                      String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
+                                      FXMLLoader fxmlLoader = new FXMLLoader();
+                                      fxmlLoader.setLocation(getClass().getResource(viewPath));
+                                      AnchorPane pane = fxmlLoader.load();
+                                      StudentRequestInfoController controller = fxmlLoader.getController();
+                                      controller.setLoginUser((Student) requestOwner);
+                                      controller.setRequest(request);
+                                      controller.showInfo();
+                                      controller.showTable();
+                                      controller.setSeeInformationVisible(false);
+                                      controller.setBackButtonVisible(false);
+                                      lineEnd.getChildren().removeLast();
+
+                                      DefaultButton backButton = new DefaultButton("#45a1ed", "#3273a8", "#ffffff");
+                                      backButton.setButtonSize(215,60);
+                                      backButton.changeBackgroundRadius(25);
+                                      backButton.changeText("ย้อนกลับ",28,FontWeight.NORMAL);
+                                      backButton.getButton().setOnMouseClicked(event -> {
+                                          mainBox.getChildren().clear();
+                                          mainBox.getChildren().add(scene);
+                                          lineEnd.getChildren().removeLast();
+                                          lineEnd.getChildren().add(acceptButton);
+                                          mainBox.getChildren().add(lineEnd);
+                                      });
+                                      lineEnd.getChildren().add(backButton.getButton());
+                                      mainBox.getChildren().clear();
+                                      mainBox.getChildren().addAll(pane, lineEnd);
+                                      mainBox.setMaxHeight(620);
+                                      mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                                      pane.setStyle("-fx-pref-height: 620px");
+                                      VBox.setMargin(lineEnd,new Insets(20,0,20,0));
+                                  } catch (IOException exception) {
+                                      System.err.println("Error: handle click");
+                                  }
+                              });
+                          }
+
+                          @Override
+                          protected void handleDeclineButton() {
+                              declineButton.setOnMouseClicked(e->{
+                                  mainStackPane.getChildren().removeLast();
+                              });
+                          }
+                        });
                   } catch (IOException ee) {
                       System.err.println("Error: " + ee.getMessage());
                   }
