@@ -12,13 +12,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ku.cs.controllers.faculty.AddApproverController;
 import ku.cs.controllers.faculty.EditApproverController;
 import ku.cs.models.Session;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.DepartmentUser;
-import ku.cs.models.user.FacultyUser;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.FXRouter;
 import ku.cs.views.components.CropImage;
@@ -121,7 +119,7 @@ public class ApproverListController {
 
     private void search(String newValue) {
         ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("approver");
-        String tier = "faculty";
+        String tier = "department";
         ApproverList approverList = approverListFileDatasource.query(tier, null);
 
         Set<Approver> filteredApprovers = approverList.getApprovers()
@@ -130,7 +128,6 @@ public class ApproverListController {
                         approver.getLastname().toLowerCase().contains(newValue.toLowerCase()) &&
                                 approver.getAssociateUUID().equals(loginUser.getDepartmentUUID()))
                 .collect(Collectors.toSet());
-        System.out.println(loginUser.getDepartmentUUID());
 
         approverTableView.getItems().clear();
         approverTableView.getItems().addAll(filteredApprovers);
@@ -163,8 +160,8 @@ public class ApproverListController {
 
 
         approverTableView.getColumns().addAll(nameColumn, lastnameColumn, tierColumn);
-        //search(searchTextField.getText());
-        //loadApprover();
+        search(searchTextField.getText());
+        loadApprover();
     }
     private void approverEditPopUp() {
         approverTableView.setOnMouseClicked(e -> {
@@ -195,7 +192,7 @@ public class ApproverListController {
                     currentPopupStage.initModality(Modality.APPLICATION_MODAL);
 
                     currentPopupStage.setOnHidden(event -> {
-                        //loadApprover();
+                        loadApprover();
                         approverTableView.refresh();
                     });
 
@@ -208,33 +205,29 @@ public class ApproverListController {
         });
     }
 
-//    private void loadApprover() {
-//        ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("approver");
-//        String tier = "faculty";
-//        ApproverList approverList = approverListFileDatasource.query(tier, null);
-//
-//
-//        Set<Approver> filteredApprovers = approverList.getApprovers()
-//                .stream()
-//                .filter(approver -> approver.getAssociateUUID().equals(loginUser.getDepartmentUUID()))
-//                .collect(Collectors.toSet());
-//        System.out.println(loginUser.getDepartmentUUID());
-//        for (Approver a : filteredApprovers){
-//            System.out.println(a.getAssociateUUID());
-//        }
-//        approverTableView.getItems().clear();
-//        approverTableView.getItems().setAll(filteredApprovers);
-//    }
+    private void loadApprover() {
+        ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("approver");
+        String tier = "department";
+        ApproverList approverList = approverListFileDatasource.query(tier, null);
+
+
+        Set<Approver> filteredApprovers = approverList.getApprovers()
+                .stream()
+                .filter(approver -> approver.getAssociateUUID().equals(loginUser.getDepartmentUUID()))
+                .collect(Collectors.toSet());
+        approverTableView.getItems().clear();
+        approverTableView.getItems().setAll(filteredApprovers);
+    }
 
     @FXML
     private void onAddApproverButtonClicked() {
         try {
             if (currentPopupStage == null || !currentPopupStage.isShowing()) {
                 currentPopupStage = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/faculty-add-approver-pane.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/department-add-approver-pane.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
 
-                AddApproverController controller = fxmlLoader.getController();
+                AddDepartmentApproverController controller = fxmlLoader.getController();
                 controller.setLoginUser(loginUser);
                 controller.setStage(currentPopupStage);
 
@@ -243,7 +236,7 @@ public class ApproverListController {
                 currentPopupStage.setTitle("Add approver");
 
                 currentPopupStage.setOnHidden(event -> {
-                    //loadApprover();
+                    loadApprover();
                     approverTableView.refresh();
                 });
 
