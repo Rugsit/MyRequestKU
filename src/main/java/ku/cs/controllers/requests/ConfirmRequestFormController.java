@@ -103,7 +103,7 @@ public class ConfirmRequestFormController {
                         if (arr.length > 1) { lastname = arr[1].trim();}
                         else lastname = "นามสกุล";
                         request.addApprover(request.getUuid().toString(), "other",((Student) loginUser).getDepartmentUUID().toString(), "อาจารย์ประจำวิชา", firstname, lastname);
-                        approverList.addApprover(request.getUuid().toString(), "other", "อาจารย์ประจำวิชา", firstname, lastname);
+                        approverList.addApprover(request.getUuid().toString(), "other",((Student) loginUser).getDepartmentUUID().toString(), "อาจารย์ประจำวิชา", firstname, lastname);
                     }
                 }
                 requestList.addRequest(request);
