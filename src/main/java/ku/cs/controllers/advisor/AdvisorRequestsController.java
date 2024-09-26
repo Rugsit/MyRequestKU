@@ -8,9 +8,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
-import ku.cs.controllers.admin.AdminProfileController;
 import ku.cs.controllers.requests.information.*;
-import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.*;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
@@ -18,14 +16,13 @@ import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
-import ku.cs.views.components.RequestStatusColumn;
+import ku.cs.services.RequestStatusColumn;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class AdvisorRequestsController {

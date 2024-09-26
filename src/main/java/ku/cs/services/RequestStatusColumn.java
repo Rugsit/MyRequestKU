@@ -1,4 +1,4 @@
-package ku.cs.views.components;
+package ku.cs.services;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
