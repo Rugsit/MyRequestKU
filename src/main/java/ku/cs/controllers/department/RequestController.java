@@ -12,10 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
@@ -23,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import ku.cs.controllers.requests.ErrorGeneralRequestFormController;
 import ku.cs.controllers.requests.information.MainInformationController;
+import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.Session;
 import ku.cs.models.department.Department;
 import ku.cs.models.department.DepartmentList;
@@ -31,6 +29,7 @@ import ku.cs.models.request.*;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.request.approver.*;
 import ku.cs.models.user.DepartmentUser;
+import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.*;
@@ -256,33 +255,51 @@ public class RequestController {
                               }
                           }
                           scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/general-request-form-page-style.css").toExternalForm());
-//                          currentPopupStage.setTitle("Request");
-//                          currentPopupStage.setScene(scene);
-//                          currentPopupStage.initModality(Modality.APPLICATION_MODAL);
-//                          currentPopupStage.setTitle("Error");
-//                          currentPopupStage.show();
 
                           mainStackPane.getChildren().add(new BlankPopupStack() {
-
+                              VBox mainBox;
+                              HBox lineEnd;
                               @Override
                               protected void initPopupView() {
                                   declineButton.setText("ปิด");
-                                  HBox lineEnd = new HBox(declineButton);
-                                  VBox mainBox = new VBox(scene);
+                                  acceptButton.setText("เพิ่มเติม");
+                                  lineEnd = new HBox(declineButton, acceptButton);
+                                  HBox.setMargin(declineButton, new Insets(0, 10, 0, 0));
+                                  mainBox = new VBox(scene, lineEnd);
                                   mainBox.setMaxWidth(600);
                                   mainBox.setMaxHeight(620);
                                   mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
                                   lineEnd.setAlignment(Pos.CENTER);
                                   scene.setStyle("-fx-pref-height: 620px");
                                   stackPane.getChildren().add(mainBox);
-                                  mainBox.getChildren().add(lineEnd);
                                   VBox.setMargin(lineEnd,new Insets(20,0,20,0));
                               }
 
                               @Override
                               protected void handleAcceptButton() {
                                   acceptButton.setOnMouseClicked(e->{
-                                      mainStackPane.getChildren().removeLast();
+                                      try {
+                                          String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
+                                          FXMLLoader fxmlLoader = new FXMLLoader();
+                                          fxmlLoader.setLocation(getClass().getResource(viewPath));
+                                          AnchorPane pane = fxmlLoader.load();
+                                          StudentRequestInfoController controller = fxmlLoader.getController();
+                                          controller.setLoginUser((Student) requestOwner);
+                                          controller.setRequest(request);
+                                          controller.showInfo();
+                                          controller.showTable();
+                                          controller.setSeeInformationVisible(false);
+                                          controller.setBackButtonVisible(false);
+                                          lineEnd.getChildren().removeLast();
+                                          mainBox.getChildren().clear();
+                                          mainBox.getChildren().addAll(pane, lineEnd);
+                                          mainBox.setMaxHeight(620);
+                                          mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                                          pane.setStyle("-fx-pref-height: 620px");
+                                          VBox.setMargin(lineEnd,new Insets(20,0,20,0));
+                                      } catch (IOException exception) {
+                                          System.err.println("Error: handle click");
+                                      }
                                   });
                               }
 
