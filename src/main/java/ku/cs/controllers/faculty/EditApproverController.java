@@ -66,10 +66,24 @@ public class EditApproverController {
         stage.close();
     }
 
+    private void deleteAdvisorDetail(){
+        ApproverListFileDatasource approverDatasource = new ApproverListFileDatasource("approver");
+        ApproverList approverList = approverDatasource.readData();
+        approverList.deleteApproverByObject(approver);
+        approverDatasource.writeData(approverList);
+        stage.close();
+    }
+
     @FXML
     private void onAcceptClick() {
         System.out.println("Accept button clicked");
         changeNewAdvisorDetail();
+    }
+
+    @FXML
+    private void onDeleteClick(){
+        System.out.println("Delete button clicked");
+        deleteAdvisorDetail();
     }
 
     @FXML

@@ -122,8 +122,8 @@ public class ApproverList {
     public void deleteApproverByObject(Approver approver){
         if(approver != null && haveApprover(approver)){
             try{
-                approvers.get(approver.getRole()).remove(approver);
-            }catch(Exception e){
+                approvers.get(approver.getTier()).remove(approver);
+            } catch (Exception e){
                 e.printStackTrace();
             }
         }

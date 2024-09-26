@@ -95,6 +95,14 @@
     -fx-background-color: #49A267;
 }
 
+.delete-button {
+    -fx-cursor: hand;
+    -fx-font-size: 30px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-background-color: #f44336;
+}
+
 .accept-button:focused {
     -fx-border-width: 1px;
     -fx-border-color: #374957;
