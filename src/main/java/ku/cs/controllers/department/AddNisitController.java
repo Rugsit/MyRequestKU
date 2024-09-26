@@ -192,11 +192,12 @@ public class AddNisitController {
         nisitTable.getTableView().getColumns().clear();
         nisitTable.getTableView().getItems().clear();
 
-        nisitTable.addColumn("email","Email");
+
         nisitTable.addColumn("รหัสนิสิต","id");
         nisitTable.addColumn("ชื่อ-นามสกุล","name");
         nisitTable.addColumn("คณะ","faculty");
         nisitTable.addColumn("ภาควิชา","department");
+        nisitTable.addColumn("อีเมล","Email");
         nisitTable.getTableView().getColumns().add(newDeleteColumn());
         nisitTable.addStyleSheet("/ku/cs/styles/department/pages/add-nisit/department-add-nisit-table-stylesheet.css");
 
@@ -609,13 +610,13 @@ public class AddNisitController {
                         for(int c = 0; c < readColum; c++){
                             if(data[c].isEmpty())throw new UserException("Data is empty, row must be " + readColum +
                                     " columns\n" +
-                                    "ID, FIRSTNAME, LASTNAME" + (readColum == 5 ? ", \nFACULTY, DEPARTMENT":"")
+                                    "ID, FIRSTNAME, LASTNAME, EMAIL" + (readColum == 6 ? ", \nFACULTY, DEPARTMENT":"")
                             );
                         }
-                        if(readColum == 5){
-                            addFaculty = facultyList.getFacultyByName(data[3]);
+                        if(readColum == 6){
+                            addFaculty = facultyList.getFacultyByName(data[4]);
                             if(addFaculty == null)throw new UserException("Not a valid faculty");
-                            addDepartment = departmentList.getDepartmentByName(data[4]);
+                            addDepartment = departmentList.getDepartmentByName(data[5]);
                             if(addDepartment == null)throw new UserException("Not a valid department");
                         }
                         csvUserList.addUser(

@@ -19,7 +19,7 @@
          <children>
             <Pane prefHeight="720.0" prefWidth="1280.0">
                <children>
-                  <HBox alignment="CENTER" layoutX="805.0" layoutY="100.0" prefHeight="133.0" prefWidth="450.0" style="-fx-spacing: 20;">
+                  <HBox alignment="CENTER" layoutX="828.0" layoutY="100.0" prefHeight="133.0" prefWidth="427.0" style="-fx-spacing: 20;">
                      <children>
                         <Button fx:id="addNisitButton" contentDisplay="TOP" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" text="เพิ่มนิสิต">
                            <font>
@@ -57,7 +57,7 @@
                         <Font name="Arial" size="18.0" />
                      </font>
                   </Button>
-                  <VBox fx:id="nisitTableVBox" layoutX="40.0" layoutY="126.0" prefHeight="553.0" prefWidth="751.0">
+                  <VBox fx:id="nisitTableVBox" layoutX="40.0" layoutY="126.0" prefHeight="553.0" prefWidth="779.0">
                      <children>
                         <HBox fx:id="tableHeaderHBox" alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="806.0">
                            <children>
@@ -90,7 +90,7 @@
                         </TableView>
                      </children>
                   </VBox>
-                  <VBox fx:id="nisitEditorVBox" alignment="TOP_CENTER" layoutX="805.0" layoutY="240.0" prefHeight="343.0" prefWidth="450.0" />
+                  <VBox fx:id="nisitEditorVBox" alignment="TOP_CENTER" layoutX="828.0" layoutY="240.0" prefHeight="343.0" prefWidth="427.0" />
                </children>
             </Pane>
          </children>
