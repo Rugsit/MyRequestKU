@@ -145,8 +145,8 @@ public class RequestController {
             image.setImage(imageDatasource.openImage(requestOwner.getAvatar()));
         }
 
-        image.getImageView().setFitHeight(180);
-        image.getImageView().setFitWidth(180);
+        image.getImageView().setFitHeight(150);
+        image.getImageView().setFitWidth(150);
         image.setClipImage(50,50);
         imageVBox.getChildren().add(image.getImageView());
 
@@ -327,13 +327,21 @@ public class RequestController {
               });
           }
         };
-        requestInfoButton.changeText("ข้อมูลคำร้อง",28, FontWeight.NORMAL);
+        requestInfoButton.changeText("ข้อมูลคำร้อง",24, FontWeight.BOLD);
+        addApproverButton.setPrefSize(200,30);
+        requestInfoButton.setPrefSize(200,30);
+        addApproverButton.changeBackgroundRadius(15);
+        requestInfoButton.changeBackgroundRadius(15);
+        addApproverButton.setStyle(addApproverButton.getStyle()+"-fx-border-color: black; -fx-border-width: 1;-fx-border-radius: 15;");
+        requestInfoButton.setStyle(requestInfoButton.getStyle()+"-fx-border-color: black; -fx-border-width: 1;-fx-border-radius: 15;");
+        addApproverButton.setImage(new Image(getClass().getResourceAsStream("/images/pages/department/department-staff-request/add-approver-icon-black.png")),30,30);
+        requestInfoButton.setImage(new Image(getClass().getResourceAsStream("/images/pages/department/department-staff-request/request-info-icon-black.png")),30,30);
         menuHBox.getChildren().addAll(addApproverButton,requestInfoButton);
 
         HBox controlHBox = new HBox();
         controlHBox.setAlignment(Pos.CENTER);
         controlHBox.setSpacing(20);
-        approveButton = new DefaultButton("transparent","#a6a6a6","#00DE59"){
+        approveButton = new DefaultButton("transparent","#ECECEC","#00DE59"){
           @Override
           protected void handleClickEvent(){
               button.setOnMouseClicked(e->{
@@ -343,10 +351,10 @@ public class RequestController {
         };
         approveButton.changeText("อนุมัติ",28, FontWeight.NORMAL);
 
-        rejectButton = new DefaultButton("transparent","#a6a6a6","#FF5D5D");
+        rejectButton = new DefaultButton("transparent","#ECECEC","#FF5D5D");
         rejectButton.changeText("ไม่อนุมัติ",28, FontWeight.NORMAL);
 
-        DefaultButton reloadButton = new DefaultButton("transparent","#a6a6a6","#FF5D5D"){
+        DefaultButton reloadButton = new DefaultButton("transparent","#ECECEC","#FF5D5D"){
             @Override
             protected void handleClickEvent(){
                 button.setOnMouseClicked(e->{
@@ -354,13 +362,20 @@ public class RequestController {
                 });
             }
         };
-        reloadButton.changeText("R",28, FontWeight.NORMAL);
+        reloadButton.changeText("",28, FontWeight.NORMAL);
 
+        approveButton.setPrefSize(150,30);
+        reloadButton.setPrefSize(50,50);
+        approveButton.changeBackgroundRadius(15);
+        reloadButton.changeBackgroundRadius(50);
+        approveButton.setImage(new Image(getClass().getResourceAsStream("/images/pages/department/department-staff-request/approve-icon-green.png")),50,30);
+        reloadButton.setImage(new Image(getClass().getResourceAsStream("/images/pages/department/department-staff-request/reload-icon-orange.png")),30,30);
         controlHBox.getChildren().addAll(rejectButton,approveButton,reloadButton);
 
         requestMenuHBox.getChildren().addAll(menuHBox,controlHBox);
         requestMenuHBox.setAlignment(Pos.CENTER);
-        requestMenuHBox.setSpacing(200);
+//        requestMenuHBox.setSpacing(200);
+
     }
 
     private void initDataVBox(){
@@ -722,10 +737,34 @@ public class RequestController {
                 hBox.setAlignment(Pos.CENTER_RIGHT);
                 hBox.setSpacing(20);
                 line1.changeText("",28, FontWeight.BOLD);
-                icon.getImageView().setFitWidth(50);
-                icon.getImageView().setFitHeight(50);
+                icon.getImageView().setFitWidth(40);
+                icon.getImageView().setFitHeight(40);
                 icon.setClipImage(10,10);
-//                setPadding(new Insets(0,20,0,0));
+                setPadding(new Insets(0,20,0,0));
+            }
+            private String getStatusImageName(String status){
+                String fileName = "status-waiting-yellow.png";
+                switch (status){
+                    case "รออาจารย์ที่ปรึกษา":
+                        fileName = "approver-waiting-other.png";
+                        break;
+                    case "เรียบร้อย":
+                        fileName = "approver-approved-green.png";
+                        break;
+                    case "ไม่อนุมัติ":
+                        fileName = "approver-rejected-red.png";
+                        break;
+                    case "รออัพโหลด":
+                        fileName = "approver-waiting-upload-blue.png";
+                        break;
+                    case "รอส่งคณะ":
+                        fileName = "approver-waiting-send-faculty.png";
+                        break;
+                    case "รอคณะดำเนินการ":
+                        fileName = "approver-waiting-other.png";
+                        break;
+                }
+                return fileName;
             }
             @Override
             protected void updateItem(HBox item, boolean empty) {
@@ -735,6 +774,7 @@ public class RequestController {
                 } else {
                     Approver approver = getTableView().getItems().get(getIndex());
                     String status = approver.getStatus();
+                    String statusImageFileName = getStatusImageName(status);
 
                     if (status.length() > 10) {
                         line1.changeText("",24, FontWeight.BOLD);
@@ -767,6 +807,7 @@ public class RequestController {
                     hBox.getChildren().clear();
                     hBox.getChildren().addAll(statusBox,icon.getImageView());
 
+                    icon.setImage(new Image(getClass().getResourceAsStream("/images/pages/department/department-staff-request/"+statusImageFileName)));
                     setGraphic(hBox);
                 }
             }
@@ -781,6 +822,16 @@ public class RequestController {
         statusImage.getImageView().setFitHeight(150);
         statusImage.getImageView().setFitWidth(150);
         statusImage.setClipImage(50,50);
+        String status = request.getStatusNext();
+        String imageFileName = "status-waiting-yellow.png";
+        if(status.equals("คำร้องดำเนินการครบถ้วน")){
+            imageFileName = "status-approved-green.png";
+        }
+        if(status.equals("คำร้องถูกปฏิเสธ")) {
+            imageFileName = "status-rejected-red.png";
+        }
+        statusImage.setImage(new Image(getClass().getResourceAsStream("/images/pages/department/department-staff-request/" + imageFileName)));
+
         VBox.setMargin(statusImage.getImageView(),new Insets(0,0,10,0));
 
         DefaultLabel statusNow = new DefaultLabel("");
@@ -1355,6 +1406,7 @@ public class RequestController {
     }
     private void onRejectApprover(String reasonForNotApprove){
         try {
+            requestDatasource.appendData(request,"log");
             selectedApprover.setStatus("ไม่อนุมัติ");
             request.setReasonForNotApprove(reasonForNotApprove);
             request.setStatusNow("ปฏิเสธโดยหัวหน้าภาควิชา");
@@ -1420,6 +1472,7 @@ public class RequestController {
             }
 
             if(sumAprroved == sumApprover){
+                requestDatasource.appendData(request,"log");
                 if(sumApproverFaculty == 0){
                     request.setStatusNow("อนุมัติโดยหัวหน้าภาควิชา");
                     request.setStatusNext("คำร้องดำเนินการครบถ้วน");
@@ -1579,6 +1632,7 @@ public class RequestController {
     }
     private void onRequestApproveConfirm(){
         try {
+            requestDatasource.appendData(request,"log");
             if(sumApprover != 0){
                 for(Approver a : filterApproverList.getApprovers()){
                     if(a instanceof FacultyApprover){

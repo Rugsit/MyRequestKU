@@ -33,8 +33,8 @@
 
 
 .table-row-cell:filled {
-    -fx-background-insets: 0 5 10 0; /* Create spacing effect padding! */
-    -fx-border-insets: 0 5 10 0;
+    -fx-background-insets: 0 10 10 0; /* Create spacing effect padding! */
+    -fx-border-insets: 0 10 10 0;
     -fx-padding: 10 0 10 0;
     -fx-background-radius: 20;
     -fx-border-color: black;       /* Set border color to black */
