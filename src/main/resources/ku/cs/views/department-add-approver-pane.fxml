@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="560.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.faculty.AddApproverController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="560.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.department.AddDepartmentApproverController">
    <children>
-      <Label layoutX="45.0" layoutY="14.0" prefHeight="90.0" prefWidth="451.0" styleClass="edit-data-header" text="เพิ่มรายชื่อผู้อนุมัติ (คณะ)">
+      <Label layoutX="45.0" layoutY="14.0" prefHeight="90.0" prefWidth="451.0" styleClass="edit-data-header" text="เพิ่มรายชื่อผู้อนุมัติ (ภาควิชา)">
          <font>
             <Font name="PrintAble4U Bold" size="12.0" />
          </font>
