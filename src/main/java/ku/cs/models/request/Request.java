@@ -184,9 +184,9 @@ public class Request {
         }
     }
 
-    public void addApprover(String requestUUID, String tier, String role, String firstname, String lastname) {
+    public void addApprover(String requestUUID, String tier, String associateUUID, String role, String firstname, String lastname) {
         try {
-            approvers.addApprover(requestUUID, tier, role, firstname, lastname);
+            approvers.addApprover(requestUUID, tier, associateUUID, role, firstname, lastname);
         } catch (ApproverException e) {
             throw new RuntimeException(e);
         }
