@@ -3,12 +3,11 @@ package ku.cs.models.department;
 import javafx.scene.chart.PieChart;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
+import ku.cs.models.request.Request;
+import ku.cs.models.request.RequestList;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
-import ku.cs.services.Datasource;
-import ku.cs.services.DepartmentListFileDatasource;
-import ku.cs.services.FacultyListFileDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 
 import java.util.UUID;
 
@@ -212,4 +211,23 @@ public class Department implements Comparable<Department>{
         return departmentUsers;
     }
 
+    public int getUsersCount() {
+        return getUsers().getUsers().size();
+    }
+
+    public RequestList getRequests() {
+        Datasource<RequestList> datasource = new RequestListFileDatasource("data");
+        RequestList departmentRequests = new RequestList();
+        RequestList allRequests = datasource.readData();
+        for (Request request : allRequests.getRequests()) {
+            if (request.getDepartmentUUID().equals(uuid) && request.getStatusNext().equals("คำร้องดำเนินการครบถ้วน")) {
+                departmentRequests.addRequest(request);
+            }
+        }
+        return departmentRequests;
+    }
+
+    public int getRequestsCount() {
+        return getRequests().getRequests().size();
+    }
 }

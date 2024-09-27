@@ -1,5 +1,7 @@
 package ku.cs.models.request;
 
+import ku.cs.models.user.UserList;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
@@ -64,5 +66,8 @@ public class RequestList {
         return newRequests;
     }
 
+    public void concatenate(RequestList requestList){
+        requests.addAll(requestList.getRequests());
+    }
 
 }

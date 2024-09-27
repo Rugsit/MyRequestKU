@@ -2,14 +2,12 @@ package ku.cs.models.faculty;
 
 import ku.cs.models.department.Department;
 import ku.cs.models.department.DepartmentList;
+import ku.cs.models.request.RequestList;
 import ku.cs.models.user.FacultyUser;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
-import ku.cs.services.Datasource;
-import ku.cs.services.DepartmentListFileDatasource;
-import ku.cs.services.FacultyListFileDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 
 import java.util.HashSet;
 import java.util.UUID;
@@ -146,5 +144,21 @@ public class Faculty implements Comparable<Faculty>{
 
     public int getUsersCount() {
         return getUsers().getUsers().size();
+    }
+
+
+    public RequestList getRequests() {
+        DepartmentList departmentList = getDepartmentsByFaculty();
+        RequestList requests = new RequestList();
+        for (Department department : departmentList.getDepartments()) {
+            if (department.getFacultyUuid().equals(uuid)) {
+                requests.concatenate(department.getRequests());
+            }
+        }
+        return requests;
+    }
+
+    public int getRequestsCount() {
+        return getRequests().getRequests().size();
     }
 }
