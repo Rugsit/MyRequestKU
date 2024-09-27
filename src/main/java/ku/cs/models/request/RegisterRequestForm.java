@@ -7,48 +7,40 @@ import java.util.UUID;
 
 public class RegisterRequestForm extends Request{
     // ประสงค์ลงทะเบียนล่าช้า
-    boolean lateRegister;
+    private boolean lateRegister;
 
     // ประสงค์เพิ่มถอน
-    boolean addDrop;
+    private boolean addDrop;
 
     // ประสงค์ลงทะเบียนมากกว่า 22 หน่วยกิต
-    boolean registerMoreThan22;
-    String semester;
-    int semesterYear;
-    int oldCredit;
-    int newCredit;
+    private boolean registerMoreThan22;
+    private String semester;
+    private int semesterYear;
+    private int oldCredit;
+    private int newCredit;
 
     // ประสงค์ลงทะเบียนต่ำกว่า 9 หน่วยกิต
-    boolean registerLessThan9;
+    private boolean registerLessThan9;
 
     // ประสงค์ผ่อนผันค่าธรรมเนียมการศึกษา
-    boolean latePayment;
-    String latePaymentSemester;
-    int latePaymentYear;
+    private boolean latePayment;
+    private String latePaymentSemester;
+    private int latePaymentYear;
 
     // ประสงค์ย้ายคณะหรือสาขาวิชา
-    boolean transferFaculty;
-    String oldFaculty;
-    String newFaculty;
+    private boolean transferFaculty;
+    private String oldFaculty;
+    private String newFaculty;
 
     // เหตุผล
-    String since;
-    public RegisterRequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
-                                LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
-        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
+    private String since;
+
+    public RegisterRequestForm(UUID ownerUUID, String name, String nisitId, String requestType) {
+        super(ownerUUID, name, nisitId, requestType);
     }
 
     public RegisterRequestForm(String[] data) {
-        super.setUuid(UUID.fromString(data[1]));
-        super.setOwnerUUID(UUID.fromString(data[2]));
-        super.setName(data[3]);
-        super.setNisitId(data[4]);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        super.setTimeStamp(LocalDateTime.parse(data[5], formatter));
-        super.setDate(LocalDateTime.parse(data[6], formatter));
-        super.setStatusNow(data[7]);
-        super.setStatusNext(data[8]);
+        super(data[1], data[2], data[3], data[4], data[5], data[6], data[0], data[7], data[8], data[24]);
         this.lateRegister = Boolean.parseBoolean(data[9]);
         this.addDrop = Boolean.parseBoolean(data[10]);
         this.registerMoreThan22 = Boolean.parseBoolean(data[11]);
@@ -79,19 +71,21 @@ public class RegisterRequestForm extends Request{
     }
 
     public void setSemester(String semester) {
-        if (semester == null || semester.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้บอกภาคการศึกษา");
+        semester = semester.trim();
+        if (semester.isEmpty()) {
+            throw new IllegalArgumentException("กรุณาบอกภาคการศึกษา");
         }
         this.semester = semester;
     }
 
     public void setSemesterYear(String semesterYear) {
+        semesterYear = semesterYear.trim();
         LocalDate currentDate = LocalDate.now();
         int semesterYearInt;
         try {
             semesterYearInt = Integer.parseInt(semesterYear);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("คุณต้องกรอกปีการศึกษา และต้องเป็นตัวเลขเท่านั้น");
+            throw new IllegalArgumentException("กรุณากรอกปีการศึกษา และต้องเป็นตัวเลขเท่านั้น");
         }
         if (semesterYearInt <= 0 || semesterYearInt > currentDate.getYear() + 543) {
             System.out.println(currentDate.getYear());
@@ -101,11 +95,12 @@ public class RegisterRequestForm extends Request{
     }
 
     public void setOldCredit(String oldCredit) {
+        oldCredit = oldCredit.trim();
         int oldCreditInt;
         try {
             oldCreditInt = Integer.parseInt(oldCredit);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("คุณต้องกรอกหน่วยกิตเก่า และต้องเป็นตัวเลข");
+            throw new IllegalArgumentException("กรุณากรอกหน่วยกิตเก่า และต้องเป็นตัวเลข");
         }
         if (oldCreditInt <= 0) {
             throw new IllegalArgumentException("หน่วยกิตเก่าจะต้องมากกว่า 0");
@@ -114,11 +109,12 @@ public class RegisterRequestForm extends Request{
     }
 
     public void setNewCredit(String newCredit) {
+        newCredit = newCredit.trim();
         int newCreditInt;
         try {
             newCreditInt = Integer.parseInt(newCredit);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("คุณต้องกรอกหน่วยกิตใหม่ และต้องเป็นตัวเลข");
+            throw new IllegalArgumentException("กรุณากรอกหน่วยกิตใหม่ และต้องเป็นตัวเลข");
         }
         if (newCreditInt <= 0 ) {
             throw new IllegalArgumentException("หน่วยกิตใหม่จะต้องมากกว่า 0");
@@ -135,22 +131,24 @@ public class RegisterRequestForm extends Request{
     }
 
     public void setLatePaymentSemester(String latePaymentSemester) {
-        if (latePaymentSemester == null || latePaymentSemester.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้บอกภาคการศึกษา");
+        latePaymentSemester = latePaymentSemester.trim();
+        if (latePaymentSemester.isEmpty()) {
+            throw new IllegalArgumentException("กรุณาบอกภาคการศึกษา");
         }
         this.latePaymentSemester = latePaymentSemester;
     }
 
     public void setLatePaymentYear(String latePaymentYear) {
+        latePaymentYear = latePaymentYear.trim();
         int latePaymentYearInt;
         try {
             latePaymentYearInt = Integer.parseInt(latePaymentYear);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("คุณต้องกรอกปีการศึกษาในการผ่อนผันค่าธรรมเนียม และต้องเป็นตัวเลข");
+            throw new IllegalArgumentException("กรุณากรอกปีการศึกษาในการผ่อนผันค่าธรรมเนียม และต้องเป็นตัวเลข");
         }
         LocalDate currentDate = LocalDate.now();
         if (latePaymentYearInt <= 0 || latePaymentYearInt > currentDate.getYear() + 543) {
-            throw new IllegalArgumentException("ปีการศึกษาในการผ่อนผันค่าธรรมเนียมต้องมีค่ามากกว่า 0");
+            throw new IllegalArgumentException("ปีการศึกษาในการผ่อนผันค่าธรรมเนียมต้องมีค่ามากกว่า 0 และไม่เกินปีการศึกษาปัจจุบัน");
         }
         this.latePaymentYear = latePaymentYearInt;
     }
@@ -160,29 +158,92 @@ public class RegisterRequestForm extends Request{
     }
 
     public void setOldFaculty(String oldFaculty) {
-        if (oldFaculty == null || oldFaculty.isEmpty()) {
-            throw new IllegalArgumentException("คุณต้องกรอกคณะหรือสาขาวิชาเก่า");
+        oldFaculty = oldFaculty.trim();
+        if (oldFaculty.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกคณะหรือสาขาวิชาเก่า");
         }
         this.oldFaculty = oldFaculty;
     }
 
     public void setNewFaculty(String newFaculty) {
-        if (newFaculty == null || newFaculty.isEmpty()) {
-            throw new IllegalArgumentException("คุณต้องกรอกคณะหรือสาขาวิชาใหม่");
+        newFaculty = newFaculty.trim();
+        if (newFaculty.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกคณะหรือสาขาวิชาใหม่");
         }
         this.newFaculty = newFaculty;
     }
 
     public void setSince(String since) {
-        if (since == null || since.isEmpty()) {
-            throw new IllegalArgumentException("คุณต้องกรอกเหตุผล");
+        since = since.trim();
+        if (since.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกเหตุผล");
         }
         this.since = since;
     }
 
+    public boolean isLateRegister() {
+        return lateRegister;
+    }
+
+    public boolean isAddDrop() {
+        return addDrop;
+    }
+
+    public boolean isRegisterMoreThan22() {
+        return registerMoreThan22;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public int getSemesterYear() {
+        return semesterYear;
+    }
+
+    public int getOldCredit() {
+        return oldCredit;
+    }
+
+    public int getNewCredit() {
+        return newCredit;
+    }
+
+    public boolean isRegisterLessThan9() {
+        return registerLessThan9;
+    }
+
+    public boolean isLatePayment() {
+        return latePayment;
+    }
+
+    public String getLatePaymentSemester() {
+        return latePaymentSemester;
+    }
+
+    public int getLatePaymentYear() {
+        return latePaymentYear;
+    }
+
+    public boolean isTransferFaculty() {
+        return transferFaculty;
+    }
+
+    public String getOldFaculty() {
+        return oldFaculty;
+    }
+
+    public String getNewFaculty() {
+        return newFaculty;
+    }
+
+    public String getSince() {
+        return since;
+    }
+
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         String timestamp = super.getTimeStamp().format(formatter);
         String date = super.getDate().format(formatter);
         return  super.getRequestType() + "," +
@@ -208,7 +269,8 @@ public class RegisterRequestForm extends Request{
                 transferFaculty + "," +
                 oldFaculty + "," +
                 newFaculty + "," +
-                since;
+                since + "," +
+                super.getReasonForNotApprove();
 
     }
 }

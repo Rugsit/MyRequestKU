@@ -2,26 +2,28 @@ package ku.cs.services.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateTools {
-    public static Date formatToDate(String format,String dateString) {
-        SimpleDateFormat formatter = new SimpleDateFormat(format);
-        Date date = null;
+    public static LocalDateTime formatToLocalDateTime(String format, String dateString) {
+//        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        LocalDateTime date = null;
         try {
-            date = formatter.parse(dateString);
-        } catch (ParseException e) {
+            date = LocalDateTime.parse(dateString, formatter);
+        } catch (Exception e){
             e.printStackTrace();
-            System.err.println("Error : ParseException\n\tformatToDate method returns null!");
         }
         return date;
     }
 
-    public static String dateToFormatString(String format, Date date) {
+    public static String localDateTimeToFormatString(String format, LocalDateTime date) {
         String dateString = "NO_DATE";
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat(format);
-            dateString = formatter.format(date);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+            dateString = date.format(formatter);
         } catch (Exception e) {
             e.printStackTrace();
         }

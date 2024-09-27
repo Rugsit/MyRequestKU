@@ -1,0 +1,169 @@
+package ku.cs.controllers.admin;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import ku.cs.models.department.Department;
+import ku.cs.models.department.DepartmentList;
+import ku.cs.models.faculty.Faculty;
+import ku.cs.models.faculty.FacultyList;
+import ku.cs.models.request.RequestList;
+import ku.cs.models.user.Admin;
+import ku.cs.models.user.FacultyUser;
+import ku.cs.models.user.User;
+import ku.cs.models.user.UserList;
+import ku.cs.services.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class DashBoardController {
+    private FacultyList facultyList;
+    private DepartmentList departmentList;
+    private User loginUser;
+
+    @FXML
+    private TabPane userTabPane;
+    @FXML
+    private Label advisorLabel;
+    @FXML
+    private Label allRequestLabel;
+    @FXML
+    private Label allUsersLabel;
+    @FXML
+    private Label departmentStaffLabel;
+    @FXML
+    private Label facultyStaffLabel;
+    @FXML
+    private Label processRequestLabel;
+    @FXML
+    private Label rejectRequestLabel;
+    @FXML
+    private Label studentLabel;
+    @FXML
+    private Label sucessRequestLabel;
+    @FXML
+    private Tab facultyUserTab;
+    @FXML
+    private Tab departmentUserTab;
+    @FXML
+    private Tab facultyRequestTab;
+    @FXML
+    private Tab departmentRequestTab;
+    @FXML
+    private TableView<Faculty> userInFacultyTableView, requestFacultyTableView;
+    @FXML
+    private TableView<Department> userInDepartmentTableView, requestDepartmentTableView;
+    @FXML
+    private TabPane requestTabPane;
+
+    public void initializeDashBoard() {
+        UserListFileDatasource userDatasource = new UserListFileDatasource("data", "admin.csv");
+        UserList userList = userDatasource.readAllUser();
+        userList.deleteUserByObject(userList.findUserByUUID(loginUser.getUUID()));
+        allUsersLabel.setText(String.valueOf(userList.getUsers().size()));
+        facultyStaffLabel.setText(String.valueOf(userList.getUsers("faculty-staff").size()));
+        departmentStaffLabel.setText(String.valueOf(userList.getUsers("department-staff").size()));
+        advisorLabel.setText(String.valueOf(userList.getUsers("advisor").size()));
+        studentLabel.setText(String.valueOf(userList.getUsers("student").size()));
+
+        RequestListFileDatasource requestDatasource = new RequestListFileDatasource("data");
+        RequestList requestList = requestDatasource.readData();
+        int amountSuccess = requestList.getRequests("คำร้องดำเนินการครบถ้วน").size();
+        int amountReject = requestList.getRequests("คำร้องถูกปฏิเสธ").size();
+        allRequestLabel.setText(String.valueOf(requestList.getRequests().size()));
+        processRequestLabel.setText(String.valueOf(requestList.getRequests().size() - (amountReject + amountSuccess)));
+        sucessRequestLabel.setText(String.valueOf(amountSuccess));
+        rejectRequestLabel.setText(String.valueOf(amountReject));
+
+        TableColumn<Faculty, String> facultyNameColumn = new TableColumn<>("ชื่อคณะ");
+        facultyNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumn<Faculty, Integer> amountUserFacultyColumn = new TableColumn<>("จำนวนผู้ใช้");
+        amountUserFacultyColumn.setCellValueFactory(new PropertyValueFactory<>("UsersCount"));
+        userInFacultyTableView.getColumns().addAll(facultyNameColumn, amountUserFacultyColumn);
+
+        TableColumn<Department, String> departmentNameColumn = new TableColumn<>("ชื่อภาควิชา");
+        departmentNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumn<Department, Integer> amountUserDepartmentColumn = new TableColumn<>("จำนวนผู้ใช้");
+        amountUserDepartmentColumn.setCellValueFactory(new PropertyValueFactory<>("UsersCount"));
+        userInDepartmentTableView.getColumns().addAll(departmentNameColumn, amountUserDepartmentColumn);
+
+        TableColumn<Faculty, Integer> amountRequestFacultyColumn = new TableColumn<>("จำนวนคำร้อง");
+        amountRequestFacultyColumn.setCellValueFactory(new PropertyValueFactory<>("RequestsCount"));
+        TableColumn<Department, Integer> amountRequestDepartmentColumn = new TableColumn<>("จำนวนคำร้อง");
+        amountRequestDepartmentColumn.setCellValueFactory(new PropertyValueFactory<>("RequestsCount"));
+        requestFacultyTableView.getColumns().addAll(facultyNameColumn, amountRequestFacultyColumn);
+        requestDepartmentTableView.getColumns().addAll(departmentNameColumn, amountRequestDepartmentColumn);
+        Datasource<FacultyList> facDatasource = new FacultyListFileDatasource("data");
+        facultyList = facDatasource.readData();
+        Datasource<DepartmentList> departmentListFileDatasource = new DepartmentListFileDatasource("data");
+        departmentList = departmentListFileDatasource.readData();
+
+        showTableAmountUser(facultyUserTab);
+        showTableAmountUser(facultyRequestTab);
+        userTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue == facultyUserTab) {
+                    userInDepartmentTableView.setVisible(false);
+                    userInFacultyTableView.setVisible(true);
+                } else if (newValue == departmentUserTab) {
+                    userInDepartmentTableView.setVisible(true);
+                    userInFacultyTableView.setVisible(false);
+                }
+                showTableAmountUser(newValue);
+            }
+        });
+
+
+        requestTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue == facultyRequestTab) {
+                    requestFacultyTableView.setVisible(true);
+                    requestDepartmentTableView.setVisible(false);
+                } else if (newValue == departmentRequestTab) {
+                    requestFacultyTableView.setVisible(false);
+                    requestDepartmentTableView.setVisible(true);
+                }
+                showTableAmountUser(newValue);
+            }
+        });
+    }
+
+    public void setLoginUser(Admin loginUser) {
+        this.loginUser = loginUser;
+    }
+
+    private void showTableAmountUser(Tab currentTab) {
+        FacultyListFileDatasource facDatasource = new FacultyListFileDatasource("data");
+        FacultyList facultyList = facDatasource.readData();
+
+        if (facultyUserTab == currentTab) {
+            userInFacultyTableView.getItems().clear();
+            userInFacultyTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            userInFacultyTableView.getItems().addAll(facultyList.getFacultyList());
+        } else if (departmentUserTab == currentTab) {
+            userInDepartmentTableView.getItems().clear();
+            userInDepartmentTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            userInDepartmentTableView.getItems().addAll(departmentList.getDepartments());
+        } else if (facultyRequestTab == currentTab) {
+            requestFacultyTableView.getItems().clear();
+            requestFacultyTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            requestFacultyTableView.getItems().addAll(facultyList.getFacultyList());
+        } else if (departmentRequestTab == currentTab) {
+            requestDepartmentTableView.getItems().clear();
+            requestDepartmentTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            requestDepartmentTableView.getItems().addAll(departmentList.getDepartments());
+        }
+    }
+
+    private void showTableAmountUserInDepartment() {
+        DepartmentListFileDatasource departmentDatasource = new DepartmentListFileDatasource("data");
+        DepartmentList departmentList = departmentDatasource.readData();
+    }
+}

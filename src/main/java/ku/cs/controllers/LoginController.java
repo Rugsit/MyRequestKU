@@ -1,17 +1,28 @@
 package ku.cs.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import ku.cs.models.Session;
 import ku.cs.models.user.User;
+import ku.cs.models.user.UserList;
+import ku.cs.models.user.exceptions.DateException;
 import ku.cs.services.Authentication;
+import ku.cs.services.UserListFileDatasource;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.services.FXRouter;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Stack;
 
 public class LoginController {
     @FXML private TextField userNameTextField;
@@ -23,8 +34,11 @@ public class LoginController {
     @FXML private Button selectAdviserRoleButton;
     @FXML private Button selectStudentRoleButton;
     @FXML private Label aboutUsLabel;
+    @FXML private Stage currentPopupStage;
 
     private Authentication authController;
+    private UserListFileDatasource datasource;
+    private User loginUser = null;
 
     @FXML
     private void initialize() {
@@ -32,11 +46,11 @@ public class LoginController {
         DefaultLabel aboutUs = new DefaultLabel(aboutUsLabel);
         authController = new Authentication();
     }
+
     @FXML
-    protected void onLoginButtonClick() {
+    protected void onLoginButtonClick(){
         String username = userNameTextField.getText().trim();
         String password = passwordTextField.getText().trim();
-        User loginUser = null;
         User isUseridInDatasource = authController.isUserInDatasource(username);
         try {
             loginUser = authController.loginAuthenticate(username, password);
@@ -64,12 +78,40 @@ public class LoginController {
 
         // Normal login method.
         if (loginUser != null){
-            hideError();
-            if (loginUser.getRole().equalsIgnoreCase("faculty-staff")) {goToFacultyManage();}
-            else if (loginUser.getRole().equalsIgnoreCase("admin")) {goToAdminManage();}
-            else if (loginUser.getRole().equalsIgnoreCase("student")){onStudentButtonClicked();}
-            else if (loginUser.getRole().equalsIgnoreCase("advisor")){goToAdvisorManage();}
-            else if (loginUser.getRole().equalsIgnoreCase("department-staff")){goToDepartmentManage();}
+            if (!username.isEmpty() && !password.isEmpty() && loginUser.getActiveStatus().equals("Inactive")){
+                showError("บัญชี้นี้ได้ถูกระงับการใช้งานชั่วคราว");
+            }
+            else{
+                try {
+                    String fileName = loginUser.getRole();
+                    datasource = new UserListFileDatasource("data", fileName+".csv");
+                    UserList users = datasource.readData();
+                    User existingUser = users.findUserById(loginUser.getId());
+                    existingUser.setLastLogin(LocalDateTime.now().format(DateTimeFormatter.ofPattern(User.DATE_FORMAT)));
+                    datasource.writeData(users);
+                } catch (Exception e){
+                    showError("ไม่สามารถบันทึกเวลาในการเข้าใช้ได้");
+                }
+
+                hideError();
+
+                // change default password check.
+                if (loginUser.getDefaultPassword().equals(password) && !loginUser.getRole().equals("student")){
+                    System.out.println("Need to change password");
+                    changePasswordPopup(loginUser);
+                    userNameTextField.setText("");
+                    passwordTextField.setText("");
+                }
+                else{
+                    if (loginUser.getRole().equalsIgnoreCase("faculty-staff")) {goToFacultyManage();}
+                    else if (loginUser.getRole().equalsIgnoreCase("admin")) {goToAdminManage();}
+                    else if (loginUser.getRole().equalsIgnoreCase("student")){onStudentButtonClicked();}
+                    else if (loginUser.getRole().equalsIgnoreCase("advisor")){goToAdvisorManage();}
+                    else if (loginUser.getRole().equalsIgnoreCase("department-staff")){goToDepartmentManage();}
+                }
+
+
+            }
         } else if (!username.isEmpty() && !password.isEmpty() && isUseridInDatasource == null) {
             showError("ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง");
         }
@@ -80,6 +122,28 @@ public class LoginController {
         }
 
     }
+
+    private void changePasswordPopup(User currentUser) {
+        try {
+            if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                currentPopupStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/change-password.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                ChangePasswordController controller = fxmlLoader.getController();
+                controller.setCurrentUser(currentUser);
+                controller.setStage(currentPopupStage);
+
+                currentPopupStage.setScene(scene);
+                currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+                currentPopupStage.setTitle("Change password");
+                currentPopupStage.show();
+            }
+        } catch (IOException e) {
+            System.out.println("Error :" + e.getMessage());
+        }
+    }
+
 
     private void showError(String message) {
         errorLabel.setText(message);
@@ -105,9 +169,8 @@ public class LoginController {
     @FXML
     protected void goToAdminManage() {
         try {
-            FXRouter.goTo("admin-manage-users");
-        } catch (
-                IOException e) {
+            FXRouter.goTo("admin-user-profile", loginUser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -115,7 +178,7 @@ public class LoginController {
     @FXML
     private void onStudentButtonClicked(){
         try{
-            FXRouter.goTo("student-page");
+            FXRouter.goTo("student-page", loginUser);
         } catch (IOException e){
             throw new RuntimeException(e);
         }
@@ -124,7 +187,7 @@ public class LoginController {
     @FXML
     protected void goToAdvisorManage() {
         try {
-            FXRouter.goTo("advisor-students");
+            FXRouter.goTo("advisor-students", loginUser);
         } catch (
                 IOException e) {
             throw new RuntimeException(e);
@@ -133,7 +196,11 @@ public class LoginController {
 
     @FXML protected void goToDepartmentManage() {
         try {
-            FXRouter.goTo("department-staff-request-list");
+            Session session = new Session();
+            if(loginUser != null){
+                session.setUser(loginUser);
+            }
+            FXRouter.goTo("department-staff-request-list",session);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -142,7 +209,7 @@ public class LoginController {
     @FXML
     protected void goToFacultyManage() {
         try {
-            FXRouter.goTo("faculty-requests");
+            FXRouter.goTo("faculty-page", loginUser);
         } catch (
                 IOException e) {
             throw new RuntimeException(e);

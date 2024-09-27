@@ -8,37 +8,29 @@ import java.util.regex.Pattern;
 
 public class GeneralRequestForm extends Request{
     // เก็บข้อมูลเบอร์โทร
-    String tel;
+    private String tel;
 
     //เก็บข้อมูลเความประสงค์ในการขอใบแทนปริญญาบัตร
-    boolean degreeCertificateLost;
-    boolean degreeCertificateDamage;
+    private boolean degreeCertificateLost;
+    private boolean degreeCertificateDamage;
 
     // เก็บข้อมูลความประสงค์ในการเปลี่ยนชื่อ
-    String oldThaiName;
-    String newThaiName;
-    String oldEngName;
-    String newEngName;
+    private String oldThaiName;
+    private String newThaiName;
+    private String oldEngName;
+    private String newEngName;
 
     // เก็บข้อมูลความประสงค์ในการเปลี่ยนชื่อสกุล
-    String oldThaiSurName;
-    String newThaiSurName;
-    String oldEngSurName;
-    String newEngSurName;
+    private String oldThaiSurName;
+    private String newThaiSurName;
+    private String oldEngSurName;
+    private String newEngSurName;
 
     // เก็บข้อมูล ความประสงค์อื่นๆ
-    String others;
+    private String others;
 
     public GeneralRequestForm(String[] data) {
-        super.setUuid(UUID.fromString(data[1]));
-        super.setOwnerUUID(UUID.fromString(data[2]));
-        super.setName(data[3]);
-        super.setNisitId(data[4]);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        super.setTimeStamp(LocalDateTime.parse(data[5], formatter));
-        super.setDate(LocalDateTime.parse(data[6], formatter));
-        super.setStatusNow(data[7]);
-        super.setStatusNext(data[8]);
+        super(data[1], data[2], data[3], data[4], data[5], data[6], data[0], data[7], data[8], data[21]);
         this.tel = data[9];
         this.degreeCertificateLost = Boolean.parseBoolean(data[10]);
         this.degreeCertificateDamage = Boolean.parseBoolean(data[11]);
@@ -53,13 +45,60 @@ public class GeneralRequestForm extends Request{
         this.others = data[20];
     }
 
-    public GeneralRequestForm(UUID uuid, UUID ownerUUID, String name, String nisitId, LocalDateTime timeStampLastUpdate,
-                              LocalDateTime timeStampCreateForm, String requestType, String statusNow, String statusNext) {
-        super(uuid, ownerUUID, name, nisitId, timeStampLastUpdate, timeStampCreateForm, requestType, statusNow, statusNext);
+    public GeneralRequestForm(UUID ownerUUID, String name, String nisitId, String requestType) {
+        super(ownerUUID, name, nisitId, requestType);
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public boolean isDegreeCertificateLost() {
+        return degreeCertificateLost;
+    }
+
+    public boolean isDegreeCertificateDamage() {
+        return degreeCertificateDamage;
+    }
+
+    public String getOldThaiName() {
+        return oldThaiName;
+    }
+
+    public String getNewThaiName() {
+        return newThaiName;
+    }
+
+    public String getOldEngName() {
+        return oldEngName;
+    }
+
+    public String getNewEngName() {
+        return newEngName;
+    }
+
+    public String getOldThaiSurName() {
+        return oldThaiSurName;
+    }
+
+    public String getNewThaiSurName() {
+        return newThaiSurName;
+    }
+
+    public String getOldEngSurName() {
+        return oldEngSurName;
+    }
+
+    public String getNewEngSurName() {
+        return newEngSurName;
+    }
+
+    public String getOthers() {
+        return others;
     }
 
     public void setTel(String tel) {
-        tel = tel.strip();
+        tel = tel.trim();
         Pattern pattern = Pattern.compile("^[0-9]{10}$");
         Matcher matcher = pattern.matcher(tel);
         if (!matcher.find()) {
@@ -77,76 +116,87 @@ public class GeneralRequestForm extends Request{
     }
 
     public void setOldThaiName(String oldThaiName) {
-        if (oldThaiName == null || oldThaiName.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้กรอกชื่อเก่าภาษาไทย");
+        oldThaiName = oldThaiName.trim();
+        if (oldThaiName.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกชื่อเก่าภาษาไทย");
         }
         this.oldThaiName = oldThaiName;
     }
 
     public void setNewThaiName(String newThaiName) {
-        if (newThaiName == null || newThaiName.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้กรอกชื่อใหม่ภาษาไทย");
+        newThaiName = newThaiName.trim();
+        if (newThaiName.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกชื่อใหม่ภาษาไทย");
         }
         this.newThaiName = newThaiName;
     }
 
     public void setOldEngName(String oldEngName) {
-        if (oldEngName == null || oldEngName.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้กรอกชื่อเก่าภาษาอังกฤษ");
+        oldEngName = oldEngName.trim();
+        if (oldEngName.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกชื่อเก่าภาษาอังกฤษ");
         }
         this.oldEngName = oldEngName;
     }
 
     public void setNewEngName(String newEngName) {
-        if (newEngName == null || newEngName.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้กรอกชื่อใหม่ภาษาอังกฤษ");
+        newEngName = newEngName.trim();
+        if (newEngName.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกชื่อใหม่ภาษาอังกฤษ");
         }
         this.newEngName = newEngName;
     }
 
     public void setOldThaiSurName(String oldThaiSurName) {
-        if (oldThaiSurName == null || oldThaiSurName.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้กรอกชื่อสกุลเก่าภาษาไทย");
+        oldThaiSurName = oldThaiSurName.trim();
+        if (oldThaiSurName.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกชื่อสกุลเก่าภาษาไทย");
         }
         this.oldThaiSurName = oldThaiSurName;
     }
 
     public void setNewThaiSurName(String newThaiSurName) {
-        if (newThaiSurName == null || newThaiSurName.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้กรอกชื่อสกุลใหม่ภาษาไทย");
+        newThaiSurName = newThaiSurName.trim();
+        if (newThaiSurName.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกชื่อสกุลใหม่ภาษาไทย");
         }
         this.newThaiSurName = newThaiSurName;
     }
 
     public void setOldEngSurName(String oldEngSurName) {
-        if (oldEngSurName == null || oldEngSurName.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้กรอกชื่อสกุลเก่าภาษาอังกฤษ");
+        oldEngSurName = oldEngSurName.trim();
+        if (oldEngSurName.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกชื่อสกุลเก่าภาษาอังกฤษ");
         }
         this.oldEngSurName = oldEngSurName;
     }
 
     public void setNewEngSurName(String newEngSurName) {
-        if (newEngSurName == null || newEngSurName.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้กรอกชื่อสกุลใหม่ภาษาอังกฤษ");
+        newEngSurName = newEngSurName.trim();
+        if (newEngSurName.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกชื่อสกุลใหม่ภาษาอังกฤษ");
         }
         this.newEngSurName = newEngSurName;
     }
 
     public void setOthers(String others) {
-        if (others == null || others.isEmpty()) {
-            throw new IllegalArgumentException("คุณไม่ได้กรอกความประสงค์อื่นๆ");
+        others = others.trim();
+        if (others.isEmpty()) {
+            throw new IllegalArgumentException("กรุณากรอกความประสงค์อื่นๆ");
         }
         this.others = others;
     }
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         String timestamp = super.getTimeStamp().format(formatter);
         String date = super.getDate().format(formatter);
-        return "General" + "," +
+        return  super.getRequestType() + "," +
                 super.getUuid().toString() + "," +
                 super.getOwnerUUID().toString() + "," +
+                super.getName() + "," +
+                super.getNisitId() + "," +
                 timestamp + "," +
                 date + "," +
                 super.getStatusNow() + "," +
@@ -162,6 +212,7 @@ public class GeneralRequestForm extends Request{
                 newThaiSurName + "," +
                 oldEngSurName + "," +
                 newEngSurName + "," +
-                others;
+                others + "," +
+                super.getReasonForNotApprove();
     }
 }

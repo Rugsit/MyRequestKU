@@ -15,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.Ku1AndKu3RequestForm;
 import ku.cs.models.request.RegisterRequestForm;
+import ku.cs.models.user.User;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -22,61 +23,55 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Ku3FormController {
+    User loginUser;
+    private int amountSubjectPart1;
+    private int amountSubjectPart2;
+    private RegisterRequestForm registerForm;
 
+    // FXML Component
     @FXML
     private Stage currentConfirmStage;
-
-    RegisterRequestForm registerForm;
     @FXML
     private CheckBox part1Checkbox;
-
     @FXML
     private CheckBox part2CheckBox;
-
     @FXML
     private TextField telTextField;
-
     @FXML
     private RadioButton firstRadio;
-
     @FXML
     private RadioButton secondRadio;
-
     @FXML
     private RadioButton summerRadio;
-
     @FXML
     private RadioButton thaiRadio;
-
     @FXML
     private RadioButton interRadio;
-
     @FXML
     private TextField yearTextField;
-
     @FXML
     private TextField campusTextField;
-
     @FXML
     private Stage currentErrorStage;
-
     @FXML
     private VBox subjectVbox;
-
     @FXML
     private VBox subjectDropVbox;
-
     @FXML
     private VBox prototypePart1Vbox;
-
     @FXML
     private VBox prototypePart2Vbox;
-
-    int amountSubjectPart1;
-    int amountSubjectPart2;
-
     @FXML
     public BorderPane borderPane;
+
+    @FXML
+    public void initialize() {
+        amountSubjectPart1 = 1;
+        amountSubjectPart2 = 1;
+        subjectVbox.disableProperty().bind(Bindings.not(part1Checkbox.selectedProperty()));
+        subjectDropVbox.disableProperty().bind(Bindings.not(part2CheckBox.selectedProperty()));
+
+    }
 
     public void setRegisterForm(RegisterRequestForm registerForm) {
         this.registerForm = registerForm;
@@ -116,26 +111,18 @@ public class Ku3FormController {
     }
 
 
-    @FXML
-    public void initialize() {
-        amountSubjectPart1 = 1;
-        amountSubjectPart2 = 2;
-        subjectVbox.disableProperty().bind(Bindings.not(part1Checkbox.selectedProperty()));
-        subjectDropVbox.disableProperty().bind(Bindings.not(part2CheckBox.selectedProperty()));
-
-    }
     private VBox deepCopyVbox(VBox vbox, byte id) {
         VBox newVbox = new VBox();
         VBox.setMargin(newVbox, VBox.getMargin(vbox));
         if (id == 1) {newVbox.getStyleClass().add(vbox.getStyleClass().getFirst() + amountSubjectPart1);}
-        else {newVbox.getStyleClass().add(vbox.getStyleClass().getFirst() + amountSubjectPart2);}
+        else {
+            newVbox.getStyleClass().add(vbox.getStyleClass().getFirst() + amountSubjectPart2);
+        }
         for (Node node : vbox.getChildren()) {
             newVbox.getChildren().add(deepCopyHBox((HBox) node));
         }
         return newVbox;
     }
-
-
 
     private HBox deepCopyHBox(HBox hbox) {
         ToggleGroup toggleGroup = new ToggleGroup();
@@ -171,6 +158,7 @@ public class Ku3FormController {
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }
+    public void setLoginUser(User loginUser) {this.loginUser = loginUser;}
 
     @FXML
     public void onBackButtonClick() {
@@ -181,6 +169,7 @@ public class Ku3FormController {
             Pane pane = fxmlLoader.load();
             RegisterRequestFormController controller = fxmlLoader.getController();
             controller.setBorderPane(this.borderPane);
+            controller.setLoginUser(loginUser);
             borderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -195,19 +184,19 @@ public class Ku3FormController {
             if (!thaiRadio.isSelected() && !interRadio.isSelected()) {
                 throw new IllegalArgumentException("กรุณาเลือกประเภทหลักสูตร");
             } else if (thaiRadio.isSelected()) {
-                ku1AndKu3RequestForm.setCurriculum("thai");
+                ku1AndKu3RequestForm.setCurriculum("Thai");
             } else {
-                ku1AndKu3RequestForm.setCurriculum("international");
+                ku1AndKu3RequestForm.setCurriculum("International");
             }
             ku1AndKu3RequestForm.setTel(telTextField.getText());
             if (!firstRadio.isSelected() && !secondRadio.isSelected() && !summerRadio.isSelected()) {
                 throw new IllegalArgumentException("กรุณาเลือกภาคการศึกษา");
             } else if (firstRadio.isSelected()) {
-                ku1AndKu3RequestForm.setSemester("first");
+                ku1AndKu3RequestForm.setSemester("First");
             } else if (secondRadio.isSelected()) {
-                ku1AndKu3RequestForm.setSemester("second");
+                ku1AndKu3RequestForm.setSemester("Second");
             } else {
-                ku1AndKu3RequestForm.setSemester("summer");
+                ku1AndKu3RequestForm.setSemester("Summer");
             }
             ku1AndKu3RequestForm.setYear(yearTextField.getText());
             ku1AndKu3RequestForm.setCampus(campusTextField.getText());
@@ -234,7 +223,7 @@ public class Ku3FormController {
                     if (i == 0) {
                         vBox = (VBox)targetVBox.lookup("." + group);
                     } else {
-                        vBox = (VBox)subjectVbox.lookup("." + group + i);
+                        vBox = (VBox)targetVBox.lookup("." + group + i);
                     }
                     idSubject.add(((TextField)vBox.lookup(".subjectId")).getText());
                     subject.add(((TextField)vBox.lookup(".subjectName")).getText());
@@ -250,9 +239,9 @@ public class Ku3FormController {
                     if (!((RadioButton)vBox.lookup(".lecture")).isSelected() && !((RadioButton)vBox.lookup(".lab")).isSelected()) {
                         throw new IllegalArgumentException("กรุณาเลือกประเภทหมู่เรียนในวิชาที่ " + (i + 1));
                     } else if (((RadioButton)vBox.lookup(".lecture")).isSelected()) {
-                        sectionType.add("lecture");
+                        sectionType.add("บรรยาย");
                     } else {
-                        sectionType.add("lab");
+                        sectionType.add("ปฏิบัติการ");
                     }
                     teacher.add(((TextField)vBox.lookup(".teacher")).getText());
                 }
@@ -261,6 +250,9 @@ public class Ku3FormController {
                 } else {
                     ku1AndKu3RequestForm.addSubject(subject, idSubject, registerType, credit, section, sectionType, teacher, (byte) 2);
                 }
+            }
+            if (!part1Checkbox.isSelected() && !part2CheckBox.isSelected()) {
+                throw new IllegalArgumentException("กรุณาเลือกขอเพิ่มรายวิชา หรือ ขอถอนรายวิชา");
             }
             showConfirmPane(registerForm, ku1AndKu3RequestForm);
         } catch (IllegalArgumentException e) {
@@ -273,7 +265,7 @@ public class Ku3FormController {
                     errorGeneralRequestFormController.setErrorMessage(e.getMessage());
                     ErrorGeneralRequestFormController controller = fxmlLoader.getController();
                     controller.setStage(this.currentErrorStage);
-                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                     currentErrorStage.setScene(scene);
                     currentErrorStage.initModality(Modality.APPLICATION_MODAL);
                     currentErrorStage.setTitle("Error");
@@ -286,10 +278,7 @@ public class Ku3FormController {
     }
 
     private Ku1AndKu3RequestForm createKu3Form() {
-        UUID uuid = UUID.randomUUID();
-        UUID userId = UUID.randomUUID();
-        LocalDateTime now = LocalDateTime.now();
-        return new Ku1AndKu3RequestForm(uuid,userId, "Test_Name", "Test_ID", now, now, "KU3", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
+        return new Ku1AndKu3RequestForm(loginUser.getUUID(), loginUser.getName(), loginUser.getId(), "KU3");
     }
 
     private void showConfirmPane(RegisterRequestForm registerRequestForm, Ku1AndKu3RequestForm ku1AndKu3RequestForm) {
@@ -304,7 +293,8 @@ public class Ku3FormController {
                 controller.setBorderPane(this.borderPane);
                 controller.setRequestForm(registerRequestForm);
                 controller.setRequestPair(ku1AndKu3RequestForm);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                controller.setLoginUser(loginUser);
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentConfirmStage.setScene(scene);
                 currentConfirmStage.initModality(Modality.APPLICATION_MODAL);
                 currentConfirmStage.setTitle("Confirm");

@@ -2,6 +2,7 @@ package ku.cs.models.user;
 
 import ku.cs.models.user.exceptions.PasswordException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -27,10 +28,10 @@ public interface Identifiable {
     String getName();
     String getFirstname();
     String getLastname();
-    Date getLastLogin();
+    LocalDateTime getLastLogin();
     String getEmail();
-    String getFaculty();
-    String getDepartment();
+//    String getFaculty();
+//    String getDepartment();
     //Identify method
     Boolean isUUID(UUID uuid);
     Boolean isId(String id);

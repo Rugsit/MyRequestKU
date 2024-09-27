@@ -74,7 +74,7 @@
                   <Image url="@../../../images/icons/search-icon.png" />
                </image>
             </ImageView>
-            <TextField prefHeight="50.0" prefWidth="140.0" promptText="ค้นหา" styleClass="searchTextField">
+            <TextField fx:id="searchTextField" prefHeight="50.0" prefWidth="178.0" promptText="ค้นหา" styleClass="searchTextField">
                <font>
                   <Font size="18.0" />
                </font>

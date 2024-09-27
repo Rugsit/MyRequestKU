@@ -17,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.Ku1AndKu3RequestForm;
 import ku.cs.models.request.RegisterRequestForm;
+import ku.cs.models.user.User;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -24,59 +25,49 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Ku1FormController {
+    private User loginUser;
+    private RegisterRequestForm registerForm;
+    private int amountSubject;
+
+    // FXML Component
     @FXML
     private Stage currentConfirmStage;
-    RegisterRequestForm registerForm;
-
     @FXML
     private TextField telTextField;
-
     @FXML
     private RadioButton firstRadio;
-
     @FXML
     private RadioButton secondRadio;
-
     @FXML
     private RadioButton summerRadio;
-
     @FXML
     private RadioButton thaiRadio;
-
     @FXML
     private RadioButton interRadio;
-
     @FXML
     private TextField yearTextField;
-
     @FXML
     private TextField campusTextField;
-
     @FXML
     private Stage currentErrorStage;
-
-    int amountSubject;
-
     @FXML
-    public BorderPane borderPane;
-
+    private BorderPane borderPane;
     @FXML
     private VBox subjectVbox;
-
     @FXML
     private VBox prototypeVbox;
-
     @FXML
     private TextField teacherTextField;
-    @FXML
-    public void addSubject() {
-        subjectVbox.getChildren().add(deepCopyVbox(prototypeVbox));
-        amountSubject++;
-    }
 
     @FXML
     public void initialize() {
         amountSubject = 1;
+    }
+
+    @FXML
+    public void addSubject() {
+        subjectVbox.getChildren().add(deepCopyVbox(prototypeVbox));
+        amountSubject++;
     }
 
     public void setRegisterForm(RegisterRequestForm registerForm) {
@@ -134,19 +125,19 @@ public class Ku1FormController {
             if (!thaiRadio.isSelected() && !interRadio.isSelected()) {
                 throw new IllegalArgumentException("กรุณาเลือกประเภทหลักสูตร");
             } else if (thaiRadio.isSelected()) {
-                ku1AndKu3RequestForm.setCurriculum("thai");
+                ku1AndKu3RequestForm.setCurriculum("Thai");
             } else {
-                ku1AndKu3RequestForm.setCurriculum("international");
+                ku1AndKu3RequestForm.setCurriculum("International");
             }
             ku1AndKu3RequestForm.setTel(telTextField.getText());
             if (!firstRadio.isSelected() && !secondRadio.isSelected() && !summerRadio.isSelected()) {
                 throw new IllegalArgumentException("กรุณาเลือกภาคการศึกษา");
             } else if (firstRadio.isSelected()) {
-                ku1AndKu3RequestForm.setSemester("first");
+                ku1AndKu3RequestForm.setSemester("First");
             } else if (secondRadio.isSelected()) {
-                ku1AndKu3RequestForm.setSemester("second");
+                ku1AndKu3RequestForm.setSemester("Second");
             } else {
-                ku1AndKu3RequestForm.setSemester("summer");
+                ku1AndKu3RequestForm.setSemester("Summer");
             }
             ku1AndKu3RequestForm.setYear(yearTextField.getText());
             ku1AndKu3RequestForm.setCampus(campusTextField.getText());
@@ -177,9 +168,9 @@ public class Ku1FormController {
                 if (!((RadioButton)vBox.lookup(".lecture")).isSelected() && !((RadioButton)vBox.lookup(".lab")).isSelected()) {
                     throw new IllegalArgumentException("กรุณาเลือกประเภทหมู่เรียนในวิชาที่ " + (i + 1));
                 } else if (((RadioButton)vBox.lookup(".lecture")).isSelected()) {
-                    sectionType.add("lecture");
+                    sectionType.add("บรรยาย");
                 } else {
-                    sectionType.add("lab");
+                    sectionType.add("ปฏิบัติการ");
                 }
                 teacher.add(((TextField)vBox.lookup(".teacher")).getText());
             }
@@ -195,7 +186,7 @@ public class Ku1FormController {
                     errorGeneralRequestFormController.setErrorMessage(e.getMessage());
                     ErrorGeneralRequestFormController controller = fxmlLoader.getController();
                     controller.setStage(this.currentErrorStage);
-                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                     currentErrorStage.setScene(scene);
                     currentErrorStage.initModality(Modality.APPLICATION_MODAL);
                     currentErrorStage.setTitle("Error");
@@ -211,6 +202,8 @@ public class Ku1FormController {
         this.borderPane = borderPane;
     }
 
+    public void setLoginUser(User loginUser) {this.loginUser = loginUser;}
+
     @FXML
     public void onBackButtonClick() {
         try {
@@ -220,6 +213,7 @@ public class Ku1FormController {
             Pane pane = fxmlLoader.load();
             RegisterRequestFormController controller = fxmlLoader.getController();
             controller.setBorderPane(this.borderPane);
+            controller.setLoginUser(loginUser);
             borderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -235,10 +229,7 @@ public class Ku1FormController {
         }
     }
     private Ku1AndKu3RequestForm createKu1Form() {
-        UUID uuid = UUID.randomUUID();
-        UUID userId = UUID.randomUUID();
-        LocalDateTime now = LocalDateTime.now();
-        return new Ku1AndKu3RequestForm(uuid,userId, "Test_Name", "Test_ID", now, now, "KU1", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
+        return new Ku1AndKu3RequestForm(loginUser.getUUID(), loginUser.getName(), loginUser.getId(), "KU1");
     }
 
     private void showConfirmPane(RegisterRequestForm registerRequestForm, Ku1AndKu3RequestForm ku1AndKu3RequestForm) {
@@ -253,7 +244,8 @@ public class Ku1FormController {
                 controller.setBorderPane(this.borderPane);
                 controller.setRequestForm(registerRequestForm);
                 controller.setRequestPair(ku1AndKu3RequestForm);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                controller.setLoginUser(loginUser);
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentConfirmStage.setScene(scene);
                 currentConfirmStage.initModality(Modality.APPLICATION_MODAL);
                 currentConfirmStage.setTitle("Confirm");

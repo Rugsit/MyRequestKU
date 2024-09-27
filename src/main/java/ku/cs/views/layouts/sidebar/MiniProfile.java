@@ -11,7 +11,7 @@ import ku.cs.views.components.SquareImage;
 
 public class MiniProfile {
     private final VBox vBox;
-    private final ImageView profileImage;
+    protected final ImageView profileImage;
     private final Label profileName;
     private final RouteButton logoutButton;
 
@@ -36,6 +36,7 @@ public class MiniProfile {
 
         vBox.getChildren().addAll(profileImage,profileName,logoutButton);
         initStyle();
+        handleClickEvent();
     }
     private void initStyle(){
         vBox.setStyle("-fx-alignment: center; -fx-spacing: 5");
@@ -43,6 +44,11 @@ public class MiniProfile {
     public void mount(double x, double y) {
         vBox.setLayoutX(x);
         vBox.setLayoutY(y);
+    }
+    protected void handleClickEvent(){
+        profileImage.setOnMouseClicked(e -> {
+            System.out.println("Profile Image Clicked!");
+        });
     }
     public VBox getVBox() {
         return vBox;

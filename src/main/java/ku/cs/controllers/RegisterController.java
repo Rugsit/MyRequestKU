@@ -72,7 +72,8 @@ public class RegisterController {
         User existingUser = users.findUserById(id);
         // No username in datasource
         if (existingUser == null || !existingUser.getFirstname().equalsIgnoreCase(name) ||
-                !existingUser.getLastname().equalsIgnoreCase(lastName)) {
+                !existingUser.getLastname().equalsIgnoreCase(lastName) ||
+                !existingUser.getEmail().equalsIgnoreCase(email)) {
             showError("ไม่มีชื่อผู้ใช้งานในระบบ");
         }
         // Display basic warning.
@@ -86,7 +87,7 @@ public class RegisterController {
             // Pass user into a User class.
             hideError();
             try {
-                if (existingUser.getUsername().equals("nousername")) {
+                if (existingUser.getUsername().equals("no-username")) {
                     existingUser.setActive(true);
                     existingUser.setEmail(email);
                     existingUser.setUsername(username);
@@ -116,6 +117,7 @@ public class RegisterController {
     @FXML
     protected void onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER){
+            onRegisterButtonClick();
             System.out.println("register");
         }
     }

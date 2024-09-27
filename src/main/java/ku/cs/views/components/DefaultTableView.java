@@ -6,7 +6,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class DefaultTableView<S> extends TableView {
     private TableView<S> tableView;
     private final String DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
-    private final String STYLE_PATH = "/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet.css";
+    private final String STYLE_PATH = "/ku/cs/styles/department/pages/department-table-stylesheet.css";
 
     public DefaultTableView() {
         this(null);
@@ -29,6 +29,8 @@ public class DefaultTableView<S> extends TableView {
     }
     public void addColumn(String label, String objectProperty) {
         TableColumn<S, String> column = new TableColumn<>(label);
+        column.setSortable(false);//BLOCK SORT BY CLICK
+        column.setReorderable(false);//BLOCK DRAG BY MOUSE
         column.setCellValueFactory(new PropertyValueFactory<>(objectProperty));
         tableView.getColumns().add(column);
     }
@@ -39,6 +41,13 @@ public class DefaultTableView<S> extends TableView {
                 System.out.println("Table clicked!");
             }
         });
+    }
+    public void addStyleSheet(String path){
+        tableView.getStylesheets().add(getClass().getResource(path).toExternalForm());
+    }
+    public void setStyleSheet(String path){
+        tableView.getStylesheets().clear();
+        tableView.getStylesheets().add(getClass().getResource(path).toExternalForm());
     }
 
     public TableView<S> getTableView() {

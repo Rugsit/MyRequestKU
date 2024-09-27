@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="513.0" prefWidth="720.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.faculty.EditApproverController">
+   <children>
+      <Label layoutX="24.0" layoutY="4.0" prefHeight="90.0" prefWidth="554.0" styleClass="edit-data-header" text="แก้ไขผู้อนุมัติ">
+         <font>
+            <Font name="PrintAble4U Bold" size="12.0" />
+         </font>
+      </Label>
+      <VBox layoutX="24.0" layoutY="104.0" prefHeight="226.0" prefWidth="326.0">
+         <children>
+            <Label styleClass="text-desc-input" text="ชื่อ - นามสกุล">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <HBox>
+               <children>
+                  <TextField fx:id="nameTextField" prefHeight="50.0" prefWidth="182.0" promptText="ชื่อ" styleClass="input-edit">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <TextField fx:id="lastNameTextField" prefHeight="50.0" prefWidth="182.0" promptText="นามสกุล" styleClass="input-edit" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <Label styleClass="text-desc-input" text="ตำแหน่ง">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="academicRoleTextField" prefHeight="50.0" prefWidth="286.0" promptText="กรอกตำแหน่ง" styleClass="input-edit">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <Button focusTraversable="false" layoutX="651.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExitClick" prefHeight="44.0" prefWidth="34.0" styleClass="exit-button">
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/exit-button.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="401.0" layoutY="104.0" prefWidth="315.0" styleClass="old-data-header" text="ข้อมูลเก่า" textAlignment="CENTER">
+         <font>
+            <Font name="PrintAble4U Bold" size="12.0" />
+         </font>
+      </Label>
+      <Line endX="-100.0" endY="287.9999694824219" layoutX="476.0" layoutY="105.0" startX="-100.0" styleClass="line" />
+      <VBox layoutX="401.0" layoutY="170.0" prefHeight="214.0" prefWidth="304.0">
+         <children>
+            <HBox>
+               <children>
+                  <Label prefHeight="35.0" prefWidth="79.0" styleClass="text-desc-input" text="ชื่อ : " />
+                  <Label fx:id="nameLabel" prefHeight="26.0" prefWidth="279.0" styleClass="text-desc-input" text="นายรักษิต" wrapText="true">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label prefHeight="35.0" prefWidth="104.0" styleClass="text-desc-input" text="นามสกุล : " />
+                  <Label fx:id="lastNameLabel" prefWidth="230.0" styleClass="text-desc-input" text="รักนอน" wrapText="true">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label prefHeight="35.0" prefWidth="216.0" styleClass="text-desc-input" text="ตำแหน่งทางวิชาการ :" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <Label fx:id="academicRoleLabel" prefHeight="35.0" prefWidth="292.0" styleClass="text-desc-input" text="นักนอนชำนาญการพิเศษ" wrapText="true" />
+            <HBox>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox />
+         </children>
+      </VBox>
+      <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="393.0" layoutY="588.0" prefHeight="66.0" prefWidth="315.0" styleClass="error-label" text="error" visible="false" wrapText="true" />
+      <Button focusTraversable="false" graphicTextGap="15.0" layoutX="360.0" layoutY="432.0" mnemonicParsing="false" onAction="#onAcceptClick" styleClass="accept-button" text="ตกลง">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/save-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button focusTraversable="false" graphicTextGap="15.0" layoutX="519.0" layoutY="432.0" mnemonicParsing="false" onAction="#onDeleteClick" styleClass="delete-button" stylesheets="@../styles/error-confirm-edit-page-style.css" text="ลบข้อมูล">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/save-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

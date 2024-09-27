@@ -13,13 +13,13 @@
 .table-view .column-header {
     -fx-background-color: transparent;
     -fx-font-weight: Bold;
-    -fx-font-size: 32;
+    -fx-font-size: 28;
 }
 
 .table-view .table-cell{
     -fx-alignment: CENTER;
     -fx-border-color: transparent;
-    -fx-font-size: 24;
+    -fx-font-size: 20;
 }
 
 .table-row-cell  {
@@ -28,8 +28,8 @@
 
 
 .table-row-cell:filled {
-    -fx-background-insets: 10; /* Create spacing effect padding! */
-    -fx-padding: 20 0 20 0;
+    -fx-background-insets: 10 0 10 0; /* Create spacing effect padding! */
+    -fx-padding: 10 0 10 0;
     -fx-background-radius: 20;
     -fx-background-color: white;
 }

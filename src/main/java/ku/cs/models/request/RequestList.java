@@ -1,30 +1,73 @@
 package ku.cs.models.request;
 
+import ku.cs.models.user.UserList;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.UUID;
 
 public class RequestList {
-    ArrayList<Request> requests;
+    private ArrayList<Request> requests;
 
     public RequestList() {
         requests = new ArrayList<>();
     }
 
     public void addRequest(String[] data) {
-        Request request = switch (data[0]) {
-            case "Register" -> new RegisterRequestForm(data);
-            case "General" -> new GeneralRequestForm(data);
-            default -> null;
-        };
+        Request request;
+        switch (data[0]) {
+            case "ลงทะเบียนเรียน":
+                request = new RegisterRequestForm(data);
+                break;
+            case "ทั่วไป":
+                request = new GeneralRequestForm(data); break;
+            case "ลาพักการศึกษา":
+                String[] first = Arrays.copyOfRange(data, 0, 21);
+                String[] second = Arrays.copyOfRange(data, 21, data.length);
+                request = new AcademicLeaveRequestForm(first, second); break;
+            case "KU1":
+                String[] firstKU1 = Arrays.copyOfRange(data, 0, 15);
+                String[] secondKU1 = Arrays.copyOfRange(data, 15, data.length);
+                request = new Ku1AndKu3RequestForm(firstKU1, secondKU1, (byte)1); break;
+            case "KU3":
+                String[] firstKU3 = Arrays.copyOfRange(data, 0, 15);
+                String[] secondKU3 = Arrays.copyOfRange(data, 15, data.length);
+                request = new Ku1AndKu3RequestForm(firstKU3, secondKU3, (byte)3);break;
+            default:
+                request = null;
+        }
         requests.add(request);
     }
 
-    public void addRequest(String[] data, String[] subject, byte type) {
-        Request request = switch (data[0]) {
-            case "KU1", "KU3" -> new Ku1AndKu3RequestForm(data, subject, type);
-            default -> null;
-        };
-        requests.add(request);
+    public ArrayList<Request> getRequests() {
+        return this.requests;
     }
 
+    public void addRequest(Request request) {
+        this.requests.add(request);
+    }
+
+    public Request findByRequestUUID(UUID requestUUID) {
+     for (Request request : requests) {
+         if (request.getUuid().equals(requestUUID)) {
+             return request;
+         }
+     }
+     return null;
+    }
+
+    public ArrayList<Request> getRequests(String status) {
+        ArrayList<Request> newRequests = new ArrayList<>();
+        for (Request request : requests) {
+            if (request.getStatusNext().equals(status) || request.getStatusNow().equals(status)) {
+                newRequests.add(request);
+            }
+        }
+        return newRequests;
+    }
+
+    public void concatenate(RequestList requestList){
+        requests.addAll(requestList.getRequests());
+    }
 
 }

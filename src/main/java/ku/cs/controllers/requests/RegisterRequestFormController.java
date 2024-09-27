@@ -11,85 +11,63 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.RegisterRequestForm;
+import ku.cs.models.user.User;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class RegisterRequestFormController {
+    User loginUser;
 
     @FXML
     private Stage currentConfirmStage;
-
     @FXML
     private VBox buttonCOntainerVbox;
-
     @FXML
     private Stage currentErrorStage;
-
     @FXML
     private RadioButton addDropRadio;
-
     @FXML
     private RadioButton firstSemesRadio;
-
     @FXML
     private RadioButton latePayFirstSemesRadio;
-
     @FXML
     private RadioButton latePaySecondSemesRadio;
-
     @FXML
     private RadioButton latePaySummerSemesRadio;
-
     @FXML
     private TextField latePayYearTextField;
-
     @FXML
     private RadioButton latePaymentRadio;
-
     @FXML
     private RadioButton lateRegistrationRadio;
-
     @FXML
     private TextField newCredit;
-
     @FXML
     private TextField oldCredit;
-
     @FXML
     private TextArea otherTextArea;
-
     @FXML
     private RadioButton registerBelowNineRadio;
-
     @FXML
     private RadioButton registerRadio;
-
     @FXML
     private RadioButton secondSemesRadio;
-
     @FXML
     private RadioButton summerSemesRadio;
-
     @FXML
     private RadioButton transferFalRadio;
-
     @FXML
     private TextField yearTextField;
-
     @FXML
     private TextField newFalTextField;
-
     @FXML
     private TextField oldFalTextField;
-
     @FXML
     public BorderPane borderPane;
-
     @FXML
     private Button nextFormButton;
-
     @FXML
     private Button createFormButton;
 
@@ -121,6 +99,8 @@ public class RegisterRequestFormController {
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }
+
+    public void setLoginUser(User loginUser) {this.loginUser = loginUser;}
 
     private void showButtonWhenClick (Control control, Button button) {
         if (control instanceof RadioButton) {
@@ -164,6 +144,7 @@ public class RegisterRequestFormController {
             Pane pane = fxmlLoader.load();
             ChooseRequestFromController controller = fxmlLoader.getController();
             controller.setBorderPane(this.borderPane);
+            controller.setLoginUser(loginUser);
             borderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -180,14 +161,14 @@ public class RegisterRequestFormController {
                 if (!latePayFirstSemesRadio.isSelected() &&
                         !latePaySecondSemesRadio.isSelected() &&
                         !latePaySummerSemesRadio.isSelected()) {
-                    throw new IllegalArgumentException("คุณต้องเลือกภาคการศึกษา ต้น ปลาย ฤดูร้อน");
+                    throw new IllegalArgumentException("กรุณาเลือกภาคการศึกษา ต้น ปลาย ฤดูร้อน");
                 }
                 if (latePayFirstSemesRadio.isSelected()) {
-                    registerRequestForm.setLatePaymentSemester("ต้น");
+                    registerRequestForm.setLatePaymentSemester("First");
                 } else if (latePaySecondSemesRadio.isSelected()) {
-                    registerRequestForm.setLatePaymentSemester("ปลาย");
+                    registerRequestForm.setLatePaymentSemester("Second");
                 } else if (latePaySummerSemesRadio.isSelected()) {
-                    registerRequestForm.setLatePaymentSemester("ฤดูร้อน");
+                    registerRequestForm.setLatePaymentSemester("Summer");
                 }
                 registerRequestForm.setLatePaymentYear(latePayYearTextField.getText());
             } else if (transferFalRadio.isSelected()) {
@@ -218,6 +199,7 @@ public class RegisterRequestFormController {
                 Ku1FormController controller = fxmlLoader.getController();
                 controller.setRegisterForm(registerRequestForm);
                 controller.setBorderPane(this.borderPane);
+                controller.setLoginUser(loginUser);
                 borderPane.setCenter(pane);
             } catch (IOException ee) {
                 throw new RuntimeException(ee);
@@ -252,14 +234,14 @@ public class RegisterRequestFormController {
                     if (!firstSemesRadio.isSelected() &&
                             !secondSemesRadio.isSelected() &&
                             !summerSemesRadio.isSelected()) {
-                        throw new IllegalArgumentException("คุณต้องเลือกภาคการศึกษา ต้น ปลาย ฤดูร้อน");
+                        throw new IllegalArgumentException("กรุณาเลือกภาคการศึกษา ต้น ปลาย ฤดูร้อน");
                     }
                     if (firstSemesRadio.isSelected()) {
-                        registerRequestForm.setSemester("ต้น");
+                        registerRequestForm.setSemester("First");
                     } else if (secondSemesRadio.isSelected()) {
-                        registerRequestForm.setSemester("ปลาย");
+                        registerRequestForm.setSemester("Second");
                     } else if (summerSemesRadio.isSelected()) {
-                        registerRequestForm.setSemester("ฤดูร้อน");
+                        registerRequestForm.setSemester("Summer");
                     }
                     registerRequestForm.setSemesterYear(yearTextField.getText());
                     registerRequestForm.setOldCredit(oldCredit.getText());
@@ -284,7 +266,7 @@ public class RegisterRequestFormController {
                 errorGeneralRequestFormController.setErrorMessage(ee.getMessage());
                 ErrorGeneralRequestFormController controller = fxmlLoader.getController();
                 controller.setStage(this.currentErrorStage);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentErrorStage.setScene(scene);
                 currentErrorStage.initModality(Modality.APPLICATION_MODAL);
                 currentErrorStage.setTitle("Error");
@@ -296,10 +278,7 @@ public class RegisterRequestFormController {
     }
 
     private RegisterRequestForm createRegisterForm() {
-        UUID uuid = UUID.randomUUID();
-        UUID userId = UUID.randomUUID();
-        LocalDateTime now = LocalDateTime.now();
-        return new RegisterRequestForm(uuid,userId, "Test_Name", "Test_ID", now, now, "Register", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
+        return new RegisterRequestForm(loginUser.getUUID(), loginUser.getName(), loginUser.getId(), "ลงทะเบียนเรียน");
     }
 
     private void showConfirmPane(RegisterRequestForm registerRequestForm) {
@@ -313,7 +292,8 @@ public class RegisterRequestFormController {
                 controller.setStage(this.currentConfirmStage);
                 controller.setBorderPane(this.borderPane);
                 controller.setRequestForm(registerRequestForm);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                controller.setLoginUser(loginUser);
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentConfirmStage.setScene(scene);
                 currentConfirmStage.initModality(Modality.APPLICATION_MODAL);
                 currentConfirmStage.setTitle("Confirm");
@@ -337,6 +317,7 @@ public class RegisterRequestFormController {
         Ku3FormController controller = fxmlLoader.getController();
         controller.setRegisterForm(registerRequestForm);
         controller.setBorderPane(this.borderPane);
+        controller.setLoginUser(loginUser);
         borderPane.setCenter(pane);
     }
 }

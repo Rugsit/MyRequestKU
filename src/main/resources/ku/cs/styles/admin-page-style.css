@@ -3,14 +3,19 @@
     -fx-font-family: PrintAble4U;
 }
 
-Button {
+.side-bar-button {
     -fx-background-color: transparent;
-    -fx-font-size: 18;
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
 }
 
-Button:hover {
+.side-bar-button:hover {
     -fx-background-color: #EBEBEB;
+}
+
+.about-us {
+    -fx-text-fill: #909194;
+    -fx-font-size: 18px;
 }
 
 .imagePane {
@@ -27,7 +32,7 @@ Button:hover {
 .signOut {
     -fx-underline: true;
     -fx-text-fill: #2C67FF;
-    -fx-font-size: 18;
+    -fx-font-size: 18px;
     -fx-alignment: center;
     -fx-font-weight: normal;
 }
@@ -39,7 +44,7 @@ Button:hover {
 .tab-pane .tab {
     -fx-cursor: hand;
     -fx-font-weight: 700;
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
     -fx-background-color: #e0e0e0;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
@@ -62,13 +67,13 @@ Button:hover {
 .banButton, .edit {
     -fx-cursor: hand;
     -fx-padding: 15px;
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
     -fx-text-fill: white;
-    -fx-background-color: FF4E4E;
+    -fx-background-color: #FF4E4E;
 }
 
 .searchTextField {
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
     -fx-font-weight: 700;
     -fx-prompt-text-fill: #909090;
     -fx-background-color: transparent;
@@ -77,35 +82,23 @@ Button:hover {
 .unBanButton {
     -fx-cursor: hand;
     -fx-padding: 15px;
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
     -fx-text-fill: white;
     -fx-background-color: #49A267;
 }
 
 .searchHBox {
     -fx-border-color: #C7C8C8;
+    -fx-border-radius: 5px;
 }
 
 .addFacultyButton {
     -fx-cursor: hand;
     -fx-font-weight: 700;
     -fx-padding: 0 0 0 5 ;
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
     -fx-text-fill: white;
     -fx-background-color: #374957;
-}
-
-
-.table-view .column-header {
-    -fx-background-color: transparent;
-    -fx-pref-height: 40px;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: transparent;
 }
 
 .profileImage {
@@ -113,13 +106,179 @@ Button:hover {
     -fx-background-radius: 5px;
 }
 
+.profile-button {
+    -fx-background-color: transparent;
+}
+
 .profileButton:hover {
     -fx-cursor: hand;
-    -fx-background-color: transparent;
 }
 
 .tabName {
     -fx-alignment: center;
-    -fx-font-size: 18;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
 }
+
+.allTab {
+    -fx-pref-width: 100px;
+}
+
+/*Table view style*/
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-pref-height: 40px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-font-size: 24px;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .cell {
+    -fx-text-fill: #374957;
+    -fx-padding: 10px;
+    -fx-font-size: 20px;
+    -fx-border-color: transparent;
+}
+
+.table-view-user .cell {
+    -fx-text-fill: #374957;
+    -fx-padding: 3px 0px 3px 10px;
+    -fx-font-size: 20px;
+    -fx-border-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .cell:selected {
+    -fx-border-radius: 2px;
+    -fx-border-width: 2px;
+    -fx-border-color: #374957;
+    -fx-background-color: #F3F3F3;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+
+.table-row-cell {
+    -fx-border-width: 0px;
+    -fx-background-color: white;
+}
+.table-row-cell:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+.table-view .cell:hover {
+    -fx-cursor: hand;
+}
+
+.row-active {
+    -fx-cursor: hand;
+    -fx-background-color: #D3FFE1;
+}
+
+.row-active:hover {
+    -fx-background-color: #9df5b9;
+}
+
+.row-inactive {
+    -fx-cursor: hand;
+    -fx-background-color: #FFD0D0;
+}
+
+.row-inactive:hover {
+    -fx-background-color: #faa7a7;
+}
+
+.table-view .scroll-bar:vertical {
+    -fx-pref-width: 20px;
+    -fx-background-color: white; /* Thumb (the part that moves) color */
+    -fx-background-radius: 1px;    /* Rounded corners */
+}
+
+.table-view .scroll-bar:vertical .thumb{
+    -fx-background-color: #374957;
+}
+/*Table view style*/
+
+/*Admin dashboard style*/
+.box-all, .box-process,
+.box-success, .box-reject {
+    -fx-background-radius: 5px;
+}
+.box-all {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #DBE5FF, #95B2FF);
+}
+.box-process {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #FFEACB, #FFC46E);
+}
+.box-success {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #D3FFE2, #45CA72);
+}
+.box-reject {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #FFD5D5, #F66262);
+}
+.header-inbox {
+    -fx-font-size: 24   px;
+}
+.label-all {
+    -fx-text-fill: #4E7FFF;
+}
+.label-process {
+    -fx-text-fill: #ED9B22;
+}
+.label-success {
+    -fx-text-fill: #49A267;
+}
+.label-reject {
+    -fx-text-fill: #FF5D5D;
+}
+.number-inbox {
+    -fx-font-size: 36px;
+}
+.number-all {
+    -fx-text-fill: #375AB3;
+}
+.number-process {
+    -fx-text-fill: #895F20;
+}
+.number-success {
+    -fx-text-fill: #327448;
+}
+.number-reject {
+    -fx-text-fill: #953D3D;
+}
+.box-amount-user {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0, 0, 1);
+}
+.label-amount-user {
+    -fx-font-size: 24px;
+}
+/*Admin dashboard style*/

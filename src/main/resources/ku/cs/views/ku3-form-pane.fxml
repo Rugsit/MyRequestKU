@@ -131,12 +131,12 @@
                      <children>
                         <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                            <children>
-                              <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onRemoveSubjectPart1Click" styleClass="remove-subject-button" text="ลบวิชา">
+                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#onRemoveSubjectPart1Click" styleClass="remove-subject-button" text="ลบวิชา">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#addSubjectPart1" styleClass="add-subject-button" text="เพิ่มวิชา" />
+                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#addSubjectPart1" styleClass="add-subject-button" text="เพิ่มวิชา" />
                            </children>
                         </HBox>
                         <CheckBox fx:id="part1Checkbox" mnemonicParsing="false" styleClass="subject-header" text="ส่วนที่ 1 ขอเพิ่มรายวิชา">
@@ -232,7 +232,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                                  <children>
-                                    <Label text="อาจารย์ประจำวิชา">
+                                    <Label text="อาจารย์ประจำวิชา (ชื่อ นามสกุล)">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
@@ -263,15 +263,18 @@
                         </CheckBox>
                         <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                            <children>
-                              <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onRemoveSubjectPart2Click" styleClass="remove-subject-button" text="ลบวิชา">
+                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#onRemoveSubjectPart2Click" styleClass="remove-subject-button" text="ลบวิชา">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#addSubjectPart2" styleClass="add-subject-button" text="เพิ่มวิชา" />
+                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#addSubjectPart2" styleClass="add-subject-button" text="เพิ่มวิชา" />
                            </children>
                         </HBox>
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
                   </GridPane>
                   <VBox fx:id="subjectDropVbox" prefWidth="100.0">
                      <children>
@@ -359,7 +362,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                                  <children>
-                                    <Label text="อาจารย์ประจำวิชา">
+                                    <Label text="อาจารย์ประจำวิชา (ชื่อ นามสกุล)">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
@@ -376,7 +379,7 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT">
                      <children>
-                        <Button fx:id="createFormButton" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onCreateRegisterForm" styleClass="create-form-button" text="ส่งใบคำร้อง">
+                        <Button fx:id="createFormButton" focusTraversable="false" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onCreateRegisterForm" styleClass="create-form-button" text="ส่งใบคำร้อง">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

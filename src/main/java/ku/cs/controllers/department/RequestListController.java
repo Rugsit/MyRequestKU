@@ -1,11 +1,22 @@
 package ku.cs.controllers.department;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import ku.cs.models.Session;
+import ku.cs.models.department.DepartmentList;
+import ku.cs.models.request.RequestList;
+import ku.cs.models.user.DepartmentUser;
+import ku.cs.models.user.User;
+import ku.cs.services.DepartmentListFileDatasource;
+import ku.cs.services.RequestListFileDatasource;
+import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.views.components.DefaultTableView;
 import ku.cs.views.components.RouteButton;
@@ -19,6 +30,7 @@ import ku.cs.services.UserListFileDatasource;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 public class RequestListController {
     @FXML private AnchorPane mainAnchorPane;
@@ -38,39 +50,42 @@ public class RequestListController {
     @FXML private TextField seachTextField;
     @FXML private TableView<Request> requestTableView;
     @FXML private UserList userList;
+    private RequestList requestList;
+    private RequestListFileDatasource requestDatasource;
 
     private final String BASE_COLOR = "#FFFFFF";
     private final String HOVER_COLOR = "#a6a6a6";
     private final String BASE_LABEL_COLOR = DefaultLabel.DEFAULT_LABEL_COLOR;
     private final String DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
     private final String FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
+    private Session session;
+
+    private void initRouteData(){
+        Object object = FXRouter.getData();
+        if(object instanceof Session){
+            this.session = (Session) object;
+        }else{
+            session = null;
+        }
+    }
 
     @FXML
     public void initialize() {
+        initRouteData();
+        requestDatasource = new RequestListFileDatasource("data");
+        requestList = requestDatasource.readData();
+
         initLabel();
-        initSidebar();
         initTableView();
-        Image image = new Image(getClass().getResourceAsStream("/images/profile-test.png"));
-        new SquareImage(userProfileImageView,image).setClipImage(100,100);
+//        Image image = new Image(getClass().getResourceAsStream("/images/profile-test.png"));
+//        new SquareImage(userProfileImageView,image).setClipImage(100,100);
 
+        mainAnchorPane.getChildren().add(new SidebarController("request-list",session).getVBox());
 
-        mainAnchorPane.getChildren().add(new SidebarController().getVBox());
-
-        UserListFileDatasource userDataSource = new UserListFileDatasource("data","users.csv");
-        userList = userDataSource.readData();
-        System.out.println(userList);
 
     }
     private void initLabel() {
         new DefaultLabel(pageTitleLabel);
-    }
-    private void initSidebar(){
-        new RouteButton(requestSideButton,"department-staff-request-list",HOVER_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
-        new RouteButton(nisitAdvisorManagementSideButton,"department-staff-nisit-advisor-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
-        new RouteButton(nisitManagementSideButton,"department-staff-nisit-management",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
-        new RouteButton(approverManagementSideButton,"department-staff-approver-list",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
-        new RouteButton(logoutButton,"login",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
-
     }
     private void initTableView(){
         DefaultTableView<Request> reqTable = new DefaultTableView(requestTableView){
@@ -80,7 +95,13 @@ public class RequestListController {
                     Object selected = getTableView().getSelectionModel().getSelectedItem();
                     if(selected instanceof Request){
                         try {
-                            FXRouter.goTo("department-staff-request",selected);
+                            if(session != null){
+                                session.setData(selected);
+                            }else{
+                                session = new Session();
+                                session.setData(selected);
+                            }
+                            FXRouter.goTo("department-staff-request",session);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
@@ -90,15 +111,110 @@ public class RequestListController {
         };
         reqTable.getTableView().getColumns().clear();
 
-        reqTable.addColumn("ชื่อ-นามสกุล","name");
-        reqTable.addColumn("วันที่และเวลา","timeStamp");
-        reqTable.addColumn("รหัสนิสิต","nisitId");
         reqTable.addColumn("ประเภทคำร้อง","requestType");
-        reqTable.addColumn("สถานะคำร้อง","statusNow");
+        reqTable.addColumn("รหัสนิสิต","nisitId");
+        reqTable.addColumn("ชื่อ-นามสกุล","name");
+//        reqTable.addColumn("วันที่และเวลา","timeStamp");
+//        reqTable.addColumn("สถานะคำร้อง","statusNow");
+        reqTable.getTableView().getColumns().add(newTimestampColumn("เวลาอัพเดท"));
+        reqTable.getTableView().getColumns().add(newRequestStatusColumn("สถานะคำร้อง"));
+        reqTable.addStyleSheet("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet.css");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        Request request = new Request("ศิริสุข ทานธรรม", LocalDateTime.parse("2024/08/02 23:59:45", formatter), LocalDateTime.parse("2024/08/02 23:59:45", formatter), "6610402230", "คำร้องทั่วไป", "รอภาควิชา", "อนุมัติโดยอาจารย์ที่ปรึกษา");
-        reqTable.getTableView().getItems().add(request);
 
+
+//        Request request = new Request("ศิริสุข ทานธรรม", LocalDateTime.parse("2024/08/02 23:59:45", formatter), LocalDateTime.parse("2024/08/02 23:59:45", formatter), "6610402230", "คำร้องทั่วไป", "รอภาควิชา", "อนุมัติโดยอาจารย์ที่ปรึกษา");
+
+        UserListFileDatasource userDatasource = new UserListFileDatasource("data","student.csv");
+        UserList userList = userDatasource.readData();
+        RequestList departmentRequest = new RequestList();
+        if(session != null && (session.getUser() != null && session.getUser() instanceof DepartmentUser)){;
+            for(Request request : requestList.getRequests()){
+                UUID requestDepartmentUUID = ((DepartmentUser)userList.findUserByUUID(request.getOwnerUUID())).getDepartmentUUID();
+                if(requestDepartmentUUID.equals(((DepartmentUser) session.getUser()).getDepartmentUUID())){
+                    departmentRequest.addRequest(request);
+                }
+            }
+            reqTable.getTableView().getItems().addAll(departmentRequest.getRequests());
+        }else{
+            reqTable.getTableView().getItems().addAll(requestList.getRequests());
+        }
+
+    }
+    private TableColumn<Request,?> newRequestStatusColumn(String colName){
+        TableColumn<Request,VBox> column = new TableColumn<>(colName);
+        column.setSortable(false);//BLOCK SORT BY CLICK
+        column.setReorderable(false);//BLOCK DRAG BY MOUSE
+        column.setCellFactory(c -> new TableCell<>(){
+            private VBox vBox = new VBox();
+            private DefaultLabel line1 = new DefaultLabel("");
+            private DefaultLabel line2 = new DefaultLabel("");
+            {
+                vBox.setAlignment(Pos.CENTER);
+                line1.changeText("",20, FontWeight.NORMAL);
+                line2.changeText("",18, FontWeight.NORMAL);
+            }
+            @Override
+            protected void updateItem(VBox item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || getTableView() == null || getTableView().getItems().get(getIndex()) == null) {
+                    setGraphic(null);
+                } else {
+                    Request request = getTableView().getItems().get(getIndex());
+                    String statusNow = request.getStatusNow();
+
+                    line1.changeText(statusNow);
+                    if(statusNow.equalsIgnoreCase("ใบคำร้องใหม่")){
+                        line1.changeLabelColor("green");
+                    }else {
+                        line1.changeLabelColor("black");
+                    }
+
+                    String statusNext = request.getStatusNext();
+                    line2.changeText(statusNext);
+
+                    vBox.getChildren().clear();
+                    vBox.getChildren().addAll(line1, line2);
+
+                    setGraphic(vBox);
+                }
+            }
+        });
+        return column;
+    }
+    private TableColumn<Request,?> newTimestampColumn(String colName){
+        TableColumn<Request,VBox> column = new TableColumn<>(colName);
+        column.setSortable(false);//BLOCK SORT BY CLICK
+        column.setReorderable(false);//BLOCK DRAG BY MOUSE
+        column.setCellFactory(c -> new TableCell<>(){
+            private VBox vBox = new VBox();
+            private DefaultLabel line1 = new DefaultLabel("");
+            private DefaultLabel line2 = new DefaultLabel("");
+            {
+                vBox.setAlignment(Pos.CENTER);
+                line1.changeText("",20, FontWeight.NORMAL);
+                line2.changeText("",18, FontWeight.NORMAL);
+            }
+            @Override
+            protected void updateItem(VBox item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || getTableView() == null || getTableView().getItems().get(getIndex()) == null) {
+                    setGraphic(null);
+                } else {
+                    Request request = getTableView().getItems().get(getIndex());
+                    String statusNow = DateTools.localDateTimeToFormatString("yyyy/MM/dd HH:mm", request.getTimeStamp());
+                    line1.changeText(statusNow);
+
+                    String statusNext = "สร้าง " + DateTools.localDateTimeToFormatString("yyyy/MM/dd", request.getDate());
+                    line2.changeText(statusNext);
+
+                    vBox.getChildren().clear();
+                    vBox.getChildren().addAll(line1, line2);
+
+                    setGraphic(vBox);
+                }
+            }
+        });
+        return column;
     }
 
 

@@ -3,15 +3,16 @@ package ku.cs.models.user;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import ku.cs.models.user.exceptions.*;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.Random;
 import java.util.UUID;
 
-import static ku.cs.services.utils.DateTools.dateToFormatString;
-import static ku.cs.services.utils.DateTools.formatToDate;
+import static ku.cs.services.utils.DateTools.localDateTimeToFormatString;
+import static ku.cs.services.utils.DateTools.formatToLocalDateTime;
 import static ku.cs.services.utils.StringCompare.*;
 
-public class User implements Identifiable, Serializable {
+public abstract class User implements Identifiable, Comparable<User> {
     private final UUID uuid;
     private String id;
     private String username;
@@ -19,17 +20,12 @@ public class User implements Identifiable, Serializable {
 
     private String firstname;
     private String lastname;
-    private Date lastLogin;
+    private LocalDateTime lastLogin;
     private String email;
     private String avatar;
-    private String faculty;
-    private String department;
-
-    private UUID advisor;
     private boolean active;
-
     private String password;
-    private static String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss:Z";
+    public static String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss";
 
     public User(String id,
                 String username,
@@ -38,11 +34,9 @@ public class User implements Identifiable, Serializable {
                 String lastname,
                 String lastLogin,
                 String email,
-                String faculty,
-                String department,
                 String password) throws UserException {
         //Constructor for New User
-        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, faculty, department, null, "no-image","active","no-advisor");
+        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, null, "no-image","active");
         setPassword(password);
         this.active = !role.equalsIgnoreCase("student");
     }
@@ -54,29 +48,34 @@ public class User implements Identifiable, Serializable {
                 String lastname,
                 String lastLogin,
                 String email,
-                String faculty,
-                String department,
                 String password,
                 String avatar,
-                String activeStatus,
-                String advisorUUID) throws UserException{
+                String activeStatus) throws UserException{
         //Contructor for DataSource Reader
         if(uuid == null) throw new UUIDException("UUID must not be null");
         this.uuid = UUID.fromString(uuid);
+        setRole(role);
         setId(id);
         setUsername(username);
-        setRole(role);
         setFirstname(firstname);
         setLastname(lastname);
         setLastLogin(lastLogin);
         setEmail(email);
-        setFaculty(faculty);
-        setDepartment(department);
         setAvatar(avatar);
         this.password = password;
         this.active = activeStatus.equalsIgnoreCase("active");
-        this.advisor = (!advisorUUID.equalsIgnoreCase("no-advisor")) ? UUID.fromString(advisorUUID) : null;
     }
+    //Comparator
+    public static Comparator<User> userIdComparator = new Comparator<>() {
+        public int compare(User u1, User u2) {
+            return u1.getId().compareTo(u2.getId());
+        }
+    };
+    public static Comparator<User> usernameComparator = new Comparator<>() {
+        public int compare(User u1, User u2) {
+            return u1.getUsername().compareTo(u2.getUsername());
+        }
+    };
 
     //GETTER
 
@@ -110,12 +109,24 @@ public class User implements Identifiable, Serializable {
         return this.lastname;
     }
     @Override
-    public Date getLastLogin() {
+    public LocalDateTime getLastLogin() {
         return this.lastLogin;
     }
     @Override
     public String getEmail(){
         return this.email;
+    }
+    public String getDefaultPassword() {
+        String strUUID = this.uuid.toString();
+        int sum = 0;
+        for(char c : strUUID.toCharArray()) {
+            sum += c;
+        }
+        Random random = new Random();
+        random.setSeed(sum);
+        int max=999999999,min=100000000;
+        String defaultPassword = "" + (random.nextInt(max - min + 1) + min);
+        return defaultPassword;
     }
     public String getAvatar(){
         return this.avatar;
@@ -123,12 +134,6 @@ public class User implements Identifiable, Serializable {
     public String getActiveStatus(){
         return this.active?"Active":"Inactive";
     }
-    public UUID getAdvisor(){
-        return this.advisor;
-    }
-
-    public String getFaculty(){return this.faculty;}
-    public String getDepartment(){return this.department;}
     public String getDefaultAvatarName(){
         return getUUID().toString() +"-avatar";
     }
@@ -137,17 +142,20 @@ public class User implements Identifiable, Serializable {
     public void setId(String id) throws IDException{
         if(id == null) throw new IDException("ID must not be null");
         if(id.isEmpty()) throw new IDException("ID must not be empty");
-        if(!isDigit(id)) throw new IDException("ID must be a number");
         if(haveSpace(id)) throw new IDException("ID must not contain spaces");
-        if(id.length() != 10) throw new IDException("ID must be 10 characters");
+        if(role.equalsIgnoreCase("student")){
+            if(!isDigit(id)) throw new IDException("Nisit ID must be digits");
+            if(id.length() != 10) throw new IDException("Nisit ID must be 10 characters");
+        }
+        if(!isAlphaNumberic(id)) throw new IDException("ID must be a alphanumeric");
         this.id = id.trim();
     }
 
     public void setUsername(String username) throws UsernameException{
         if(username == null) throw new UsernameException("Username must not be null");
         if(username.isEmpty()) throw new UsernameException("Username must not be empty");
-        if(!isAlphaNumberic(username)) throw new UsernameException("Username must be alphanumeric");
         if(haveSpace(username))throw new UsernameException("Username must not contain spaces");
+        if(!isAlphaNumberic(username)) throw new UsernameException("Username must be alphanumeric");
         if(username.length() > 30) throw new UsernameException("Username must be equal or less than 30 characters");
         this.username = username.trim();
     }
@@ -156,6 +164,7 @@ public class User implements Identifiable, Serializable {
         if(role == null) throw new RoleException("Role must not be null");
         if(role.isEmpty()) throw new RoleException("Role must not be empty");
         if(haveSpace(role))throw new RoleException("Role must not contain spaces");
+        if(!isAlphaNumberic(role)) throw new RoleException("Role must be alphanumeric");
         Boolean valid = false;
         role = role.trim().toLowerCase();
         for(String r : AVAILABLE_ROLES){
@@ -168,23 +177,27 @@ public class User implements Identifiable, Serializable {
     public void setFirstname(String firstname) throws NameException{
         if(firstname == null) throw new NameException("Firstname must not be null");
         if(firstname.isEmpty()) throw new NameException("Firstname must not be empty");
+        if(startWithSpace(firstname)) throw new NameException("Firstname must not start with spaces");
+        if(endWithSpace(firstname)) throw new NameException("Firstname must not end with spaces");
+        if(haveDuplicateSpace(firstname)) throw new NameException("Firstname must not contain duplicate spaces");
         if(!isAplha(firstname)) throw new NameException("Firstname must be alphabet");
-        if(haveSpace(firstname)) throw new NameException("Firstname must not contain spaces");
         this.firstname = firstname.trim().toLowerCase();
     }
 
     public void setLastname(String lastname) throws NameException{
         if(lastname == null) throw new NameException("Lastname must not be null");
         if(lastname.isEmpty()) throw new NameException("Lastname must not be empty");
+        if(startWithSpace(lastname)) throw new NameException("Lastname must not start with spaces");
+        if(endWithSpace(lastname)) throw new NameException("Lastname must not end with spaces");
+        if(haveDuplicateSpace(lastname)) throw new NameException("Lastname must not contain duplicate spaces");
         if(!isAplha(lastname)) throw new NameException("Lastname must be alphabet");
-        if(haveSpace(lastname)) throw new NameException("Lastname must not contain spaces");
         this.lastname = lastname.trim().toLowerCase();
     }
 
     public void setLastLogin(String dateString) throws DateException {
         if(dateString == null) throw new DateException("dateString must not be null");
         if(dateString.isEmpty()) throw new DateException("dateString must not be empty");
-        Date date = formatToDate(DATE_FORMAT,dateString);
+        LocalDateTime date = formatToLocalDateTime(DATE_FORMAT,dateString);
 //        if(date == null) throw new DateException("Invalid " + DATE_FORMAT + "format dateString");
         this.lastLogin = date;
     }
@@ -200,8 +213,13 @@ public class User implements Identifiable, Serializable {
     public void setPassword(String password) throws PasswordException {
         if(password == null) throw new PasswordException("Password cannot be null");
         if(password.isEmpty()) throw new PasswordException("Password must not be empty");
+        if(haveSpace(password)) throw new PasswordException("Password must not contain spaces");
+        if(password.equalsIgnoreCase("DEFAULT")) {
+            password = getDefaultPassword();
+        }
         if(password.length() <= 8)
             throw new PasswordException("password must be more than 8 characters");
+
 
         String bcryptHashString = BCrypt.withDefaults().hashToString(12, password.toCharArray());
         this.password = bcryptHashString;
@@ -212,19 +230,10 @@ public class User implements Identifiable, Serializable {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
-    public void setFaculty(String faculty) { this.faculty = faculty; }
-    public void setDepartment(String department) { this.department = department; }
+
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-    public void setAdvisor(Identifiable object){
-        if(object != null && object.isRole("advisor")){
-            this.advisor = object.getUUID();
-        }
-    }
-    public void removeAdvisor(){
-        this.advisor = null;
     }
     //VALIDATION
 
@@ -258,11 +267,12 @@ public class User implements Identifiable, Serializable {
 
     //MORE
 
+
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof User){
-            User user = (User) obj;
-            if(user.uuid.equals(this.uuid))
+        if(obj instanceof Identifiable){
+            Identifiable user = (Identifiable)obj;
+            if(this.uuid.equals(user.getUUID()))
                 return true;
         }
         return false;
@@ -271,12 +281,15 @@ public class User implements Identifiable, Serializable {
     public int hashCode(){
         return this.uuid.hashCode();
     }
+    @Override
+    public int compareTo(User user) {
+        return this.uuid.compareTo(user.getUUID());
+    }
 
     @Override
     public String toString() {
-        String lastLogin = dateToFormatString(DATE_FORMAT, this.lastLogin);
+        String lastLogin = localDateTimeToFormatString(DATE_FORMAT, this.lastLogin);
         String activeStatus = (active ? "active" : "inactive");
-        String advisorUUID = (advisor != null) ? advisor.toString() : "no-advisor";
         return uuid.toString() + "," +
                 id + "," +
                 username + "," +
@@ -285,11 +298,8 @@ public class User implements Identifiable, Serializable {
                 lastname + "," +
                 lastLogin + "," +
                 email + "," +
-                faculty + "," +
-                department + "," +
                 password + "," +
                 avatar + "," +
-                activeStatus + "," +
-                advisorUUID;
+                activeStatus;
     }
 }

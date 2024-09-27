@@ -33,9 +33,8 @@ public class MainApplication extends Application {
         FXRouter.when("admin-manage-staff", viewPath + "admin-page-manage-staff.fxml");
         FXRouter.when("admin-manage-users", viewPath + "admin-page-manage-users.fxml");
         FXRouter.when("admin-manage-faculty-department", viewPath + "admin-page-manage-faculty-department.fxml");
-        FXRouter.when("user-profile", viewPath + "admin-profile-page.fxml");
+        FXRouter.when("admin-user-profile", viewPath + "admin-page.fxml");
         FXRouter.when("student-page", viewPath + "student-page.fxml");
-        FXRouter.when("advisor-requests", viewPath + "advisor-requests.fxml");
         FXRouter.when("advisor-students", viewPath + "advisor-students.fxml");
         //Department
         FXRouter.when("department-staff-request-list", viewPath + "department-staff-request-list.fxml");
@@ -43,6 +42,8 @@ public class MainApplication extends Application {
         FXRouter.when("department-staff-approver-list", viewPath + "department-staff-approver-list.fxml");
         FXRouter.when("department-staff-nisit-advisor-management", viewPath + "department-staff-nisit-advisor-management.fxml");
         FXRouter.when("department-staff-nisit-management", viewPath + "department-staff-nisit-management.fxml");
+        FXRouter.when("department-staff-add-nisit", viewPath + "department-staff-add-nisit.fxml");
+        FXRouter.when("department-staff-profile", viewPath + "department-staff-profile.fxml");
 
         FXRouter.when("choose-request-form", viewPath + "choose-request-form-page.fxml");
         FXRouter.when("test", viewPath + "test-datasource.fxml");
@@ -51,8 +52,8 @@ public class MainApplication extends Application {
 
 
         // Faculty
-        FXRouter.when("faculty-requests", viewPath + "faculty-requests.fxml");
-        FXRouter.when("faculty-approver", viewPath + "faculty-approver.fxml");
+        FXRouter.when("faculty-page", viewPath + "faculty-pages.fxml");
+        FXRouter.when("faculty-approver", viewPath + "faculty-approver-page.fxml");
     }
 
     public static void main(String[] args) {

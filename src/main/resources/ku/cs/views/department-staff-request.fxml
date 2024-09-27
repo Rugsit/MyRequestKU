@@ -2,116 +2,44 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.department.RequestController">
    <children>
-      <Label fx:id="pageTitleLabel" layoutX="500.0" layoutY="29.0" text="จัดการผู้อนุมัติ (ภาควิชา)">
-         <font>
-            <Font name="Arial Bold" size="48.0" />
-         </font>
-      </Label>
-      <TableView fx:id="approverTableView" layoutX="54.0" layoutY="315.0" prefHeight="362.0" prefWidth="825.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
-      <ImageView fx:id="editorStatusCheckGreyImageView" fitHeight="222.0" fitWidth="218.0" layoutX="975.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/pages/department/department-staff-request/editor-status-check-grey.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="editorStatusImageLabel" layoutX="984.0" layoutY="536.0" text="ยังไม่ต้องดำเนินการ" textFill="#919191">
-         <font>
-            <Font name="Arial Bold" size="32.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="requestProfileImageView" fitHeight="160.0" fitWidth="160.0" layoutX="64.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="requestTypeLabel" layoutX="262.0" layoutY="87.0" text="ประเภทคำร้อง">
-         <font>
-            <Font name="Arial Bold" size="40.0" />
-         </font>
-      </Label>
-      <Label fx:id="requestNisitIdPrefixLabel" layoutX="262.0" layoutY="127.0" text="รหัสนิสิต">
-         <font>
-            <Font name="Arial Bold" size="36.0" />
-         </font>
-      </Label>
-      <Label fx:id="requestNisitNamePrefixLabel" layoutX="262.0" layoutY="163.0" text="ชื่อ">
-         <font>
-            <Font name="Arial Bold" size="36.0" />
-         </font>
-      </Label>
-      <Label fx:id="requesTimestampPrefixLabel" layoutX="260.0" layoutY="195.0" text="เวลา">
-         <font>
-            <Font name="Arial Bold" size="36.0" />
-         </font>
-      </Label>
-      <Label fx:id="requestNisitIdLabel" layoutX="366.0" layoutY="126.0" text="XXXXXXXXXX">
-         <font>
-            <Font name="Arial" size="36.0" />
-         </font>
-      </Label>
-      <Label fx:id="requestNisitNameLabel" layoutX="303.0" layoutY="163.0" text="ชื่อ นามสกุล">
-         <font>
-            <Font name="Arial" size="36.0" />
-         </font>
-      </Label>
-      <Label fx:id="requesTimestampLabel" layoutX="329.0" layoutY="195.0" text="23:59 น.">
-         <font>
-            <Font name="Arial" size="36.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="requestStatusImageView" fitHeight="150.0" fitWidth="150.0" layoutX="1011.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/pages/department/department-staff-request/waiting-clock.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="requestStatusLabel" layoutX="964.0" layoutY="214.0" prefHeight="72.0" prefWidth="245.0" text="ใบคำร้องใหม่ คำร้องส่งต่อให้อาจารย์ที่ปรึกษา" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font name="Arial" size="26.0" />
-         </font>
-      </Label>
-      <Button fx:id="addApproverButton" layoutX="54.0" layoutY="253.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" text="เพิ่มผู้อนุมัติ" textAlignment="CENTER">
-         <font>
-            <Font name="Arial Bold" size="24.0" />
-         </font>
-      </Button>
-      <Button fx:id="requestInfoButton" layoutX="256.0" layoutY="253.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" text="ข้อมูลคำร้อง" textAlignment="CENTER">
-         <font>
-            <Font name="Arial Bold" size="24.0" />
-         </font>
-      </Button>
-      <Button fx:id="approveButton" layoutX="618.0" layoutY="253.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="125.0" text="อนุมัติ" textAlignment="CENTER">
-         <font>
-            <Font name="Arial Bold" size="24.0" />
-         </font>
-      </Button>
-      <Button fx:id="rejectButton" layoutX="753.0" layoutY="253.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="125.0" text="ไม่อนุมัติ" textAlignment="CENTER">
-         <font>
-            <Font name="Arial Bold" size="24.0" />
-         </font>
-      </Button>
-      <Label fx:id="requestIdLabel" layoutX="171.0" layoutY="688.0" text="020820240000001">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="requestIdPrefixLabel" layoutX="54.0" layoutY="688.0" text="หมายเลขคำร้อง">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="backButton" layoutX="28.0" layoutY="25.0" mnemonicParsing="false" text="ย้อนกลับ">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </Button>
+      <StackPane fx:id="mainStackPane" prefHeight="720.0" prefWidth="1280.0">
+         <children>
+            <Pane prefHeight="720.0" prefWidth="1280.0">
+               <children>
+                  <Button fx:id="backButton" layoutX="28.0" layoutY="25.0" mnemonicParsing="false" text="ย้อนกลับ">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="pageTitleLabel" layoutX="397.0" layoutY="32.0" text="จัดการผู้อนุมัติ (ภาควิชา)">
+                     <font>
+                        <Font name="Arial Bold" size="48.0" />
+                     </font>
+                  </Label>
+                  <VBox fx:id="dataVBox" layoutX="36.0" layoutY="93.0" prefHeight="589.0" prefWidth="787.0">
+                     <children>
+                        <VBox fx:id="requestInfoVBox" prefHeight="192.0" prefWidth="787.0" />
+                        <HBox fx:id="requestMenuHBox" prefHeight="64.0" prefWidth="787.0" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="mainEditorVBox" layoutX="829.0" layoutY="93.0" prefHeight="589.0" prefWidth="423.0">
+                     <children>
+                        <VBox fx:id="statusVBox" prefHeight="470.0" prefWidth="423.0" />
+                        <VBox fx:id="editorVBox" prefHeight="589.0" prefWidth="423.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

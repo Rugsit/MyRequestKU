@@ -1,0 +1,63 @@
+* {
+    -fx-text-fill: #374957;
+    -fx-font-family: PrintAble4U;
+}
+
+.RequestsTable {
+    -fx-background-color: transparent;
+    -fx-font-size: 24px;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.RequestsTable .column-header-background {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+.RequestsTable .column-header {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+
+.RequestsTable .cell {
+    -fx-text-fill: #374957;
+    -fx-padding: 10px;
+    -fx-font-size: 20px;
+    -fx-border-color: transparent;
+}
+.RequestsTable .cell:selected {
+    -fx-border-radius: 2px;
+    -fx-border-width: 2px;
+    -fx-border-color: #374957;
+    -fx-background-color: #F3F3F3;
+}
+.RequestsTable .cell:hover {
+    -fx-cursor: hand;
+}
+
+.Button {
+    -fx-background-color: #4E7FFF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}
+
+
+.RequestStatus {
+    -fx-background-color: #F2FFF7;
+    -fx-border-color: #00B448;
+    -fx-border-radius: 3;
+    -fx-text-fill: #00B448;
+    -fx-font-size: 18;
+    -fx-text-alignment: center;
+}
+
+.view-reject-reason-button {
+    -fx-background-color: #FF4E4E;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}

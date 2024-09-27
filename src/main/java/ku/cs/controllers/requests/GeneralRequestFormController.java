@@ -10,65 +10,51 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.GeneralRequestForm;
+import ku.cs.models.user.User;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class GeneralRequestFormController {
+    private User loginUser;
+    // FXML Component
     @FXML
     private Stage currentConfirmStage;
-
     @FXML
     private Stage currentErrorStage;
     @FXML
     private CheckBox changeNameCheckBox;
-
     @FXML
     private RadioButton damagedRadio;
-
     @FXML
     private CheckBox degreeCerCheckBox;
-
     @FXML
     private RadioButton lostRadio;
-
     @FXML
     private TextField newEngNameTextFeild;
-
     @FXML
     private TextField newEngSurNameTextFeild;
-
     @FXML
     private TextField newThaiNameTextFeild;
-
     @FXML
     private TextField newThaiSurNameTextFeild;
-
     @FXML
     private TextField oldEngNameTextFeild;
-
     @FXML
     private TextField oldEngSurNameTextFeild;
-
     @FXML
     private TextField oldThaiNameTextFeild;
-
     @FXML
     private TextField oldThaiSurNameTextFeild;
-
     @FXML
     private CheckBox otherCheckBox;
-
     @FXML
     private TextArea otherTextArea;
-
     @FXML
     private CheckBox surNameCheckBox;
-
     @FXML
     private TextField telTextField;
-
     @FXML
     public BorderPane borderPane;
 
@@ -121,6 +107,7 @@ public class GeneralRequestFormController {
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }
+    public void setLoginUser(User loginUser) {this.loginUser = loginUser;}
 
     @FXML
     public void onBackButtonClick() {
@@ -131,6 +118,7 @@ public class GeneralRequestFormController {
             Pane pane = fxmlLoader.load();
             ChooseRequestFromController controller = fxmlLoader.getController();
             controller.setBorderPane(this.borderPane);
+            controller.setLoginUser(loginUser);
             borderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -144,7 +132,7 @@ public class GeneralRequestFormController {
             generalRequestForm.setTel(telTextField.getText());
             if (degreeCerCheckBox.isSelected()) {
                 if (!lostRadio.isSelected() && !damagedRadio.isSelected()) {
-                    throw new IllegalArgumentException("ใบแทนปริญญาบัตรคุณต้องเลือก ชำรุด หรือ สูญหาย");
+                    throw new IllegalArgumentException("ใบแทนปริญญาบัตรกรุณาเลือก ชำรุด หรือ สูญหาย");
                 }
                 if (lostRadio.isSelected()) {
                     generalRequestForm.setDegreeCertificateLost(true);
@@ -175,7 +163,7 @@ public class GeneralRequestFormController {
                     errorGeneralRequestFormController.setErrorMessage(e.getMessage());
                     ErrorGeneralRequestFormController controller = fxmlLoader.getController();
                     controller.setStage(this.currentErrorStage);
-                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                     currentErrorStage.setScene(scene);
                     currentErrorStage.initModality(Modality.APPLICATION_MODAL);
                     currentErrorStage.setTitle("Error");
@@ -192,10 +180,7 @@ public class GeneralRequestFormController {
     }
 
     private GeneralRequestForm createGeneralForm() {
-        UUID uuid = UUID.randomUUID();
-        UUID userId = UUID.randomUUID();
-        LocalDateTime now = LocalDateTime.now();
-        return new GeneralRequestForm(uuid,userId, "Test_Name", "Test_ID", now, now, "GeneralRequest", "ใบคำร้องใหม่", "ส่งคำร้องต่อให้อาจารย์ที่ปรึกษา");
+        return new GeneralRequestForm(loginUser.getUUID(), loginUser.getName(), loginUser.getId(), "ทั่วไป");
     }
 
     private void showConfirmPane(GeneralRequestForm generalRequestForm) {
@@ -209,7 +194,8 @@ public class GeneralRequestFormController {
                 controller.setStage(this.currentConfirmStage);
                 controller.setBorderPane(this.borderPane);
                 controller.setRequestForm(generalRequestForm);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-page-style.css").toExternalForm());
+                controller.setLoginUser(loginUser);
+                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentConfirmStage.setScene(scene);
                 currentConfirmStage.initModality(Modality.APPLICATION_MODAL);
                 currentConfirmStage.setTitle("Confirm");
