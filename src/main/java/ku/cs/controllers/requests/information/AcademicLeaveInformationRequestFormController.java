@@ -98,7 +98,7 @@ public class AcademicLeaveInformationRequestFormController {
     private HBox haveRegisterHBox;
 
     public void showData() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         createDateTextField.setText(request.getDate().format(formatter));
         updateDateTextField.setText(request.getTimeStamp().format(formatter));
         nameTextField.setText(loginUser.getFirstname());
