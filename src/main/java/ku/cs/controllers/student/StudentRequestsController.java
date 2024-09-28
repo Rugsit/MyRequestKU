@@ -51,8 +51,6 @@ public class StudentRequestsController {
     // TODO: fetch data from datasource instead
     public void initialize() {
         showTable();
-        showInfo();
-
     }
 
     public void showTable(){
@@ -138,6 +136,7 @@ public class StudentRequestsController {
                 requestListTable.getTableView().getItems().add(request);
             }
         }
+        showInfo();
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.trim().isEmpty()) {
