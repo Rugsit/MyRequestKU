@@ -18,7 +18,6 @@ import ku.cs.models.request.RequestList;
 import ku.cs.models.user.Student;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
-import ku.cs.services.SetTransition;
 import ku.cs.views.components.DefaultTableView;
 import ku.cs.services.RequestStatusColumn;
 
@@ -52,10 +51,6 @@ public class StudentRequestsController {
     // TODO: fetch data from datasource instead
     public void initialize() {
         showTable();
-        showInfo();
-        SetTransition transition = new SetTransition();
-        transition.setButtonBounce(createRequestFormButton);
-
     }
 
     public void showTable(){
@@ -141,6 +136,7 @@ public class StudentRequestsController {
                 requestListTable.getTableView().getItems().add(request);
             }
         }
+        showInfo();
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.trim().isEmpty()) {
