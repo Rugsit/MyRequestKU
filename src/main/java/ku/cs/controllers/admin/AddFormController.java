@@ -1,6 +1,7 @@
 package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -13,10 +14,7 @@ import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
-import ku.cs.services.Datasource;
-import ku.cs.services.DepartmentListFileDatasource;
-import ku.cs.services.FacultyListFileDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 import org.w3c.dom.Text;
 
 import java.time.LocalDateTime;
@@ -81,10 +79,18 @@ public class AddFormController {
     private Label userNameLabel;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private Button closeButton;
+    @FXML
+    private Button saveButton;
 
     @FXML
     private void initialize() {
-        DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
+        SetTransition transition = new SetTransition();
+        transition.setButtonBounce(closeButton);
+        transition.setButtonBounce(saveButton);
+
+        Datasource<DepartmentList> datasourceDepartment = new DepartmentListFileDatasource("data");
         departmentList = datasourceDepartment.readData();
         if (facultyChoiceBox != null && departmentChoiceBox != null) {
             facultyChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -154,14 +160,14 @@ public class AddFormController {
 
     public void setChoiceBox() {
         if (facultyChoiceBox != null) {
-            FacultyListFileDatasource datasourceFaculty = new FacultyListFileDatasource("data");
+            Datasource<FacultyList> datasourceFaculty = new FacultyListFileDatasource("data");
             FacultyList list =  datasourceFaculty.readData();
             for (Faculty faculty : list.getFacultyList()) {
                 facultyChoiceBox.getItems().add(faculty.getName());
             }
         }
         if (departmentChoiceBox != null) {
-            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
+            Datasource<DepartmentList> datasourceDepartment = new DepartmentListFileDatasource("data");
             DepartmentList departmentList = datasourceDepartment.readData();
             for (Department department : departmentList.getDepartments()) {
                 departmentChoiceBox.getItems().add(department.getName());
@@ -179,7 +185,7 @@ public class AddFormController {
         UUID uuid = UUID.randomUUID();
         LocalDateTime date = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
-        UserListFileDatasource datasource = new UserListFileDatasource("data", currentRole+".csv");
+        Datasource<UserList> datasource = new UserListFileDatasource("data", currentRole+".csv");
         try {
             if (facultyChoiceBox.getValue() == null) throw new UserException("กรุณาเลือกคณะ");
             if (departmentChoiceBox != null && departmentChoiceBox.getValue() == null) throw new UserException("กรุณาเลือกภาควิชา");

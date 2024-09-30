@@ -38,7 +38,7 @@
     -fx-font-size: 30px;
     -fx-alignment: center;
     -fx-font-weight: bold;
-    -fx-text-fill: #FF5D5D;
+    -fx-text-fill: #FF4E4E;
 }
 
 .edit-button {
@@ -100,7 +100,7 @@
     -fx-font-size: 30px;
     -fx-background-radius: 5px;
     -fx-text-fill: white;
-    -fx-background-color: #f44336;
+    -fx-background-color: #FF4E4E;
 }
 
 .accept-button:focused {

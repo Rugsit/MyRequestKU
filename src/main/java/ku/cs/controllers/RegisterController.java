@@ -1,14 +1,22 @@
 package ku.cs.controllers;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.Authentication;
 import ku.cs.services.FXRouter;
+import ku.cs.services.SetTransition;
 import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
@@ -22,12 +30,30 @@ public class RegisterController {
     @FXML private TextField studentIdTextField;
     @FXML private TextField emailTextField;
     @FXML private Label errorLabel;
+    @FXML private ImageView backgroundImageView;
+    @FXML private Button loginButton;
 
     private UserListFileDatasource datasource;
     private Authentication authentication;
     private User user;
+    private int currentImageIndex = 0;
     @FXML
     public void initialize() {
+        SetTransition transition = new SetTransition();
+        transition.setButtonBounce(loginButton);
+        final String[] imagePaths = {
+                getClass().getResource("/images/backgrounds/background-login1.jpg").toString(),
+                getClass().getResource("/images/backgrounds/background-login2.jpg").toString(),
+                getClass().getResource("/images/backgrounds/background-login3.jpg").toString(),
+                getClass().getResource("/images/backgrounds/background-login4.jpg").toString(),
+                getClass().getResource("/images/backgrounds/background-login5.jpg").toString(),
+        };
+
+        Image image = new Image(imagePaths[currentImageIndex]);
+        backgroundImageView.setImage(image);
+
+        transition.setSlideImageShow(backgroundImageView, imagePaths);
+
         datasource = new UserListFileDatasource("data", "student.csv");
         usernameTextField.requestFocus();
         hideError();

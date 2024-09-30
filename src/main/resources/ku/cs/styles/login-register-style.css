@@ -28,6 +28,9 @@
     -fx-underline: true;
     -fx-font-size: 24px;
 }
+.registerLabel:hover {
+    -fx-text-fill: #FF4E4E;
+}
 
 .loginTextField {
     -fx-font-weight: 500;
@@ -45,6 +48,7 @@
 .passwordTextField {
     -fx-background-radius: 5;
 }
+
 
 .seenPasswordButton {
     -fx-cursor: hand;
@@ -74,14 +78,20 @@
 }
 
 .loginButton {
-    -fx-background-color: #374957;
+    -fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #374957, #779FBD);
     -fx-text-fill: white;
     -fx-cursor: hand;
     -fx-font-size: 24px;
 }
 
 .warningLabel{
-    -fx-text-fill : red;
+    -fx-text-fill : #FF4E4E;
     -fx-cursor: hand;
     -fx-font-size: 24px;
+}
+
+.hbox-container-login {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0, 0, 1);
 }

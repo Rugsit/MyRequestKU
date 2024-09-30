@@ -13,10 +13,7 @@ import javafx.util.StringConverter;
 import ku.cs.models.user.Admin;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
-import ku.cs.services.Datasource;
-import ku.cs.services.FXRouter;
-import ku.cs.services.ImageDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 import ku.cs.views.components.SquareImage;
 
 import java.io.IOException;
@@ -52,8 +49,16 @@ public class AdminManageUsersController {
     private Tab allTab;
     @FXML
     private TabPane userListTabPane;
+    @FXML
+    private Button banButton;
+    @FXML
+    private Button unBanButton;
 
     public void initializeUser() {
+        SetTransition transition = new SetTransition();
+        transition.setButtonBounce(banButton);
+        transition.setButtonBounce(unBanButton);
+
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableView.setPlaceholder(placeHolder);
         userListTableView.getColumns().clear();

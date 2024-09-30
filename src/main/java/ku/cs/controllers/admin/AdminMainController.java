@@ -2,6 +2,7 @@ package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,13 +15,11 @@ import ku.cs.models.user.Admin;
 import ku.cs.models.user.Advisor;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
-import ku.cs.services.Datasource;
-import ku.cs.services.FXRouter;
-import ku.cs.services.ImageDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 import ku.cs.views.components.SquareImage;
 
 import java.io.IOException;
+import java.util.Set;
 
 public class AdminMainController implements ParentController {
     private Datasource<UserList> datasource;
@@ -35,9 +34,25 @@ public class AdminMainController implements ParentController {
     private ImageView tabProfilePicImageView;
     @FXML
     private Label nameLabel;
+    @FXML
+    private Button facultyButton;
+    @FXML
+    private Button dashboardButton;
+    @FXML
+    private Button userButton;
+    @FXML
+    private Button staffButton;
+
 
     @FXML
     public void initialize() {
+        SetTransition transition = new SetTransition();
+        transition.setClickChangeColor(facultyButton, "#374957" , "#FFFFFF", "faculty-white-icon.png");
+        transition.setClickChangeColor(dashboardButton, "#374957" , "#FFFFFF", "chart-white-icon.png");
+        transition.setClickChangeColor(userButton, "#374957" , "#FFFFFF", "many-people-white-icon.png");
+        transition.setClickChangeColor(staffButton, "#374957" , "#FFFFFF", "people-white-icon.png");
+
+
         if (FXRouter.getData() instanceof Admin) {
             loginUser = (Admin) FXRouter.getData();
         }

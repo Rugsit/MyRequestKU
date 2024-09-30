@@ -12,9 +12,11 @@ import ku.cs.models.faculty.Faculty;
 import ku.cs.models.user.*;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
+import ku.cs.services.SetTransition;
 import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,8 +43,13 @@ public class AdminManageStaffController {
     private Tab facultyTab;
     @FXML
     private TextField searchTextField;
+    @FXML
+    private Button addButton;
 
     public void initialize() {
+        SetTransition transition = new SetTransition();
+        transition.setButtonBounce(addButton);
+
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableview.setPlaceholder(placeHolder);
         userListTableview.setFocusTraversable(true);
@@ -84,17 +91,6 @@ public class AdminManageStaffController {
             }
         });
 
-//        userListTableview.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue != null) {
-//                if (newValue.getRole().equals("faculty-staff")) {
-//                    showEditPopup(newValue, "faculty-staff");
-//                } else if (newValue.getRole().equals("department-staff")) {
-//                    showEditPopup(newValue, "department-staff");
-//                } else if (newValue.getRole().equals("advisor")) {
-//                    showEditPopup(newValue, "advisor");
-//                }
-//            }
-//        });
     }
 
     public void setLoginUser(Admin loginUser) {
@@ -242,7 +238,7 @@ public class AdminManageStaffController {
                 currentPopupStage.show();
             }
         } catch (IOException ee) {
-            System.err.println("Error: " + ee.getMessage());
+            System.err.println(Arrays.toString(ee.getStackTrace()));
         }
     }
 

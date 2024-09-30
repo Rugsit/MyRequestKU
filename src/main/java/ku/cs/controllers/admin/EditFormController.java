@@ -1,6 +1,7 @@
 package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,10 +15,7 @@ import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
-import ku.cs.services.Datasource;
-import ku.cs.services.DepartmentListFileDatasource;
-import ku.cs.services.FacultyListFileDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 import org.w3c.dom.Text;
 
 import java.util.Set;
@@ -91,9 +89,18 @@ public class EditFormController {
     private Label userNameLabel;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private Button closeButton;
+    @FXML
+    private Button saveButton;
+
 
     @FXML
     private void initialize() {
+        SetTransition transition = new SetTransition();
+        transition.setButtonBounce(saveButton);
+        transition.setButtonBounce(closeButton);
+
         Datasource<DepartmentList> datasource = new DepartmentListFileDatasource("data");
         departmentList = datasource.readData();
         if (facultyChoiceBox != null && departmentChoiceBox != null) {
@@ -174,14 +181,14 @@ public class EditFormController {
 
     public void setChoiceBox() {
         if (facultyChoiceBox != null) {
-            FacultyListFileDatasource datasourceFaculty = new FacultyListFileDatasource("data");
+            Datasource<FacultyList> datasourceFaculty = new FacultyListFileDatasource("data");
             FacultyList list =  datasourceFaculty.readData();
             for (Faculty faculty : list.getFacultyList()) {
                 facultyChoiceBox.getItems().add(faculty.getName());
             }
         }
         if (departmentChoiceBox != null) {
-            DepartmentListFileDatasource datasourceDepartment = new DepartmentListFileDatasource("data");
+            Datasource<DepartmentList> datasourceDepartment = new DepartmentListFileDatasource("data");
             DepartmentList departmentList = datasourceDepartment.readData();
             for (Department department : departmentList.getDepartments()) {
                 departmentChoiceBox.getItems().add(department.getName());

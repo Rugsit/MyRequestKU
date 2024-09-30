@@ -1,5 +1,6 @@
 package ku.cs.controllers.admin;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,16 +18,19 @@ import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DashBoardController {
     private FacultyList facultyList;
     private DepartmentList departmentList;
     private User loginUser;
+    private long  lastModified = 0;
 
     @FXML
     private TabPane userTabPane;
@@ -63,25 +67,7 @@ public class DashBoardController {
     @FXML
     private TabPane requestTabPane;
 
-    public void initializeDashBoard() {
-        UserListFileDatasource userDatasource = new UserListFileDatasource("data", "admin.csv");
-        UserList userList = userDatasource.readAllUser();
-        userList.deleteUserByObject(userList.findUserByUUID(loginUser.getUUID()));
-        allUsersLabel.setText(String.valueOf(userList.getUsers().size()));
-        facultyStaffLabel.setText(String.valueOf(userList.getUsers("faculty-staff").size()));
-        departmentStaffLabel.setText(String.valueOf(userList.getUsers("department-staff").size()));
-        advisorLabel.setText(String.valueOf(userList.getUsers("advisor").size()));
-        studentLabel.setText(String.valueOf(userList.getUsers("student").size()));
-
-        RequestListFileDatasource requestDatasource = new RequestListFileDatasource("data");
-        RequestList requestList = requestDatasource.readData();
-        int amountSuccess = requestList.getRequests("คำร้องดำเนินการครบถ้วน").size();
-        int amountReject = requestList.getRequests("คำร้องถูกปฏิเสธ").size();
-        allRequestLabel.setText(String.valueOf(requestList.getRequests().size()));
-        processRequestLabel.setText(String.valueOf(requestList.getRequests().size() - (amountReject + amountSuccess)));
-        sucessRequestLabel.setText(String.valueOf(amountSuccess));
-        rejectRequestLabel.setText(String.valueOf(amountReject));
-
+    public void initializeDashBoard() throws IOException {
         TableColumn<Faculty, String> facultyNameColumn = new TableColumn<>("ชื่อคณะ");
         facultyNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<Faculty, Integer> amountUserFacultyColumn = new TableColumn<>("จำนวนผู้ใช้");
@@ -105,8 +91,7 @@ public class DashBoardController {
         Datasource<DepartmentList> departmentListFileDatasource = new DepartmentListFileDatasource("data");
         departmentList = departmentListFileDatasource.readData();
 
-        showTableAmountUser(facultyUserTab);
-        showTableAmountUser(facultyRequestTab);
+        updatePage();
         userTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 if (newValue == facultyUserTab) {
@@ -133,6 +118,31 @@ public class DashBoardController {
                 showTableAmountUser(newValue);
             }
         });
+
+        File requestFile = new File("data/requests/requests.csv");
+        File advisorFile = new File("data/users/advisor.csv");
+        File departmentStaffFile = new File("data/users/department-staff.csv");
+        File facultyStaffFile = new File("data/users/faculty-staff.csv");
+        File studentFile = new File("data/users/student.csv");
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                long modified = requestFile.lastModified() + advisorFile.lastModified() + departmentStaffFile.lastModified() + facultyStaffFile.lastModified() + studentFile.lastModified();
+                if (modified != lastModified) {
+                    lastModified = modified;
+                    Platform.runLater(() -> {
+                        updatePage();
+                        System.out.println("CSV file has been modified!");
+                        // สามารถโหลดข้อมูลใหม่หรืออัปเดต UI ได้ที่นี่
+                    });
+
+                }
+            }
+        };
+
+        Timer timer = new Timer(true);
+        timer.schedule(task, 0, 500);
     }
 
     public void setLoginUser(Admin loginUser) {
@@ -140,7 +150,7 @@ public class DashBoardController {
     }
 
     private void showTableAmountUser(Tab currentTab) {
-        FacultyListFileDatasource facDatasource = new FacultyListFileDatasource("data");
+        Datasource<FacultyList> facDatasource = new FacultyListFileDatasource("data");
         FacultyList facultyList = facDatasource.readData();
 
         if (facultyUserTab == currentTab) {
@@ -162,8 +172,32 @@ public class DashBoardController {
         }
     }
 
-    private void showTableAmountUserInDepartment() {
-        DepartmentListFileDatasource departmentDatasource = new DepartmentListFileDatasource("data");
-        DepartmentList departmentList = departmentDatasource.readData();
+    private void updatePage() {
+        if (facultyUserTab.isSelected()) {
+            showTableAmountUser(facultyUserTab);
+        }if (departmentUserTab.isSelected()) {
+            showTableAmountUser(departmentUserTab);
+        }if (facultyRequestTab.isSelected()) {
+            showTableAmountUser(facultyRequestTab);
+        }if (departmentRequestTab.isSelected()) {
+            showTableAmountUser(facultyRequestTab);
+        }
+        UserListFileDatasource userDatasource = new UserListFileDatasource("data", "admin.csv");
+        UserList userList = userDatasource.readAllUser();
+        userList.deleteUserByObject(userList.findUserByUUID(loginUser.getUUID()));
+        allUsersLabel.setText(String.valueOf(userList.getUsers().size()));
+        facultyStaffLabel.setText(String.valueOf(userList.getUsers("faculty-staff").size()));
+        departmentStaffLabel.setText(String.valueOf(userList.getUsers("department-staff").size()));
+        advisorLabel.setText(String.valueOf(userList.getUsers("advisor").size()));
+        studentLabel.setText(String.valueOf(userList.getUsers("student").size()));
+
+        Datasource<RequestList> requestDatasource = new RequestListFileDatasource("data");
+        RequestList requestList = requestDatasource.readData();
+        int amountSuccess = requestList.getRequests("คำร้องดำเนินการครบถ้วน").size();
+        int amountReject = requestList.getRequests("คำร้องถูกปฏิเสธ").size();
+        allRequestLabel.setText(String.valueOf(requestList.getRequests().size()));
+        processRequestLabel.setText(String.valueOf(requestList.getRequests().size() - (amountReject + amountSuccess)));
+        sucessRequestLabel.setText(String.valueOf(amountSuccess));
+        rejectRequestLabel.setText(String.valueOf(amountReject));
     }
 }

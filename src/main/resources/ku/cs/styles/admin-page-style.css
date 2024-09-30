@@ -6,7 +6,6 @@
 .side-bar-button {
     -fx-background-color: transparent;
     -fx-font-size: 24px;
-    -fx-font-weight: bold;
 }
 
 .side-bar-button:hover {
@@ -14,6 +13,7 @@
 }
 
 .about-us {
+    -fx-cursor: hand;
     -fx-text-fill: #909194;
     -fx-font-size: 18px;
 }

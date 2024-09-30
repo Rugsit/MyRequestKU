@@ -15,10 +15,7 @@ import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.Admin;
 import ku.cs.models.user.User;
-import ku.cs.services.Datasource;
-import ku.cs.services.DepartmentListFileDatasource;
-import ku.cs.services.FXRouter;
-import ku.cs.services.FacultyListFileDatasource;
+import ku.cs.services.*;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -49,8 +46,13 @@ public class AdminManageFacultyController {
     private TableView<Faculty> facultyTableView;
     @FXML
     private TableView<Department> departmentTableView;
+    @FXML
+    private Button addButton;
 
     public void initialize() {
+        SetTransition transition = new SetTransition();
+        transition.setButtonBounce(addButton);
+
         Label placeHolder = new Label("ไม่พบข้อมูล");
         facultyTableView.setPlaceholder(placeHolder);
         departmentTableView.setPlaceholder(placeHolder);
@@ -185,10 +187,10 @@ public class AdminManageFacultyController {
 
     private void readFacultyOrDepartment(String target) {
         if (target.equals("faculty")) {
-            FacultyListFileDatasource datasource = new FacultyListFileDatasource("data");
+            Datasource<FacultyList> datasource = new FacultyListFileDatasource("data");
             facultyList = datasource.readData();
         } else if (target.equals("department")) {
-            DepartmentListFileDatasource datasource = new DepartmentListFileDatasource("data");
+            Datasource<DepartmentList> datasource = new DepartmentListFileDatasource("data");
             departmentList = datasource.readData();
         }
     }

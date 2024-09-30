@@ -1,20 +1,26 @@
 package ku.cs.controllers;
 
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.transform.Translate;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import ku.cs.models.Session;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.DateException;
 import ku.cs.services.Authentication;
+import ku.cs.services.SetTransition;
 import ku.cs.services.UserListFileDatasource;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.services.FXRouter;
@@ -22,6 +28,7 @@ import ku.cs.services.FXRouter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
 import java.util.Stack;
 
 public class LoginController {
@@ -35,16 +42,37 @@ public class LoginController {
     @FXML private Button selectStudentRoleButton;
     @FXML private Label aboutUsLabel;
     @FXML private Stage currentPopupStage;
+    @FXML private ImageView backgroundImageView;
+    @FXML private ImageView nextBackgroundImageView;
+    @FXML private Button loginButton;
 
     private Authentication authController;
     private UserListFileDatasource datasource;
     private User loginUser = null;
+    private int currentImageIndex = 0;
 
     @FXML
     private void initialize() {
+        SetTransition transition = new SetTransition();
+        transition.setButtonBounce(loginButton);
+        final String[] imagePaths = {
+                getClass().getResource("/images/backgrounds/background-login1.jpg").toString(),
+                getClass().getResource("/images/backgrounds/background-login2.jpg").toString(),
+                getClass().getResource("/images/backgrounds/background-login3.jpg").toString(),
+                getClass().getResource("/images/backgrounds/background-login4.jpg").toString(),
+                getClass().getResource("/images/backgrounds/background-login5.jpg").toString(),
+        };
+
+        Image image = new Image(imagePaths[currentImageIndex]);
+        backgroundImageView.setImage(image);
+
+        transition.setSlideImageShow(backgroundImageView, imagePaths);
+
         errorLabel.setText("");
         DefaultLabel aboutUs = new DefaultLabel(aboutUsLabel);
         authController = new Authentication();
+
+
     }
 
     @FXML
@@ -56,24 +84,6 @@ public class LoginController {
             loginUser = authController.loginAuthenticate(username, password);
         } catch (Exception e) {
             errorLabel.setText("ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง");
-        }
-
-        // Debug login method
-        if (username.equalsIgnoreCase("debug")) {
-            password = "debug"; // prevent warning display
-            selectAdminRoleButton.setVisible(true);
-            selectFacultyStaffRoleButton.setVisible(true);
-            selectDepartmentStaffRoleButton.setVisible(true);
-            selectAdviserRoleButton.setVisible(true);
-            selectStudentRoleButton.setVisible(true);
-            hideError();
-        }
-        else{
-            selectAdminRoleButton.setVisible(false);
-            selectFacultyStaffRoleButton.setVisible(false);
-            selectDepartmentStaffRoleButton.setVisible(false);
-            selectAdviserRoleButton.setVisible(false);
-            selectStudentRoleButton.setVisible(false);
         }
 
         // Normal login method.
