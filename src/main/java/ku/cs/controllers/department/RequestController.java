@@ -754,6 +754,7 @@ public class RequestController {
                     case "ไม่อนุมัติ":
                         fileName = "approver-rejected-red.png";
                         break;
+                    case "รอภาควิชาดำเนินการ":
                     case "รออัพโหลด":
                         fileName = "approver-waiting-upload-blue.png";
                         break;
@@ -781,6 +782,9 @@ public class RequestController {
                         line1.setMaxHeight(60);
                         line1.setWrapText(true);
                         line1.setTextAlignment(TextAlignment.CENTER);
+                    }
+                    if(status.equals("รอภาควิชาดำเนินการ")){
+                        line1.changeText("",18, FontWeight.BOLD);
                     }
                     if(status.equals("รออาจารย์ที่ปรึกษา")){
                         line1.setMaxWidth(80);
@@ -882,6 +886,7 @@ public class RequestController {
         String approverStatus = selectedApprover.getStatus();
         String statusImageFileName = "editor-approver-fallback.png";
         switch (approverStatus){
+            case "รอภาควิชาดำเนินการ":
             case "รออัพโหลด":
                 initEditDepartmentOtherWaitUpload();
                 break;
@@ -1186,7 +1191,7 @@ public class RequestController {
                                                             extend = departmentList.getDepartmentByUuid(departmentUUID).getName();
                                                         }
 
-                                                        data.changeText(extend + role,28, FontWeight.NORMAL);
+                                                        data.changeText(role + extend ,28, FontWeight.NORMAL);
                                                         container.getChildren().addAll(prefix,data);
                                                         container.setAlignment(Pos.CENTER_LEFT);
                                                         container.setSpacing(20);
@@ -1471,18 +1476,6 @@ public class RequestController {
                 }
             }
 
-            if(sumAprroved == sumApprover){
-                requestDatasource.appendData(request,"log");
-                if(sumApproverFaculty == 0){
-                    request.setStatusNow("อนุมัติโดยหัวหน้าภาควิชา");
-                    request.setStatusNext("คำร้องดำเนินการครบถ้วน");
-                }else{
-                    request.setStatusNow("อนุมัติโดยหัวหน้าภาควิชา");
-                    request.setStatusNext("คำร้องส่งต่อให้คณบดี");
-                }
-
-            }
-
             approverDatasource.writeData(approverList);
             requestDatasource.writeData(requestList);
 
@@ -1585,6 +1578,8 @@ public class RequestController {
             request.setTimeStamp(LocalDateTime.now());
             DepartmentUser user = (DepartmentUser) requestOwner;
             request.setFacultyUUID(user.getFacultyUUID());
+            request.setStatusNow("อนุมัติโดยหัวหน้าภาควิชา");
+            request.setStatusNext("คำร้องส่งต่อให้คณบดี");
 
             approverDatasource.writeData(approverList);
             requestDatasource.writeData(requestList);
