@@ -101,7 +101,7 @@ public class RequestListController {
                                 session = new Session();
                                 session.setData(selected);
                             }
-                            FXRouter.goTo("department-staff-request",session);
+                            FXRouter.goTo("request-management",session);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
