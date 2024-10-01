@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.StringConverter;
+import ku.cs.models.Session;
 import ku.cs.models.request.*;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
@@ -38,6 +39,7 @@ public class FacultyRequestsController {
     private RequestList requestList;
     private UserList userlist;
     private ArrayList<String> studentId;
+    private Session session;
     FacultyUser loginUser;
     @FXML
     private TextField searchTextField;
@@ -48,7 +50,8 @@ public class FacultyRequestsController {
         getStudentId();
         loadRequests();
         showTable();
-
+        session = new Session();
+        session.setUser(loginUser);
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             search(newValue);
         });
@@ -83,7 +86,15 @@ public class FacultyRequestsController {
         Label placeHolder = new Label("ไม่พบข้อมูล");
         requestListTableView.setPlaceholder(placeHolder);
         requestListTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
+        requestListTableView.setOnMouseClicked(mouseEvent -> {
+            Object selected = requestListTableView.getSelectionModel().getSelectedItem();
+            try {
+                session.setData(selected);
+                FXRouter.goTo("request-management", session);
+            } catch (IOException e) {
+                System.err.println("error occurred while trying to go to faculty-request-manage");
+            }
+        });
         TableColumn<Request, String> nameColumn = new TableColumn<>("ชื่อ-นามสกุล");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
@@ -132,6 +143,7 @@ public class FacultyRequestsController {
     }
 
     private void loadRequests() {
+        if (loginUser == null) return;
         requestListDatasource = new RequestListFileDatasource("data");
         requestList = requestListDatasource.readData();
         requestListTableView.getItems().clear();
@@ -139,8 +151,9 @@ public class FacultyRequestsController {
         if (requestList != null) {
             requestListTableView.getItems().addAll(requestList.getRequests()
                     .stream()
-                    .filter(request -> request.getStatusNow().equals("อนุมัติโดยหัวหน้าภาควิชา") &&
-                            request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") &&
+                    .filter(request -> request.getFacultyUUID().equals(loginUser.getFacultyUUID()) &&
+//                            request.getStatusNow().equals("อนุมัติโดยหัวหน้าภาควิชา") &&
+//                            request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") &&
                             studentId.contains(request.getNisitId()))
                     .collect(Collectors.toList()));
 
