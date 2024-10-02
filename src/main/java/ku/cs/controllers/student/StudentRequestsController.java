@@ -56,7 +56,7 @@ public class StudentRequestsController {
     public void showTable(){
         requestListTable = new DefaultTableView<>(requestListTableView) {
             @Override
-            protected void handleCLick() {
+            protected void handleClick() {
                 getTableView().setOnMouseClicked(e-> {
                     Object selected = getTableView().getSelectionModel().getSelectedItem();
                     if(selected != null){
@@ -88,7 +88,7 @@ public class StudentRequestsController {
         requestListTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         requestListTable.addColumn("ประเภทคำร้อง", "requestType");
         requestListTable.addColumn("วันที่ยื่นคำร้อง", "Date");
-        requestListTable.addColumn("วันที่อัพเดทล่าสุด", "TimeStamp");
+        requestListTable.addColumn("วันที่อัปเดตล่าสุด", "TimeStamp");
         TableColumn<Request, String> statusNow = new TableColumn<>("สถานะคำร้อง");
         statusNow.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
         TableColumn<Request, String> statusNext = new TableColumn<>("");

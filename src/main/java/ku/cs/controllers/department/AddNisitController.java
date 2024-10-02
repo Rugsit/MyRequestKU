@@ -175,7 +175,7 @@ public class AddNisitController {
     private void initTableView(){
         DefaultTableView<User> nisitTable = new DefaultTableView(nisitTableView){
             @Override
-            protected void handleCLick() {
+            protected void handleClick() {
                 getTableView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
                     @Override
                     public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {

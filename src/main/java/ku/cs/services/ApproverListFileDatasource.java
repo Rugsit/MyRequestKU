@@ -162,7 +162,8 @@ public class ApproverListFileDatasource implements Datasource<ApproverList> {
         Approver approver = null;
         try {
             if (selectedApprover instanceof FacultyApprover) {
-                    approver = new FacultyApprover(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
+                status = "รอคณะดำเนินการ";
+                approver = new FacultyApprover(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
             } else if (selectedApprover instanceof DepartmentApprover) {
                 approver = new DepartmentApprover(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
             } else if (selectedApprover instanceof AdvisorApprover) {

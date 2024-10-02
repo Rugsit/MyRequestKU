@@ -124,7 +124,7 @@ public class NisitManagementController {
     private void initTableView(){
         DefaultTableView<User> nisitTable = new DefaultTableView(nisitTableView){
             @Override
-            protected void handleCLick() {
+            protected void handleClick() {
 //                getTableView().setOnMouseClicked(event -> {
 //                    Object selected = getTableView().getSelectionModel().getSelectedItem();
 //                    if(selected instanceof User){
