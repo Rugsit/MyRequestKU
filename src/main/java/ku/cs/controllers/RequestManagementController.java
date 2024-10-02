@@ -7,13 +7,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.controllers.faculty.EditApproverController;
 import ku.cs.controllers.requests.information.MainInformationController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.Session;
@@ -586,6 +589,38 @@ public class RequestManagementController {
                         button.setOnMouseClicked(e -> {
                             Approver approver = getTableView().getItems().get(getIndex());
                             System.out.println("EDIT CLICK : " + approver.getName());
+                            String popUpPath = "/ku/cs/views/faculty-edit-approver-pane.fxml";
+                            try {
+                                if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                                    currentPopupStage = new Stage();
+                                }
+
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(popUpPath));
+                                Pane editPane = fxmlLoader.load();
+
+                                EditApproverController controller = fxmlLoader.getController();
+                                controller.setApprover(approver);
+                                controller.setStage(currentPopupStage);
+                                controller.setApproverDetail(
+                                        approver.getFirstname(),
+                                        approver.getLastname(),
+                                        approver.getRole()
+                                );
+
+                                Scene scene = new Scene(editPane);
+                                currentPopupStage.setScene(scene);
+                                currentPopupStage.setTitle("Edit Approver");
+                                currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+
+                                currentPopupStage.setOnHidden(event -> {
+                                    refreshAllData();
+                                });
+
+                                currentPopupStage.show();
+
+                            } catch (IOException ex) {
+                                System.err.println("Error loading popup: " + ex.getMessage());
+                            }
                         });
                     }
                 };
