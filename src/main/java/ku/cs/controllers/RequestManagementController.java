@@ -16,6 +16,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.controllers.department.AddDepartmentApproverController;
+import ku.cs.controllers.faculty.AddApproverController;
 import ku.cs.controllers.faculty.EditApproverController;
 import ku.cs.controllers.requests.information.MainInformationController;
 import ku.cs.controllers.student.StudentRequestInfoController;
@@ -226,7 +228,105 @@ public class RequestManagementController {
         menuHBox.setAlignment(Pos.CENTER);
         menuHBox.setSpacing(20);
 
-        addApproverButton = new DefaultButton("#7FE8FF","#a6a6a6","#000000");
+        addApproverButton = new DefaultButton("#7FE8FF","#a6a6a6","#000000") {
+            @Override
+            protected void handleClickEvent() {
+                button.setOnMouseClicked(e -> {
+                    mainStackPane.getChildren().add(new BlankPopupStack() {
+                        HBox mainBox;
+                        VBox vBox;
+                        @Override
+                        protected void initPopupView() {
+                            acceptButton = new DefaultButton("#ded9d9","#aba4a4","white") {
+                                @Override
+                                protected void handleClickEvent() {
+                                    button.setOnMouseClicked(ev->{
+                                        mainStackPane.getChildren().removeLast();
+                                        System.out.println("ssss");
+                                        try {
+                                            if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                                                currentPopupStage = new Stage();
+                                                FXMLLoader fxmlLoader;
+                                                Scene scene = null;
+                                                if (session.getUser() instanceof DepartmentUser) {
+                                                    fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/department-add-approver-pane.fxml"));
+                                                    scene = new Scene(fxmlLoader.load());
+                                                    AddDepartmentApproverController controller = fxmlLoader.getController();
+                                                    controller.setApproverType("request");
+                                                    controller.setCurrentRequest(request);
+                                                    controller.setLoginUser((DepartmentUser) session.getUser());
+                                                    controller.setStage(currentPopupStage);
+                                                } else if (session.getUser() instanceof FacultyUser) {
+                                                    fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/faculty-add-approver-pane.fxml"));
+                                                    scene = new Scene(fxmlLoader.load());
+                                                    AddApproverController controller = fxmlLoader.getController();
+                                                    controller.setCurrentRequest(request);
+                                                    controller.setApproverType("request");
+                                                    controller.setLoginUser(session.getUser());
+                                                    controller.setStage(currentPopupStage);
+                                                }
+
+                                                currentPopupStage.setScene(scene);
+                                                currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+                                                currentPopupStage.setTitle("Add approver");
+
+                                                currentPopupStage.setOnHidden(event -> {
+                                                    refreshAllData();
+                                                });
+
+                                                currentPopupStage.show();
+                                            }
+                                        } catch (IOException e) {
+                                            System.out.println("Error: " + e.getMessage());
+                                        }
+                                    });
+
+                                }
+                            };
+                            acceptButton.changeBackgroundRadius(25);
+                            acceptButton.changeText("กรอกผู้อนุมัติคนใหม่", 28, FontWeight.NORMAL);
+                            acceptButton.setButtonSize(260,60);
+                            acceptButton.changeLabelColor("#000000");
+                            acceptButton.setImage(new Image(getClass().getResourceAsStream("/images/icons/pencil-bold.png")), 25, 25);
+                            declineButton = new DefaultButton("#ded9d9","#aba4a4","white");
+                            declineButton.setButtonSize(260,60);
+                            declineButton.setImage(new Image(getClass().getResourceAsStream("/images/icons/many-people-icon.png")), 30, 30);
+                            declineButton.changeLabelColor("#000000");
+                            declineButton.changeBackgroundRadius(25);
+                            declineButton.changeText("เพิ่มผู้อนุมัติจากรายชื่อ", 28, FontWeight.NORMAL);
+                            DefaultButton exitButton = new DefaultButton("#FF8080","#BC5F5F","white") {
+                                @Override
+                                protected void handleClickEvent() {
+                                    button.setOnMouseClicked(e -> {
+                                        mainStackPane.getChildren().removeLast();
+                                    });
+                                }
+                            };
+                            exitButton.setButtonSize(120,30);
+                            exitButton.changeBackgroundRadius(25);
+                            exitButton.changeText("ยกเลิก", 28, FontWeight.NORMAL);
+                            exitButton.changeLabelColor("#000000");
+                            DefaultLabel title = new DefaultLabel("");
+                            title.changeText("เพิ่มผู้อนุมัติ", 36, FontWeight.BOLD);
+                            mainBox = new HBox(acceptButton, declineButton);
+                            mainBox.setAlignment(Pos.CENTER);
+                            mainBox.setSpacing(20);
+                            mainBox.setMaxWidth(550);
+                            mainBox.setMaxHeight(150);
+                            vBox = new VBox(title, mainBox, exitButton);
+                            vBox.setAlignment(Pos.CENTER);
+                            vBox.setSpacing(50);
+                            vBox.setMaxWidth(600);
+                            vBox.setMaxHeight(280);
+                            vBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                            mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                            stackPane.getChildren().add(vBox);
+                        }
+
+                    });
+                });
+            }
+        };
         addApproverButton.changeText("เพิ่มผู้อนุมัติ",28, FontWeight.NORMAL);
 
         requestInfoButton = new DefaultButton("#FFA1D9","#a6a6a6","#000000"){
@@ -531,6 +631,12 @@ public class RequestManagementController {
                 if(!request.getStatusNext().equals("คำร้องดำเนินการครบถ้วน")){
                     approveButton.setDisable(false);
                 }
+            }
+            if (!request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") && session.getUser() instanceof FacultyUser) {
+                addApproverButton.setDisable(true);
+            }
+            if (!request.getStatusNext().equals("คำร้องส่งต่อให้ภาควิชา") && session.getUser() instanceof DepartmentUser) {
+                addApproverButton.setDisable(true);
             }
             if(sumApproverFaculty == sumApprovedFaculty && session.getUser() instanceof FacultyUser){
                 if(!request.getStatusNext().equals("คำร้องดำเนินการครบถ้วน")){
