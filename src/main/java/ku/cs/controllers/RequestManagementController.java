@@ -237,7 +237,7 @@ public class RequestManagementController {
                         VBox vBox;
                         @Override
                         protected void initPopupView() {
-                            acceptButton = new DefaultButton("#ded9d9","#aba4a4","white") {
+                            firstButton = new DefaultButton("#ded9d9","#aba4a4","white") {
                                 @Override
                                 protected void handleClickEvent() {
                                     button.setOnMouseClicked(ev->{
@@ -283,17 +283,17 @@ public class RequestManagementController {
 
                                 }
                             };
-                            acceptButton.changeBackgroundRadius(25);
-                            acceptButton.changeText("กรอกผู้อนุมัติคนใหม่", 28, FontWeight.NORMAL);
-                            acceptButton.setButtonSize(260,60);
-                            acceptButton.changeLabelColor("#000000");
-                            acceptButton.setImage(new Image(getClass().getResourceAsStream("/images/icons/pencil-bold.png")), 25, 25);
-                            declineButton = new DefaultButton("#ded9d9","#aba4a4","white");
-                            declineButton.setButtonSize(260,60);
-                            declineButton.setImage(new Image(getClass().getResourceAsStream("/images/icons/many-people-icon.png")), 30, 30);
-                            declineButton.changeLabelColor("#000000");
-                            declineButton.changeBackgroundRadius(25);
-                            declineButton.changeText("เพิ่มผู้อนุมัติจากรายชื่อ", 28, FontWeight.NORMAL);
+                            firstButton.changeBackgroundRadius(25);
+                            firstButton.changeText("กรอกผู้อนุมัติคนใหม่", 28, FontWeight.NORMAL);
+                            firstButton.setButtonSize(260,60);
+                            firstButton.changeLabelColor("#000000");
+                            firstButton.setImage(new Image(getClass().getResourceAsStream("/images/icons/pencil-bold.png")), 25, 25);
+                            secondButton = new DefaultButton("#ded9d9","#aba4a4","white");
+                            secondButton.setButtonSize(260,60);
+                            secondButton.setImage(new Image(getClass().getResourceAsStream("/images/icons/many-people-icon.png")), 30, 30);
+                            secondButton.changeLabelColor("#000000");
+                            secondButton.changeBackgroundRadius(25);
+                            secondButton.changeText("เพิ่มผู้อนุมัติจากรายชื่อ", 28, FontWeight.NORMAL);
                             DefaultButton exitButton = new DefaultButton("#FF8080","#BC5F5F","white") {
                                 @Override
                                 protected void handleClickEvent() {
@@ -308,7 +308,7 @@ public class RequestManagementController {
                             exitButton.changeLabelColor("#000000");
                             DefaultLabel title = new DefaultLabel("");
                             title.changeText("เพิ่มผู้อนุมัติ", 36, FontWeight.BOLD);
-                            mainBox = new HBox(acceptButton, declineButton);
+                            mainBox = new HBox(firstButton, secondButton);
                             mainBox.setAlignment(Pos.CENTER);
                             mainBox.setSpacing(20);
                             mainBox.setMaxWidth(550);
@@ -362,10 +362,10 @@ public class RequestManagementController {
                           HBox lineEnd;
                           @Override
                           protected void initPopupView() {
-                              declineButton.setText("ปิด");
-                              acceptButton.setText("เพิ่มเติม");
-                              lineEnd = new HBox(declineButton, acceptButton);
-                              HBox.setMargin(declineButton, new Insets(0, 10, 0, 0));
+                              secondButton.setText("ปิด");
+                              firstButton.setText("เพิ่มเติม");
+                              lineEnd = new HBox(secondButton, firstButton);
+                              HBox.setMargin(secondButton, new Insets(0, 10, 0, 0));
                               mainBox = new VBox(scene, lineEnd);
                               mainBox.setMaxWidth(600);
                               mainBox.setMaxHeight(620);
@@ -377,8 +377,8 @@ public class RequestManagementController {
                           }
 
                           @Override
-                          protected void handleAcceptButton() {
-                              acceptButton.setOnMouseClicked(e->{
+                          protected void handleFirstButton() {
+                              firstButton.setOnMouseClicked(e->{
                                   try {
                                       String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
                                       FXMLLoader fxmlLoader = new FXMLLoader();
@@ -401,7 +401,7 @@ public class RequestManagementController {
                                           mainBox.getChildren().clear();
                                           mainBox.getChildren().add(scene);
                                           lineEnd.getChildren().removeLast();
-                                          lineEnd.getChildren().add(acceptButton);
+                                          lineEnd.getChildren().add(firstButton);
                                           mainBox.getChildren().add(lineEnd);
                                       });
                                       lineEnd.getChildren().add(backButton.getButton());
@@ -418,8 +418,8 @@ public class RequestManagementController {
                           }
 
                           @Override
-                          protected void handleDeclineButton() {
-                              declineButton.setOnMouseClicked(e->{
+                          protected void handleSecondButton() {
+                              secondButton.setOnMouseClicked(e->{
                                   mainStackPane.getChildren().removeLast();
                               });
                           }
@@ -632,10 +632,10 @@ public class RequestManagementController {
                     approveButton.setDisable(false);
                 }
             }
-            if (!request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") && session.getUser() instanceof FacultyUser) {
+            if (!request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") && session.getUser() instanceof FacultyUser && !(session.getUser() instanceof DepartmentUser)) {
                 addApproverButton.setDisable(true);
             }
-            if (!request.getStatusNext().equals("คำร้องส่งต่อให้ภาควิชา") && session.getUser() instanceof DepartmentUser) {
+            if (!request.getStatusNext().equals("คำร้องส่งต่อให้หัวหน้าภาควิชา") && session.getUser() instanceof DepartmentUser) {
                 addApproverButton.setDisable(true);
             }
             if(sumApproverFaculty == sumApprovedFaculty && session.getUser() instanceof FacultyUser){
@@ -649,7 +649,7 @@ public class RequestManagementController {
 
         if(goToFaculty && session.getUser() instanceof DepartmentUser){
             approveButton.setDisable(true);
-            addApproverButton.setDisable(true);
+//            addApproverButton.setDisable(true);
 //            rejectButton.setDisable(true);
         }
 
@@ -1390,14 +1390,14 @@ public class RequestManagementController {
                                                         container.getChildren().add(errorLabel);
                                                         mainBox.getChildren().add(container);
 
-                                                        HBox lineEnd = new HBox(acceptButton,declineButton);
+                                                        HBox lineEnd = new HBox(firstButton, secondButton);
                                                         lineEnd.setAlignment(Pos.CENTER);
                                                         lineEnd.setSpacing(20);
                                                         mainBox.getChildren().addAll(lineEnd);
                                                         stackPane.getChildren().add(mainBox);
                                                     }@Override
-                                                    protected void handleAcceptButton(){
-                                                        acceptButton.setOnMouseClicked(e -> {
+                                                    protected void handleFirstButton(){
+                                                        firstButton.setOnMouseClicked(e -> {
                                                             reasonTextField.toggleTextField(false);
                                                             if(!reasonTextField.getData().isEmpty()){
                                                                 onRejectApprover(reasonTextField.getData());
@@ -1410,8 +1410,8 @@ public class RequestManagementController {
                                                         });
                                                     }
                                                     @Override
-                                                    protected void handleDeclineButton(){
-                                                        declineButton.setOnMouseClicked(e ->{
+                                                    protected void handleSecondButton(){
+                                                        secondButton.setOnMouseClicked(e ->{
                                                             mainStackPane.getChildren().removeLast();
                                                         });
                                                     }
@@ -1688,7 +1688,7 @@ public class RequestManagementController {
                     //LINE END BUTTON
                     HBox content = new HBox(imageView);
                     content.setAlignment(Pos.CENTER);
-                    HBox lineEnd = new HBox(declineButton);
+                    HBox lineEnd = new HBox(secondButton);
                     lineEnd.setPrefHeight(100);
                     lineEnd.setAlignment(Pos.CENTER);
                     mainBox.getChildren().addAll(content,lineEnd);
@@ -1697,8 +1697,8 @@ public class RequestManagementController {
                 }
 
                 @Override
-                protected void handleDeclineButton() {
-                    declineButton.setOnMouseClicked(e->{
+                protected void handleSecondButton() {
+                    secondButton.setOnMouseClicked(e->{
                         mainStackPane.getChildren().removeLast();
                     });
                 }
