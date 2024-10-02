@@ -21,11 +21,9 @@ import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.DepartmentUser;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
-import ku.cs.models.user.exceptions.IDException;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
 import ku.cs.services.utils.DateTools;
-import ku.cs.services.utils.StringCompare;
 import ku.cs.views.components.*;
 
 import java.io.IOException;
@@ -177,7 +175,7 @@ public class AddNisitController {
     private void initTableView(){
         DefaultTableView<User> nisitTable = new DefaultTableView(nisitTableView){
             @Override
-            protected void handleCLick() {
+            protected void handleClick() {
                 getTableView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
                     @Override
                     public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {
@@ -505,7 +503,7 @@ public class AddNisitController {
                         bottomBox.setPrefWidth(mainWidth);
                         bottomBox.setPrefHeight(100);
 
-                        lineEnd = new HBox(acceptButton,declineButton);
+                        lineEnd = new HBox(firstButton, secondButton);
                         lineEnd.setAlignment(Pos.CENTER);
                         lineEnd.setSpacing(20);
 
@@ -515,8 +513,8 @@ public class AddNisitController {
                     }
 
                     @Override
-                    protected void handleAcceptButton(){
-                        acceptButton.setOnMouseClicked(e -> {
+                    protected void handleFirstButton(){
+                        firstButton.setOnMouseClicked(e -> {
                             System.out.println("Accept button clicked");
                             UserList tmpUserList = new UserList();
                             ObservableList<Node> children =  verticalTextFieldBox.getChildren();
@@ -576,8 +574,8 @@ public class AddNisitController {
                         });
                     }
                     @Override
-                    protected void handleDeclineButton(){
-                        declineButton.setOnMouseClicked(e ->{
+                    protected void handleSecondButton(){
+                        secondButton.setOnMouseClicked(e ->{
                             System.out.println("Decline button clicked");
                             mainStackPane.getChildren().removeLast();
                             addFaculty = null;

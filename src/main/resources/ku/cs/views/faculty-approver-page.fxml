@@ -51,7 +51,7 @@
                   </Button>
                </children>
             </HBox>
-            <Button fx:id="uploadFileButton" mnemonicParsing="false" text="อัพโหลด">
+            <Button fx:id="uploadFileButton" mnemonicParsing="false" text="อัปโหลด">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>

@@ -7,13 +7,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.controllers.department.AddDepartmentApproverController;
+import ku.cs.controllers.faculty.AddApproverController;
+import ku.cs.controllers.faculty.EditApproverController;
 import ku.cs.controllers.requests.information.MainInformationController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.Session;
@@ -29,7 +35,9 @@ import ku.cs.views.components.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class RequestManagementController {
     @FXML private Label pageTitleLabel;
@@ -202,7 +210,7 @@ public class RequestManagementController {
         container.setAlignment(Pos.CENTER_LEFT);
         container.setSpacing(20);
         prefix = new DefaultLabel("");
-        prefix.changeText("อัพเดทล่าสุด",28 ,FontWeight.BOLD);
+        prefix.changeText("อัปเดตล่าสุด",28 ,FontWeight.BOLD);
         reqTimestamp = new DefaultLabel("");
         reqTimestamp.changeText(DateTools.localDateTimeToFormatString("yyyy/MM/dd HH:mm", request.getTimeStamp()),
                 28,
@@ -223,7 +231,172 @@ public class RequestManagementController {
         menuHBox.setAlignment(Pos.CENTER);
         menuHBox.setSpacing(20);
 
-        addApproverButton = new DefaultButton("#7FE8FF","#a6a6a6","#000000");
+        addApproverButton = new DefaultButton("#7FE8FF","#a6a6a6","#000000") {
+            @Override
+            protected void handleClickEvent() {
+                button.setOnMouseClicked(e -> {
+                    mainStackPane.getChildren().add(new BlankPopupStack() {
+                        HBox mainBox;
+                        VBox vBox;
+                        @Override
+                        protected void initPopupView() {
+                            firstButton = new DefaultButton("#ded9d9","#aba4a4","white") {
+                                @Override
+                                protected void handleClickEvent() {
+                                    button.setOnMouseClicked(ev->{
+                                        mainStackPane.getChildren().removeLast();
+                                        try {
+                                            if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                                                currentPopupStage = new Stage();
+                                                FXMLLoader fxmlLoader;
+                                                Scene scene = null;
+                                                if (session.getUser() instanceof DepartmentUser) {
+                                                    fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/department-add-approver-pane.fxml"));
+                                                    scene = new Scene(fxmlLoader.load());
+                                                    AddDepartmentApproverController controller = fxmlLoader.getController();
+                                                    controller.setApproverType("request");
+                                                    controller.setCurrentRequest(request);
+                                                    controller.setLoginUser((DepartmentUser) session.getUser());
+                                                    controller.setStage(currentPopupStage);
+                                                } else if (session.getUser() instanceof FacultyUser) {
+                                                    fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/faculty-add-approver-pane.fxml"));
+                                                    scene = new Scene(fxmlLoader.load());
+                                                    AddApproverController controller = fxmlLoader.getController();
+                                                    controller.setCurrentRequest(request);
+                                                    controller.setApproverType("request");
+                                                    controller.setLoginUser(session.getUser());
+                                                    controller.setStage(currentPopupStage);
+                                                }
+
+                                                currentPopupStage.setScene(scene);
+                                                currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+                                                currentPopupStage.setTitle("Add approver");
+
+                                                currentPopupStage.setOnHidden(event -> {
+                                                    refreshAllData();
+                                                });
+
+                                                currentPopupStage.show();
+                                            }
+                                        } catch (IOException e) {
+                                            System.out.println("Error: " + e.getMessage());
+                                        }
+                                    });
+
+                                }
+                            };
+                            firstButton.changeBackgroundRadius(25);
+                            firstButton.changeText("กรอกผู้อนุมัติคนใหม่", 28, FontWeight.NORMAL);
+                            firstButton.setButtonSize(260,60);
+                            firstButton.changeLabelColor("#000000");
+                            firstButton.setImage(new Image(getClass().getResourceAsStream("/images/icons/pencil-bold.png")), 25, 25);
+                            secondButton = new DefaultButton("#ded9d9","#aba4a4","white") {
+                                @Override
+                                protected void handleClickEvent() {
+                                    button.setOnMouseClicked(e -> {
+                                        mainStackPane.getChildren().removeLast();
+                                        mainStackPane.getChildren().add(new BlankPopupStack() {
+                                            VBox approverListBox;
+                                            DefaultTableView<Approver> approverTableView;
+                                            @Override
+                                            protected void initPopupView() {
+                                                ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("approver");
+                                                Set<Approver> filteredApprovers = null;
+                                                if (session.getUser() instanceof DepartmentUser) {
+                                                    ApproverList approverList = approverListFileDatasource.query("department", null);
+                                                    filteredApprovers = approverList.getApprovers()
+                                                            .stream()
+                                                            .filter(approver -> approver.getAssociateUUID().equals(((DepartmentUser)session.getUser()).getDepartmentUUID()))
+                                                            .collect(Collectors.toSet());
+                                                } else if (session.getUser() instanceof FacultyUser) {
+                                                    ApproverList approverList = approverListFileDatasource.query("faculty", null);
+                                                    filteredApprovers = approverList.getApprovers()
+                                                            .stream()
+                                                            .filter(approver -> approver.getAssociateUUID().equals(((FacultyUser)session.getUser()).getFacultyUUID()))
+                                                            .collect(Collectors.toSet());
+                                                }
+                                                approverTableView = new DefaultTableView<>(new TableView<Approver>()) {
+                                                    @Override
+                                                    protected void handleClick(){
+                                                        getTableView().setOnMouseClicked(e->{
+                                                            Approver selectedItem = getTableView().getSelectionModel().getSelectedItem();
+                                                                if (selectedItem != null) {
+                                                                approverListFileDatasource.appendDataFromList(selectedItem, request);
+                                                            }
+                                                            refreshAllData();
+                                                            mainStackPane.getChildren().removeLast();
+                                                        });
+                                                    }
+                                                };
+                                                approverTableView.getColumns().clear();
+                                                approverTableView.addColumn("ชื่อ", "Firstname");
+                                                approverTableView.addColumn("นามสกุล", "Lastname");
+                                                approverTableView.addColumn("ตำแหน่ง", "Role");
+                                                approverTableView.getTableView().getItems().clear();
+                                                approverTableView.getTableView().getItems().addAll(filteredApprovers);
+                                                approverTableView.setEditable(false);
+                                                Label placeholder = new Label("ไม่มีรายชื่อผู้อนุมัติในระบบ");
+                                                placeholder.setStyle("-fx-font-size: 20");
+                                                approverTableView.getTableView().setPlaceholder(placeholder);
+                                                approverTableView.setStyleSheet("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet.css");
+                                                secondButton.setButtonSize(120, 30);
+                                                approverListBox = new VBox(approverTableView.getTableView(), secondButton);
+                                                approverListBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                                                approverListBox.setMaxWidth(850);
+                                                approverListBox.setSpacing(80);
+                                                approverListBox.setMaxHeight(620);
+                                                approverListBox.setAlignment(Pos.CENTER);
+                                                stackPane.getChildren().add(approverListBox);
+                                            }
+                                            @Override
+                                            protected void handleSecondButton(){
+                                                secondButton.setOnMouseClicked(e->{
+                                                    mainStackPane.getChildren().removeLast();
+                                                });
+                                            }
+
+                                        });
+                                    });
+                                }
+                            };
+                            secondButton.setButtonSize(260,60);
+                            secondButton.setImage(new Image(getClass().getResourceAsStream("/images/icons/many-people-icon.png")), 30, 30);
+                            secondButton.changeLabelColor("#000000");
+                            secondButton.changeBackgroundRadius(25);
+                            secondButton.changeText("เพิ่มผู้อนุมัติจากรายชื่อ", 28, FontWeight.NORMAL);
+                            DefaultButton exitButton = new DefaultButton("#FF8080","#BC5F5F","white") {
+                                @Override
+                                protected void handleClickEvent() {
+                                    button.setOnMouseClicked(e -> {
+                                        mainStackPane.getChildren().removeLast();
+                                    });
+                                }
+                            };
+                            exitButton.setButtonSize(120,30);
+                            exitButton.changeBackgroundRadius(25);
+                            exitButton.changeText("ยกเลิก", 28, FontWeight.NORMAL);
+                            exitButton.changeLabelColor("#000000");
+                            DefaultLabel title = new DefaultLabel("");
+                            title.changeText("เพิ่มผู้อนุมัติ", 36, FontWeight.BOLD);
+                            mainBox = new HBox(firstButton, secondButton);
+                            mainBox.setAlignment(Pos.CENTER);
+                            mainBox.setSpacing(20);
+                            mainBox.setMaxWidth(550);
+                            mainBox.setMaxHeight(150);
+                            vBox = new VBox(title, mainBox, exitButton);
+                            vBox.setAlignment(Pos.CENTER);
+                            vBox.setSpacing(50);
+                            vBox.setMaxWidth(600);
+                            vBox.setMaxHeight(280);
+                            vBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                            mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                            stackPane.getChildren().add(vBox);
+                        }
+
+                    });
+                });
+            }
+        };
         addApproverButton.changeText("เพิ่มผู้อนุมัติ",28, FontWeight.NORMAL);
 
         requestInfoButton = new DefaultButton("#FFA1D9","#a6a6a6","#000000"){
@@ -259,10 +432,10 @@ public class RequestManagementController {
                           HBox lineEnd;
                           @Override
                           protected void initPopupView() {
-                              declineButton.setText("ปิด");
-                              acceptButton.setText("เพิ่มเติม");
-                              lineEnd = new HBox(declineButton, acceptButton);
-                              HBox.setMargin(declineButton, new Insets(0, 10, 0, 0));
+                              secondButton.setText("ปิด");
+                              firstButton.setText("เพิ่มเติม");
+                              lineEnd = new HBox(secondButton, firstButton);
+                              HBox.setMargin(secondButton, new Insets(0, 10, 0, 0));
                               mainBox = new VBox(scene, lineEnd);
                               mainBox.setMaxWidth(600);
                               mainBox.setMaxHeight(620);
@@ -274,8 +447,8 @@ public class RequestManagementController {
                           }
 
                           @Override
-                          protected void handleAcceptButton() {
-                              acceptButton.setOnMouseClicked(e->{
+                          protected void handleFirstButton() {
+                              firstButton.setOnMouseClicked(e->{
                                   try {
                                       String viewPath = "/ku/cs/views/student-request-info-pane.fxml";
                                       FXMLLoader fxmlLoader = new FXMLLoader();
@@ -298,7 +471,7 @@ public class RequestManagementController {
                                           mainBox.getChildren().clear();
                                           mainBox.getChildren().add(scene);
                                           lineEnd.getChildren().removeLast();
-                                          lineEnd.getChildren().add(acceptButton);
+                                          lineEnd.getChildren().add(firstButton);
                                           mainBox.getChildren().add(lineEnd);
                                       });
                                       lineEnd.getChildren().add(backButton.getButton());
@@ -315,8 +488,8 @@ public class RequestManagementController {
                           }
 
                           @Override
-                          protected void handleDeclineButton() {
-                              declineButton.setOnMouseClicked(e->{
+                          protected void handleSecondButton() {
+                              secondButton.setOnMouseClicked(e->{
                                   mainStackPane.getChildren().removeLast();
                               });
                           }
@@ -529,6 +702,12 @@ public class RequestManagementController {
                     approveButton.setDisable(false);
                 }
             }
+            if (!request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") && session.getUser() instanceof FacultyUser && !(session.getUser() instanceof DepartmentUser)) {
+                addApproverButton.setDisable(true);
+            }
+            if (!request.getStatusNext().equals("คำร้องส่งต่อให้หัวหน้าภาควิชา") && session.getUser() instanceof DepartmentUser) {
+                addApproverButton.setDisable(true);
+            }
             if(sumApproverFaculty == sumApprovedFaculty && session.getUser() instanceof FacultyUser){
                 if(!request.getStatusNext().equals("คำร้องดำเนินการครบถ้วน")){
                     approveButton.setDisable(false);
@@ -540,7 +719,7 @@ public class RequestManagementController {
 
         if(goToFaculty && session.getUser() instanceof DepartmentUser){
             approveButton.setDisable(true);
-            addApproverButton.setDisable(true);
+//            addApproverButton.setDisable(true);
 //            rejectButton.setDisable(true);
         }
 
@@ -586,6 +765,38 @@ public class RequestManagementController {
                         button.setOnMouseClicked(e -> {
                             Approver approver = getTableView().getItems().get(getIndex());
                             System.out.println("EDIT CLICK : " + approver.getName());
+                            String popUpPath = "/ku/cs/views/faculty-edit-approver-pane.fxml";
+                            try {
+                                if (currentPopupStage == null || !currentPopupStage.isShowing()) {
+                                    currentPopupStage = new Stage();
+                                }
+
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(popUpPath));
+                                Pane editPane = fxmlLoader.load();
+
+                                EditApproverController controller = fxmlLoader.getController();
+                                controller.setApprover(approver);
+                                controller.setStage(currentPopupStage);
+                                controller.setApproverDetail(
+                                        approver.getFirstname(),
+                                        approver.getLastname(),
+                                        approver.getRole()
+                                );
+
+                                Scene scene = new Scene(editPane);
+                                currentPopupStage.setScene(scene);
+                                currentPopupStage.setTitle("Edit Approver");
+                                currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+
+                                currentPopupStage.setOnHidden(event -> {
+                                    refreshAllData();
+                                });
+
+                                currentPopupStage.show();
+
+                            } catch (IOException ex) {
+                                System.err.println("Error loading popup: " + ex.getMessage());
+                            }
                         });
                     }
                 };
@@ -767,7 +978,7 @@ public class RequestManagementController {
                     case "ไม่อนุมัติ":
                         fileName = "approver-rejected-red.png";
                         break;
-                    case "รอภาควิชาดำเนินการ", "รออัพโหลด":
+                    case "รอภาควิชาดำเนินการ", "รออัปโหลด":
                         fileName = "approver-waiting-upload-blue.png";
                         break;
                     case "รอส่งคณะ":
@@ -909,7 +1120,7 @@ public class RequestManagementController {
         String statusImageFileName = "editor-approver-fallback.png";
         if (session.getUser() instanceof DepartmentUser) {
             switch (approverStatus){
-                case "รอภาควิชาดำเนินการ", "รออัพโหลด":
+                case "รอภาควิชาดำเนินการ", "รออัปโหลด":
                     initEditThisTierWaitUpload();
                     break;
                 case "เรียบร้อย":
@@ -923,7 +1134,7 @@ public class RequestManagementController {
             }
         } else if (session.getUser() instanceof FacultyUser) {
             switch (approverStatus){
-                case "รอคณะดำเนินการ", "รออัพโหลด":
+                case "รอคณะดำเนินการ", "รออัปโหลด":
                     initEditThisTierWaitUpload();
                     break;
                 case "เรียบร้อย":
@@ -1249,14 +1460,14 @@ public class RequestManagementController {
                                                         container.getChildren().add(errorLabel);
                                                         mainBox.getChildren().add(container);
 
-                                                        HBox lineEnd = new HBox(acceptButton,declineButton);
+                                                        HBox lineEnd = new HBox(firstButton, secondButton);
                                                         lineEnd.setAlignment(Pos.CENTER);
                                                         lineEnd.setSpacing(20);
                                                         mainBox.getChildren().addAll(lineEnd);
                                                         stackPane.getChildren().add(mainBox);
                                                     }@Override
-                                                    protected void handleAcceptButton(){
-                                                        acceptButton.setOnMouseClicked(e -> {
+                                                    protected void handleFirstButton(){
+                                                        firstButton.setOnMouseClicked(e -> {
                                                             reasonTextField.toggleTextField(false);
                                                             if(!reasonTextField.getData().isEmpty()){
                                                                 onRejectApprover(reasonTextField.getData());
@@ -1269,8 +1480,8 @@ public class RequestManagementController {
                                                         });
                                                     }
                                                     @Override
-                                                    protected void handleDeclineButton(){
-                                                        declineButton.setOnMouseClicked(e ->{
+                                                    protected void handleSecondButton(){
+                                                        secondButton.setOnMouseClicked(e ->{
                                                             mainStackPane.getChildren().removeLast();
                                                         });
                                                     }
@@ -1547,7 +1758,7 @@ public class RequestManagementController {
                     //LINE END BUTTON
                     HBox content = new HBox(imageView);
                     content.setAlignment(Pos.CENTER);
-                    HBox lineEnd = new HBox(declineButton);
+                    HBox lineEnd = new HBox(secondButton);
                     lineEnd.setPrefHeight(100);
                     lineEnd.setAlignment(Pos.CENTER);
                     mainBox.getChildren().addAll(content,lineEnd);
@@ -1556,8 +1767,8 @@ public class RequestManagementController {
                 }
 
                 @Override
-                protected void handleDeclineButton() {
-                    declineButton.setOnMouseClicked(e->{
+                protected void handleSecondButton() {
+                    secondButton.setOnMouseClicked(e->{
                         mainStackPane.getChildren().removeLast();
                     });
                 }

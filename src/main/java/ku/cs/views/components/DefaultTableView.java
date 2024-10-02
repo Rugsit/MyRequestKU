@@ -16,7 +16,7 @@ public class DefaultTableView<S> extends TableView {
     public DefaultTableView(TableView<S> tableView) {
         this.tableView = tableView;
         initTableStyle();
-        handleCLick();
+        handleClick();
         tableView.getSelectionModel().clearSelection();
     }
     private void initTableStyle(){
@@ -34,7 +34,7 @@ public class DefaultTableView<S> extends TableView {
         column.setCellValueFactory(new PropertyValueFactory<>(objectProperty));
         tableView.getColumns().add(column);
     }
-    protected void handleCLick(){
+    protected void handleClick(){
         tableView.setOnMouseClicked(event -> {
             S selected = tableView.getSelectionModel().getSelectedItem();
             if(selected != null){

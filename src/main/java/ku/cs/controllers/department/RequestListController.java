@@ -90,7 +90,7 @@ public class RequestListController {
     private void initTableView(){
         DefaultTableView<Request> reqTable = new DefaultTableView(requestTableView){
             @Override
-            protected void handleCLick() {
+            protected void handleClick() {
                 getTableView().setOnMouseClicked(e->{
                     Object selected = getTableView().getSelectionModel().getSelectedItem();
                     if(selected instanceof Request){
@@ -116,7 +116,7 @@ public class RequestListController {
         reqTable.addColumn("ชื่อ-นามสกุล","name");
 //        reqTable.addColumn("วันที่และเวลา","timeStamp");
 //        reqTable.addColumn("สถานะคำร้อง","statusNow");
-        reqTable.getTableView().getColumns().add(newTimestampColumn("เวลาอัพเดท"));
+        reqTable.getTableView().getColumns().add(newTimestampColumn("เวลาอัปเดต"));
         reqTable.getTableView().getColumns().add(newRequestStatusColumn("สถานะคำร้อง"));
         reqTable.addStyleSheet("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet.css");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");

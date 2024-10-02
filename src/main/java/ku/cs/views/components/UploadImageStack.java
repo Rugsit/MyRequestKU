@@ -37,14 +37,14 @@ public class UploadImageStack extends StackPane {
         this.dir = dir;
         this.fileName = fileName;
         this.curFileName = curFileName;
-        inittialize();
+        initialize();
         handleUploadButtonClick();
         handleDeleteButtonClick();
     }
-    private void inittialize(){
+    private void initialize(){
         fileLabel.changeText(curFileName,18, FontWeight.NORMAL);
         uploadButton.changeBackgroundRadius(15);
-        uploadButton.changeText("อัพโหลด",18, FontWeight.NORMAL);
+        uploadButton.changeText("อัปโหลด",18, FontWeight.NORMAL);
 
         deleteButton.changeBackgroundRadius(15);
         deleteButton.changeText("ลบ",16, FontWeight.NORMAL);
