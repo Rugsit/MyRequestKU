@@ -57,25 +57,26 @@ public class UserList implements Serializable {
                         String password,
                         String avatar,
                         String activeStatus,
+                        String defaultPassword,
                         String faculty,
                         String department,
                         String advisorUUID) throws UserException {
         User user;
         switch (role){
             case "admin":
-                user = new Admin(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus);
+                user = new Admin(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, defaultPassword);
                 break;
             case "advisor":
-                user = new Advisor(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty, department);
+                user = new Advisor(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, defaultPassword, faculty, department);
                 break;
             case "student":
-                user = new Student(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty, department, advisorUUID);
+                user = new Student(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, defaultPassword, faculty, department, advisorUUID);
                 break;
             default:
                 if(role.contains("faculty")){
-                    user = new FacultyUser(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty);
+                    user = new FacultyUser(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, defaultPassword, faculty);
                 }else if(role.contains("department")){
-                    user = new DepartmentUser(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty, department);
+                    user = new DepartmentUser(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, defaultPassword, faculty, department);
                 }else{
                     throw new UserException("Invalid role");
                 }

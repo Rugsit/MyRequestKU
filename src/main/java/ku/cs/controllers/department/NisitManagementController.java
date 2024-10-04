@@ -55,6 +55,7 @@ public class NisitManagementController {
     private TextFieldStack nisitIdTextField;
     private TextFieldStack nisitEmailTextField;
     private TextFieldStack nisitPasswordTextField;
+    private TextFieldStack nisitDefaultPasswordTextField;
 
     @FXML private Button addNisitButton;
     @FXML private Button backButton;
@@ -248,8 +249,10 @@ public class NisitManagementController {
             container.getChildren().add(nisitEmailTextField = new TextFieldStack(user.getEmail()));
             children.add(container);
             container = newEditorContainerHBox();
-            nisitPasswordTextField = new TextFieldStack("PASSWORD",570,50);
-            container.getChildren().add(nisitPasswordTextField);
+//            nisitPasswordTextField = new TextFieldStack("PASSWORD",570,50);
+//            container.getChildren().add(nisitPasswordTextField);
+            container.getChildren().add(nisitPasswordTextField = new TextFieldStack("PASSWORD"));
+            container.getChildren().add(nisitDefaultPasswordTextField = new TextFieldStack(user.getDefaultPassword()));
             children.add(container);
 
             //UPLOAD IMAGE
@@ -373,6 +376,9 @@ public class NisitManagementController {
 
             if(!nisitPasswordTextField.getData().equalsIgnoreCase("PASSWORD")){
                 selectedUser.setPassword(nisitPasswordTextField.getData());
+            }
+            if(!nisitDefaultPasswordTextField.getData().equalsIgnoreCase(selectedUser.getDefaultPassword())){
+                selectedUser.setDefaultPassword(nisitDefaultPasswordTextField.getData());
             }
 
 
