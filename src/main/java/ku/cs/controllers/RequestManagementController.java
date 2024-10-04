@@ -1072,6 +1072,11 @@ public class RequestManagementController {
         if(showEdit){
             String tier = selectedApprover.getTier();
             String approverStatus = selectedApprover.getStatus();
+            if(selectedApprover.getDisableView()){//disable view => true
+                initEditThisTierException("คำร้องยังไม่ถึงระดับของผู้อนุมัติ");
+                return;
+            }
+
             if(!approverStatus.equals("ไม่อนุมัติ")) {
                 for (Approver a : filterApproverList.getApprovers()) {
                     if (a.getStatus().equals("ไม่อนุมัติ")) {
@@ -1171,11 +1176,11 @@ public class RequestManagementController {
         container.getChildren().add(titleLabel);
         editorVBox.getChildren().add(container);
 
-        container = newEditorContainer();
-        DefaultLabel statusLabel = new DefaultLabel("");
-        statusLabel.changeText("สถานะ " + approverStatus,32, FontWeight.NORMAL);
-        container.getChildren().add(statusLabel);
-        editorVBox.getChildren().add(container);
+//        container = newEditorContainer();
+//        DefaultLabel statusLabel = new DefaultLabel("");
+//        statusLabel.changeText("สถานะ " + approverStatus,32, FontWeight.NORMAL);
+//        container.getChildren().add(statusLabel);
+//        editorVBox.getChildren().add(container);
 
         container = newEditorContainer();
         DefaultLabel errorLabel = new DefaultLabel("");
