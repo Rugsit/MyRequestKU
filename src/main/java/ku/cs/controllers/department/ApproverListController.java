@@ -13,7 +13,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ku.cs.controllers.faculty.EditApproverController;
+import ku.cs.controllers.requests.approver.AddApproverController;
+import ku.cs.controllers.requests.approver.EditApproverController;
 import ku.cs.models.Session;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
@@ -190,7 +191,7 @@ public class ApproverListController implements Observer<HashMap<String, String>>
         approverTableView.setOnMouseClicked(e -> {
             Object selected = approverTableView.getSelectionModel().getSelectedItem();
             if (selected != null) {
-                String popUpPath = "/ku/cs/views/faculty-edit-approver-pane.fxml";
+                String popUpPath = "/ku/cs/views/edit-approver-pane.fxml";
                 try {
                     if (currentPopupStage == null || !currentPopupStage.isShowing()) {
                         currentPopupStage = new Stage();
@@ -247,10 +248,10 @@ public class ApproverListController implements Observer<HashMap<String, String>>
         try {
             if (currentPopupStage == null || !currentPopupStage.isShowing()) {
                 currentPopupStage = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/department-add-approver-pane.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/add-approver-pane.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
 
-                AddDepartmentApproverController controller = fxmlLoader.getController();
+                AddApproverController controller = fxmlLoader.getController();
                 controller.setLoginUser(loginUser);
                 controller.setStage(currentPopupStage);
 

@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="560.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.faculty.AddApproverController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="560.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.approver.AddApproverController">
    <children>
-      <Label layoutX="45.0" layoutY="14.0" prefHeight="90.0" prefWidth="451.0" styleClass="edit-data-header" text="เพิ่มรายชื่อผู้อนุมัติ (คณะ)">
+      <Label fx:id="titleLabel" layoutX="45.0" layoutY="14.0" prefHeight="90.0" prefWidth="451.0" styleClass="edit-data-header" text="เพิ่มรายชื่อผู้อนุมัติ (คณะ)">
          <font>
             <Font name="PrintAble4U Bold" size="12.0" />
          </font>
@@ -59,7 +59,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin></Label>
             <ChoiceBox fx:id="roleChoiceBox" prefHeight="44.0" prefWidth="458.0" styleClass="choice-box-select" />
-            <Label fx:id="optionalRoleTextField" styleClass="text-desc-input" text="ระบุตำแหน่งเพิ่มเติม" />
+            <Label fx:id="optionalRoleLabel" styleClass="text-desc-input" text="ระบุตำแหน่งเพิ่มเติม" />
             <TextField fx:id="academicRoleTextField" prefHeight="50.0" prefWidth="451.0" promptText="กรอกตำแหน่ง" styleClass="loginTextField" stylesheets="@../styles/login-register-style.css">
                <font>
                   <Font size="18.0" />

@@ -1,4 +1,4 @@
-package ku.cs.controllers.faculty;
+package ku.cs.controllers.requests.approver;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -8,12 +8,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
+import ku.cs.models.request.approver.DepartmentApprover;
 import ku.cs.models.request.approver.FacultyApprover;
 import ku.cs.services.ApproverListFileDatasource;
-import org.w3c.dom.Text;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class EditApproverController {
     @FXML
@@ -40,28 +40,16 @@ public class EditApproverController {
     @FXML
     private ChoiceBox<String> roleChoiceBox;
 
-    private String[] roles = {"หัวหน้าภาควิชา", "รองหัวหน้าภาควิชา", "รักษาการณ์แทนหัวหน้าภาควิชา",
-            "คณบดี", "รองคณบดี", "รักษาการณ์แทนคณบดี", "อื่น ๆ"};
+    private ArrayList<String> roles = new ArrayList<>(Arrays.asList("หัวหน้าภาควิชา", "รองหัวหน้าภาควิชา", "รักษาการณ์แทนหัวหน้าภาควิชา",
+            "คณบดี", "รองคณบดี", "รักษาการณ์แทนคณบดี", "อื่น ๆ"));
 
     @FXML
-    private Label optionalRoleTextField;
+    private Label optionalRoleLabel;
 
     @FXML
     public void initialize(){
         academicRoleTextField.setVisible(false);
-        optionalRoleTextField.setVisible(false);
-        roleChoiceBox.setItems(FXCollections.observableArrayList(roles));
-        roleChoiceBox.setValue(roles[0]);
-
-        roleChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals("อื่น ๆ")) {
-                optionalRoleTextField.setVisible(true);
-                academicRoleTextField.setVisible(true);
-            } else {
-                optionalRoleTextField.setVisible(false);
-                academicRoleTextField.setVisible(false);
-            }
-        });
+        optionalRoleLabel.setVisible(false);
     }
 
     public void setStage(Stage stage) {
@@ -69,7 +57,32 @@ public class EditApproverController {
     }
 
     public void setApprover(Approver approver){
+        if (approver == null){ return; }
         this.approver = approver;
+
+        if (approver instanceof DepartmentApprover){
+            roles = new ArrayList<>(Arrays.asList("หัวหน้าภาควิชา", "รองหัวหน้าภาควิชา", "รักษาการณ์แทนหัวหน้าภาควิชา", "อื่น ๆ"));
+        } else if (approver instanceof FacultyApprover){
+            roles = new ArrayList<>(Arrays.asList("คณบดี", "รองคณบดี", "รักษาการณ์แทนคณบดี", "อื่น ๆ"));
+        }
+
+        roleChoiceBox.setItems(FXCollections.observableArrayList(roles));
+        roleChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals("อื่น ๆ")) {
+                optionalRoleLabel.setVisible(true);
+                academicRoleTextField.setVisible(true);
+                academicRoleTextField.setText(approver.getRole());
+            } else {
+                optionalRoleLabel.setVisible(false);
+                academicRoleTextField.setVisible(false);
+            }
+        });
+        if (roles.contains(approver.getRole())) {
+            roleChoiceBox.setValue(roles.get(roles.indexOf(approver.getRole())));
+        } else {
+            roleChoiceBox.setValue(roles.get(roles.indexOf("อื่น ๆ")));
+        }
+
     }
 
     public  void setApproverDetail(String approverName, String approverLastName, String approverRole){
@@ -81,7 +94,7 @@ public class EditApproverController {
         academicRoleTextField.setText(approverRole);
     }
 
-    private void changeNewAdvisorDetail() {
+    private void changeNewApproverDetail() {
         String newApproverName = nameTextField.getText().trim();
         String newApproverLastName = lastNameTextField.getText().trim();
         String newApproverRole = academicRoleTextField.getText().trim();
@@ -93,7 +106,6 @@ public class EditApproverController {
         }
 
         ApproverListFileDatasource approverDatasource;
-        System.out.println(approver.getRequestUUID());
         if (approver.getRequestUUID() != null) {
             approverDatasource = new ApproverListFileDatasource("request");
         } else {
@@ -102,7 +114,6 @@ public class EditApproverController {
         ApproverList approverList = approverDatasource.readData();
         approver = approverList.findApproverByObject(approver);
         if (approver == null) {
-            System.out.println("sad");
             return;
         }
 
@@ -114,7 +125,7 @@ public class EditApproverController {
         stage.close();
     }
 
-    private void deleteAdvisorDetail(){
+    private void deleteApproverDetail(){
         ApproverListFileDatasource approverDatasource;
         if (approver.getRequestUUID() != null) {
             approverDatasource = new ApproverListFileDatasource("request");
@@ -129,19 +140,16 @@ public class EditApproverController {
 
     @FXML
     private void onAcceptClick() {
-        System.out.println("Accept button clicked");
-        changeNewAdvisorDetail();
+        changeNewApproverDetail();
     }
 
     @FXML
     private void onDeleteClick(){
-        System.out.println("Delete button clicked");
-        deleteAdvisorDetail();
+        deleteApproverDetail();
     }
 
     @FXML
     private void onExitClick() {
-        System.out.println("Exit button clicked");
         if (stage != null) {
             stage.close();
         }

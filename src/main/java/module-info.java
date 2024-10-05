@@ -46,4 +46,6 @@ module ku.cs {
     opens ku.cs.controllers.requests.information to javafx.base, javafx.fxml;
     exports ku.cs.services.department;
     opens ku.cs.services.department to javafx.fxml;
+    exports ku.cs.controllers.requests.approver;
+    opens ku.cs.controllers.requests.approver to javafx.fxml;
 }

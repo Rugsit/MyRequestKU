@@ -12,14 +12,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ku.cs.controllers.ChangePasswordController;
-import ku.cs.controllers.advisor.AdvisorStudentRequestsController;
-import ku.cs.models.request.Request;
+import ku.cs.controllers.requests.approver.AddApproverController;
+import ku.cs.controllers.requests.approver.EditApproverController;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.FacultyUser;
-import ku.cs.models.user.Student;
-import ku.cs.models.user.User;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.FXRouter;
 import ku.cs.views.components.CropImage;
@@ -28,7 +25,6 @@ import ku.cs.views.components.DefaultLabel;
 import ku.cs.views.components.RouteButton;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -160,7 +156,7 @@ public class FacultyApproverController {
         approverTableView.setOnMouseClicked(e -> {
             Object selected = approverTableView.getSelectionModel().getSelectedItem();
             if (selected != null) {
-                String popUpPath = "/ku/cs/views/faculty-edit-approver-pane.fxml";
+                String popUpPath = "/ku/cs/views/edit-approver-pane.fxml";
                 try {
                     if (currentPopupStage == null || !currentPopupStage.isShowing()) {
                         currentPopupStage = new Stage();
@@ -221,7 +217,7 @@ public class FacultyApproverController {
         try {
             if (currentPopupStage == null || !currentPopupStage.isShowing()) {
                 currentPopupStage = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/faculty-add-approver-pane.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/add-approver-pane.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
 
                 AddApproverController controller = fxmlLoader.getController();
