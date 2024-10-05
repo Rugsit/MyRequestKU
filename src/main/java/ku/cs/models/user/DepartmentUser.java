@@ -38,9 +38,10 @@ public class DepartmentUser extends FacultyUser {
                           String password,
                           String avatar,
                           String activeStatus,
+                          String defaultPassword,
                           String faculty,
                           String department) throws UserException {
-        super(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty);
+        super(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, defaultPassword, faculty);
         setDepartment(UUID.fromString(department));
 
     }

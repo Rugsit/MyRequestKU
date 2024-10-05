@@ -123,11 +123,12 @@ public class UserListFileDatasource implements Datasource<UserList> {
                 String password = data[8];
                 String avatar = data[9];
                 String activeStatus = data[10];
-                String faculty = data[11];
-                String department = data[12];
-                String advisorUUID = data[13];
+                String defaultPassword = data[11];
+                String faculty = data[12];
+                String department = data[13];
+                String advisorUUID = data[14];
 
-                userList.addUser(uuid, id, username, role, firstname, lastname, lastLogin, email, password , avatar,activeStatus, faculty, department, advisorUUID);
+                userList.addUser(uuid, id, username, role, firstname, lastname, lastLogin, email, password , avatar,activeStatus, defaultPassword, faculty, department, advisorUUID);
             }
 
         } catch (UserException | IOException e) {
@@ -157,7 +158,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
             for (User user : userList.getUsers()) {
                 String dataLine = user.toString();
 
-                int maxLength = 14;
+                int maxLength = 15;
                 int dataLength = dataLine.split(",").length;
                 if(dataLength < maxLength){
                     dataLine += ",none".repeat(maxLength-dataLength);
@@ -190,7 +191,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
         try (BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
             String dataLine = user.toString();
 
-            int maxLength = 14;
+            int maxLength = 15;
             int dataLength = dataLine.split(",").length;
             if(dataLength < maxLength){
                 dataLine += ",none".repeat(maxLength-dataLength);
