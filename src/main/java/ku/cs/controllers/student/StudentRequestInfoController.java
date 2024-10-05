@@ -144,7 +144,6 @@ public class StudentRequestInfoController {
         RequestStatusColumn.setTableStatus(statusNow, "now");
         RequestStatusColumn.setTableStatus(statusNext, "next");
         tableView.getTableView().getSortOrder().add(date);
-        tableView.addStyleSheet("/ku/cs/styles/admin-page-style.css");
 
         RequestList requestList = datasource.queryLog(request);
         for (Request req : requestList.getRequests()) {

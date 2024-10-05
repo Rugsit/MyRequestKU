@@ -16,9 +16,7 @@ import ku.cs.models.request.RequestList;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.request.approver.exception.ApproverStatusException;
-import ku.cs.services.ApproverListFileDatasource;
-import ku.cs.services.Datasource;
-import ku.cs.services.RequestListFileDatasource;
+import ku.cs.services.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -43,6 +41,8 @@ public class NotApproveController {
 
     @FXML
     public void initialize() {
+        updateStyle();
+
         anchorPane.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
                 onAgreeClick();
@@ -116,5 +116,18 @@ public class NotApproveController {
     @FXML
     private void onExitClick() {
         stage.close();
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(anchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
     }
 }

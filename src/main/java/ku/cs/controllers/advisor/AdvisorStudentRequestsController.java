@@ -72,6 +72,7 @@ public class AdvisorStudentRequestsController {
         // Create and configure columns with correct type
         TableColumn<Request, String> typeColumn = new TableColumn<>("ประเภทคำร้อง");
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("requestType"));
+        typeColumn.setMinWidth(100);
         TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
         TableColumn<Request, LocalDateTime> timestampColumn = new TableColumn<>("วันที่อัพเดทล่าสุด");

@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import ku.cs.models.user.Admin;
 import ku.cs.models.user.User;
@@ -53,8 +54,11 @@ public class AdminManageUsersController {
     private Button banButton;
     @FXML
     private Button unBanButton;
+    @FXML
+    private AnchorPane mainAnchorPane;
 
     public void initializeUser() {
+
         SetTransition transition = new SetTransition();
         transition.setButtonBounce(banButton);
         transition.setButtonBounce(unBanButton);

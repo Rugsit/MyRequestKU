@@ -81,7 +81,6 @@ public class StudentRequestsController {
             }
         };
         requestListTable.getTableView().getStylesheets().clear();
-        requestListTable.addStyleSheet("/ku/cs/styles/admin-page-style.css");
         requestListTableView.getColumns().clear();
         Label placeHolder = new Label("ไม่พบข้อมูล");
         requestListTableView.setPlaceholder(placeHolder);

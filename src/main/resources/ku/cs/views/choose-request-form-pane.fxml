@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,114 +13,118 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" stylesheets="@../styles/choose-request-form-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.ChooseRequestFromController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.ChooseRequestFromController">
    <children>
-      <Label layoutX="29.0" layoutY="33.0" styleClass="header" text="เลือกชนิดใบคำร้อง" />
-      <ImageView fx:id="backButton" fitHeight="50.0" fitWidth="45.0" layoutX="914.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/icons/back-icon.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <ScrollPane layoutX="14.0" layoutY="91.0" prefHeight="563.0" prefWidth="960.0">
-         <content>
-            <HBox prefHeight="521.0" prefWidth="947.0">
+      <Label layoutX="29.0" layoutY="33.0" text="เลือกชนิดใบคำร้อง">
+         <styleClass>
+            <String fx:value="header" />
+            <String fx:value="large-font-size" />
+         </styleClass></Label>
+      <HBox layoutX="25.0" layoutY="116.0" prefHeight="561.0" prefWidth="938.0" styleClass="hbox-choose-request">
+         <children>
+            <VBox alignment="TOP_CENTER" onMouseClicked="#onGeneralRequestVBoxClick" prefHeight="572.0" prefWidth="310.0" styleClass="v-box-request">
                <children>
-                  <VBox alignment="TOP_CENTER" onMouseClicked="#onGeneralRequestVBoxClick" prefHeight="572.0" prefWidth="310.0" styleClass="v-box-request">
-                     <children>
-                        <ImageView fitHeight="59.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" styleClass="v-box-request-img">
-                           <image>
-                              <Image url="@../../../images/icons/general-request-icon.png" />
-                           </image>
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <Label styleClass="type-request" text="ใบคำร้องทั่วไป&#10;General Request&#10;">
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font name="PrintAble4U Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="108.0" prefWidth="264.0" styleClass="details-request" text="- ขอใบแทนปริญญาบัตร&#10;- แจ้งเปลี่ยนชื่อ&#10;- แจ้งเปลี่ยนนามสกุล&#10;- อื่น ๆ ">
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label prefHeight="85.0" prefWidth="259.0" styleClass="caution" text="**นิสิตอาจต้องกรอกใบคำร้อง&#10;หลายใบต่อ ๆ กันหากคำขอต้อง&#10;การใบคำร้องเพิ่มเติม" />
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </VBox>
-                  <Line endX="101.0" endY="740.185791015625" startX="101.0" startY="1221.878662109375" stroke="#374957">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" top="20.0" />
-                     </HBox.margin>
-                  </Line>
-                  <VBox alignment="TOP_CENTER" onMouseClicked="#onRegisterRequestVBoxClick" prefHeight="548.0" prefWidth="310.0" styleClass="v-box-request">
-                     <children>
-                        <ImageView fitHeight="59.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" styleClass="v-box-request-img">
-                           <image>
-                              <Image url="@../../../images/icons/pencil-bold.png" />
-                           </image>
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <Label styleClass="type-request" text="ใบคำร้องขอลงทะเบียน&#10;Registration Request&#10;">
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label prefHeight="195.0" prefWidth="264.0" styleClass="details-request" text="- ขอลงทะเบียนล่าช้า / รักษาสถาน&#10;ภาพนิสิต&#10;- เพิ่ม / ถอนรายวิชาล่าช้า&#10;- ขอลงทะเบียนเกิน จำนวนหน่วยกิต&#10;- ขอลงทะเบียนต่ำกว่า 9 หน่วยกิต&#10;- ผ่อนผันค่าธรรมเนียมการศึกษา&#10;- ขอย้ายคณะ หรือเปลี่ยนสาขา">
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label prefHeight="77.0" prefWidth="259.0" styleClass="caution" text="**นิสิตอาจต้องอัพโหลดเอกสาร&#10;เพิ่มเติมหากคำขอต้องการเอกสาร&#10;เพิ่มเติม" />
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </VBox>
-                  <Line endX="101.4503173828125" endY="740.185791015625" startX="101.4503173828125" startY="1221.878662109375" stroke="#374957">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" top="20.0" />
-                     </HBox.margin>
-                  </Line>
-                  <VBox alignment="TOP_CENTER" onMouseClicked="#onAcademicLeaveRequestVBoxClick" prefHeight="572.0" prefWidth="310.0" styleClass="v-box-request">
-                     <children>
-                        <ImageView fitHeight="59.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" styleClass="v-box-request-img">
-                           <image>
-                              <Image url="@../../../images/icons/re-verse.png" />
-                           </image>
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <Label styleClass="type-request" text="ใบคำร้องขอลาพักการศึกษา&#10;Leave of Absence Request&#10;">
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label prefHeight="42.0" prefWidth="264.0" styleClass="details-request" text="- ขอลาพักการศึกษา">
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </Label>
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </VBox>
+                  <ImageView fitHeight="59.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" styleClass="v-box-request-img">
+                     <image>
+                        <Image url="@../../../images/icons/general-request-icon.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label styleClass="type-request" text="ใบคำร้องทั่วไป&#10;General Request&#10;">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="PrintAble4U Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="108.0" prefWidth="264.0" styleClass="details-request" text="- ขอใบแทนปริญญาบัตร&#10;- แจ้งเปลี่ยนชื่อ&#10;- แจ้งเปลี่ยนนามสกุล&#10;- อื่น ๆ ">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="85.0" prefWidth="259.0" styleClass="caution" text="**นิสิตอาจต้องกรอกใบคำร้อง&#10;หลายใบต่อ ๆ กันหากคำขอต้อง&#10;การใบคำร้องเพิ่มเติม" />
                </children>
-            </HBox>
-         </content>
-      </ScrollPane>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <Line endX="101.0" endY="740.185791015625" startX="101.0" startY="1221.878662109375" stroke="#374957">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" top="20.0" />
+               </HBox.margin>
+            </Line>
+            <VBox alignment="TOP_CENTER" onMouseClicked="#onRegisterRequestVBoxClick" prefHeight="548.0" prefWidth="310.0" styleClass="v-box-request">
+               <children>
+                  <ImageView fitHeight="59.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" styleClass="v-box-request-img">
+                     <image>
+                        <Image url="@../../../images/icons/pencil-bold.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label styleClass="type-request" text="ใบคำร้องขอลงทะเบียน&#10;Registration Request&#10;">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="195.0" prefWidth="264.0" styleClass="details-request" text="- ขอลงทะเบียนล่าช้า / รักษาสถาน&#10;ภาพนิสิต&#10;- เพิ่ม / ถอนรายวิชาล่าช้า&#10;- ขอลงทะเบียนเกิน จำนวนหน่วยกิต&#10;- ขอลงทะเบียนต่ำกว่า 9 หน่วยกิต&#10;- ผ่อนผันค่าธรรมเนียมการศึกษา&#10;- ขอย้ายคณะ หรือเปลี่ยนสาขา">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="77.0" prefWidth="259.0" styleClass="caution" text="**นิสิตอาจต้องอัพโหลดเอกสาร&#10;เพิ่มเติมหากคำขอต้องการเอกสาร&#10;เพิ่มเติม" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <Line endX="101.4503173828125" endY="740.185791015625" startX="101.4503173828125" startY="1221.878662109375" stroke="#374957">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" top="20.0" />
+               </HBox.margin>
+            </Line>
+            <VBox alignment="TOP_CENTER" onMouseClicked="#onAcademicLeaveRequestVBoxClick" prefHeight="572.0" prefWidth="310.0" styleClass="v-box-request">
+               <children>
+                  <ImageView fitHeight="59.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" styleClass="v-box-request-img">
+                     <image>
+                        <Image url="@../../../images/icons/re-verse.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label styleClass="type-request" text="ใบคำร้องขอลาพักการศึกษา&#10;Leave of Absence Request&#10;">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="42.0" prefWidth="264.0" styleClass="details-request" text="- ขอลาพักการศึกษา">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+      <Button layoutX="912.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#onBackButtonClick" styleClass="back-button">
+         <graphic>
+            <ImageView fx:id="backButton" fitHeight="50.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/back-icon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

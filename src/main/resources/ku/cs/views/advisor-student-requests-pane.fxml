@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -16,21 +17,21 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" style="-fx-background-color: F8F8F8;" stylesheets="@../styles/student-requests-pane.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.advisor.AdvisorStudentRequestsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.advisor.AdvisorStudentRequestsController">
    <children>
       <BorderPane fx:id="borderPane" prefHeight="720.0" prefWidth="988.0">
          <top>
-            <GridPane prefHeight="58.0" prefWidth="948.0" BorderPane.alignment="CENTER">
+            <GridPane prefHeight="58.0" prefWidth="948.0" BorderPane.alignment="TOP_RIGHT">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="670.7999572753906" minWidth="10.0" prefWidth="551.6000366210938" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="468.4000244140625" minWidth="10.0" prefWidth="312.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="468.4000244140625" minWidth="10.0" prefWidth="75.39999999999998" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="670.7999572753906" minWidth="10.0" prefWidth="526.2000122070312" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="468.4000244140625" minWidth="10.0" prefWidth="324.800048828125" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="468.4000244140625" minWidth="10.0" prefWidth="87.199951171875" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="displayName" styleClass="header" text="คำร้องของนิสิตคนนี้">
+                  <Label fx:id="displayName" text="คำร้องของนิสิตคนนี้">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -57,12 +58,15 @@
                   </HBox>
                   <Button mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="51.0" prefWidth="63.0" styleClass="back-button" GridPane.columnIndex="2">
                      <graphic>
-                        <ImageView styleClass="back-button">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" styleClass="back-button">
                            <image>
                               <Image url="@../../../images/icons/back-icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
                   </Button>
                </children>
                <BorderPane.margin>
@@ -70,11 +74,15 @@
                </BorderPane.margin>
             </GridPane>
          </top></BorderPane>
-      <TableView fx:id="requestListTableView" layoutX="29.0" layoutY="125.0" prefHeight="510.0" prefWidth="935.0" styleClass="RequestsTable">
+      <TableView fx:id="requestListTableView" layoutX="29.0" layoutY="125.0" prefHeight="510.0" prefWidth="935.0">
          <columns>
             <TableColumn prefWidth="75.0" text="C1" />
             <TableColumn prefWidth="75.0" text="C2" />
          </columns>
+         <styleClass>
+            <String fx:value="RequestsTable" />
+            <String fx:value="semi-medium-font-size" />
+         </styleClass>
       </TableView>
    </children>
 </AnchorPane>

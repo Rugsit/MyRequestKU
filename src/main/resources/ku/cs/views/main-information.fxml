@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" stylesheets="@../styles/general-request-form-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.information.MainInformationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.information.MainInformationController">
    <children>
       <HBox fx:id="subjectHbox" alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="834.0" styleClass="subjectContainer" visible="false">
          <children>
@@ -38,18 +39,14 @@
             <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </ScrollPane>
-      <Label fx:id="titleLabel" layoutY="27.0" prefHeight="47.0" prefWidth="988.0" styleClass="header" text="ใบคำร้องขอลาพักการศึกษา" />
-      <ImageView fx:id="backImageView" fitHeight="50.0" fitWidth="45.0" layoutX="914.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/icons/back-icon.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
+      <Label fx:id="titleLabel" layoutY="27.0" prefHeight="47.0" prefWidth="988.0" text="ใบคำร้องขอลาพักการศึกษา">
+         <styleClass>
+            <String fx:value="header" />
+            <String fx:value="large-font-size" />
+         </styleClass></Label>
       <HBox fx:id="approveButtonHbox" layoutX="38.0" layoutY="650.0" prefWidth="900.0" visible="false">
          <children>
-            <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#notApprove" styleClass="not-approve" text="ปฎิเสธคำร้อง">
+            <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#notApprove" text="ปฎิเสธคำร้อง">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -57,8 +54,12 @@
                      </image>
                   </ImageView>
                </graphic>
+               <styleClass>
+                  <String fx:value="not-approve" />
+                  <String fx:value="medium-font-size" />
+               </styleClass>
             </Button>
-            <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#approve" styleClass="approve" text="อนุมัติคำร้อง">
+            <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#approve" text="อนุมัติคำร้อง">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
@@ -69,6 +70,10 @@
                      </image>
                   </ImageView>
                </graphic>
+               <styleClass>
+                  <String fx:value="approve" />
+                  <String fx:value="medium-font-size" />
+               </styleClass>
             </Button>
          </children>
       </HBox>
@@ -83,6 +88,21 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+      </Button>
+      <Button layoutX="910.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#onBackButtonClick" styleClass="back-button">
+         <graphic>
+            <ImageView fx:id="backImageView" fitHeight="50.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" styleClass="back-button">
+               <image>
+                  <Image url="@../../../images/icons/back-icon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </graphic>
+         <padding>
+            <Insets bottom="5.0" left="7.0" right="7.0" top="5.0" />
+         </padding>
       </Button>
    </children>
 </AnchorPane>

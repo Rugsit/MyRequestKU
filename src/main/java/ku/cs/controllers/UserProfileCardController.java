@@ -8,17 +8,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.EmailException;
 import ku.cs.models.user.exceptions.PasswordException;
-import ku.cs.services.Datasource;
-import ku.cs.services.ImageDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 import ku.cs.views.components.DefaultImage;
 
 
-public class UserProfileCardController {
+public class UserProfileCardController{
     @FXML Label nameLabel;
     @FXML Label facultyLabel;
     @FXML Label departmentLabel;
@@ -43,6 +42,7 @@ public class UserProfileCardController {
     @FXML PasswordField newPasswordTextField;
     @FXML PasswordField confirmNewPasswordTextField;
     @FXML Label notificationLabel;
+    @FXML AnchorPane anchorPane;
     private DefaultImage profilePicture;
     private User loginUser;
     private ImageDatasource imageDatasource;
@@ -51,9 +51,13 @@ public class UserProfileCardController {
     private String emailTextBeforeEdit;
     Datasource<UserList> datasource;
     UserList users;
+    private Theme theme;
 
     @FXML
     public void initialize()  {
+        updateStyle();
+
+
         if (loginUser == null) {return;}
         imageDatasource = new ImageDatasource("users");
         profilePicture = new DefaultImage(profilePictureImageView);
@@ -167,7 +171,7 @@ public class UserProfileCardController {
         cancelEmailEditButton.setDisable(true);
         cancelEmailEditButton.setVisible(false);
         cancelEmailEditButton.setCancelButton(false);
-        emailTextField.setStyle("-fx-border-color: white;");
+        emailTextField.setStyle("-fx-border-color: #536878;");
     }
 
     @FXML
@@ -327,5 +331,18 @@ public class UserProfileCardController {
         editPasswordButton.setDefaultButton(false);
         cancelEditPasswordButton.setDisable(true);
         cancelEditPasswordButton.setVisible(false);
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(anchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/user-profile-card-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/user-profile-card.css").toString();
+            }
+        });
     }
 }

@@ -14,27 +14,35 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" style="-fx-background-color: #F8F8F8;" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.DashBoardController">
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" styleClass="admin-user-pane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.DashBoardController">
    <children>
-      <Label layoutX="37.0" layoutY="21.0" text="สรุปข้อมูล">
+      <Label layoutX="37.0" layoutY="21.0" styleClass="large-font-size" text="สรุปข้อมูล">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
       <TabPane fx:id="requestTabPane" layoutX="45.0" layoutY="360.0" prefHeight="310.0" prefWidth="426.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="300.0" tabMinHeight="50.0" tabMinWidth="180.0">
         <tabs>
-          <Tab fx:id="facultyRequestTab" text="คณะ" />
-          <Tab fx:id="departmentRequestTab" text="ภาควิชา" />
+          <Tab fx:id="facultyRequestTab" styleClass="medium-font-size" text="คณะ" />
+          <Tab fx:id="departmentRequestTab" styleClass="medium-font-size" text="ภาควิชา" />
         </tabs>
       </TabPane>
-      <TableView fx:id="requestFacultyTableView" layoutX="48.0" layoutY="426.0" prefHeight="236.0" prefWidth="410.0" styleClass="table-view-other" />
+      <TableView fx:id="requestFacultyTableView" layoutX="48.0" layoutY="426.0" prefHeight="236.0" prefWidth="410.0">
+         <styleClass>
+            <String fx:value="table-view-other" />
+            <String fx:value="semi-medium-font-size" />
+         </styleClass></TableView>
       <TabPane fx:id="userTabPane" layoutX="509.0" layoutY="360.0" prefHeight="310.0" prefWidth="426.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="300.0" tabMinHeight="50.0" tabMinWidth="180.0">
          <tabs>
-            <Tab fx:id="facultyUserTab" text="คณะ" />
-            <Tab fx:id="departmentUserTab" text="ภาควิชา" />
+            <Tab fx:id="facultyUserTab" styleClass="medium-font-size" text="คณะ" />
+            <Tab fx:id="departmentUserTab" styleClass="medium-font-size" text="ภาควิชา" />
          </tabs>
       </TabPane>
-      <TableView fx:id="userInFacultyTableView" layoutX="515.0" layoutY="426.0" prefHeight="236.0" prefWidth="410.0" styleClass="table-view-other" />
+      <TableView fx:id="userInFacultyTableView" layoutX="515.0" layoutY="426.0" prefHeight="236.0" prefWidth="410.0">
+         <styleClass>
+            <String fx:value="table-view-other" />
+            <String fx:value="semi-medium-font-size" />
+         </styleClass></TableView>
       <Label layoutX="116.0" layoutY="327.0" text="จำนวนคำร้องที่ได้รับการอนุมัติ">
          <font>
             <Font name="System Bold" size="30.0" />
@@ -56,6 +64,7 @@
                      <styleClass>
                         <String fx:value="header-inbox" />
                         <String fx:value="label-all" />
+                        <String fx:value="medium-font-size" />
                      </styleClass>
                      <VBox.margin>
                         <Insets left="10.0" top="10.0" />
@@ -65,6 +74,7 @@
                      <styleClass>
                         <String fx:value="number-inbox" />
                         <String fx:value="number-all" />
+                        <String fx:value="large-font-size" />
                      </styleClass>
                      <VBox.margin>
                         <Insets left="10.0" top="5.0" />
@@ -80,6 +90,7 @@
                            <styleClass>
                               <String fx:value="header-inbox" />
                               <String fx:value="label-process" />
+                              <String fx:value="medium-font-size" />
                            </styleClass>
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
@@ -89,6 +100,7 @@
                            <styleClass>
                               <String fx:value="number-inbox" />
                               <String fx:value="number-process" />
+                              <String fx:value="large-font-size" />
                            </styleClass>
                            <VBox.margin>
                               <Insets left="10.0" top="5.0" />
@@ -104,6 +116,7 @@
                      <styleClass>
                         <String fx:value="label-success" />
                         <String fx:value="header-inbox" />
+                        <String fx:value="medium-font-size" />
                      </styleClass>
                      <VBox.margin>
                         <Insets left="10.0" top="10.0" />
@@ -113,6 +126,7 @@
                      <styleClass>
                         <String fx:value="number-inbox" />
                         <String fx:value="number-success" />
+                        <String fx:value="large-font-size" />
                      </styleClass>
                      <VBox.margin>
                         <Insets left="10.0" top="5.0" />
@@ -126,6 +140,7 @@
                      <styleClass>
                         <String fx:value="header-inbox" />
                         <String fx:value="label-reject" />
+                        <String fx:value="medium-font-size" />
                      </styleClass>
                      <VBox.margin>
                         <Insets left="10.0" top="10.0" />
@@ -135,6 +150,7 @@
                      <styleClass>
                         <String fx:value="number-inbox" />
                         <String fx:value="number-reject" />
+                        <String fx:value="large-font-size" />
                      </styleClass>
                      <VBox.margin>
                         <Insets left="10.0" top="5.0" />
@@ -148,8 +164,16 @@
          <children>
             <HBox styleClass="box-amount-user">
                <children>
-                  <Label prefHeight="14.0" prefWidth="205.0" styleClass="label-amount-user" text="รวม" />
-                  <Label fx:id="allUsersLabel" alignment="BASELINE_RIGHT" prefWidth="205.0" styleClass="label-amount-user" text="1000" />
+                  <Label prefHeight="14.0" prefWidth="205.0" text="รวม">
+                     <styleClass>
+                        <String fx:value="label-amount-user" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
+                  <Label fx:id="allUsersLabel" alignment="BASELINE_RIGHT" prefWidth="205.0" text="1000">
+                     <styleClass>
+                        <String fx:value="label-amount-user" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
                </children>
                <padding>
                   <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
@@ -157,32 +181,16 @@
             </HBox>
             <HBox styleClass="box-amount-user">
                <children>
-                  <Label prefHeight="14.0" prefWidth="205.0" styleClass="label-amount-user" text="เจ้าหน้าที่คณะ" />
-                  <Label fx:id="facultyStaffLabel" alignment="BASELINE_RIGHT" prefWidth="205.0" styleClass="label-amount-user" text="200" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox styleClass="box-amount-user">
-               <children>
-                  <Label prefHeight="14.0" prefWidth="205.0" styleClass="label-amount-user" text="เจ้าหน้าที่ภาควิชา" />
-                  <Label fx:id="departmentStaffLabel" alignment="BASELINE_RIGHT" prefWidth="205.0" styleClass="label-amount-user" text="100" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox styleClass="box-amount-user">
-               <children>
-                  <Label prefHeight="14.0" prefWidth="205.0" styleClass="label-amount-user" text="อาจารย์ที่ปรึกษา" />
-                  <Label fx:id="advisorLabel" alignment="BASELINE_RIGHT" prefWidth="205.0" styleClass="label-amount-user" text="300" />
+                  <Label prefHeight="14.0" prefWidth="205.0" text="เจ้าหน้าที่คณะ">
+                     <styleClass>
+                        <String fx:value="label-amount-user" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
+                  <Label fx:id="facultyStaffLabel" alignment="BASELINE_RIGHT" prefWidth="205.0" text="200">
+                     <styleClass>
+                        <String fx:value="label-amount-user" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
                </children>
                <padding>
                   <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
@@ -193,8 +201,56 @@
             </HBox>
             <HBox styleClass="box-amount-user">
                <children>
-                  <Label prefHeight="14.0" prefWidth="205.0" styleClass="label-amount-user" text="นิสิต" />
-                  <Label fx:id="studentLabel" alignment="BASELINE_RIGHT" prefWidth="205.0" styleClass="label-amount-user" text="400" />
+                  <Label prefHeight="14.0" prefWidth="205.0" text="เจ้าหน้าที่ภาควิชา">
+                     <styleClass>
+                        <String fx:value="label-amount-user" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
+                  <Label fx:id="departmentStaffLabel" alignment="BASELINE_RIGHT" prefWidth="205.0" text="100">
+                     <styleClass>
+                        <String fx:value="label-amount-user" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox styleClass="box-amount-user">
+               <children>
+                  <Label prefHeight="14.0" prefWidth="205.0" text="อาจารย์ที่ปรึกษา">
+                     <styleClass>
+                        <String fx:value="label-amount-user" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
+                  <Label fx:id="advisorLabel" alignment="BASELINE_RIGHT" prefWidth="205.0" text="300">
+                     <styleClass>
+                        <String fx:value="label-amount-user" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox styleClass="box-amount-user">
+               <children>
+                  <Label prefHeight="14.0" prefWidth="205.0" text="นิสิต">
+                     <styleClass>
+                        <String fx:value="label-amount-user" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
+                  <Label fx:id="studentLabel" alignment="BASELINE_RIGHT" prefWidth="205.0" text="400">
+                     <styleClass>
+                        <String fx:value="label-amount-user" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
                </children>
                <padding>
                   <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
@@ -205,12 +261,20 @@
             </HBox>
          </children>
       </VBox>
-      <Label layoutX="583.0" layoutY="40.0" text="จำนวนผู้ใช้ระบบที่เข้าใช้งาน">
+      <Label layoutX="596.0" layoutY="37.0" text="จำนวนผู้ใช้ระบบที่เข้าใช้งาน">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <TableView fx:id="userInDepartmentTableView" layoutX="515.0" layoutY="426.0" prefHeight="236.0" prefWidth="410.0" styleClass="table-view-other" visible="false" />
-      <TableView fx:id="requestDepartmentTableView" layoutX="48.0" layoutY="426.0" prefHeight="236.0" prefWidth="410.0" styleClass="table-view-other" visible="false" />
+      <TableView fx:id="userInDepartmentTableView" layoutX="515.0" layoutY="426.0" prefHeight="236.0" prefWidth="410.0" visible="false">
+         <styleClass>
+            <String fx:value="table-view-other" />
+            <String fx:value="semi-medium-font-size" />
+         </styleClass></TableView>
+      <TableView fx:id="requestDepartmentTableView" layoutX="48.0" layoutY="426.0" prefHeight="236.0" prefWidth="410.0" visible="false">
+         <styleClass>
+            <String fx:value="table-view-other" />
+            <String fx:value="semi-medium-font-size" />
+         </styleClass></TableView>
    </children>
 </AnchorPane>

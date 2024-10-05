@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import ku.cs.controllers.ChangeThemeController;
 import ku.cs.models.department.Department;
 import ku.cs.models.department.DepartmentList;
 import ku.cs.models.department.NoFacultyException;
@@ -16,12 +17,11 @@ import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
-import org.w3c.dom.Text;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class EditFormController {
+public class EditFormController implements ChangeThemeController {
     // store controller ref for user their method example. reload main page when edit data
     private AdminManageStaffController currentControllStaffPage;
     private AdminManageFacultyController currentControllFacultyPage;
@@ -97,6 +97,8 @@ public class EditFormController {
 
     @FXML
     private void initialize() {
+        updateStyle();
+
         SetTransition transition = new SetTransition();
         transition.setButtonBounce(saveButton);
         transition.setButtonBounce(closeButton);
@@ -303,5 +305,17 @@ public class EditFormController {
                 errorLabel.setText(e.getMessage());
             }
         }
+    }
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(anchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
     }
 }

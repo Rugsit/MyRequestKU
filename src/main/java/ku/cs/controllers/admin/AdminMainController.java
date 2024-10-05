@@ -2,24 +2,26 @@ package ku.cs.controllers.admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import ku.cs.controllers.ParentController;
+import ku.cs.controllers.SettingController;
 import ku.cs.controllers.UserProfileCardController;
-import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.user.Admin;
-import ku.cs.models.user.Advisor;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.*;
 import ku.cs.views.components.SquareImage;
 
 import java.io.IOException;
-import java.util.Set;
 
 public class AdminMainController implements ParentController {
     private Datasource<UserList> datasource;
@@ -42,16 +44,22 @@ public class AdminMainController implements ParentController {
     private Button userButton;
     @FXML
     private Button staffButton;
+    @FXML
+    private AnchorPane mainAnchorPane;
+    @FXML
+    private Button settingButton;
 
 
     @FXML
     public void initialize() {
-        SetTransition transition = new SetTransition();
-        transition.setClickChangeColor(facultyButton, "#374957" , "#FFFFFF", "faculty-white-icon.png");
-        transition.setClickChangeColor(dashboardButton, "#374957" , "#FFFFFF", "chart-white-icon.png");
-        transition.setClickChangeColor(userButton, "#374957" , "#FFFFFF", "many-people-white-icon.png");
-        transition.setClickChangeColor(staffButton, "#374957" , "#FFFFFF", "people-white-icon.png");
+        updateStyle();
 
+        SetTransition transition = new SetTransition();
+        transition.setClickChangeColor(facultyButton, "#374957" , "#FFFFFF");
+        transition.setClickChangeColor(dashboardButton, "#374957" , "#FFFFFF");
+        transition.setClickChangeColor(userButton, "#374957" , "#FFFFFF");
+        transition.setClickChangeColor(staffButton, "#374957" , "#FFFFFF");
+        transition.setClickChangeColor(settingButton, "#374957" , "#FFFFFF");
 
         if (FXRouter.getData() instanceof Admin) {
             loginUser = (Admin) FXRouter.getData();
@@ -198,5 +206,41 @@ public class AdminMainController implements ParentController {
         } else {
             profilePic.setImage(datasource.openImage(loginUser.getAvatar()));
         }
+    }
+
+    @FXML
+    private void goToSetting() {
+        try {
+            Stage currentPopupStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/setting.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            SettingController controller = fxmlLoader.getController();
+            controller.setMainAnchorPane(mainAnchorPane);
+            controller.setStage(currentPopupStage);
+            controller.setMainCSS(getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString()
+            , getClass().getResource("/ku/cs/styles/admin-page-style.css").toString());
+
+            scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
+            currentPopupStage.setScene(scene);
+            currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+            currentPopupStage.setTitle("Setting");
+            currentPopupStage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
     }
 }

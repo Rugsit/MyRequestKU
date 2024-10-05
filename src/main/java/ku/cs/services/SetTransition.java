@@ -53,16 +53,11 @@ public class SetTransition {
         slideshow.play(); // Start the slideshow
     }
 
-    public void setClickChangeColor(Button button, String newColor, String newTextFill, String newImage) {
+    public void setClickChangeColor(Button button, String newColor, String newTextFill) {
         String prevStyle = button.getStyle();
         ImageView prevImage = (ImageView) button.getGraphic();
         button.setOnMousePressed(event -> {
             button.setStyle(button.getStyle() + "-fx-text-fill: " + newTextFill  + ";" + "-fx-background-color:" + newColor + ";");
-            Image image = new Image(getClass().getResource("/images/icons/" + newImage).toString());
-            ImageView newImageView = new ImageView(image);
-            newImageView.setFitHeight(27);
-            newImageView.setFitWidth(27);
-            button.setGraphic(newImageView);
         });
 
         // ตั้งค่าให้กลับเป็นขนาดเดิมเมื่อปล่อยปุ่ม

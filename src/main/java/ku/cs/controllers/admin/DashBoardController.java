@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import ku.cs.models.department.Department;
 import ku.cs.models.department.DepartmentList;
 import ku.cs.models.faculty.Faculty;
@@ -66,8 +67,11 @@ public class DashBoardController {
     private TableView<Department> userInDepartmentTableView, requestDepartmentTableView;
     @FXML
     private TabPane requestTabPane;
+    @FXML
+    private AnchorPane mainAnchorPane;
 
     public void initializeDashBoard() throws IOException {
+
         TableColumn<Faculty, String> facultyNameColumn = new TableColumn<>("ชื่อคณะ");
         facultyNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<Faculty, Integer> amountUserFacultyColumn = new TableColumn<>("จำนวนผู้ใช้");

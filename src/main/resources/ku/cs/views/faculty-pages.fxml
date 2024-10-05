@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -12,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../styles/advisor-student-list.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.faculty.FacultyPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.faculty.FacultyPageController">
    <children>
       <Pane prefHeight="718.0" prefWidth="292.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <VBox layoutX="-2.0" layoutY="102.0" prefHeight="169.0" prefWidth="292.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onRequestsButtonClicked" prefHeight="70.0" prefWidth="274.0" styleClass="manageRequestTab" text="ใบคำร้อง">
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onRequestsButtonClicked" prefHeight="70.0" prefWidth="274.0" text="ใบคำร้อง">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -35,8 +36,12 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <styleClass>
+                        <String fx:value="manageRequestTab" />
+                        <String fx:value="side-bar-button" />
+                     </styleClass>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onApproverButtonClicked" prefHeight="75.0" prefWidth="330.0" styleClass="manageRequestTab" text="จัดการผู้อนุมัติ">
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onApproverButtonClicked" prefHeight="75.0" prefWidth="330.0" text="จัดการผู้อนุมัติ">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -53,6 +58,10 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <styleClass>
+                        <String fx:value="manageRequestTab" />
+                        <String fx:value="side-bar-button" />
+                     </styleClass>
                   </Button>
                </children>
             </VBox>
@@ -61,22 +70,70 @@
                   <Image url="@../../../images/logos/side-bar-ku-logo.png" />
                </image>
             </ImageView>
-            <Label fx:id="tabAccountNameLabel" layoutX="19.0" layoutY="633.0" maxWidth="250.0" prefWidth="250.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="19.0" layoutY="658.0" maxWidth="250.0" onMouseClicked="#onLogoutClicked" prefWidth="250.0" styleClass="signOut" text="ออกจากระบบ">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Label>
-            <ImageView fx:id="tabProfilePicImageView" fitHeight="100.0" fitWidth="100.0" layoutX="96.0" layoutY="522.0" onMouseClicked="#onSideProfileClicked" pickOnBounds="true" preserveRatio="true" />
+            <VBox alignment="TOP_CENTER" layoutY="417.0" prefHeight="251.0" prefWidth="292.0">
+               <children>
+                  <ImageView fx:id="tabProfilePicImageView" fitHeight="100.0" fitWidth="100.0" onMouseClicked="#onSideProfileClicked" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@../../../images/users/side-bar-profile.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="tabAccountNameLabel" maxWidth="250.0" prefWidth="250.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label maxWidth="250.0" onMouseClicked="#onLogoutClicked" prefWidth="250.0" styleClass="signOut" text="ออกจากระบบ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label alignment="CENTER" maxWidth="292.0" onMouseClicked="#onAboutUsClicked" prefHeight="18.0" prefWidth="292.0" text="เกี่ยวกับพวกเรา" textFill="#909194">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="about-us" />
+                        <String fx:value="semi-medium-font-size" />
+                     </styleClass>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
          </children>
       </Pane>
       <BorderPane fx:id="contentBorderPane" layoutX="292.0" layoutY="-1.0" prefHeight="720.0" prefWidth="988.0" />
+      <Button fx:id="settingButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="9.0" layoutY="664.0" mnemonicParsing="false" onAction="#goToSetting" prefHeight="45.0" prefWidth="271.0" text="ตั้งค่า&#10;">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <styleClass>
+            <String fx:value="side-bar-button" />
+            <String fx:value="medium-font-size" />
+         </styleClass>
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/cog-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

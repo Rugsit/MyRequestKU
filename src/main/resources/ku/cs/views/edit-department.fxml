@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -13,49 +14,69 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="720.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.EditFormController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="720.0" styleClass="root-popup" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.EditFormController">
    <children>
-      <Label layoutX="24.0" layoutY="14.0" prefHeight="90.0" prefWidth="586.0" styleClass="edit-data-header" text="แก้ไขข้อมูล">
+      <Label layoutX="24.0" layoutY="14.0" prefHeight="90.0" prefWidth="586.0" text="แก้ไขข้อมูล">
          <font>
             <Font name="PrintAble4U Bold" size="12.0" />
          </font>
+         <styleClass>
+            <String fx:value="edit-data-header" />
+            <String fx:value="large-font-size" />
+         </styleClass>
       </Label>
-      <Button fx:id="saveButton" focusTraversable="false" graphicTextGap="15.0" layoutX="568.0" layoutY="432.0" mnemonicParsing="false" onAction="#onAcceptClick" styleClass="accept-button" text="ตกลง">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/icons/save-icon.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
       <VBox layoutX="24.0" layoutY="104.0" prefWidth="326.0">
          <children>
-            <Label styleClass="text-desc-input" text="ชื่อภาควิชา">
+            <Label text="ชื่อภาควิชา">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="text-desc-input" />
+                  <String fx:value="medium-font-size" />
+               </styleClass>
             </Label>
-            <TextField fx:id="departmentNameTextField" prefHeight="50.0" prefWidth="286.0" promptText="ชื่อภาควิชา" styleClass="input-edit">
+            <TextField fx:id="departmentNameTextField" prefHeight="50.0" prefWidth="286.0" promptText="ชื่อภาควิชา">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="input-edit" />
+                  <String fx:value="semi-medium-font-size" />
+               </styleClass>
             </TextField>
-            <Label styleClass="text-desc-input" text="คณะที่สังกัด">
+            <Label text="คณะที่สังกัด">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="text-desc-input" />
+                  <String fx:value="medium-font-size" />
+               </styleClass>
             </Label>
-            <ChoiceBox fx:id="facultyChoiceBox" prefHeight="42.0" prefWidth="350.0" styleClass="choice-box-select">
+            <ChoiceBox fx:id="facultyChoiceBox" prefHeight="42.0" prefWidth="350.0">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="choice-box-select" />
+                  <String fx:value="semi-medium-font-size" />
+               </styleClass>
             </ChoiceBox>
-            <Label styleClass="text-desc-input" text="รหัสภาควิชา">
+            <Label text="รหัสภาควิชา">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="text-desc-input" />
+                  <String fx:value="medium-font-size" />
+               </styleClass>
             </Label>
-            <TextField fx:id="departmentIdTextField" prefHeight="50.0" prefWidth="286.0" promptText="รหัสภาควิชา" styleClass="input-edit" />
+            <TextField fx:id="departmentIdTextField" prefHeight="50.0" prefWidth="286.0" promptText="รหัสภาควิชา">
+               <styleClass>
+                  <String fx:value="input-edit" />
+                  <String fx:value="semi-medium-font-size" />
+               </styleClass></TextField>
          </children>
       </VBox>
       <Button fx:id="closeButton" focusTraversable="false" layoutX="651.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExitClick" prefHeight="44.0" prefWidth="34.0" styleClass="exit-button">
@@ -67,21 +88,33 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="401.0" layoutY="104.0" prefWidth="315.0" styleClass="old-data-header" text="ข้อมูลเก่า" textAlignment="CENTER">
+      <Label layoutX="401.0" layoutY="104.0" prefWidth="315.0" text="ข้อมูลเก่า" textAlignment="CENTER">
          <font>
             <Font name="PrintAble4U Bold" size="12.0" />
          </font>
+         <styleClass>
+            <String fx:value="old-data-header" />
+            <String fx:value="semi-large-font-size" />
+         </styleClass>
       </Label>
       <Line endX="-100.0" endY="200.60000610351562" layoutX="476.0" layoutY="105.0" startX="-100.0" styleClass="line" />
       <VBox layoutX="401.0" layoutY="170.0" prefWidth="304.0">
          <children>
             <HBox>
                <children>
-                  <Label styleClass="text-desc-input" text="ชื่อคณะ" />
-                  <Label fx:id="facultyNameLabel" prefWidth="226.0" styleClass="text-desc-input" text="นายรักษิต" wrapText="true">
+                  <Label minWidth="-Infinity" text="ชื่อคณะ">
+                     <styleClass>
+                        <String fx:value="text-desc-input" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
+                  <Label fx:id="facultyNameLabel" text="นายรักษิต" wrapText="true">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
+                     <styleClass>
+                        <String fx:value="text-desc-input" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass>
                   </Label>
                </children>
                <VBox.margin>
@@ -90,11 +123,19 @@
             </HBox>
             <HBox>
                <children>
-                  <Label styleClass="text-desc-input" text="ชื่อภาควิชา" />
-                  <Label fx:id="departmentNameLabel" prefHeight="26.0" prefWidth="203.0" styleClass="text-desc-input" text="Nest" wrapText="true">
+                  <Label minWidth="-Infinity" text="ชื่อภาควิชา">
+                     <styleClass>
+                        <String fx:value="text-desc-input" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
+                  <Label fx:id="departmentNameLabel" text="Nest" wrapText="true">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
+                     <styleClass>
+                        <String fx:value="text-desc-input" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass>
                   </Label>
                </children>
                <VBox.margin>
@@ -103,16 +144,41 @@
             </HBox>
             <HBox>
                <children>
-                  <Label styleClass="text-desc-input" text="รหัสภาควิชา" />
-                  <Label fx:id="departmentIdLabel" prefWidth="195.0" styleClass="text-desc-input" text="Nest" wrapText="true">
+                  <Label minWidth="-Infinity" text="รหัสภาควิชา">
+                     <styleClass>
+                        <String fx:value="text-desc-input" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
+                  <Label fx:id="departmentIdLabel" text="Nest" wrapText="true">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
+                     <styleClass>
+                        <String fx:value="text-desc-input" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass>
                   </Label>
                </children>
             </HBox>
          </children>
       </VBox>
       <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="401.0" layoutY="357.0" prefHeight="66.0" prefWidth="304.0" styleClass="error-label" text="error" visible="false" wrapText="true" />
+      <HBox alignment="BOTTOM_RIGHT" layoutX="505.0" layoutY="384.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="saveButton" focusTraversable="false" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onAcceptClick" text="ตกลง">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/icons/save-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="accept-button" />
+                  <String fx:value="medium-font-size" />
+               </styleClass>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
