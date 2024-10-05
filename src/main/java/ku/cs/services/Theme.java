@@ -6,6 +6,7 @@ public class Theme {
     private static Theme theme;
     private String currentTheme = "light";
     private String currentFont = "font-medium.css";
+    private String currentFontFamily = "printAble4u-font.css";
 
     private Theme () {}
 
@@ -41,5 +42,21 @@ public class Theme {
 
     public void setCurrentFont(String currentFont) {
         this.currentFont = currentFont;
+    }
+
+    public String getCurrentFontFamily() {
+        return currentFontFamily;
+    }
+
+    public void setCurrentFontFamily(String currentFontFamily) {
+        this.currentFontFamily = currentFontFamily;
+    }
+
+    public static Theme getTheme() {
+        return theme;
+    }
+
+    public static void setTheme(Theme theme) {
+        Theme.theme = theme;
     }
 }

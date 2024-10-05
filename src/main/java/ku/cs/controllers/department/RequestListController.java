@@ -216,7 +216,10 @@ public class RequestListController {
         });
         return column;
     }
-
+    @FXML
+    private void goToSetting() {
+        
+    }
 
 
 }

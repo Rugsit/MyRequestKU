@@ -11,11 +11,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.faculty.FacultyPageController">
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.faculty.FacultyPageController">
    <children>
-      <Pane prefHeight="718.0" prefWidth="292.0" style="-fx-background-color: #FFFFFF;">
+      <Pane prefHeight="718.0" prefWidth="292.0" styleClass="side-bar-pane">
          <children>
             <VBox layoutX="-2.0" layoutY="102.0" prefHeight="169.0" prefWidth="292.0">
                <children>
@@ -39,6 +40,7 @@
                      <styleClass>
                         <String fx:value="manageRequestTab" />
                         <String fx:value="side-bar-button" />
+                        <String fx:value="medium-font-size" />
                      </styleClass>
                   </Button>
                   <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onApproverButtonClicked" prefHeight="75.0" prefWidth="330.0" text="จัดการผู้อนุมัติ">
@@ -61,15 +63,11 @@
                      <styleClass>
                         <String fx:value="manageRequestTab" />
                         <String fx:value="side-bar-button" />
+                        <String fx:value="medium-font-size" />
                      </styleClass>
                   </Button>
                </children>
             </VBox>
-            <ImageView fitHeight="80.0" fitWidth="220.0" layoutX="39.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" styleClass="imagePane">
-               <image>
-                  <Image url="@../../../images/logos/side-bar-ku-logo.png" />
-               </image>
-            </ImageView>
             <VBox alignment="TOP_CENTER" layoutY="417.0" prefHeight="251.0" prefWidth="292.0">
                <children>
                   <ImageView fx:id="tabProfilePicImageView" fitHeight="100.0" fitWidth="100.0" onMouseClicked="#onSideProfileClicked" pickOnBounds="true" preserveRatio="true">
@@ -80,15 +78,19 @@
                         <Image url="@../../../images/users/side-bar-profile.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="tabAccountNameLabel" maxWidth="250.0" prefWidth="250.0" styleClass="tabName" text="นายเมมโมรี่โฟม รักนอน">
+                  <Label fx:id="tabAccountNameLabel" maxWidth="250.0" prefWidth="250.0" text="นายเมมโมรี่โฟม รักนอน">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="tabName" />
+                        <String fx:value="semi-medium-font-size" />
+                     </styleClass>
                   </Label>
-                  <Label maxWidth="250.0" onMouseClicked="#onLogoutClicked" prefWidth="250.0" styleClass="signOut" text="ออกจากระบบ">
+                  <Label maxWidth="250.0" onMouseClicked="#onLogoutClicked" prefWidth="250.0" text="ออกจากระบบ">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -98,6 +100,10 @@
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="signOut" />
+                        <String fx:value="semi-medium-font-size" />
+                     </styleClass>
                   </Label>
                   <Label alignment="CENTER" maxWidth="292.0" onMouseClicked="#onAboutUsClicked" prefHeight="18.0" prefWidth="292.0" text="เกี่ยวกับพวกเรา" textFill="#909194">
                      <font>
@@ -106,6 +112,7 @@
                      <styleClass>
                         <String fx:value="about-us" />
                         <String fx:value="semi-medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -113,6 +120,16 @@
                   </Label>
                </children>
             </VBox>
+            <Pane layoutX="11.0" layoutY="8.0" prefHeight="83.0" prefWidth="271.0" styleClass="pane-under-logo">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="36.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" styleClass="imagePane">
+                     <image>
+                        <Image url="@../../../images/logos/side-bar-ku-logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Line endX="130.0" layoutX="146.0" layoutY="106.0" startX="-130.0" stroke="#dbdbdb" />
          </children>
       </Pane>
       <BorderPane fx:id="contentBorderPane" layoutX="292.0" layoutY="-1.0" prefHeight="720.0" prefWidth="988.0" />

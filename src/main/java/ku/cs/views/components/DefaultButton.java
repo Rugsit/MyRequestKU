@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.Button;
+import ku.cs.services.Theme;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class DefaultButton extends Button {
 
         handleHoverEvent();
         handleClickEvent();
+        this.button.getStyleClass().add("medium-font-size");
     }
     public DefaultButton    (Button button,String baseColorHex,String hoverColorHex,String baseLabelColorHex){
         this.button = button;
@@ -52,6 +54,7 @@ public class DefaultButton extends Button {
 
         handleHoverEvent();
         handleClickEvent();
+        this.button.getStyleClass().add("medium-font-size");
     }
     protected FontWeight currrentFontWeight(Font currentFont){
         String style = currentFont.getStyle();
@@ -134,6 +137,13 @@ public class DefaultButton extends Button {
         return button;
     }
 
+    public void changeHoverColor(String colorHex) {
+        this.hoverColorHex = colorHex;
+    }
+
+    public void changeBaseColor(String baseColorHex) {
+        this.baseColorHex = baseColorHex;
+    }
 
 
 }

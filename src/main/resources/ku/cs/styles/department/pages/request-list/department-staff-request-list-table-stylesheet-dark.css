@@ -13,13 +13,13 @@
 .table-view .column-header {
     -fx-background-color: transparent;
     -fx-font-weight: Bold;
-    
+    -fx-font-size: 28;
 }
 
 .table-view .table-cell{
     -fx-alignment: CENTER;
     -fx-border-color: transparent;
-    
+    -fx-font-size: 20;
 }
 
 .table-row-cell  {
@@ -31,16 +31,16 @@
     -fx-background-insets: 10 0 10 0; /* Create spacing effect padding! */
     -fx-padding: 10 0 10 0;
     -fx-background-radius: 20;
-    -fx-background-color: white;
+    -fx-background-color: #536878;
 }
 .table-row-cell:filled .table-cell{
-    -fx-text-fill: black;
+    -fx-text-fill: white;
 }
 .table-row-cell:filled:selected {
-    -fx-background-color: #e0e0e0;
+    -fx-background-color: #7992A6;
 }
 .table-row-cell:filled:hover {
-    -fx-background-color: #cbcbcb;
+    -fx-background-color: #7992A6;
     -fx-cursor: HAND;
 }
 

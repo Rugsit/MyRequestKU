@@ -46,6 +46,7 @@ public class RequestManagementController {
     @FXML private VBox dataVBox;
     @FXML private VBox requestInfoVBox;
     @FXML private HBox requestMenuHBox;
+    @FXML private AnchorPane mainAnchorPane;
     private TableView<Approver> requestApproverTableView;
     private DefaultTableView<Approver> tableView;
     @FXML private VBox mainEditorVBox;
@@ -97,6 +98,12 @@ public class RequestManagementController {
 
     @FXML
     public void initialize() {
+        mainAnchorPane.getStylesheets().add(getClass().getResource("/ku/cs/styles/font/" + Theme.getInstance().getCurrentFont()).toString());
+        mainAnchorPane.getStylesheets().add(getClass().getResource("/ku/cs/styles/font/" + Theme.getInstance().getCurrentFontFamily()).toString());
+        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+            mainAnchorPane.setStyle("-fx-background-color: #374957");
+        }
+
         initRouteData();
 
         studentDatasource = new UserListFileDatasource("data","student.csv");
@@ -128,13 +135,19 @@ public class RequestManagementController {
             pageTitleLabel.setText("จัดการผู้อนุมัติ (คณะ)");
         }
         new DefaultLabel(pageTitleLabel);
+        pageTitleLabel.getStyleClass().add("large-font-size");
     }
     private void initButton(){
         if (session.getUser() instanceof DepartmentUser) {
             new RouteButton(backButton,"department-staff-request-list","transparent","#a6a6a6","#000000");
         } else if (session.getUser() instanceof FacultyUser) {
-            new RouteButton(backButton,"faculty-page","transparent","#a6a6a6","#000000");
-
+            RouteButton facultyPage = new RouteButton(backButton,"faculty-page","transparent","#a6a6a6","#000000");
+            if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+                facultyPage.changeLabelColor("#ffffff");
+                facultyPage.changeColor("#536878");
+                facultyPage.changeHoverColor("#7992A6");
+                facultyPage.changeBaseColor("#536878");
+            }
         }
     }
     private void initRequestInfoVBox(){
@@ -339,9 +352,15 @@ public class RequestManagementController {
                                                 placeholder.setStyle("-fx-font-size: 20");
                                                 approverTableView.getTableView().setPlaceholder(placeholder);
                                                 approverTableView.setStyleSheet("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet.css");
+                                                if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+                                                    approverTableView.setStyleSheet("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet-dark.css");
+                                                }
                                                 secondButton.setButtonSize(120, 30);
                                                 approverListBox = new VBox(approverTableView.getTableView(), secondButton);
                                                 approverListBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                                                if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+                                                    approverListBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
+                                                }
                                                 approverListBox.setMaxWidth(850);
                                                 approverListBox.setSpacing(80);
                                                 approverListBox.setMaxHeight(620);
@@ -389,7 +408,13 @@ public class RequestManagementController {
                             vBox.setMaxWidth(600);
                             vBox.setMaxHeight(280);
                             vBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                            if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+                                vBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
+                            }
                             mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                            if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+                                mainBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
+                            }
                             stackPane.getChildren().add(vBox);
                         }
 
@@ -425,7 +450,16 @@ public class RequestManagementController {
                               controller.setTitleLabel("แบบขอเปลี่ยนแปลงการลงทะเบียนเรียน KU3");
                           }
                       }
-                      scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/general-request-form-page-style.css").toExternalForm());
+                      Theme.getInstance().loadCssToPage(scene, new PathGenerator() {
+                          @Override
+                          public String getThemeDarkPath() {
+                              return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+                          }
+                          @Override
+                          public String getThemeLightPath() {
+                              return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+                          }
+                      });
 
                       mainStackPane.getChildren().add(new BlankPopupStack() {
                           VBox mainBox;
@@ -440,6 +474,9 @@ public class RequestManagementController {
                               mainBox.setMaxWidth(600);
                               mainBox.setMaxHeight(620);
                               mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                              if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+                                  mainBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
+                              }
                               lineEnd.setAlignment(Pos.CENTER);
                               scene.setStyle("-fx-pref-height: 620px");
                               stackPane.getChildren().add(mainBox);
@@ -479,6 +516,9 @@ public class RequestManagementController {
                                       mainBox.getChildren().addAll(pane, lineEnd);
                                       mainBox.setMaxHeight(620);
                                       mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                                      if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+                                          mainBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
+                                      }
                                       pane.setStyle("-fx-pref-height: 620px");
                                       VBox.setMargin(lineEnd,new Insets(20,0,20,0));
                                   } catch (IOException exception) {
@@ -597,6 +637,9 @@ public class RequestManagementController {
 
 
          tableView.setStyleSheet("/ku/cs/styles/department/pages/request/department-request-approver-table-stylesheet.css");
+         if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+             tableView.setStyleSheet("/ku/cs/styles/department/pages/request/department-request-approver-table-stylesheet-dark.css");
+         }
     }
     private void refreshTableData(){
         tableView.getTableView().getItems().clear();
@@ -1399,6 +1442,9 @@ public class RequestManagementController {
                                                         mainBox.setMaxWidth(500);
                                                         mainBox.setMaxHeight(430);
                                                         mainBox.setStyle("-fx-background-color: white;-fx-background-radius: 30;");
+                                                        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+                                                            mainBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
+                                                        }
                                                         HBox container;
                                                         DefaultLabel prefix;
                                                         DefaultLabel data;
@@ -1740,6 +1786,9 @@ public class RequestManagementController {
                     mainBox.setMaxHeight(640);
                     mainBox.setSpacing(10);
                     mainBox.setStyle("-fx-background-color: white;-fx-background-radius: 50");
+                    if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+                        mainBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
+                    }
                     //TITLE
                     HBox container = new HBox();
                     container.setAlignment(Pos.CENTER);

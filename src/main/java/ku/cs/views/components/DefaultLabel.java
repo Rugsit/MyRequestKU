@@ -3,6 +3,7 @@ package ku.cs.views.components;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import ku.cs.services.Theme;
 
 import java.util.List;
 
@@ -17,12 +18,20 @@ public class DefaultLabel extends Label{
         this.label = this;
         setFont(DEFAULT_FONT);
         changeLabelColor(DEFAULT_LABEL_COLOR);
+        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+            changeLabelColor("#ffffff");
+        }
+        this.label.getStyleClass().add("medium-font-size");
     }
 
     public DefaultLabel(Label label) {
         this.label = label;
         setFont(DEFAULT_FONT);
         changeLabelColor(DEFAULT_LABEL_COLOR);
+        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+            changeLabelColor("#ffffff");
+        }
+        this.label.getStyleClass().add("medium-font-size");
     }
 
     protected FontWeight currrentFontWeight(Font currentFont){

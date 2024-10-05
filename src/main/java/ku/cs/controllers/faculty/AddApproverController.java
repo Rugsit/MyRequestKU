@@ -3,6 +3,7 @@ package ku.cs.controllers.faculty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.request.Request;
@@ -14,6 +15,10 @@ import ku.cs.models.user.DepartmentUser;
 import ku.cs.models.user.FacultyUser;
 import ku.cs.models.user.User;
 import ku.cs.services.ApproverListFileDatasource;
+import ku.cs.services.PathGenerator;
+import ku.cs.services.Theme;
+
+import java.io.IOException;
 
 public class AddApproverController {
 
@@ -25,6 +30,8 @@ public class AddApproverController {
     private TextField academicRoleTextField;
     @FXML
     private Label errorLabel;
+    @FXML
+    private AnchorPane anchorPane;
     private Stage stage;
 
     private User loginUser;
@@ -32,6 +39,10 @@ public class AddApproverController {
     private String approverType = "approver";
     private Request request;
 
+    @FXML
+    private void initialize() {
+        updateStyle();
+    }
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -94,5 +105,18 @@ public class AddApproverController {
         if (request != null) {
             this.request = request;
         }
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(anchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
     }
 }

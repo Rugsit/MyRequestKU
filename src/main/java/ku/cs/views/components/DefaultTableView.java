@@ -2,6 +2,7 @@ package ku.cs.views.components;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import ku.cs.services.Theme;
 
 public class DefaultTableView<S> extends TableView {
     private TableView<S> tableView;
@@ -25,6 +26,9 @@ public class DefaultTableView<S> extends TableView {
                 "-fx-font-family: " + DEFAULT_FONT + ";"
         );
         tableView.getStylesheets().add(getClass().getResource(STYLE_PATH).toExternalForm());
+        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+            tableView.getStylesheets().clear();
+        }
 
     }
     public void addColumn(String label, String objectProperty) {

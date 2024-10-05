@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -22,6 +23,8 @@ import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.FXRouter;
+import ku.cs.services.PathGenerator;
+import ku.cs.services.Theme;
 import ku.cs.views.components.CropImage;
 import ku.cs.views.components.DefaultButton;
 import ku.cs.views.components.DefaultLabel;
@@ -77,9 +80,13 @@ public class FacultyApproverController {
 
     @FXML
     private TextField searchTextField;
+    @FXML
+    private AnchorPane mainAnchorPane;
 
     @FXML
     public void initialize() {
+        updateStyle();
+
         loginUser = (FacultyUser) FXRouter.getData();
         showTable();
         approverEditPopUp();
@@ -95,18 +102,31 @@ public class FacultyApproverController {
     }
 
     private void initLabel() {
-        new DefaultLabel(pageTitleLabel);
-        new DefaultLabel(tableViewLabel);
-        new DefaultLabel(approverNameLabel);
-        new DefaultLabel(approverPositionLabel);
-        new DefaultLabel(fileNameLabel);
+        DefaultLabel pageTile = new DefaultLabel(pageTitleLabel);
+        DefaultLabel tableView = new DefaultLabel(tableViewLabel);
+        DefaultLabel approverName = new DefaultLabel(approverNameLabel);
+        DefaultLabel approverPosition = new DefaultLabel(approverPositionLabel);
+        DefaultLabel fileName = new DefaultLabel(fileNameLabel);
+        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+            pageTile.changeLabelColor("#ffffff");
+            tableView.changeLabelColor("#ffffff");
+            approverName.changeLabelColor("#ffffff");
+            approverPosition.changeLabelColor("#ffffff");
+            fileName.changeLabelColor("#ffffff");
+        }
     }
 
     private void initButton() {
-        new RouteButton(backButton, "faculty-page", "transparent", "#a6a6a6", "#000000");
+        RouteButton back = new RouteButton(backButton, "faculty-page", "transparent", "#a6a6a6", "#000000");
         new DefaultButton(addApproverButton, "#FFE0A4", "#a6a6a6", "#000000").changeBackgroundRadius(15);
         new DefaultButton(removeFileButton, "transparent", "#a6a6a6", "#000000");
         new DefaultButton(uploadFileButton, "#ABFFA4", "#a6a6a6", "#000000").changeBackgroundRadius(15);
+        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+            back.changeLabelColor("#ffffff");
+            back.changeColor("#536878");
+            back.changeHoverColor("#7992A6");
+            back.changeBaseColor("#536878");
+        }
     }
 
     private void search(String newValue) {
@@ -242,6 +262,19 @@ public class FacultyApproverController {
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
     }
 
 

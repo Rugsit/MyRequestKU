@@ -5,7 +5,6 @@
 
 .side-bar-button {
     -fx-background-color: transparent;
-    -fx-font-size: 24px;
 }
 
 .side-bar-button:hover {
@@ -16,7 +15,7 @@
 .about-us {
     -fx-cursor: hand;
     -fx-text-fill: #909194;
-    -fx-font-size: 18px;
+    
 }
 
 .imagePane {
@@ -33,7 +32,7 @@
 .signOut {
     -fx-underline: true;
     -fx-text-fill: #2C67FF;
-    -fx-font-size: 18px;
+    
     -fx-alignment: center;
     -fx-font-weight: normal;
 }
@@ -90,7 +89,6 @@
     -fx-cursor: hand;
     -fx-font-weight: 700;
     -fx-padding: 0 0 0 5 ;
-    -fx-font-size: 24px;
     -fx-text-fill: white;
     -fx-background-color: #374957;
 }
@@ -298,7 +296,6 @@
 }
 
 .header {
-    -fx-font-size: 40px;
     -fx-alignment: center;
     -fx-font-weight: bold;
     -fx-text-fill: #374957;
@@ -382,7 +379,6 @@
 
 .delete-button {
     -fx-cursor: hand;
-    
     -fx-background-radius: 5px;
     -fx-text-fill: white;
     -fx-background-color: #FF4E4E;
@@ -468,13 +464,13 @@
 }
 
 .require {
-    -fx-font-size: 32px;
+    
 }
 
 .scroll-pane {
     -fx-background-color: white;
     -fx-background-radius: 5px;
-    -fx-font-size: 24px;
+    
 }
 
 .scroll-bar {
@@ -521,7 +517,7 @@
 .text-field{
     -fx-border-radius: 5;
     -fx-font-weight: 500;
-    -fx-font-size: 20px;
+    
     -fx-background-color: #F2F2F2;
     -fx-background-radius: 5;
 }
@@ -578,7 +574,7 @@
 }
 
 .subject-header {
-    -fx-font-size: 32px;
+    
 }
 
 .subject-header .box {
@@ -590,20 +586,20 @@
     -fx-cursor: hand;
     -fx-text-fill: white;
     -fx-background-color: #49A267;
-    -fx-font-size: 24px;
+    
 }
 
 .not-approve {
     -fx-cursor: hand;
     -fx-text-fill: white;
     -fx-background-color: #FF5D5D;
-    -fx-font-size: 24px;
+    
 }
 /*Request Style*/
 
 .number-count-request {
     -fx-font-weight: bold;
-    -fx-font-size: 30px;
+    
 }
 
 .number-box {
@@ -617,7 +613,7 @@
     -fx-background-color: #374957;
     -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
-    -fx-font-size: 24px;
+    
     -fx-padding: 3;
     -fx-text-alignment: center right;
 }
@@ -635,7 +631,6 @@
 .info-button {
     -fx-background-color: #4E7FFF;
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 20px;
     -fx-text-alignment: center;
 }
 
@@ -645,14 +640,12 @@
     -fx-border-color: #00B448;
     -fx-border-radius: 3;
     -fx-text-fill: #00B448;
-    -fx-font-size: 18;
     -fx-text-alignment: center;
 }
 
 .view-reject-reason-button {
     -fx-background-color: #FF4E4E;
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 20px;
     -fx-text-alignment: center;
 }
 
@@ -673,18 +666,15 @@
 }
 
 .type-request {
-    -fx-font-size: 30px;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
 }
 
 .details-request {
-    -fx-font-size: 24px;
     -fx-margin: 50px;
 }
 
 .caution {
-    -fx-font-size: 24px;
     -fx-text-fill: #FF5D5D;
 }
 /*Choose Request Style*/

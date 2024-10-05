@@ -43,9 +43,7 @@ public class MainInformationController {
     @FXML
     private BorderPane borderPane;
     @FXML
-    private Button exitButton;
-    @FXML
-    private ImageView backImageView;
+    public Button backButton;
 
     public void initializeMainInformation() {
         scrollPane.requestFocus();// ให้ ScrollPane ได้รับโฟกัสแทน
@@ -273,18 +271,10 @@ public class MainInformationController {
     }
 
     public void setBackPageVisible(boolean status) {
-        backImageView.setVisible(status);
+        backButton.setVisible(status);
     }
 
     public void setCurrentPopupStage(Stage currentPopupStage) {
         this.currentPopupStage = currentPopupStage;
-    }
-
-    public void setVisibleExitButton(boolean status) {
-        exitButton.setVisible(status);
-    }
-    @FXML
-    private void onExitClick() {
-        currentPopupStage.close();
     }
 }

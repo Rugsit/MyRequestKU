@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,60 +8,81 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="560.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.faculty.AddApproverController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="560.0" styleClass="root-popup" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.faculty.AddApproverController">
    <children>
-      <Label layoutX="45.0" layoutY="14.0" prefHeight="90.0" prefWidth="451.0" styleClass="edit-data-header" text="เพิ่มรายชื่อผู้อนุมัติ (คณะ)">
+      <Label layoutX="45.0" layoutY="14.0" prefHeight="90.0" prefWidth="451.0" text="เพิ่มรายชื่อผู้อนุมัติ (คณะ)">
          <font>
             <Font name="PrintAble4U Bold" size="12.0" />
          </font>
+         <styleClass>
+            <String fx:value="edit-data-header" />
+            <String fx:value="large-font-size" />
+         </styleClass>
       </Label>
-      <Button focusTraversable="false" graphicTextGap="15.0" layoutX="409.0" layoutY="433.0" mnemonicParsing="false" onAction="#onAcceptClick" styleClass="accept-button" text="ตกลง">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/icons/save-icon.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
       <VBox layoutX="54.0" layoutY="112.0" prefHeight="273.0" prefWidth="451.0">
          <children>
-            <Label styleClass="text-desc-input" text="ชื่อ">
+            <Label text="ชื่อ">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="text-desc-input" />
+                  <String fx:value="medium-font-size" />
+               </styleClass>
             </Label>
-            <TextField fx:id="nameTextField" prefHeight="50.0" prefWidth="386.0" promptText="กรอกชื่อ" styleClass="loginTextField" stylesheets="@../styles/login-register-style.css">
+            <TextField fx:id="nameTextField" prefHeight="50.0" prefWidth="386.0" promptText="กรอกชื่อ">
                <font>
                   <Font size="18.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="input-edit" />
+                  <String fx:value="semi-medium-font-size" />
+               </styleClass>
             </TextField>
-            <Label styleClass="text-desc-input" text="นามสกุล">
+            <Label text="นามสกุล">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="text-desc-input" />
+                  <String fx:value="medium-font-size" />
+               </styleClass>
             </Label>
-            <TextField fx:id="lastnameTextField" prefHeight="50.0" prefWidth="386.0" promptText="กรอกนามสกุล" styleClass="loginTextField" stylesheets="@../styles/login-register-style.css">
+            <TextField fx:id="lastnameTextField" prefHeight="50.0" prefWidth="386.0" promptText="กรอกนามสกุล">
                <font>
                   <Font size="18.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="input-edit" />
+                  <String fx:value="semi-medium-font-size" />
+               </styleClass>
             </TextField>
-            <Label styleClass="text-desc-input" text="ตำแหน่ง">
+            <Label text="ตำแหน่ง">
                <VBox.margin>
                   <Insets bottom="10.0" />
-               </VBox.margin></Label>
-            <TextField fx:id="academicRoleTextField" prefHeight="50.0" prefWidth="386.0" promptText="กรอกตำแหน่ง" styleClass="loginTextField" stylesheets="@../styles/login-register-style.css">
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="text-desc-input" />
+                  <String fx:value="medium-font-size" />
+               </styleClass></Label>
+            <TextField fx:id="academicRoleTextField" prefHeight="50.0" prefWidth="386.0" promptText="กรอกตำแหน่ง">
                <font>
                   <Font size="18.0" />
                </font>
+               <styleClass>
+                  <String fx:value="input-edit" />
+                  <String fx:value="semi-medium-font-size" />
+               </styleClass>
             </TextField>
          </children>
       </VBox>
@@ -77,5 +99,22 @@
          <font>
             <Font size="18.0" />
          </font></Label>
+      <HBox alignment="BOTTOM_RIGHT" layoutX="266.0" layoutY="396.0" prefHeight="90.0" prefWidth="280.0">
+         <children>
+            <Button focusTraversable="false" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onAcceptClick" text="ตกลง">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/icons/save-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="accept-button" />
+                  <String fx:value="medium-font-size" />
+               </styleClass>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

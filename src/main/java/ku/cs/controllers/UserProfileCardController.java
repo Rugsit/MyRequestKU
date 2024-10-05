@@ -158,7 +158,7 @@ public class UserProfileCardController{
         cancelEmailEditButton.setCancelButton(true);
         emailTextField.requestFocus();
         emailTextField.positionCaret(emailTextField.getText().length());
-        emailTextField.setStyle("-fx-border-color: #b3b1b1;");
+        emailTextField.setStyle("-fx-border-color: #b3b1b1; -fx-border-width: 1px");
     }
     @FXML
     protected void onEmailSaveButtonClicked(){
@@ -171,7 +171,7 @@ public class UserProfileCardController{
         cancelEmailEditButton.setDisable(true);
         cancelEmailEditButton.setVisible(false);
         cancelEmailEditButton.setCancelButton(false);
-        emailTextField.setStyle("-fx-border-color: #536878;");
+        emailTextField.setStyle("-fx-border-width: 0px");
     }
 
     @FXML

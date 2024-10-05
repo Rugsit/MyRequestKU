@@ -2,12 +2,16 @@ package ku.cs.controllers.faculty;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.controllers.SettingController;
 import ku.cs.controllers.UserProfileCardController;
 import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.faculty.Faculty;
@@ -15,6 +19,8 @@ import ku.cs.models.user.Advisor;
 import ku.cs.models.user.FacultyUser;
 import ku.cs.services.FXRouter;
 import ku.cs.services.ImageDatasource;
+import ku.cs.services.PathGenerator;
+import ku.cs.services.Theme;
 import ku.cs.views.components.SquareImage;
 
 import java.io.IOException;
@@ -28,10 +34,14 @@ public class FacultyPageController {
     ImageView tabProfilePicImageView;
     @FXML
     BorderPane contentBorderPane;
+    @FXML
+    private AnchorPane mainAnchorPane;
     private static FacultyUser loginUser;
     ImageDatasource datasource;
 
     public void initialize(){
+        updateStyle();
+
         if (FXRouter.getData() instanceof FacultyUser){
             loginUser = (FacultyUser) FXRouter.getData();
         }
@@ -95,6 +105,47 @@ public class FacultyPageController {
                 IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    private void onAboutUsClicked() {
+
+    }
+
+    @FXML
+    private void goToSetting() {
+        try {
+            Stage currentPopupStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/setting.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            SettingController controller = fxmlLoader.getController();
+            controller.setMainAnchorPane(mainAnchorPane);
+            controller.setStage(currentPopupStage);
+            controller.setMainCSS(getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString()
+                    , getClass().getResource("/ku/cs/styles/admin-page-style.css").toString());
+
+            scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
+            currentPopupStage.setScene(scene);
+            currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+            currentPopupStage.setTitle("Setting");
+            currentPopupStage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
     }
 
 }
