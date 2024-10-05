@@ -35,11 +35,12 @@ import ku.cs.views.components.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class RequestManagementController {
+public class RequestManagementController implements Observer<HashMap<String, String>>{
     @FXML private Label pageTitleLabel;
     @FXML private Button backButton;
     @FXML private StackPane mainStackPane;
@@ -84,6 +85,8 @@ public class RequestManagementController {
     private UploadImageStack sinatureUploader;
 
     private Session session;
+    private Theme theme = Theme.getInstance();
+    private String textThemeColorHex = "black";
 
     private void initRouteData(){
         Object object = FXRouter.getData();
@@ -97,6 +100,7 @@ public class RequestManagementController {
 
     @FXML
     public void initialize() {
+        theme.clearObservers();
         initRouteData();
 
         studentDatasource = new UserListFileDatasource("data","student.csv");
@@ -119,6 +123,8 @@ public class RequestManagementController {
 
         }
 
+        theme.addObserver(this);
+        theme.notifyObservers(theme.getTheme());
 
     }
     private void initLabel(){
@@ -560,9 +566,24 @@ public class RequestManagementController {
         VBox vBox = (VBox) dataVBox.getChildren().getLast();
         vBox.getChildren().clear();
         vBox.getChildren().add(requestApproverTableView);
-         tableView = new DefaultTableView<>(requestApproverTableView);
-         tableView.getTableView().getColumns().clear();
-         tableView.getTableView().getItems().clear();
+        if(tableView!=null){
+            theme.removeObserver(tableView);
+        }
+        tableView = new DefaultTableView<>(requestApproverTableView){
+            @Override
+            public void updateAction() {
+                if (theme.getTheme() != null) {
+                    if (theme.getTheme().get("name").equalsIgnoreCase("dark")) {
+                        setStyleSheet("/ku/cs/styles/department/pages/request/dark-department-request-approver-table-stylesheet.css");
+                    } else {
+                        setStyleSheet("/ku/cs/styles/department/pages/request/department-request-approver-table-stylesheet.css");
+                    }
+
+                }
+            }
+        };
+        tableView.getTableView().getColumns().clear();
+        tableView.getTableView().getItems().clear();
         tableView.getTableView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Approver>() {
             @Override
             public void changed(ObservableValue<? extends Approver> observable, Approver oldValue, Approver newValue) {
@@ -597,6 +618,7 @@ public class RequestManagementController {
 
 
          tableView.setStyleSheet("/ku/cs/styles/department/pages/request/department-request-approver-table-stylesheet.css");
+         theme.addObserver(tableView);
     }
     private void refreshTableData(){
         tableView.getTableView().getItems().clear();
@@ -722,6 +744,8 @@ public class RequestManagementController {
 //            addApproverButton.setDisable(true);
 //            rejectButton.setDisable(true);
         }
+
+        theme.notifyObservers(theme.getTheme());
 
 
 
@@ -884,6 +908,10 @@ public class RequestManagementController {
                 vBox.setAlignment(Pos.CENTER);
                 line1.changeText("",28, FontWeight.BOLD);
                 line2.changeText("",20, FontWeight.NORMAL);
+                if(theme.getTheme() != null){
+                    line1.changeLabelColor(theme.getTheme().get("textColor"));
+                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                }
             }
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -917,6 +945,10 @@ public class RequestManagementController {
                 vBox.setAlignment(Pos.CENTER);
                 line1.changeText("",24, FontWeight.BOLD);
                 line2.changeText("",22, FontWeight.NORMAL);
+                if(theme.getTheme() != null){
+                    line1.changeLabelColor(theme.getTheme().get("textColor"));
+                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                }
             }
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -1019,6 +1051,9 @@ public class RequestManagementController {
                         line1.changeLabelColor("red");
                     }else {
                         line1.changeLabelColor("black");
+                        if(theme.getTheme() != null){
+                            line1.changeLabelColor(theme.getTheme().get("textColor"));
+                        }
                     }
 
 
@@ -1116,7 +1151,8 @@ public class RequestManagementController {
 
         }
 
-
+        Class<?>[] notifyClass = {UploadImageStack.class};
+        theme.notifyObservers(theme.getTheme(),notifyClass);
 
     }
 
@@ -1172,6 +1208,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel titleLabel = new DefaultLabel("");
+        titleLabel.changeLabelColor(this.textThemeColorHex);
         titleLabel.changeText("ขัดข้อง",48, FontWeight.BOLD);
         container.getChildren().add(titleLabel);
         editorVBox.getChildren().add(container);
@@ -1184,6 +1221,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel errorLabel = new DefaultLabel("");
+        errorLabel.changeLabelColor(this.textThemeColorHex);
         errorLabel.changeText(error,28, FontWeight.NORMAL);
         errorLabel.setWrapText(true);
         container.getChildren().add(errorLabel);
@@ -1210,6 +1248,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel statusLabel = new DefaultLabel("");
+        statusLabel.changeLabelColor(this.textThemeColorHex);
         statusLabel.changeText(approverStatus,48, FontWeight.BOLD);
         container.getChildren().add(statusLabel);
         editorVBox.getChildren().add(container);
@@ -1217,6 +1256,7 @@ public class RequestManagementController {
         if(approverStatus.equals("ไม่อนุมัติ") && request.getReasonForNotApprove() != null){
             container = newEditorContainer();
             DefaultLabel rejectReasonLabel = new DefaultLabel("");
+            rejectReasonLabel.changeLabelColor(this.textThemeColorHex);
             rejectReasonLabel.changeText("เหตุผล: " + request.getReasonForNotApprove(),24, FontWeight.NORMAL);
             rejectReasonLabel.setWrapText(true);
             container.getChildren().add(rejectReasonLabel);
@@ -1243,6 +1283,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel statusLabel = new DefaultLabel("");
+        statusLabel.changeLabelColor(this.textThemeColorHex);
         statusLabel.changeText(approverStatus,48, FontWeight.BOLD);
         container.getChildren().add(statusLabel);
         editorVBox.getChildren().add(container);
@@ -1282,6 +1323,7 @@ public class RequestManagementController {
         nameVBox.setAlignment(Pos.CENTER);
         container = newEditorContainer();
         DefaultLabel nameLabel = new DefaultLabel("");
+        nameLabel.changeLabelColor(this.textThemeColorHex);
         nameLabel.changeText(selectedApprover.getName(),28, FontWeight.BOLD);
         container.getChildren().add(nameLabel);
         nameVBox.getChildren().add(nameLabel);
@@ -1298,6 +1340,7 @@ public class RequestManagementController {
         }
         container = newEditorContainer();
         DefaultLabel roleLabel = new DefaultLabel("");
+        roleLabel.changeLabelColor(this.textThemeColorHex);
         roleLabel.changeText(role + extend,24, FontWeight.NORMAL);
         container.getChildren().add(roleLabel);
         nameVBox.getChildren().add(container);
@@ -1541,6 +1584,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel statusLabel = new DefaultLabel("");
+        statusLabel.changeLabelColor(this.textThemeColorHex);
         statusLabel.changeText(approverStatus,48, FontWeight.BOLD);
         container.getChildren().add(statusLabel);
         editorVBox.getChildren().add(container);
@@ -1548,6 +1592,7 @@ public class RequestManagementController {
         if(approverStatus.equals("ไม่อนุมัติ") && request.getReasonForNotApprove() != null){
             container = newEditorContainer();
             DefaultLabel rejectReasonLabel = new DefaultLabel("");
+            rejectReasonLabel.changeLabelColor(this.textThemeColorHex);
             rejectReasonLabel.changeText("เหตุผล: " + request.getReasonForNotApprove(),24, FontWeight.NORMAL);
             rejectReasonLabel.setWrapText(true);
             container.getChildren().add(rejectReasonLabel);
@@ -1618,6 +1663,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel statusLabel = new DefaultLabel("");
+        statusLabel.changeLabelColor(this.textThemeColorHex);
         statusLabel.changeText(approverStatus,48, FontWeight.BOLD);
         container.getChildren().add(statusLabel);
         editorVBox.getChildren().add(container);
@@ -1625,6 +1671,7 @@ public class RequestManagementController {
         if(approverStatus.equals("ไม่อนุมัติ") && request.getReasonForNotApprove() != null){
             container = newEditorContainer();
             DefaultLabel rejectReasonLabel = new DefaultLabel("");
+            rejectReasonLabel.changeLabelColor(this.textThemeColorHex);
             rejectReasonLabel.changeText("เหตุผล: " + request.getReasonForNotApprove(),24, FontWeight.NORMAL);
             rejectReasonLabel.setWrapText(true);
             container.getChildren().add(rejectReasonLabel);
@@ -1900,4 +1947,9 @@ public class RequestManagementController {
         }
     }
 
+    @Override
+    public void update(HashMap<String, String> data) {
+        mainStackPane.setStyle(mainStackPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
+        this.textThemeColorHex = data.get("textColor");
+    }
 }
