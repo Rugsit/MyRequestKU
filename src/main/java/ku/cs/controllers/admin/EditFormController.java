@@ -236,9 +236,9 @@ public class EditFormController {
                 currentUser.setLastname(lastNameTextField.getText());
                 currentUser.setUsername(userNameTextField.getText());
                 if (startPasswordTextField.getText().isEmpty()) {
-                    currentUser.setPassword("DEFAULT");
+                    currentUser.setDefaultPassword("DEFAULT");
                 } else {
-                    currentUser.setPassword(startPasswordTextField.getText());
+                    currentUser.setDefaultPassword(startPasswordTextField.getText());
                 }
                 if (currentUser instanceof FacultyUser) {
                     ((FacultyUser)currentUser).setFaculty(facultyChoiceBox.getValue());
@@ -283,9 +283,9 @@ public class EditFormController {
         } else if (departmentList != null) {
             try {
                 Datasource<DepartmentList> datasourceDepartmentlist = new DepartmentListFileDatasource("data");
-                department.setName(departmentNameTextField.getText());
                 if (facultyChoiceBox != null) department.setFaculty(facultyChoiceBox.getValue());
                 else throw new IllegalArgumentException("กรุณาเลือกคณะที่ต้องการแก้ไข");
+                department.setName(departmentNameTextField.getText());
                 department.setId(departmentIdTextField.getText());
                 datasourceDepartmentlist.writeData(departmentList);
                 currentControllFacultyPage.loadDepartment();
