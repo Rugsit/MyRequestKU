@@ -83,6 +83,7 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
 
     @FXML
     public void initialize() {
+        theme.clearObservers();
         initRouteData();
         nisitDatasource = new UserListFileDatasource("data","student.csv");
         advisorDatasource = new UserListFileDatasource("data","advisor.csv");

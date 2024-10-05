@@ -100,6 +100,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
     @FXML
     public void initialize() {
+        theme.clearObservers();
         initRouteData();
 
         studentDatasource = new UserListFileDatasource("data","student.csv");

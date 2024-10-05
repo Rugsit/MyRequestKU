@@ -84,6 +84,7 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
 
     @FXML
     public void initialize() {
+        theme.clearObservers();
         initRouteData();
         editorErrorLabel = new DefaultLabel("");
         initTableView();

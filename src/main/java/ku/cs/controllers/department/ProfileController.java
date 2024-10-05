@@ -30,6 +30,7 @@ private void initRouteData(){
 }
     @FXML
     public void initialize() {
+        theme.clearObservers();
         initRouteData();
         initLabel();
         mainAnchorPane.getChildren().add(new SidebarController("profile",session).getVBox());

@@ -64,6 +64,7 @@ public class RequestListController implements Observer<HashMap<String, String>> 
 
     @FXML
     public void initialize() {
+        theme.clearObservers();
         initRouteData();
         requestDatasource = new RequestListFileDatasource("data");
         requestList = requestDatasource.readData();

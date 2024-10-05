@@ -83,6 +83,7 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
 
     @FXML
     public void initialize() {
+        theme.clearObservers();
         initRouteData();
         editorErrorLabel = new DefaultLabel("");
         initTableView();

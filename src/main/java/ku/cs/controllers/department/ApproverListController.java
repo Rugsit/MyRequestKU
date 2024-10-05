@@ -91,6 +91,7 @@ public class ApproverListController implements Observer<HashMap<String, String>>
 
     @FXML
     public void initialize() {
+        theme.clearObservers();
         initRouteData();
         loginUser = (DepartmentUser) session.getUser();
         System.out.println(loginUser);
