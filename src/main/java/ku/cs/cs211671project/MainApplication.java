@@ -1,12 +1,10 @@
 package ku.cs.cs211671project;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ku.cs.services.FXRouter;
-import ku.cs.services.Theme;
+import ku.cs.services.department.Theme;
 
 import java.io.IOException;
 
