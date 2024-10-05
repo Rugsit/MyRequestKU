@@ -47,16 +47,28 @@ public class EditApproverController {
         nameLabel.setText(approverName);
         lastNameLabel.setText(approverLastName);
         academicRoleLabel.setText(approverRole);
+        nameTextField.setText(approverName);
+        lastNameTextField.setText(approverLastName);
+        academicRoleTextField.setText(approverRole);
     }
 
     private void changeNewAdvisorDetail() {
         String newApproverName = nameTextField.getText().trim();
         String newApproverLastName = lastNameTextField.getText().trim();
         String newApproverRole = academicRoleTextField.getText().trim();
-        ApproverListFileDatasource approverDatasource = new ApproverListFileDatasource("approver");
-
+        ApproverListFileDatasource approverDatasource;
+        System.out.println(approver.getRequestUUID());
+        if (approver.getRequestUUID() != null) {
+            approverDatasource = new ApproverListFileDatasource("request");
+        } else {
+            approverDatasource = new ApproverListFileDatasource("approver");
+        }
         ApproverList approverList = approverDatasource.readData();
         approver = approverList.findApproverByObject(approver);
+        if (approver == null) {
+            System.out.println("sad");
+            return;
+        }
 
         approver.setFirstname(newApproverName);
         approver.setLastname(newApproverLastName);
@@ -67,7 +79,12 @@ public class EditApproverController {
     }
 
     private void deleteAdvisorDetail(){
-        ApproverListFileDatasource approverDatasource = new ApproverListFileDatasource("approver");
+        ApproverListFileDatasource approverDatasource;
+        if (approver.getRequestUUID() != null) {
+            approverDatasource = new ApproverListFileDatasource("request");
+        } else {
+            approverDatasource = new ApproverListFileDatasource("approver");
+        }
         ApproverList approverList = approverDatasource.readData();
         approverList.deleteApproverByObject(approver);
         approverDatasource.writeData(approverList);

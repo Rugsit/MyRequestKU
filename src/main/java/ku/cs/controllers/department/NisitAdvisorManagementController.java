@@ -159,7 +159,7 @@ public class NisitAdvisorManagementController {
     private void initNisitTableView(){
         DefaultTableView<User> nisitTable = new DefaultTableView(nisitTableView){
             @Override
-            protected void handleCLick() {
+            protected void handleClick() {
                 getTableView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
                     @Override
                     public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {
@@ -185,7 +185,7 @@ public class NisitAdvisorManagementController {
     private void initAdvisorTableView(){
         DefaultTableView<User> nisitTable = new DefaultTableView(advisorTableView){
             @Override
-            protected void handleCLick() {
+            protected void handleClick() {
                 getTableView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
                     @Override
                     public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {

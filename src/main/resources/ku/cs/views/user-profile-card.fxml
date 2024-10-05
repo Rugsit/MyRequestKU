@@ -129,7 +129,7 @@
                   <Cursor fx:constant="DISAPPEAR" />
                </cursor>
             </TextField>
-            <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="41.0" layoutY="268.0" mnemonicParsing="false" onAction="#onUploadImageButtonClicked" prefHeight="29.0" prefWidth="63.0" styleClass="uploadImageButton" text="อัพโหลดรูปโปรไฟล์">
+            <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="41.0" layoutY="268.0" mnemonicParsing="false" onAction="#onUploadImageButtonClicked" prefHeight="29.0" prefWidth="63.0" styleClass="uploadImageButton" text="อัปโหลดรูปโปรไฟล์">
                <font>
                   <Font size="14.0" />
                </font>

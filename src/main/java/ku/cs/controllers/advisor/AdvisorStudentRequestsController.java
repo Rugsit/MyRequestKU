@@ -75,7 +75,7 @@ public class AdvisorStudentRequestsController {
         typeColumn.setMinWidth(100);
         TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
-        TableColumn<Request, LocalDateTime> timestampColumn = new TableColumn<>("วันที่อัพเดทล่าสุด");
+        TableColumn<Request, LocalDateTime> timestampColumn = new TableColumn<>("วันที่อัปเดตล่าสุด");
         timestampColumn.setCellValueFactory(new PropertyValueFactory<>("TimeStamp"));
         TableColumn<Request, String> statusColumn = new TableColumn<>("สถานะคำร้อง");
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));

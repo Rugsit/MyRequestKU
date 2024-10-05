@@ -25,6 +25,7 @@ public abstract class User implements Identifiable, Comparable<User> {
     private String avatar;
     private boolean active;
     private String password;
+    private String defaultPassword;
     public static String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss";
 
     public User(String id,
@@ -36,7 +37,7 @@ public abstract class User implements Identifiable, Comparable<User> {
                 String email,
                 String password) throws UserException {
         //Constructor for New User
-        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, null, "no-image","active");
+        this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, password, "no-image","active","DEFAULT");
         setPassword(password);
         this.active = !role.equalsIgnoreCase("student");
     }
@@ -50,7 +51,8 @@ public abstract class User implements Identifiable, Comparable<User> {
                 String email,
                 String password,
                 String avatar,
-                String activeStatus) throws UserException{
+                String activeStatus,
+                String defaultPassword) throws UserException{
         //Contructor for DataSource Reader
         if(uuid == null) throw new UUIDException("UUID must not be null");
         this.uuid = UUID.fromString(uuid);
@@ -64,6 +66,7 @@ public abstract class User implements Identifiable, Comparable<User> {
         setAvatar(avatar);
         this.password = password;
         this.active = activeStatus.equalsIgnoreCase("active");
+        initDefaultPassword(defaultPassword);
     }
     //Comparator
     public static Comparator<User> userIdComparator = new Comparator<>() {
@@ -116,17 +119,16 @@ public abstract class User implements Identifiable, Comparable<User> {
     public String getEmail(){
         return this.email;
     }
-    public String getDefaultPassword() {
-        String strUUID = this.uuid.toString();
-        int sum = 0;
-        for(char c : strUUID.toCharArray()) {
-            sum += c;
-        }
+    public String generatePassword(){
+        long seed = System.currentTimeMillis();
         Random random = new Random();
-        random.setSeed(sum);
+        random.setSeed(seed);
         int max=999999999,min=100000000;
-        String defaultPassword = "" + (random.nextInt(max - min + 1) + min);
-        return defaultPassword;
+        String generatePassword = "" + (random.nextInt(max - min + 1) + min);
+        return generatePassword;
+    }
+    public String getDefaultPassword() {
+        return this.defaultPassword;
     }
     public String getAvatar(){
         return this.avatar;
@@ -209,7 +211,35 @@ public abstract class User implements Identifiable, Comparable<User> {
 //        if(isValidEmailPattern(email)) throw new EmailException("Invalid email pattern");
         this.email = email.trim();
     }
+    private void initDefaultPassword(String password) throws PasswordException {
+        if(password == null) throw new PasswordException("DefaultPassword cannot be null");
+        if(password.isEmpty()) throw new PasswordException("DefaultPassword must not be empty");
+        if(haveSpace(password)) throw new PasswordException("DefaultPassword must not contain spaces");
+        if(password.equalsIgnoreCase("DEFAULT")) {
+            password = generatePassword();
+        }
+        if(password.length() <= 8)
+            throw new PasswordException("password must be more than 8 characters");
+        this.defaultPassword = password;
 
+    }
+    public void setDefaultPassword(String password) throws PasswordException {
+        if(password == null) throw new PasswordException("DefaultPassword cannot be null");
+        if(password.isEmpty()) throw new PasswordException("DefaultPassword must not be empty");
+        if(haveSpace(password)) throw new PasswordException("DefaultPassword must not contain spaces");
+        if(password.equalsIgnoreCase("DEFAULT")) {
+            password = generatePassword();
+        }
+        if(password.length() <= 8)
+            throw new PasswordException("password must be more than 8 characters");
+        boolean samePassword = validatePassword(this.defaultPassword);//take long time, use only for manual UI
+        this.defaultPassword = password;
+
+        if(samePassword){
+            setPassword("DEFAULT");
+        }
+
+    }
     public void setPassword(String password) throws PasswordException {
         if(password == null) throw new PasswordException("Password cannot be null");
         if(password.isEmpty()) throw new PasswordException("Password must not be empty");
@@ -300,6 +330,7 @@ public abstract class User implements Identifiable, Comparable<User> {
                 email + "," +
                 password + "," +
                 avatar + "," +
-                activeStatus;
+                activeStatus + "," +
+                defaultPassword;
     }
 }

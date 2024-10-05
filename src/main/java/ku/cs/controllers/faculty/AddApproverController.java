@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ku.cs.models.faculty.Faculty;
+import ku.cs.models.request.Request;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.request.approver.DepartmentApprover;
@@ -28,6 +29,9 @@ public class AddApproverController {
 
     private User loginUser;
 
+    private String approverType = "approver";
+    private Request request;
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -39,7 +43,7 @@ public class AddApproverController {
 
         if (!name.isEmpty() && !lastName.isEmpty() && !academicRole.isEmpty()) {
             errorLabel.setVisible(false);
-            ApproverListFileDatasource approverDatasource = new ApproverListFileDatasource("approver");
+            ApproverListFileDatasource approverDatasource = new ApproverListFileDatasource(approverType);
             try {
                 Approver approver = null;
                 if (loginUser instanceof FacultyUser) {
@@ -48,7 +52,11 @@ public class AddApproverController {
                     approver = new DepartmentApprover("department", ((DepartmentUser) loginUser).getDepartmentUUID().toString(), academicRole, name, lastName);
                 }
                 System.out.println("test");
-                approverDatasource.appendData(approver, "approver");
+                if (!approverType.equals("approver") && request != null) {
+                    approver.setRequestUUID(request);
+                    approver.setStatus("รอคณะดำเนินการ");
+                }
+                approverDatasource.appendData(approver, approverType);
             } catch (Exception e) {
                 errorLabel.setVisible(true);
                 errorLabel.setText("ไม่สามารถบันทึกข้อมูลลงในฐานข้อมูลได้");
@@ -74,5 +82,17 @@ public class AddApproverController {
 
     public void setLoginUser(User loginUser) {
         this.loginUser = loginUser;
+    }
+
+    public void setApproverType(String approverType) {
+        if (approverType != null) {
+            this.approverType = approverType;
+        }
+    }
+
+    public void setCurrentRequest(Request request) {
+        if (request != null) {
+            this.request = request;
+        }
     }
 }

@@ -11,8 +11,8 @@ public class Advisor extends DepartmentUser{
         super(id, username, role, firstname, lastname, lastLogin, email, password, faculty, department);
     }
 
-    public Advisor(String uuid, String id, String username, String role, String firstname, String lastname, String lastLogin, String email, String password, String avatar, String activeStatus, String faculty, String department) throws UserException {
-        super(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty, department);
+    public Advisor(String uuid, String id, String username, String role, String firstname, String lastname, String lastLogin, String email, String password, String avatar, String activeStatus, String defaultPassword, String faculty, String department) throws UserException {
+        super(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, defaultPassword, faculty, department);
     }
 
     public UserList getAdvisesStudent(){

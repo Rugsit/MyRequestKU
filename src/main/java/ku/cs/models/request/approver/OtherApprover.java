@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class OtherApprover extends Approver{
     public static final ArrayList<String> AVAILABLE_STATUS = new ArrayList<>(Arrays.asList(
-            "รออัพโหลด",
+            "รออัปโหลด",
             "เรียบร้อย",
             "ไม่อนุมัติ"
     ));
