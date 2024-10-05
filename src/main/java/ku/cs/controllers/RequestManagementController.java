@@ -29,8 +29,8 @@ import ku.cs.models.request.RequestList;
 import ku.cs.models.request.approver.*;
 import ku.cs.models.user.*;
 import ku.cs.services.*;
-import ku.cs.services.department.Observer;
-import ku.cs.services.department.Theme;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 

@@ -6,8 +6,8 @@ import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import ku.cs.services.department.Observer;
-import ku.cs.services.department.Theme;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 
 import java.util.HashMap;
 

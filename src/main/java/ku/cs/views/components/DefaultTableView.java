@@ -2,7 +2,7 @@ package ku.cs.views.components;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import ku.cs.services.department.Observer;
+import ku.cs.services.Observer;
 
 import java.util.HashMap;
 

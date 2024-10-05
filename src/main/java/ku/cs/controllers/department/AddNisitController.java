@@ -23,8 +23,8 @@ import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
-import ku.cs.services.department.Observer;
-import ku.cs.services.department.Theme;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 

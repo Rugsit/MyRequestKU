@@ -17,8 +17,8 @@ import ku.cs.models.Session;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
-import ku.cs.services.department.Observer;
-import ku.cs.services.department.Theme;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 import ku.cs.views.components.*;
 
 import java.util.HashMap;

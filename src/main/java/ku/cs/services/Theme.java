@@ -1,4 +1,4 @@
-package ku.cs.services.department;
+package ku.cs.services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
