@@ -1,9 +1,15 @@
 package ku.cs.views.components;
 
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 
-public class DefaultTableView<S> extends TableView {
+import java.util.HashMap;
+
+public class DefaultTableView<S> extends TableView implements Observer<HashMap<String,String>> {
     private TableView<S> tableView;
     private final String DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
     private final String STYLE_PATH = "/ku/cs/styles/department/pages/department-table-stylesheet.css";
@@ -52,5 +58,18 @@ public class DefaultTableView<S> extends TableView {
 
     public TableView<S> getTableView() {
         return tableView;
+    }
+
+    @Override
+    public void update(HashMap<String, String> data) {
+        for (TableColumn<?, ?> column : tableView.getColumns()) {
+            column.setStyle(column.getStyle() + "-fx-text-fill: " + data.get("textColor") + ";");
+        }
+        updateAction();
+        tableView.refresh();
+
+    }
+
+    public void updateAction() {
     }
 }

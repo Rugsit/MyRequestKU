@@ -4,10 +4,17 @@ package ku.cs.views.components;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 
-public class TextFieldStack extends StackPane{
+import javax.swing.text.html.ImageView;
+import java.awt.*;
+import java.util.HashMap;
+
+public class TextFieldStack extends StackPane implements Observer<HashMap<String,String>> {
     private StackPane stackBox;
     private HBox textFieldHBox;
     private DefaultTextField textField;
@@ -16,10 +23,16 @@ public class TextFieldStack extends StackPane{
     private DefaultButton clearButton;
     private String currentData;
 
+    private String editColorHex;
+    private String editTextColorHex;
+    private String showColorHex;
+    private String showTextColorHex;
+
     private double fieldtWidth;
     private double fieldHeight;
     private double buttonWidth = 30;
     private double buttonHeight = 30;
+    private Theme theme = Theme.getInstance();
 
     public TextFieldStack(String data) {
         this(data,270,50);
@@ -29,10 +42,16 @@ public class TextFieldStack extends StackPane{
         this.currentData = data;
         this.fieldtWidth = w;
         this.fieldHeight = h;
+        this.showColorHex = "transparent";
+        this.showTextColorHex = "black";
+        this.editColorHex = "white";
+        this.editTextColorHex = "black";
+
         initTextField(fieldtWidth,fieldHeight);
         initButton(buttonWidth,buttonHeight);
         initStackBox(fieldtWidth,fieldHeight);
         toggleTextField(false);
+        theme.addObserver(this);
     }
     private void initTextField(double w, double h){
         textField = new DefaultTextField(currentData);
@@ -43,7 +62,7 @@ public class TextFieldStack extends StackPane{
         textFieldHBox.getChildren().add(textField);
     }
     private void initButton(double w, double h){
-        resetButton = new DefaultButton("#FFA4A4","#E19494","black"){
+        resetButton = new DefaultButton("transparent","transparent","black"){
             @Override
             protected void handleClickEvent() {
                 button.setOnMouseClicked(e -> {
@@ -54,9 +73,11 @@ public class TextFieldStack extends StackPane{
         };
         resetButton.setPrefSize(w,h);
         resetButton.changeBackgroundRadius(20);
-        resetButton.setText("R");
+//        resetButton.setText("R");
+        Image resetImageIcon = new Image(getClass().getResourceAsStream("/images/pages/department/global/components/textfield-stack/rollback-textfield-green.png"));
+        resetButton.setImage(resetImageIcon,25,25);
 
-        clearButton = new DefaultButton("#FFA4A4","#E19494","black"){
+        clearButton = new DefaultButton("transparent","transparent","black"){
             @Override
             protected void handleClickEvent() {
                 button.setOnMouseClicked(e -> {
@@ -67,7 +88,9 @@ public class TextFieldStack extends StackPane{
         };
         clearButton.setPrefSize(w,h);
         clearButton.changeBackgroundRadius(20);
-        clearButton.setText("C");
+        Image clearImageIcon = new Image(getClass().getResourceAsStream("/images/pages/department/global/components/textfield-stack/clear-textfield-red.png"));
+        clearButton.setImage(clearImageIcon,25,25);
+//        clearButton.setText("C");
 
 //        buttonHBox = new HBox();
 //        buttonHBox.setPrefSize(w,h);
@@ -79,15 +102,17 @@ public class TextFieldStack extends StackPane{
         stackBox.setAlignment(resetButton,Pos.CENTER_RIGHT);
         stackBox.setAlignment(clearButton,Pos.CENTER_RIGHT);
         StackPane.setMargin(clearButton,new Insets(0,10,0,0));
-        StackPane.setMargin(resetButton,new Insets(0,50,0,0));
+        StackPane.setMargin(resetButton,new Insets(0,40,0,0));
     }
     public void toggleTextField(boolean editMode){
 //        System.out.println(editMode);
         boolean editable = editMode;
-        String backgroundColor = editable ? "white" : "transparent";
+        String backgroundColor = editable ? editColorHex : showColorHex;
+        String textColor = editable ? editTextColorHex : showTextColorHex;
 
         textField.setStyle("-fx-background-color: "+backgroundColor+";"
-                +"-fx-background-radius: 20");
+                +"-fx-background-radius: 20;" +
+                "-fx-text-fill: "+textColor+";");
         textField.setEditable(editable);
 
         resetButton.setVisible(editable);
@@ -110,5 +135,12 @@ public class TextFieldStack extends StackPane{
     }
     public String getData(){
         return currentData;
+    }
+
+    @Override
+    public void update(HashMap<String, String> data) {
+        this.editTextColorHex = data.get("textColor");
+        this.showTextColorHex = data.get("textColor");
+        this.editColorHex = data.get("primary");
     }
 }

@@ -29,9 +29,10 @@ import ku.cs.views.components.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
-public class AddNisitController {
+public class AddNisitController implements Observer<HashMap<String, String>> {
     @FXML private StackPane mainStackPane;
     @FXML private Button backButton;
     @FXML private Label pageTitleLabel;
@@ -64,6 +65,7 @@ public class AddNisitController {
     private Department addDepartment;
     private Faculty addFaculty;
     private Session session;
+    private Theme theme = Theme.getInstance();
 
     private void initRouteData(){
         Object object = FXRouter.getData();
@@ -96,6 +98,8 @@ public class AddNisitController {
 
         initLabel();
         initButton();
+        theme.addObserver(this);
+        theme.notifyObservers(theme.getTheme());
     }
 
     private void initButton(){
@@ -186,6 +190,17 @@ public class AddNisitController {
                     }
                 });
             }
+            @Override
+            public void updateAction(){
+                if(theme.getTheme() != null){
+                    if(theme.getTheme().get("name").equalsIgnoreCase("dark")){
+                        setStyleSheet("/ku/cs/styles/department/pages/add-nisit/dark-department-add-nisit-table-stylesheet.css");
+                    }else{
+                        setStyleSheet("/ku/cs/styles/department/pages/add-nisit/department-add-nisit-table-stylesheet.css");
+                    }
+
+                }
+            }
         };
         nisitTable.getTableView().getColumns().clear();
         nisitTable.getTableView().getItems().clear();
@@ -198,6 +213,8 @@ public class AddNisitController {
         nisitTable.addColumn("อีเมล","Email");
         nisitTable.getTableView().getColumns().add(newDeleteColumn());
         nisitTable.addStyleSheet("/ku/cs/styles/department/pages/add-nisit/department-add-nisit-table-stylesheet.css");
+
+        theme.addObserver(nisitTable);
 
     }
     private void selectedUserListener(){
@@ -293,6 +310,8 @@ public class AddNisitController {
         return container;
     }
     private void toggleEditFiled(){
+        Class<?>[] notifyClass = {TextFieldStack.class};
+        theme.notifyObservers(theme.getTheme(),notifyClass);
         editMode = !editMode;
         System.out.println(editMode);
         boolean editable = editMode;
@@ -830,5 +849,10 @@ public class AddNisitController {
     private void setEditorErrorLabel(String error){
         this.editorErrorLabel.changeLabelColor("red");
         this.editorErrorLabel.changeText(error,18, FontWeight.BOLD);
+    }
+
+    @Override
+    public void update(HashMap<String, String> data) {
+        mainStackPane.setStyle(mainStackPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
     }
 }

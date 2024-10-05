@@ -6,10 +6,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.Button;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 
+import java.util.HashMap;
 import java.util.List;
 
-public class DefaultButton extends Button {
+public class DefaultButton extends Button implements Observer<HashMap<String,String>> {
     protected Button button;
     protected ImageView imageView;
     protected String buttonName;
@@ -18,6 +21,7 @@ public class DefaultButton extends Button {
     protected String baseLabelColor;
     protected final String DEFAULT_FONT;
     protected final String FALLBACK_FONT;
+    private Theme theme = Theme.getInstance();
 
     public DefaultButton(String baseColorHex,String hoverColorHex,String baseLabelColorHex){
         this.button = this;
@@ -35,6 +39,10 @@ public class DefaultButton extends Button {
 
         handleHoverEvent();
         handleClickEvent();
+
+        if(baseColorHex.equalsIgnoreCase("transparent")){
+            theme.addObserver(this);
+        }
     }
     public DefaultButton    (Button button,String baseColorHex,String hoverColorHex,String baseLabelColorHex){
         this.button = button;
@@ -52,6 +60,9 @@ public class DefaultButton extends Button {
 
         handleHoverEvent();
         handleClickEvent();
+        if(baseColorHex.equalsIgnoreCase("transparent")){
+            theme.addObserver(this);
+        }
     }
     protected FontWeight currrentFontWeight(Font currentFont){
         String style = currentFont.getStyle();
@@ -135,5 +146,9 @@ public class DefaultButton extends Button {
     }
 
 
-
+    @Override
+    public void update(HashMap<String, String> data) {
+        changeLabelColor(data.get("textColor"));
+        this.hoverColorHex = data.get("primary");
+    }
 }

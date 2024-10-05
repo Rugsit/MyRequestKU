@@ -3,36 +3,27 @@ package ku.cs.controllers.department;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import ku.cs.models.Session;
-import ku.cs.models.department.DepartmentList;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.user.DepartmentUser;
-import ku.cs.models.user.User;
-import ku.cs.services.DepartmentListFileDatasource;
-import ku.cs.services.RequestListFileDatasource;
+import ku.cs.services.*;
 import ku.cs.services.utils.DateTools;
-import ku.cs.views.components.DefaultLabel;
-import ku.cs.views.components.DefaultTableView;
-import ku.cs.views.components.RouteButton;
-import ku.cs.views.components.SquareImage;
+import ku.cs.views.components.*;
 import ku.cs.views.layouts.sidebar.SidebarController;
 import ku.cs.models.request.Request;
 import ku.cs.models.user.UserList;
-import ku.cs.services.FXRouter;
-import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.UUID;
 
-public class RequestListController {
+public class RequestListController implements Observer<HashMap<String, String>> {
     @FXML private AnchorPane mainAnchorPane;
     @FXML private Label pageTitleLabel;
 
@@ -59,6 +50,8 @@ public class RequestListController {
     private final String DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
     private final String FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
     private Session session;
+    private Theme theme = Theme.getInstance();
+    @FXML private Button switchThemeButton;
 
     private void initRouteData(){
         Object object = FXRouter.getData();
@@ -76,16 +69,35 @@ public class RequestListController {
         requestList = requestDatasource.readData();
 
         initLabel();
+        initButton();
         initTableView();
 //        Image image = new Image(getClass().getResourceAsStream("/images/profile-test.png"));
 //        new SquareImage(userProfileImageView,image).setClipImage(100,100);
 
         mainAnchorPane.getChildren().add(new SidebarController("request-list",session).getVBox());
 
-
+        theme.addObserver(this);
+        theme.notifyObservers(theme.getTheme());
     }
     private void initLabel() {
         new DefaultLabel(pageTitleLabel);
+    }
+    private void initButton(){
+        DefaultButton switchThemeBT = new DefaultButton(switchThemeButton,"#ABFFA4","#80BF7A","#000000"){
+            @Override
+            protected void handleClickEvent() {
+                getButton().setOnMouseClicked(e->{
+                    if(theme.getThemeName().equals("dark")){
+                        theme.setTheme("default");
+                    }else{
+                        theme.setTheme("dark");
+                    }
+                    changeText(theme.getThemeName());
+                });
+            }
+        };
+        switchThemeBT.changeText(theme.getThemeName(),24,FontWeight.NORMAL);
+        switchThemeBT.changeBackgroundRadius(10);
     }
     private void initTableView(){
         DefaultTableView<Request> reqTable = new DefaultTableView(requestTableView){
@@ -107,6 +119,17 @@ public class RequestListController {
                         }
                     }
                 });
+            }
+            @Override
+            public void updateAction(){
+                if(theme.getTheme() != null){
+                    if(theme.getTheme().get("name").equalsIgnoreCase("dark")){
+                        setStyleSheet("/ku/cs/styles/department/pages/request-list/dark-department-staff-request-list-table-stylesheet.css");
+                    }else{
+                        setStyleSheet("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet.css");
+                    }
+
+                }
             }
         };
         reqTable.getTableView().getColumns().clear();
@@ -138,7 +161,7 @@ public class RequestListController {
         }else{
             reqTable.getTableView().getItems().addAll(requestList.getRequests());
         }
-
+        theme.addObserver(reqTable);
     }
     private TableColumn<Request,?> newRequestStatusColumn(String colName){
         TableColumn<Request,VBox> column = new TableColumn<>(colName);
@@ -152,6 +175,10 @@ public class RequestListController {
                 vBox.setAlignment(Pos.CENTER);
                 line1.changeText("",20, FontWeight.NORMAL);
                 line2.changeText("",18, FontWeight.NORMAL);
+                if(theme.getTheme() != null){
+                    line1.changeLabelColor(theme.getTheme().get("textColor"));
+                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                }
             }
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -165,10 +192,7 @@ public class RequestListController {
                     line1.changeText(statusNow);
                     if(statusNow.equalsIgnoreCase("ใบคำร้องใหม่")){
                         line1.changeLabelColor("green");
-                    }else {
-                        line1.changeLabelColor("black");
                     }
-
                     String statusNext = request.getStatusNext();
                     line2.changeText(statusNext);
 
@@ -193,6 +217,10 @@ public class RequestListController {
                 vBox.setAlignment(Pos.CENTER);
                 line1.changeText("",20, FontWeight.NORMAL);
                 line2.changeText("",18, FontWeight.NORMAL);
+                if(theme.getTheme() != null){
+                    line1.changeLabelColor(theme.getTheme().get("textColor"));
+                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                }
             }
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -218,5 +246,8 @@ public class RequestListController {
     }
 
 
-
+    @Override
+    public void update(HashMap<String, String> data) {
+        mainAnchorPane.setStyle(mainAnchorPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
+    }
 }

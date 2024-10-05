@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,16 +20,17 @@ import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.DepartmentUser;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.FXRouter;
-import ku.cs.views.components.CropImage;
-import ku.cs.views.components.DefaultButton;
-import ku.cs.views.components.DefaultLabel;
-import ku.cs.views.components.RouteButton;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
+import ku.cs.views.components.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ApproverListController {
+public class ApproverListController implements Observer<HashMap<String, String>> {
+    @FXML private StackPane mainStackPane;
     @FXML
     private Label pageTitleLabel;
 
@@ -40,6 +42,7 @@ public class ApproverListController {
     private Button addApproverButton;
     @FXML
     private TableView approverTableView;
+    private DefaultTableView<Approver> approverTable;
 
     @FXML
     private VBox imageEditorVBox;
@@ -75,6 +78,7 @@ public class ApproverListController {
     private TextField searchTextField;
 
     private Session session;
+    private Theme theme = Theme.getInstance();
 
     private void initRouteData(){
         Object object = FXRouter.getData();
@@ -90,6 +94,20 @@ public class ApproverListController {
         initRouteData();
         loginUser = (DepartmentUser) session.getUser();
         System.out.println(loginUser);
+        approverTable = new DefaultTableView<>(approverTableView){
+            @Override
+            public void updateAction(){
+                if(theme.getTheme() != null){
+                    if(theme.getTheme().get("name").equalsIgnoreCase("dark")){
+                        setStyleSheet("/ku/cs/styles/department/pages/approver-list/dark-department-staff-approver-list-table-stylesheet.css");
+                    }else{
+                        setStyleSheet("/ku/cs/styles/department/pages/approver-list/department-staff-approver-list-table-stylesheet.css");
+                    }
+
+                }
+            }
+        };
+        theme.addObserver(approverTable);
         showTable();
         approverEditPopUp();
         initLabel();
@@ -101,6 +119,10 @@ public class ApproverListController {
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             search(newValue);
         });
+
+        theme.addObserver(this);
+        theme.notifyObservers(theme.getTheme());
+
     }
 
     private void initLabel(){
@@ -248,4 +270,8 @@ public class ApproverListController {
     }
 
 
+    @Override
+    public void update(HashMap<String, String> data) {
+        mainStackPane.setStyle(mainStackPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
+    }
 }

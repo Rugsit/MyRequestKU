@@ -25,9 +25,7 @@ import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
-import ku.cs.services.FXRouter;
-import ku.cs.services.ImageDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 
@@ -36,7 +34,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
-public class NisitManagementController {
+public class NisitManagementController implements Observer<HashMap<String, String>> {
     @FXML private Label pageTitleLabel;
     @FXML private StackPane mainStackPane;
 
@@ -72,6 +70,7 @@ public class NisitManagementController {
     private DefaultLabel editorErrorLabel;
     private UploadImageStack editorUploadImageStack;
     private Session session;
+    private Theme theme = Theme.getInstance();
 
     private void initRouteData(){
         Object object = FXRouter.getData();
@@ -104,6 +103,9 @@ public class NisitManagementController {
 //        nisitImage.setImage(new Image(getClass().getResourceAsStream("/images/profile-test.png")));
 //        toggleEditFiled();
 //        mainStackPane.getChildren().add(new ConfirmStack("ยืนยัน","This is a long label text that will wrap to the next line if it exceeds the maximum width."));
+
+        theme.addObserver(this);
+        theme.notifyObservers(theme.getTheme());
     }
     private void initLabel(){
         new DefaultLabel(pageTitleLabel);
@@ -143,6 +145,17 @@ public class NisitManagementController {
                     }
                 });
             }
+            @Override
+            public void updateAction(){
+                if(theme.getTheme() != null){
+                    if(theme.getTheme().get("name").equalsIgnoreCase("dark")){
+                        setStyleSheet("/ku/cs/styles/department/pages/nisit-management/dark-department-nisit-management-table-stylesheet.css");
+                    }else{
+                        setStyleSheet("/ku/cs/styles/department/pages/nisit-management/department-nisit-management-table-stylesheet.css");
+                    }
+
+                }
+            }
         };
         nisitTable.getTableView().getColumns().clear();
         nisitTable.getTableView().getItems().clear();
@@ -155,6 +168,8 @@ public class NisitManagementController {
 //        nisitTable.addColumn("รหัสเริ่มต้น","defaultPassword");
         nisitTable.getTableView().getColumns().add(newDeleteColumn());
         nisitTable.addStyleSheet("/ku/cs/styles/department/pages/nisit-management/department-nisit-management-table-stylesheet.css");
+
+        theme.addObserver(nisitTable);
 
     }
     private void selectedUserListener(){
@@ -297,6 +312,8 @@ public class NisitManagementController {
         return container;
     }
     private void toggleEditFiled(){
+        Class<?>[] notifyClass = {TextFieldStack.class,UploadImageStack.class};
+        theme.notifyObservers(theme.getTheme(),notifyClass);
         editMode = !editMode;
         System.out.println(editMode);
         boolean editable = editMode;
@@ -470,10 +487,16 @@ public class NisitManagementController {
         column.setReorderable(false);//BLOCK DRAG BY MOUSE
         column.setCellFactory(c -> new TableCell<>(){
             private VBox vBox = new VBox();
-            private Text line1 = new Text();
-            private Text line2 = new Text();
+            private DefaultLabel line1 = new DefaultLabel("");
+            private DefaultLabel line2 = new DefaultLabel("");
             {
                 vBox.setAlignment(Pos.CENTER);
+                line1.changeText("",18, FontWeight.NORMAL);
+                line2.changeText("",18, FontWeight.NORMAL);
+                if(theme.getTheme() != null){
+                    line1.changeLabelColor(theme.getTheme().get("textColor"));
+                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                }
             }
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -483,10 +506,10 @@ public class NisitManagementController {
                 } else {
                     User user = getTableView().getItems().get(getIndex());
                     String username = user.getUsername();
-                    line1.setText((username.equalsIgnoreCase("no-username")
+                    line1.changeText((username.equalsIgnoreCase("no-username")
                             && user.getActiveStatus().equalsIgnoreCase("inactive")
                             ? "not register" : username));
-                    line2.setText(user.getEmail());
+                    line2.changeText(user.getEmail());
 
                     vBox.getChildren().clear();
                     vBox.getChildren().addAll(line1, line2);
@@ -504,10 +527,14 @@ public class NisitManagementController {
         column.setCellFactory(c -> new TableCell<>(){
             private VBox vBox = new VBox();
             private DefaultLabel line1 = new DefaultLabel("");
-            private Text line2 = new Text();
+            private DefaultLabel line2 = new DefaultLabel("");
             {
                 vBox.setAlignment(Pos.CENTER);
                 line1.changeText("",18,FontWeight.NORMAL);
+                line2.changeText("",18,FontWeight.NORMAL);
+                if(theme.getTheme() != null){
+                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                }
             }
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -524,7 +551,7 @@ public class NisitManagementController {
                         line1.changeLabelColor("red");
                     }
 
-                    line2.setText(DateTools.localDateTimeToFormatString("yyyy/MM/dd HH:mm", user.getLastLogin()));
+                    line2.changeText(DateTools.localDateTimeToFormatString("yyyy/MM/dd HH:mm", user.getLastLogin()));
 
                     vBox.getChildren().clear();
                     vBox.getChildren().addAll(line1, line2);
@@ -594,6 +621,11 @@ public class NisitManagementController {
     private void setEditorErrorLabel(String error){
         this.editorErrorLabel.changeLabelColor("red");
         this.editorErrorLabel.changeText(error,18, FontWeight.BOLD);
+    }
+
+    @Override
+    public void update(HashMap<String, String> data) {
+        mainStackPane.setStyle(mainStackPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
     }
 }
 
