@@ -34,8 +34,9 @@ public class FacultyUser extends User{
                        String password,
                        String avatar,
                        String activeStatus,
+                       String defaultPassword,
                        String faculty) throws UserException {
-        super(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus);
+        super(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, defaultPassword);
         setFaculty(UUID.fromString(faculty));
     }
     public UUID getFacultyUUID(){

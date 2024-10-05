@@ -33,10 +33,11 @@ public class Student extends DepartmentUser {
                    String password,
                    String avatar,
                    String activeStatus,
+                   String defaultPassword,
                    String faculty,
                    String department,
                    String advisorUUID) throws UserException {
-        super(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, faculty, department);
+        super(uuid, id, username, role, firstname, lastname, lastLogin, email, password, avatar, activeStatus, defaultPassword, faculty, department);
         setAdvisor(advisorUUID);
     }
 
