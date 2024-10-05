@@ -187,20 +187,6 @@ public class AdvisorStudentRequestsController {
             if (advisorPageController != null) {
                 advisorPageController.onStudentClicked();
             }
-//        try {
-//            String viewPath = "/ku/cs/views/advisor-students-pane.fxml";
-//            FXMLLoader fxmlLoader = new FXMLLoader();
-//            fxmlLoader.setLocation(getClass().getResource(viewPath));
-//            Pane pane = fxmlLoader.load();
-//            AdvisorStudentListController controller = fxmlLoader.getController();
-//            controller.initialize();
-//            controller.setBorderPane(borderPane);
-//            borderPane.setCenter(pane);
-//
-//        }
-//        catch (IOException e){
-//            throw new RuntimeException(e);
-//        }
     }
 
     public void setBorderPane(BorderPane borderPane) {

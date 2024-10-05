@@ -56,7 +56,7 @@ public class AdvisorPageController implements ParentController {
 
             AdvisorStudentListController controller = fxmlLoader.getController();
             controller.setBorderPane(this.contentBorderPane);
-            controller.setAdvisorPageController(this); // Pass the current instance
+            controller.setAdvisorPageController(this);
             controller.initializeController();
 
             contentBorderPane.setCenter(pane);
@@ -68,19 +68,22 @@ public class AdvisorPageController implements ParentController {
 
 
     @FXML
-    protected void onRequestsClicked(){
+    public void onRequestsClicked() {
         try {
             String viewPath = "/ku/cs/views/advisor-requests-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
             AdvisorRequestsController controller = fxmlLoader.getController();
             controller.setBorderPane(this.contentBorderPane);
+            controller.setAdvisorPageController(this);
+            controller.initializeRequest();
+
             contentBorderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     @FXML
     protected void onLogoutClicked() {

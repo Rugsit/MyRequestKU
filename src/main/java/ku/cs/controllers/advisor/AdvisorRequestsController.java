@@ -45,7 +45,7 @@ public class AdvisorRequestsController {
         this.advisorPageController = advisorPageController;
     }
 
-    public void initialize() {
+    public void initializeRequest(){
         studentId = new ArrayList<>();
         getStudentID();
         loadRequests();
@@ -191,6 +191,7 @@ public class AdvisorRequestsController {
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
             MainInformationController controller = fxmlLoader.getController();
+            controller.setAdvisorPageController(advisorPageController);
             controller.setLoginUser(student);
             controller.setRequest(request);
             controller.setBorderPane(borderPane);
