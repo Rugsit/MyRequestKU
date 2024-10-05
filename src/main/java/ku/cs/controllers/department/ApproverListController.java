@@ -20,8 +20,8 @@ import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.DepartmentUser;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.FXRouter;
-import ku.cs.services.Observer;
-import ku.cs.services.Theme;
+import ku.cs.services.department.Observer;
+import ku.cs.services.department.Theme;
 import ku.cs.views.components.*;
 
 import java.io.IOException;

@@ -1,11 +1,8 @@
 package ku.cs.views.components;
 
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
-import ku.cs.services.Observer;
-import ku.cs.services.Theme;
+import ku.cs.services.department.Observer;
 
 import java.util.HashMap;
 

@@ -9,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -30,6 +29,8 @@ import ku.cs.models.request.RequestList;
 import ku.cs.models.request.approver.*;
 import ku.cs.models.user.*;
 import ku.cs.services.*;
+import ku.cs.services.department.Observer;
+import ku.cs.services.department.Theme;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 
@@ -40,7 +41,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class RequestManagementController implements Observer<HashMap<String, String>>{
+public class RequestManagementController implements Observer<HashMap<String, String>> {
     @FXML private Label pageTitleLabel;
     @FXML private Button backButton;
     @FXML private StackPane mainStackPane;

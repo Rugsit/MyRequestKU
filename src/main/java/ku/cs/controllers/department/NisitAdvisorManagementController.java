@@ -14,10 +14,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import ku.cs.models.Session;
-import ku.cs.models.request.Request;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
+import ku.cs.services.department.Observer;
+import ku.cs.services.department.Theme;
 import ku.cs.views.components.*;
 
 import java.util.HashMap;

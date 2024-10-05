@@ -5,10 +5,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import ku.cs.models.Session;
-import ku.cs.models.user.User;
 import ku.cs.services.FXRouter;
-import ku.cs.services.Observer;
-import ku.cs.services.Theme;
+import ku.cs.services.department.Observer;
+import ku.cs.services.department.Theme;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.views.layouts.sidebar.SidebarController;
 

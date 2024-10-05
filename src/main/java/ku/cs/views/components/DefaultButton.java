@@ -6,8 +6,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.Button;
-import ku.cs.services.Observer;
-import ku.cs.services.Theme;
+import ku.cs.services.department.Observer;
+import ku.cs.services.department.Theme;
 
 import java.util.HashMap;
 import java.util.List;

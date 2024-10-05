@@ -3,15 +3,12 @@ package ku.cs.views.components;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import ku.cs.services.Observer;
-import ku.cs.services.Theme;
+import ku.cs.services.department.Observer;
+import ku.cs.services.department.Theme;
 
-import javax.swing.text.html.ImageView;
-import java.awt.*;
 import java.util.HashMap;
 
 public class TextFieldStack extends StackPane implements Observer<HashMap<String,String>> {

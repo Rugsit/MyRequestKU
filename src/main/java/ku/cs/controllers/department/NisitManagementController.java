@@ -18,7 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import ku.cs.models.Session;
 import ku.cs.models.user.DepartmentUser;
 import ku.cs.models.user.Student;
@@ -26,12 +25,12 @@ import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
+import ku.cs.services.department.Observer;
+import ku.cs.services.department.Theme;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.UUID;
 
 public class NisitManagementController implements Observer<HashMap<String, String>> {
