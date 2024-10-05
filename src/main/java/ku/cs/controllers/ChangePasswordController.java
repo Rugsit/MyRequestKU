@@ -53,24 +53,33 @@ public class ChangePasswordController {
     private void onAcceptClick() {
         // change password and save to datasource.
         if (passwordChange()){
-            try{ // writing user data.
-                String fileName = currentUser.getRole();
-
-                datasource = new UserListFileDatasource("data", fileName+".csv");
-                UserList users = datasource.readData();
-                User existingUser = users.findUserByObject(currentUser);
-                existingUser.setPassword(passwordTextField.getText().trim());
-                datasource.writeData(users);
-
-                stage.close();
-
-            }catch (Exception e){
+            if (currentUser.getDefaultPassword().equals(passwordTextField.getText())){
                 errorLabel.setVisible(true);
-                errorLabel.setText("กรุณากรอกรหัสผ่านที่มีความยาวมากกว่า 8 ตัวอักษร");
-                System.out.println(e.getMessage());
+                errorLabel.setText("รหัสผ่านต้องไม่เป็นรหัสผ่านเริ่มต้น กรุณาทำการกรอกใหม่");
+            }
+            else{
+                try{ // writing user data.
+                    String fileName = currentUser.getRole();
+
+                    datasource = new UserListFileDatasource("data", fileName+".csv");
+                    UserList users = datasource.readData();
+                    User existingUser = users.findUserByObject(currentUser);
+                    existingUser.setPassword(passwordTextField.getText().trim());
+                    datasource.writeData(users);
+
+                    stage.close();
+
+                }catch (Exception e){
+                    errorLabel.setVisible(true);
+                    errorLabel.setText("กรุณากรอกรหัสผ่านที่มีความยาวมากกว่า 8 ตัวอักษร");
+                    System.out.println(e.getMessage());
+                }
             }
 
-
+        }
+        else{
+            errorLabel.setVisible(true);
+            errorLabel.setText("รหัสผ่านไม่ตรงกัน กรุณากรอกใหม่อีกครั้ง");
         }
     }
 
