@@ -48,7 +48,7 @@ public class AdvisorPageController implements ParentController {
     }
 
     @FXML
-    protected void onStudentClicked() {
+    public void onStudentClicked() {
         try {
             String viewPath = "/ku/cs/views/advisor-students-pane.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));

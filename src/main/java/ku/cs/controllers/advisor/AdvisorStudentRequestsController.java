@@ -156,6 +156,7 @@ public class AdvisorStudentRequestsController {
                     StudentRequestInfoController controller = fxmlLoader.getController();
                     controller.setLoginUser(student);
                     controller.setRequest((Request) newValue);
+                    controller.setAdvisorPageController(advisorPageController);
                     controller.setBackPage("advisorStudentRequest");
                     controller.showInfo();
                     controller.showTable();
