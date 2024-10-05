@@ -39,6 +39,12 @@ public class AdvisorRequestsController {
     private ArrayList<String> studentId;
     private UserList userlist;
 
+    private AdvisorPageController advisorPageController;
+
+    public void setAdvisorPageController(AdvisorPageController advisorPageController) {
+        this.advisorPageController = advisorPageController;
+    }
+
     public void initialize() {
         studentId = new ArrayList<>();
         getStudentID();
@@ -152,7 +158,7 @@ public class AdvisorRequestsController {
         for (User user : userlist.getUsers()) {
             if (user instanceof Student){
                 Student student = (Student) user;
-                if (AdvisorPageController.getAdvisorUUID().equals(student.getAdvisor())){
+                if (advisorPageController.getAdvisorUUID().equals(student.getAdvisor())) {
                     studentId.add(student.getId());
                 }
             }

@@ -26,16 +26,14 @@ public class AdvisorPageController implements ParentController {
     @FXML Label tabAccountNameLabel;
     @FXML ImageView tabProfilePicImageView;
     @FXML BorderPane contentBorderPane;
-    private static Advisor loginUser;
-    ImageDatasource datasource;
+
+    private Advisor loginUser;
+    private ImageDatasource datasource;
 
     public void initialize(){
-        if (FXRouter.getData() instanceof Advisor)
-        {
-            loginUser = (Advisor) FXRouter.getData();
+        if (FXRouter.getData() instanceof Advisor) {
+            setLoginUser((Advisor) FXRouter.getData());
         }
-        //Image profile = new Image(getClass().getResourceAsStream("/images/users/side-bar-profile.png"));
-        //imageCircle.setFill(new ImagePattern(profile));
         datasource = new ImageDatasource("users");
         SquareImage profilePic = new SquareImage(tabProfilePicImageView);
         profilePic.setClipImage(150, 150);
@@ -45,24 +43,28 @@ public class AdvisorPageController implements ParentController {
         tabAccountNameLabel.setText(loginUser.getName());
     }
 
-    public static UUID getAdvisorUUID() {
-        return loginUser.getUUID();
+    public UUID getAdvisorUUID() {
+        return loginUser != null ? loginUser.getUUID() : null;
     }
 
     @FXML
     protected void onStudentClicked() {
         try {
             String viewPath = "/ku/cs/views/advisor-students-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
+
             AdvisorStudentListController controller = fxmlLoader.getController();
             controller.setBorderPane(this.contentBorderPane);
+            controller.setAdvisorPageController(this); // Set the reference
+            controller.initializeController();
+
             contentBorderPane.setCenter(pane);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace(); // Print the stack trace for debugging
         }
     }
+
 
     @FXML
     protected void onRequestsClicked(){
@@ -107,9 +109,10 @@ public class AdvisorPageController implements ParentController {
 
     @Override
     public void setLoginUser(User loginUser) {
-        if (loginUser == null) {return;}
         if (loginUser instanceof Advisor) {
-            AdvisorPageController.loginUser = (Advisor)loginUser;
+            this.loginUser = (Advisor) loginUser;
+            tabAccountNameLabel.setText(loginUser.getName());
+            loadProfile();
         }
     }
 

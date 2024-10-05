@@ -10,29 +10,30 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import ku.cs.models.request.Request;
-import ku.cs.models.request.RequestList;
+import ku.cs.models.user.Advisor;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
-import ku.cs.services.RequestListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class AdvisorStudentListController {
-    @FXML TableView requestListTableView;
-    @FXML BorderPane borderPane;
+    @FXML
+    private TableView<User> requestListTableView;
+    @FXML
+    private BorderPane borderPane;
     @FXML
     private TextField searchTextField;
 
     private Datasource<UserList> datasource;
     private UserList userlist;
+    private AdvisorPageController advisorPageController;
 
     public void initialize() {
         loadStudents();
@@ -41,15 +42,20 @@ public class AdvisorStudentListController {
     }
 
 
+
+    public void setAdvisorPageController(AdvisorPageController advisorPageController) {
+        this.advisorPageController = advisorPageController;
+    }
+
     private void showTable() {
         requestListTableView.getColumns().clear();
-
         Label placeHolder = new Label("ไม่พบข้อมูล");
         requestListTableView.setPlaceholder(placeHolder);
         requestListTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         // Create and configure name column
         TableColumn<User, String> nameColumn = new TableColumn<>("ชื่อ-นามสกุล");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name")); // Bind to getName() method
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameColumn.setMinWidth(531);
 
         // Create and configure ID column
@@ -58,7 +64,7 @@ public class AdvisorStudentListController {
         idColumn.setMinWidth(400);
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!newValue.trim().isEmpty()) {
+            if (!newValue.trim().isEmpty()) {
                 search();
             } else {
                 loadStudents();
@@ -67,24 +73,31 @@ public class AdvisorStudentListController {
 
         requestListTableView.getColumns().add(nameColumn);
         requestListTableView.getColumns().add(idColumn);
+    }
 
+    public void initializeController() {
+        if (advisorPageController == null) {
+            throw new IllegalStateException("advisorPageController has not been set.");
+        }
+        loadStudents();
+        System.out.println(advisorPageController.getAdvisorUUID());
     }
 
     private void loadStudents() {
         datasource = new UserListFileDatasource("data", "student.csv");
-
         userlist = datasource.readData();
         requestListTableView.getItems().clear();
 
         for (User user : userlist.getUsers()) {
             if (user instanceof Student) {
                 Student student = (Student) user;
-                if (AdvisorPageController.getAdvisorUUID().equals(student.getAdvisor())) {
+                if (advisorPageController != null && advisorPageController.getAdvisorUUID().equals(student.getAdvisor())) {
                     requestListTableView.getItems().add(student);
                 }
             }
         }
     }
+
 
     private void loadRequestsDetail() {
         requestListTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -95,22 +108,19 @@ public class AdvisorStudentListController {
                     Pane pane = fxmlLoader.load();
                     AdvisorStudentRequestsController controller = fxmlLoader.getController();
 
-                    // Pass selected student details to the controller
                     if (newValue instanceof Student) {
                         Student selectedStudent = (Student) newValue;
-                        String  selectedStudentId = selectedStudent.getId();
-
-                        controller.setSelectedStudentId(selectedStudentId);
-                        controller.initializeStudentRequests();
+                        controller.setSelectedStudentId(selectedStudent.getId());
                         controller.setStudentName(selectedStudent.getName());
+                        controller.setStudent(selectedStudent);
+                        controller.initializeStudentRequests(); // Initialize student requests
                     }
 
-                    borderPane.setCenter(pane);
-                    controller.setBorderPane(borderPane);
-                    if (newValue instanceof Student) {controller.setStudent((Student) newValue);}
+                    borderPane.setCenter(pane); // Set the requests pane in the center
+                    controller.setBorderPane(borderPane); // Pass the border pane to the requests controller
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    e.printStackTrace(); // Log error stack trace
                 }
             }
         });
@@ -125,20 +135,20 @@ public class AdvisorStudentListController {
         for (User user : userlist.getUsers()) {
             if (user instanceof Student) {
                 Student student = (Student) user;
-                if (AdvisorPageController.getAdvisorUUID().equals(student.getAdvisor())) {
+                // Add students who match the advisor
+                if (advisorPageController != null && advisorPageController.getAdvisorUUID().equals(student.getAdvisor())) {
                     users.add(student);
                 }
             }
         }
 
-        Set<User> filter = users
-                .stream()
+        // Filter based on search input
+        Set<User> filter = users.stream()
                 .filter(user -> user.getName().toLowerCase().contains(searchTextField.getText().toLowerCase()) ||
                         user.getId().contains(searchTextField.getText()))
                 .collect(Collectors.toSet());
 
         requestListTableView.getItems().clear();
-        requestListTableView.getItems().addAll(filter);
+        requestListTableView.getItems().addAll(filter); // Add filtered users to the table
     }
-
 }
