@@ -9,6 +9,8 @@ import javafx.scene.text.FontWeight;
 import ku.cs.models.Session;
 import ku.cs.views.components.RouteButton;
 
+import java.util.HashMap;
+
 public class NavList {
     private VBox vBox;
     private double fontSize = 24;
@@ -59,7 +61,13 @@ public class NavList {
                 hoverColorHex,
                 baseLabelColorHex,
                 this.session
-        );
+        ){
+            @Override
+            public void update(HashMap<String, String> data) {
+                changeLabelColor(data.get("textColor"));
+                this.hoverColorHex = data.get("secondary");
+            }
+        };
         newButton.changeText(buttonText,fontSize,fontWeight);
         newButton.setButtonSize(navButtonWidth,navButtonHeight);
         newButton.changeBackgroundRadius(15);
