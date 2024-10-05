@@ -6,8 +6,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
 import ku.cs.services.ImageDatasource;
-import ku.cs.services.Observer;
-import ku.cs.services.Theme;
+import ku.cs.services.department.Observer;
+import ku.cs.services.department.Theme;
 
 import java.util.HashMap;
 

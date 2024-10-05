@@ -1,4 +1,4 @@
-package ku.cs.services;
+package ku.cs.services.department;
 
 public interface Subject<T> {
     void addObserver(Observer o);
