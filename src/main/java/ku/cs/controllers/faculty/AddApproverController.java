@@ -1,6 +1,8 @@
 package ku.cs.controllers.faculty;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -15,7 +17,7 @@ import ku.cs.models.user.FacultyUser;
 import ku.cs.models.user.User;
 import ku.cs.services.ApproverListFileDatasource;
 
-public class AddApproverController {
+public class AddApproverController{
 
     @FXML
     private TextField nameTextField;
@@ -24,13 +26,39 @@ public class AddApproverController {
     @FXML
     private TextField academicRoleTextField;
     @FXML
+    private Label optionalRoleTextField;
+    @FXML
     private Label errorLabel;
     private Stage stage;
+
+    @FXML
+    private ChoiceBox<String> roleChoiceBox;
+
+    private String[] roles = {"หัวหน้าภาควิชา", "รองหัวหน้าภาควิชา", "รักษาการณ์แทนหัวหน้าภาควิชา",
+            "คณบดี", "รองคณบดี", "รักษาการณ์แทนคณบดี", "อื่น ๆ"};
 
     private User loginUser;
 
     private String approverType = "approver";
     private Request request;
+
+    @FXML
+    public void initialize(){
+        academicRoleTextField.setVisible(false);
+        optionalRoleTextField.setVisible(false);
+        roleChoiceBox.setItems(FXCollections.observableArrayList(roles));
+        roleChoiceBox.setValue(roles[0]);
+
+        roleChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals("อื่น ๆ")) {
+                optionalRoleTextField.setVisible(true);
+                academicRoleTextField.setVisible(true);
+            } else {
+                optionalRoleTextField.setVisible(false);
+                academicRoleTextField.setVisible(false);
+            }
+        });
+    }
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -40,6 +68,12 @@ public class AddApproverController {
         String name = nameTextField.getText().trim();
         String lastName = lastnameTextField.getText().trim();
         String academicRole = academicRoleTextField.getText().trim();
+
+        if (roleChoiceBox.getValue().equals("อื่น ๆ")) {
+            academicRole = academicRoleTextField.getText().trim();
+        } else {
+            academicRole = roleChoiceBox.getValue();
+        }
 
         if (!name.isEmpty() && !lastName.isEmpty() && !academicRole.isEmpty()) {
             errorLabel.setVisible(false);
@@ -51,7 +85,6 @@ public class AddApproverController {
                 } else if (loginUser instanceof DepartmentUser) {
                     approver = new DepartmentApprover("department", ((DepartmentUser) loginUser).getDepartmentUUID().toString(), academicRole, name, lastName);
                 }
-                System.out.println("test");
                 if (!approverType.equals("approver") && request != null) {
                     approver.setRequestUUID(request);
                     approver.setStatus("รอคณะดำเนินการ");
