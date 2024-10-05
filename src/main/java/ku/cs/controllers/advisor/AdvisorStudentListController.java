@@ -113,14 +113,15 @@ public class AdvisorStudentListController {
                         controller.setSelectedStudentId(selectedStudent.getId());
                         controller.setStudentName(selectedStudent.getName());
                         controller.setStudent(selectedStudent);
-                        controller.initializeStudentRequests(); // Initialize student requests
+                        controller.initializeStudentRequests();
+                        controller.setAdvisorPageController(advisorPageController);
                     }
 
-                    borderPane.setCenter(pane); // Set the requests pane in the center
-                    controller.setBorderPane(borderPane); // Pass the border pane to the requests controller
+                    borderPane.setCenter(pane);
+                    controller.setBorderPane(borderPane);
 
                 } catch (IOException e) {
-                    e.printStackTrace(); // Log error stack trace
+                    e.printStackTrace();
                 }
             }
         });
@@ -142,13 +143,12 @@ public class AdvisorStudentListController {
             }
         }
 
-        // Filter based on search input
         Set<User> filter = users.stream()
                 .filter(user -> user.getName().toLowerCase().contains(searchTextField.getText().toLowerCase()) ||
                         user.getId().contains(searchTextField.getText()))
                 .collect(Collectors.toSet());
 
         requestListTableView.getItems().clear();
-        requestListTableView.getItems().addAll(filter); // Add filtered users to the table
+        requestListTableView.getItems().addAll(filter);
     }
 }

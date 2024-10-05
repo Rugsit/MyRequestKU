@@ -56,14 +56,15 @@ public class AdvisorPageController implements ParentController {
 
             AdvisorStudentListController controller = fxmlLoader.getController();
             controller.setBorderPane(this.contentBorderPane);
-            controller.setAdvisorPageController(this); // Set the reference
+            controller.setAdvisorPageController(this); // Pass the current instance
             controller.initializeController();
 
             contentBorderPane.setCenter(pane);
         } catch (IOException e) {
-            e.printStackTrace(); // Print the stack trace for debugging
+            e.printStackTrace();
         }
     }
+
 
 
     @FXML
