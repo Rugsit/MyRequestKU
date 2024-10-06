@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.controllers.advisor.AdvisorPageController;
 import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.*;
@@ -46,6 +47,12 @@ public class MainInformationController {
     private Button exitButton;
     @FXML
     private ImageView backImageView;
+
+    private AdvisorPageController advisorPageController;
+
+    public void setAdvisorPageController(AdvisorPageController advisorPageController) {
+        this.advisorPageController = advisorPageController;
+    }
 
     public void initializeMainInformation() {
         scrollPane.requestFocus();// ให้ ScrollPane ได้รับโฟกัสแทน
@@ -93,7 +100,7 @@ public class MainInformationController {
     @FXML
     private void onBackButtonClick() {
         if (backPage != null && backPage.equalsIgnoreCase("advisorRequest")) {
-            goToAdvisorRequest();
+            advisorPageController.onRequestsClicked();
         } else if (backPage != null && backPage.equalsIgnoreCase("student")) {
             goToStudentPage(backPage);
         } else if (backPage != null && backPage.equalsIgnoreCase("advisorStudentRequest")) {

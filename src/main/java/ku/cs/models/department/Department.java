@@ -73,9 +73,7 @@ public class Department implements Comparable<Department>{
     public void setName(String name) {
         name = name.trim();
         if (!name.isEmpty()) {
-            String oldName = this.name;
             this.name = name;
-            updateUsers(oldName, "department");
         } else {
             throw new IllegalArgumentException("กรุณากรอกชื่อภาควิชาให้ถูกต้อง");
         }
@@ -118,8 +116,10 @@ public class Department implements Comparable<Department>{
 
         Datasource<UserList> studentDatasource = new UserListFileDatasource("data", "student.csv");
         Datasource<UserList> departmentStaffDatasource = new UserListFileDatasource("data", "department-staff.csv");
+        Datasource<UserList> advisorDatasource = new UserListFileDatasource("data", "advisor.csv");
         UserList students = studentDatasource.readData();
         UserList departmentStaff = departmentStaffDatasource.readData();
+        UserList advisors = advisorDatasource.readData();
         try {
             for (User student : students.getUsers()) {
                 if ( ((Student) student).getDepartment().equals(name) ) {
@@ -131,8 +131,14 @@ public class Department implements Comparable<Department>{
                     ((DepartmentUser) staff).setFaculty(this.faculty);
                 }
             }
+            for (User advisor : advisors.getUsers()) {
+                if ( ((Advisor) advisor).getDepartment().equals(name) ) {
+                    ((Advisor) advisor).setFaculty(this.faculty);
+                }
+            }
             studentDatasource.writeData(students);
             departmentStaffDatasource.writeData(departmentStaff);
+            advisorDatasource.writeData(advisors);
         } catch (UserException e) {
             System.err.println("Department : void setFaculty(Faculty) : error changing users' faculty");
         }
@@ -142,49 +148,6 @@ public class Department implements Comparable<Department>{
         this.faculty = faculty.getName();
         this.facultyUuid = faculty.getUuid();
     }
-
-    public void updateUsers(String name, String typeToUpdate) {
-        if (!typeToUpdate.equals("department") && !typeToUpdate.equals("faculty")) {
-            throw new IllegalArgumentException("Department error: Invalid type to update");
-        }
-        if (name == null || name.isEmpty() || name.equals(this.name) || name.equals(faculty)) { return; }
-        Datasource<UserList> studentDatasource = new UserListFileDatasource("data", "student.csv");
-        Datasource<UserList> departmentStaffDatasource = new UserListFileDatasource("data", "department-staff.csv");
-        UserList students = studentDatasource.readData();
-        UserList departmentStaff = departmentStaffDatasource.readData();
-        try {
-            if (typeToUpdate.equalsIgnoreCase("department")) {
-                for (User student : students.getUsers()) {
-                    if ( ((Student) student).getDepartment().equals(name) ) {
-                        ((Student) student).setDepartment(this.name);
-                    }
-                }
-                for (User staff : departmentStaff.getUsers()) {
-                    if ( ((DepartmentUser) staff).getDepartment().equals(name) ) {
-                        ((DepartmentUser) staff).setDepartment(this.name);
-                    }
-                }
-            } else {
-                for (User student : students.getUsers()) {
-                    if ( ((Student) student).getFaculty().equals(faculty) ) {
-                        ((Student) student).setFaculty(name);
-                    }
-                }
-                for (User staff : departmentStaff.getUsers()) {
-                    if ( ((DepartmentUser) staff).getFaculty().equals(faculty) ) {
-                        ((DepartmentUser) staff).setFaculty(name);
-                    }
-                }
-            }
-
-            studentDatasource.writeData(students);
-            departmentStaffDatasource.writeData(departmentStaff);
-        } catch (UserException e) {
-            System.err.println("Error in reading user list to edit department");
-        }
-    }
-
-
 
     public UserList getUsers() {
         Datasource<UserList> datasource = new UserListFileDatasource("data", "department-staff.csv");

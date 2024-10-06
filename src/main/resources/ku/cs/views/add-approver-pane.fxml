@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -10,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="560.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.department.AddDepartmentApproverController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="560.0" styleClass="root" stylesheets="@../styles/error-confirm-edit-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.approver.AddApproverController">
    <children>
-      <Label layoutX="45.0" layoutY="14.0" prefHeight="90.0" prefWidth="451.0" styleClass="edit-data-header" text="เพิ่มรายชื่อผู้อนุมัติ (ภาควิชา)">
+      <Label fx:id="titleLabel" layoutX="45.0" layoutY="14.0" prefHeight="90.0" prefWidth="451.0" styleClass="edit-data-header" text="เพิ่มรายชื่อผู้อนุมัติ (คณะ)">
          <font>
             <Font name="PrintAble4U Bold" size="12.0" />
          </font>
       </Label>
-      <Button focusTraversable="false" graphicTextGap="15.0" layoutX="409.0" layoutY="433.0" mnemonicParsing="false" onAction="#onAcceptClick" styleClass="accept-button" text="ตกลง">
+      <Button focusTraversable="false" graphicTextGap="15.0" layoutX="409.0" layoutY="550.0" mnemonicParsing="false" onAction="#onAcceptClick" styleClass="accept-button" text="ตกลง">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -57,7 +58,9 @@
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin></Label>
-            <TextField fx:id="academicRoleTextField" prefHeight="50.0" prefWidth="386.0" promptText="กรอกตำแหน่ง" styleClass="loginTextField" stylesheets="@../styles/login-register-style.css">
+            <ChoiceBox fx:id="roleChoiceBox" prefHeight="44.0" prefWidth="458.0" styleClass="choice-box-select" />
+            <Label fx:id="optionalRoleLabel" styleClass="text-desc-input" text="ระบุตำแหน่งเพิ่มเติม" />
+            <TextField fx:id="academicRoleTextField" prefHeight="50.0" prefWidth="451.0" promptText="กรอกตำแหน่ง" styleClass="loginTextField" stylesheets="@../styles/login-register-style.css">
                <font>
                   <Font size="18.0" />
                </font>
@@ -73,7 +76,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="417.0" prefHeight="66.0" prefWidth="338.0" styleClass="error-label" text="error" textAlignment="CENTER" visible="false" wrapText="true">
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="550.0" prefHeight="66.0" prefWidth="338.0" styleClass="error-label" text="error" textAlignment="CENTER" visible="false" wrapText="true">
          <font>
             <Font size="18.0" />
          </font></Label>

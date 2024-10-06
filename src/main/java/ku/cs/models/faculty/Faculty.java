@@ -57,9 +57,7 @@ public class Faculty implements Comparable<Faculty>{
         if (name.isEmpty()){
             throw new IllegalArgumentException("กรุณาใส่ชื่อคณะให้ถูกต้อง");
         }
-        String oldName = this.name;
         this.name = name;
-        updateUsers(oldName);
     }
 
     public void setId(String id) {
@@ -97,28 +95,6 @@ public class Faculty implements Comparable<Faculty>{
     @Override
     public String toString() {
         return name + "," + id + "," + uuid;
-    }
-
-    public void updateUsers(String name) {
-        if (name == null || name.equals(this.name)){ return; }
-        DepartmentList departments = getDepartmentsByFaculty();
-        for (Department department : departments.getDepartments()) {
-            department.updateUsers(this.name, "faculty");
-        }
-
-        Datasource<UserList> datasource = new UserListFileDatasource("data", "faculty-staff.csv");
-        UserList facultyStaff = datasource.readData();
-        for (User user : facultyStaff.getUsers()) {
-            if ( ((FacultyUser) user).getFaculty().equals(name) ){
-                try {
-                    ((FacultyUser) user).setFaculty(this.name);
-                } catch (UserException e) {
-                    System.err.println("error changing users' faculty");
-                }
-            }
-        }
-        datasource.writeData(facultyStaff);
-
     }
 
     public UserList getUsers() {

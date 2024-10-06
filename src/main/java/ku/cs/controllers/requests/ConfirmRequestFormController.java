@@ -88,12 +88,10 @@ public class ConfirmRequestFormController {
                 request.setFacultyUUID(null);
                 request.addApprover(request.getUuid().toString(), "advisor", ((Student) loginUser).getDepartmentUUID().toString(), "อาจารย์ที่ปรึกษา", advisor.getFirstname(), advisor.getLastname());
                 approverList.addApprover(request.getUuid().toString(), "advisor", ((Student) loginUser).getDepartmentUUID().toString(), "อาจารย์ที่ปรึกษา", advisor.getFirstname(), advisor.getLastname());
-                if (request instanceof GeneralRequestForm || request instanceof AcademicLeaveRequestForm) {
-                    request.addApprover(request.getUuid().toString(), "department", ((Student) loginUser).getDepartmentUUID().toString(), "หัวหน้าภาควิชา", "default", "default");
-                    approverList.addApprover(request.getUuid().toString(), "department", ((Student) loginUser).getDepartmentUUID().toString(), "หัวหน้าภาควิชา", "default", "default");
-                    request.addApprover(request.getUuid().toString(), "faculty",((Student) loginUser).getFacultyUUID().toString(), "คณบดี", "default", "default");
-                    approverList.addApprover(request.getUuid().toString(), "faculty", ((Student) loginUser).getFacultyUUID().toString(), "คณบดี", "default", "default");
-                }
+                request.addApprover(request.getUuid().toString(), "department", ((Student) loginUser).getDepartmentUUID().toString(), "หัวหน้าภาควิชา", "default", "default");
+                approverList.addApprover(request.getUuid().toString(), "department", ((Student) loginUser).getDepartmentUUID().toString(), "หัวหน้าภาควิชา", "default", "default");
+                request.addApprover(request.getUuid().toString(), "faculty",((Student) loginUser).getFacultyUUID().toString(), "คณบดี", "default", "default");
+                approverList.addApprover(request.getUuid().toString(), "faculty", ((Student) loginUser).getFacultyUUID().toString(), "คณบดี", "default", "default");
                 if (request instanceof AcademicLeaveRequestForm) {
                     ArrayList<String> subject = ((AcademicLeaveRequestForm) request).getSubject();
                     for (int i = 1; i < subject.size(); i+= 2) {
@@ -113,6 +111,10 @@ public class ConfirmRequestFormController {
                 requestPair.setFacultyUUID(null);
                 requestPair.addApprover(requestPair.getUuid().toString(), "advisor",((Student) loginUser).getDepartmentUUID().toString(), "อาจารย์ที่ปรึกษา", advisor.getFirstname(), advisor.getLastname());
                 approverList.addApprover(requestPair.getUuid().toString(), "advisor",((Student) loginUser).getDepartmentUUID().toString(), "อาจารย์ที่ปรึกษา", advisor.getFirstname(), advisor.getLastname());
+                requestPair.addApprover(requestPair.getUuid().toString(), "department", ((Student) loginUser).getDepartmentUUID().toString(), "หัวหน้าภาควิชา", "default", "default");
+                approverList.addApprover(requestPair.getUuid().toString(), "department", ((Student) loginUser).getDepartmentUUID().toString(), "หัวหน้าภาควิชา", "default", "default");
+                requestPair.addApprover(requestPair.getUuid().toString(), "faculty",((Student) loginUser).getFacultyUUID().toString(), "คณบดี", "default", "default");
+                approverList.addApprover(requestPair.getUuid().toString(), "faculty", ((Student) loginUser).getFacultyUUID().toString(), "คณบดี", "default", "default");
                 for (ArrayList<String> each : ((Ku1AndKu3RequestForm)requestPair).getSubjectList()) {
                     String[] arr = each.get(6).split("[ \t]+");
                     String firstname = arr[0].trim();

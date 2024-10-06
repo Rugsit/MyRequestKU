@@ -96,7 +96,7 @@ public class LoginController {
                     String fileName = loginUser.getRole();
                     datasource = new UserListFileDatasource("data", fileName+".csv");
                     UserList users = datasource.readData();
-                    User existingUser = users.findUserById(loginUser.getId());
+                    User existingUser = users.findUserByUUID(loginUser.getUUID());
                     existingUser.setLastLogin(LocalDateTime.now().format(DateTimeFormatter.ofPattern(User.DATE_FORMAT)));
                     datasource.writeData(users);
                 } catch (Exception e){
