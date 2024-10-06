@@ -21,6 +21,7 @@ import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.*;
+import ku.cs.views.components.DefaultTableView;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -88,6 +89,7 @@ public class FacultyRequestsController {
         requestListTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         requestListTableView.setOnMouseClicked(mouseEvent -> {
             Object selected = requestListTableView.getSelectionModel().getSelectedItem();
+            if (selected == null) return;
             try {
                 session.setData(selected);
                 FXRouter.goTo("request-management", session);
@@ -97,17 +99,18 @@ public class FacultyRequestsController {
         });
         TableColumn<Request, String> nameColumn = new TableColumn<>("ชื่อ-นามสกุล");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("วันที่ยื่นคำร้อง");
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("วันที่อัปเดตล่าสุด");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("TimeStamp"));
         TableColumn<Request, String> typeColumn = new TableColumn<>("ประเภทคำร้อง");
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("requestType"));
         TableColumn<Request, String> statusColumn = new TableColumn<>("สถานะคำร้อง");
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
         TableColumn<Request, String> statusNextColumn = new TableColumn<>("สถานะคำร้องต่อไป");
         statusNextColumn.setCellValueFactory(new PropertyValueFactory<>("statusNext"));
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
-
+        RequestStatusColumn.setTableStatus(statusColumn, "now");
+        RequestStatusColumn.setTableStatus(statusNextColumn, "next");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//        requestListTableView.g
         dateColumn.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
             @Override
             public String toString(LocalDateTime lastLogin) {
@@ -126,7 +129,7 @@ public class FacultyRequestsController {
         statusColumn.setMinWidth(190);
         statusNextColumn.setMinWidth(241);
 
-        requestListTableView.getColumns().addAll(nameColumn, dateColumn, typeColumn, statusColumn, statusNextColumn);
+        requestListTableView.getColumns().addAll(typeColumn, nameColumn, dateColumn, statusColumn, statusNextColumn);
     }
 
     private void getStudentId() {

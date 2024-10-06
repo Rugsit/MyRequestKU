@@ -205,16 +205,25 @@ public class AddFormController{
             if (departmentChoiceBox != null && departmentChoiceBox.getValue() == null) throw new UserException("กรุณาเลือกภาควิชา");
             if (currentRole.equals("faculty-staff")) {
                 FacultyUser facultyUser = new FacultyUser("0000000000", userNameTextField.getText(), "faculty-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText().isEmpty() ? "DEFAULT" : startPassword.getText(), facultyChoiceBox.getValue());
+                if (!startPassword.getText().isEmpty()) {
+                    facultyUser.setDefaultPassword(startPassword.getText());
+                }
                 userList.addUser(facultyUser);
                 datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadFacultyStaff();
             } else if (currentRole.equals("department-staff")) {
                 DepartmentUser departmentUser = new DepartmentUser("0000000000", userNameTextField.getText(), "department-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText().isEmpty() ? "DEFAULT" : startPassword.getText(), facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
+                if (!startPassword.getText().isEmpty()) {
+                    departmentUser.setDefaultPassword(startPassword.getText());
+                }
                 userList.addUser(departmentUser);
                 datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadDepartmentStaff();
             } else if (currentRole.equals("advisor")) {
                 Advisor advisor = new Advisor(advisorIdTextField.getText(), userNameTextField.getText(), "advisor", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText().isEmpty() ? "DEFAULT" : startPassword.getText(), facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
+                if (!startPassword.getText().isEmpty()) {
+                    advisor.setDefaultPassword(startPassword.getText());
+                }
                 userList.addUser(advisor);
                 datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadAdvisor();

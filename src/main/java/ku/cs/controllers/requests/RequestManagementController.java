@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.requests;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,9 +16,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ku.cs.controllers.department.AddDepartmentApproverController;
-import ku.cs.controllers.faculty.AddApproverController;
-import ku.cs.controllers.faculty.EditApproverController;
+import ku.cs.controllers.requests.approver.AddApproverController;
+import ku.cs.controllers.requests.approver.EditApproverController;
 import ku.cs.controllers.requests.information.MainInformationController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.Session;
@@ -257,23 +256,13 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                                                 currentPopupStage = new Stage();
                                                 FXMLLoader fxmlLoader;
                                                 Scene scene = null;
-                                                if (session.getUser() instanceof DepartmentUser) {
-                                                    fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/department-add-approver-pane.fxml"));
-                                                    scene = new Scene(fxmlLoader.load());
-                                                    AddDepartmentApproverController controller = fxmlLoader.getController();
-                                                    controller.setApproverType("request");
-                                                    controller.setCurrentRequest(request);
-                                                    controller.setLoginUser((DepartmentUser) session.getUser());
-                                                    controller.setStage(currentPopupStage);
-                                                } else if (session.getUser() instanceof FacultyUser) {
-                                                    fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/faculty-add-approver-pane.fxml"));
-                                                    scene = new Scene(fxmlLoader.load());
-                                                    AddApproverController controller = fxmlLoader.getController();
-                                                    controller.setCurrentRequest(request);
-                                                    controller.setApproverType("request");
-                                                    controller.setLoginUser(session.getUser());
-                                                    controller.setStage(currentPopupStage);
-                                                }
+                                                fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/add-approver-pane.fxml"));
+                                                scene = new Scene(fxmlLoader.load());
+                                                AddApproverController controller = fxmlLoader.getController();
+                                                controller.setCurrentRequest(request);
+                                                controller.setApproverType("request");
+                                                controller.setLoginUser(session.getUser());
+                                                controller.setStage(currentPopupStage);
 
                                                 currentPopupStage.setScene(scene);
                                                 currentPopupStage.initModality(Modality.APPLICATION_MODAL);
@@ -795,7 +784,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                         button.setOnMouseClicked(e -> {
                             Approver approver = getTableView().getItems().get(getIndex());
                             System.out.println("EDIT CLICK : " + approver.getName());
-                            String popUpPath = "/ku/cs/views/faculty-edit-approver-pane.fxml";
+                            String popUpPath = "/ku/cs/views/edit-approver-pane.fxml";
                             try {
                                 if (currentPopupStage == null || !currentPopupStage.isShowing()) {
                                     currentPopupStage = new Stage();

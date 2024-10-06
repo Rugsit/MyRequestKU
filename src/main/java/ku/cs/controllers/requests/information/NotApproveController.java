@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import ku.cs.controllers.advisor.AdvisorPageController;
 import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
@@ -38,6 +39,8 @@ public class NotApproveController {
     private Label headerNotApprove;
     @FXML
     private Button agreeClickButton;
+    @FXML
+    private AdvisorPageController advisorPageController;
 
     @FXML
     public void initialize() {
@@ -103,6 +106,8 @@ public class NotApproveController {
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
             AdvisorRequestsController controller = fxmlLoader.getController();
+            controller.setAdvisorPageController(advisorPageController);
+            controller.initializeRequest();
             borderPane.setCenter(pane);
             controller.setBorderPane(borderPane);
         } catch (IOException e) {
@@ -129,5 +134,9 @@ public class NotApproveController {
                 return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
             }
         });
+    }
+
+    public void setAdvisorPageController(AdvisorPageController advisorPageController) {
+        this.advisorPageController = advisorPageController;
     }
 }

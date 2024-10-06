@@ -32,20 +32,35 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Label styleClass="type-request" text="ใบคำร้องทั่วไป&#10;General Request&#10;">
+                  <Label text="ใบคำร้องทั่วไป&#10;General Request&#10;">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                      <font>
-                        <Font name="PrintAble4U Bold" size="12.0" />
+                        <Font name="PrintAble4U Bold" size="24.0" />
                      </font>
+                     <styleClass>
+                        <String fx:value="type-request" />
+                        <String fx:value="semi-large-font-size" />
+                     </styleClass>
                   </Label>
-                  <Label prefHeight="108.0" prefWidth="264.0" styleClass="details-request" text="- ขอใบแทนปริญญาบัตร&#10;- แจ้งเปลี่ยนชื่อ&#10;- แจ้งเปลี่ยนนามสกุล&#10;- อื่น ๆ ">
+                  <Label prefWidth="273.0" text="- ขอใบแทนปริญญาบัตร&#10;- แจ้งเปลี่ยนชื่อ&#10;- แจ้งเปลี่ยนนามสกุล&#10;- อื่น ๆ ">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="details-request" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass>
                   </Label>
-                  <Label prefHeight="85.0" prefWidth="259.0" styleClass="caution" text="**นิสิตอาจต้องกรอกใบคำร้อง&#10;หลายใบต่อ ๆ กันหากคำขอต้อง&#10;การใบคำร้องเพิ่มเติม" />
+                  <Label prefHeight="85.0" prefWidth="259.0" text="**นิสิตอาจต้องกรอกใบคำร้อง&#10;หลายใบต่อ ๆ กันหากคำขอต้อง&#10;การใบคำร้องเพิ่มเติม">
+                     <styleClass>
+                        <String fx:value="caution" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
                </children>
                <HBox.margin>
                   <Insets />
@@ -66,17 +81,29 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Label styleClass="type-request" text="ใบคำร้องขอลงทะเบียน&#10;Registration Request&#10;">
+                  <Label text="ใบคำร้องขอลงทะเบียน&#10;Registration Request&#10;">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="type-request" />
+                        <String fx:value="semi-large-font-size" />
+                     </styleClass>
                   </Label>
-                  <Label prefHeight="195.0" prefWidth="264.0" styleClass="details-request" text="- ขอลงทะเบียนล่าช้า / รักษาสถาน&#10;ภาพนิสิต&#10;- เพิ่ม / ถอนรายวิชาล่าช้า&#10;- ขอลงทะเบียนเกิน จำนวนหน่วยกิต&#10;- ขอลงทะเบียนต่ำกว่า 9 หน่วยกิต&#10;- ผ่อนผันค่าธรรมเนียมการศึกษา&#10;- ขอย้ายคณะ หรือเปลี่ยนสาขา">
+                  <Label prefWidth="280.0" text="- ขอลงทะเบียนล่าช้า / รักษาสถาน&#10;ภาพนิสิต&#10;- เพิ่ม / ถอนรายวิชาล่าช้า&#10;- ขอลงทะเบียนเกิน จำนวนหน่วยกิต&#10;- ขอลงทะเบียนต่ำกว่า 9 หน่วยกิต&#10;- ผ่อนผันค่าธรรมเนียมการศึกษา&#10;- ขอย้ายคณะ หรือเปลี่ยนสาขา" wrapText="true">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="details-request" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass>
                   </Label>
-                  <Label prefHeight="77.0" prefWidth="259.0" styleClass="caution" text="**นิสิตอาจต้องอัพโหลดเอกสาร&#10;เพิ่มเติมหากคำขอต้องการเอกสาร&#10;เพิ่มเติม" />
+                  <Label prefHeight="77.0" prefWidth="259.0" text="**นิสิตอาจต้องอัพโหลดเอกสาร&#10;เพิ่มเติมหากคำขอต้องการเอกสาร&#10;เพิ่มเติม">
+                     <styleClass>
+                        <String fx:value="caution" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass></Label>
                </children>
                <HBox.margin>
                   <Insets />
@@ -97,15 +124,23 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Label styleClass="type-request" text="ใบคำร้องขอลาพักการศึกษา&#10;Leave of Absence Request&#10;">
+                  <Label text="ใบคำร้องขอลาพักการศึกษา&#10;Leave of Absence Request&#10;">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="type-request" />
+                        <String fx:value="semi-large-font-size" />
+                     </styleClass>
                   </Label>
-                  <Label prefHeight="42.0" prefWidth="264.0" styleClass="details-request" text="- ขอลาพักการศึกษา">
+                  <Label prefHeight="42.0" prefWidth="264.0" text="- ขอลาพักการศึกษา">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="details-request" />
+                        <String fx:value="medium-font-size" />
+                     </styleClass>
                   </Label>
                </children>
                <HBox.margin>

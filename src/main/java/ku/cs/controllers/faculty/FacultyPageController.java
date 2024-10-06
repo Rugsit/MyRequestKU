@@ -17,15 +17,13 @@ import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.user.Advisor;
 import ku.cs.models.user.FacultyUser;
-import ku.cs.services.FXRouter;
-import ku.cs.services.ImageDatasource;
-import ku.cs.services.PathGenerator;
-import ku.cs.services.Theme;
+import ku.cs.services.*;
 import ku.cs.views.components.SquareImage;
 
 import java.io.IOException;
+import java.util.HashMap;
 
-public class FacultyPageController {
+public class FacultyPageController implements Observer<HashMap<String, String>> {
     @FXML
     Circle imageCircle;
     @FXML
@@ -148,4 +146,8 @@ public class FacultyPageController {
         });
     }
 
+    @Override
+    public void update(HashMap<String, String> data) {
+        mainAnchorPane.setStyle(mainAnchorPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
+    }
 }

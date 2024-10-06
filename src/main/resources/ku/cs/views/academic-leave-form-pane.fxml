@@ -238,17 +238,26 @@
                                     <Insets right="20.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField prefHeight="34.0" prefWidth="180.0" styleClass="medium-font-size">
+                              <TextField prefHeight="34.0" prefWidth="180.0">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="medium-font-size" />
+                                    <String fx:value="subjectId" />
+                                 </styleClass>
                               </TextField>
                               <Label styleClass="medium-font-size" text="อาจารย์ประจำวิชา (ชื่อ นามสกุล)">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField prefHeight="34.0" prefWidth="180.0" styleClass="medium-font-size" />
+                              <TextField prefHeight="34.0" prefWidth="180.0">
+                                 <styleClass>
+                                    <String fx:value="medium-font-size" />
+                                    <String fx:value="teacher" />
+                                 </styleClass>
+                              </TextField>
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />

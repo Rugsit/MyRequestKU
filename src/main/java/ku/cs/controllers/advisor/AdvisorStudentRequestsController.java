@@ -44,6 +44,12 @@ public class AdvisorStudentRequestsController {
     private String selectedStudentId;
     private String studentName;
 
+    private AdvisorPageController advisorPageController;
+
+    public void setAdvisorPageController(AdvisorPageController advisorPageController) {
+        this.advisorPageController = advisorPageController;
+    }
+
     public void initializeStudentRequests() {
         showTable();
     }
@@ -151,6 +157,7 @@ public class AdvisorStudentRequestsController {
                     StudentRequestInfoController controller = fxmlLoader.getController();
                     controller.setLoginUser(student);
                     controller.setRequest((Request) newValue);
+                    controller.setAdvisorPageController(advisorPageController);
                     controller.setBackPage("advisorStudentRequest");
                     controller.showInfo();
                     controller.showTable();
@@ -179,19 +186,9 @@ public class AdvisorStudentRequestsController {
 
 
     public void onBackButtonClick(){
-        try {
-            String viewPath = "/ku/cs/views/advisor-students-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
-            Pane pane = fxmlLoader.load();
-            AdvisorStudentListController controller = fxmlLoader.getController();
-            controller.initialize();
-            borderPane.setCenter(pane);
-            controller.setBorderPane(borderPane);
-        }
-        catch (IOException e){
-            throw new RuntimeException(e);
-        }
+            if (advisorPageController != null) {
+                advisorPageController.onStudentClicked();
+            }
     }
 
     public void setBorderPane(BorderPane borderPane) {

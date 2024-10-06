@@ -43,13 +43,17 @@
                               <Image url="@../../../images/icons/search-icon.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="searchTextField" prefHeight="51.0" prefWidth="252.0" promptText="ค้นหา" styleClass="searchTextField">
+                        <TextField fx:id="searchTextField" prefHeight="51.0" prefWidth="252.0" promptText="ค้นหา">
                            <font>
                               <Font size="18.0" />
                            </font>
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
+                           <styleClass>
+                              <String fx:value="searchTextField" />
+                              <String fx:value="medium-font-size" />
+                           </styleClass>
                         </TextField>
                      </children>
                      <padding>

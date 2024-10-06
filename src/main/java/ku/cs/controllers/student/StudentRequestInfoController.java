@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import ku.cs.controllers.advisor.AdvisorPageController;
 import ku.cs.controllers.advisor.AdvisorStudentRequestsController;
 import ku.cs.controllers.requests.information.*;
 import ku.cs.models.request.*;
@@ -59,6 +60,12 @@ public class StudentRequestInfoController {
     private Button backButton;
     @FXML
     private AnchorPane mainAnchorPane;
+
+    private AdvisorPageController advisorPageController;
+
+    public void setAdvisorPageController(AdvisorPageController advisorPageController) {
+        this.advisorPageController = advisorPageController;
+    }
 
     @FXML
     public void initialize() {
@@ -160,6 +167,7 @@ public class StudentRequestInfoController {
     }
 
     public void onBackButtonClick() {
+        // test
         if (backPage != null && backPage.equalsIgnoreCase("advisorStudentRequest")) {
             goToAdvisorPage();
         } else {
@@ -271,7 +279,6 @@ public class StudentRequestInfoController {
             Pane pane = fxmlLoader.load();
             AdvisorStudentRequestsController controller = fxmlLoader.getController();
 
-            // Pass selected student details to the controller
             if (loginUser instanceof Student) {
                 Student selectedStudent = loginUser;
                 String  selectedStudentId = selectedStudent.getId();
@@ -279,6 +286,7 @@ public class StudentRequestInfoController {
                 controller.setSelectedStudentId(selectedStudentId);
                 controller.initializeStudentRequests();
                 controller.setStudentName(selectedStudent.getName());
+                controller.setAdvisorPageController(advisorPageController);
             }
 
             borderPane.setCenter(pane);

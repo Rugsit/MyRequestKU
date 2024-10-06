@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.controllers.advisor.AdvisorPageController;
 import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.*;
@@ -44,6 +45,12 @@ public class MainInformationController {
     public Button backButton;
     @FXML
     public AnchorPane mainAnchorPane;
+
+    private AdvisorPageController advisorPageController;
+
+    public void setAdvisorPageController(AdvisorPageController advisorPageController) {
+        this.advisorPageController = advisorPageController;
+    }
 
     public void initializeMainInformation() {
         System.out.println(Theme.getInstance().getCurrentTheme());
@@ -93,7 +100,7 @@ public class MainInformationController {
     @FXML
     private void onBackButtonClick() {
         if (backPage != null && backPage.equalsIgnoreCase("advisorRequest")) {
-            goToAdvisorRequest();
+            advisorPageController.onRequestsClicked();
         } else if (backPage != null && backPage.equalsIgnoreCase("student")) {
             goToStudentPage(backPage);
         } else if (backPage != null && backPage.equalsIgnoreCase("advisorStudentRequest")) {
@@ -109,6 +116,8 @@ public class MainInformationController {
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
             AdvisorRequestsController controller = fxmlLoader.getController();
+            controller.setAdvisorPageController(advisorPageController);
+            controller.initializeRequest();
             borderPane.setCenter(pane);
             controller.setBorderPane(borderPane);
         } catch (IOException e) {
@@ -263,6 +272,7 @@ public class MainInformationController {
                 NotApproveController notApproveController = fxmlLoader.getController();
                 notApproveController.setRequest(request);
                 notApproveController.setStage(currentNotApprove);
+                notApproveController.setAdvisorPageController(advisorPageController);
                 notApproveController.setBorderPane(borderPane);
                 scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentNotApprove.setScene(scene);

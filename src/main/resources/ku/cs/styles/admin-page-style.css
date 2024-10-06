@@ -436,13 +436,9 @@
 
 .not-approve {
     -fx-cursor: hand;
-    
     -fx-background-color: #FF5D5D;
     -fx-background-radius: 5px;
     -fx-text-fill: white;
-    -fx-border-width: 2px;
-    -fx-border-color: #FF5D5D;
-    -fx-border-radius: 5px;
 }
 
 .change-theme-button {

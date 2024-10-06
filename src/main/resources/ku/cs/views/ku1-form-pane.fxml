@@ -174,17 +174,25 @@
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField styleClass="medium-font-size">
+                                    <TextField>
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="subjectId" />
+                                       </styleClass>
                                     </TextField>
                                     <Label styleClass="medium-font-size" text="ชื่อวิชา">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField styleClass="medium-font-size" />
+                                    <TextField>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="subjectName" />
+                                       </styleClass></TextField>
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="20.0" />
@@ -197,25 +205,37 @@
                                           <Insets right="20.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <RadioButton mnemonicParsing="false" styleClass="medium-font-size" text="Credit">
+                                    <RadioButton mnemonicParsing="false" text="Credit">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                        <toggleGroup>
                                           <ToggleGroup fx:id="group1" />
                                        </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="creditCheck" />
+                                       </styleClass>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" styleClass="medium-font-size" text="Audit" toggleGroup="$group1">
+                                    <RadioButton mnemonicParsing="false" text="Audit" toggleGroup="$group1">
                                        <HBox.margin>
                                           <Insets right="20.0" />
                                        </HBox.margin>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="auditCheck" />
+                                       </styleClass>
                                     </RadioButton>
                                     <Label styleClass="medium-font-size" text="หน่วยกิต">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField prefHeight="34.0" prefWidth="92.0" styleClass="medium-font-size" />
+                                    <TextField prefHeight="34.0" prefWidth="92.0">
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="credit" />
+                                       </styleClass></TextField>
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="20.0" />
@@ -228,20 +248,32 @@
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField prefHeight="34.0" prefWidth="92.0" styleClass="medium-font-size">
+                                    <TextField prefHeight="34.0" prefWidth="92.0">
                                        <HBox.margin>
                                           <Insets right="20.0" />
                                        </HBox.margin>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="section" />
+                                       </styleClass>
                                     </TextField>
-                                    <RadioButton mnemonicParsing="false" styleClass="medium-font-size" text="บรรยาย">
+                                    <RadioButton mnemonicParsing="false" text="บรรยาย">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                        <toggleGroup>
                                           <ToggleGroup fx:id="group2" />
                                        </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="lecture" />
+                                       </styleClass>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" styleClass="medium-font-size" text="ปฏิบัติการ" toggleGroup="$group2" />
+                                    <RadioButton mnemonicParsing="false" text="ปฏิบัติการ" toggleGroup="$group2">
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="lab" />
+                                       </styleClass></RadioButton>
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="20.0" />
@@ -254,7 +286,11 @@
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="teacherTextField" styleClass="medium-font-size" />
+                                    <TextField fx:id="teacherTextField">
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="teacher" />
+                                       </styleClass></TextField>
                                  </children>
                               </HBox>
                            </children>
