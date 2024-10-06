@@ -20,7 +20,7 @@
             <String fx:value="header" />
             <String fx:value="large-font-size" />
          </styleClass></Label>
-      <HBox layoutX="25.0" layoutY="116.0" prefHeight="561.0" prefWidth="938.0" styleClass="hbox-choose-request">
+      <HBox layoutX="25.0" layoutY="116.0" prefHeight="522.0" prefWidth="938.0" styleClass="hbox-choose-request">
          <children>
             <VBox alignment="TOP_CENTER" onMouseClicked="#onGeneralRequestVBoxClick" prefHeight="572.0" prefWidth="310.0" styleClass="v-box-request">
                <children>
