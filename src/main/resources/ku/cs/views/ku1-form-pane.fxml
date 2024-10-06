@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -18,38 +19,49 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" styleClass="line" stylesheets="@../styles/general-request-form-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.Ku1FormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" styleClass="line" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.Ku1FormController">
    <children>
-      <Label layoutY="33.0" prefHeight="47.0" prefWidth="988.0" styleClass="header" text="แบบลงทะเบียนเรียน KU1" />
+      <Label layoutY="33.0" prefHeight="47.0" prefWidth="988.0" text="แบบลงทะเบียนเรียน KU1">
+         <styleClass>
+            <String fx:value="header" />
+            <String fx:value="large-font-size" />
+         </styleClass></Label>
       <ScrollPane fitToWidth="true" layoutX="38.0" layoutY="91.0" prefHeight="563.0" prefWidth="900.0">
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
          <content>
-            <VBox prefWidth="850.0" styleClass="vbox-in-scroll-pane">
+            <VBox prefHeight="534.0" prefWidth="846.0" styleClass="vbox-in-scroll-pane">
                <padding>
                   <Insets bottom="15.0" />
                </padding>
                <children>
                   <HBox alignment="CENTER_LEFT" prefWidth="860.0">
                      <children>
-                        <Label text="หลักสูตร">
+                        <Label styleClass="medium-font-size" text="หลักสูตร">
                            <HBox.margin>
                               <Insets right="20.0" />
-                           </HBox.margin></Label>
-                        <RadioButton fx:id="thaiRadio" mnemonicParsing="false" text="ไทย">
+                           </HBox.margin>
+                        </Label>
+                        <RadioButton fx:id="thaiRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ไทย">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                            <toggleGroup>
                               <ToggleGroup fx:id="group4" />
-                           </toggleGroup></RadioButton>
-                        <RadioButton fx:id="interRadio" mnemonicParsing="false" text="นานาชาติ" toggleGroup="$group4">
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="interRadio" mnemonicParsing="false" styleClass="medium-font-size" text="นานาชาติ" toggleGroup="$group4">
                            <HBox.margin>
                               <Insets right="20.0" />
-                           </HBox.margin></RadioButton>
-                        <Label text="เบอร์โทรศัพท์">
+                           </HBox.margin>
+                        </RadioButton>
+                        <Label styleClass="medium-font-size" text="เบอร์โทรศัพท์">
                            <HBox.margin>
                               <Insets right="10.0" />
-                           </HBox.margin></Label>
-                        <TextField fx:id="telTextField" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="telTextField" styleClass="medium-font-size" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -57,22 +69,25 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                      <children>
-                        <Label text="ภาค">
+                        <Label styleClass="medium-font-size" text="ภาค">
                            <HBox.margin>
                               <Insets right="20.0" />
-                           </HBox.margin></Label>
-                        <RadioButton fx:id="firstRadio" mnemonicParsing="false" text="ต้น">
+                           </HBox.margin>
+                        </Label>
+                        <RadioButton fx:id="firstRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ต้น">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                            <toggleGroup>
                               <ToggleGroup fx:id="group3" />
-                           </toggleGroup></RadioButton>
-                        <RadioButton fx:id="secondRadio" mnemonicParsing="false" text="ปลาย" toggleGroup="$group3">
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="secondRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ปลาย" toggleGroup="$group3">
                            <HBox.margin>
                               <Insets right="10.0" />
-                           </HBox.margin></RadioButton>
-                        <RadioButton fx:id="summerRadio" mnemonicParsing="false" text="ฤดูร้อน" toggleGroup="$group3" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="summerRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ฤดูร้อน" toggleGroup="$group3" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -80,19 +95,22 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                      <children>
-                        <Label text="ปีการศึกษา (w.ศ.)">
+                        <Label styleClass="medium-font-size" text="ปีการศึกษา (w.ศ.)">
                            <HBox.margin>
                               <Insets right="10.0" />
-                           </HBox.margin></Label>
-                        <TextField fx:id="yearTextField">
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="yearTextField" styleClass="medium-font-size">
                            <HBox.margin>
                               <Insets right="20.0" />
-                           </HBox.margin></TextField>
-                        <Label text="วิทยาเขต">
+                           </HBox.margin>
+                        </TextField>
+                        <Label styleClass="medium-font-size" text="วิทยาเขต">
                            <HBox.margin>
                               <Insets right="10.0" />
-                           </HBox.margin></Label>
-                        <TextField fx:id="campusTextField" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="campusTextField" styleClass="medium-font-size" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -118,15 +136,29 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label styleClass="subject-header" text="วิชาที่ขอลงทะเบียน" />
+                        <Label text="วิชาที่ขอลงทะเบียน">
+                           <styleClass>
+                              <String fx:value="subject-header" />
+                              <String fx:value="semi-large-font-size" />
+                           </styleClass>
+                        </Label>
                         <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                            <children>
-                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#onRemoveSubjectClick" styleClass="remove-subject-button" text="ลบวิชา">
+                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#onRemoveSubjectClick" text="ลบวิชา">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="remove-subject-button" />
+                                    <String fx:value="medium-font-size" />
+                                 </styleClass>
                               </Button>
-                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#addSubject" styleClass="add-subject-button" text="เพิ่มวิชา" />
+                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#addSubject" text="เพิ่มวิชา">
+                                 <styleClass>
+                                    <String fx:value="add-subject-button" />
+                                    <String fx:value="medium-font-size" />
+                                 </styleClass>
+                              </Button>
                            </children>
                         </HBox>
                      </children>
@@ -137,22 +169,30 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                                  <children>
-                                    <Label text="รหัสวิชา">
+                                    <Label styleClass="medium-font-size" text="รหัสวิชา">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField styleClass="subjectId">
+                                    <TextField>
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="subjectId" />
+                                       </styleClass>
                                     </TextField>
-                                    <Label text="ชื่อวิชา">
+                                    <Label styleClass="medium-font-size" text="ชื่อวิชา">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField styleClass="subjectName" />
+                                    <TextField>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="subjectName" />
+                                       </styleClass></TextField>
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="20.0" />
@@ -160,30 +200,42 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                                  <children>
-                                    <Label text="ประเภทลงทะเบียน">
+                                    <Label styleClass="medium-font-size" text="ประเภทลงทะเบียน">
                                        <HBox.margin>
                                           <Insets right="20.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <RadioButton mnemonicParsing="false" styleClass="creditCheck" text="Credit">
+                                    <RadioButton mnemonicParsing="false" text="Credit">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                        <toggleGroup>
                                           <ToggleGroup fx:id="group1" />
                                        </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="creditCheck" />
+                                       </styleClass>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" styleClass="auditCheck" text="Audit" toggleGroup="$group1">
+                                    <RadioButton mnemonicParsing="false" text="Audit" toggleGroup="$group1">
                                        <HBox.margin>
                                           <Insets right="20.0" />
                                        </HBox.margin>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="auditCheck" />
+                                       </styleClass>
                                     </RadioButton>
-                                    <Label text="หน่วยกิต">
+                                    <Label styleClass="medium-font-size" text="หน่วยกิต">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField prefHeight="34.0" prefWidth="92.0" styleClass="credit" />
+                                    <TextField prefHeight="34.0" prefWidth="92.0">
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="credit" />
+                                       </styleClass></TextField>
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="20.0" />
@@ -191,25 +243,37 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                                  <children>
-                                    <Label text="หมู่">
+                                    <Label styleClass="medium-font-size" text="หมู่">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField prefHeight="34.0" prefWidth="92.0" styleClass="section">
+                                    <TextField prefHeight="34.0" prefWidth="92.0">
                                        <HBox.margin>
                                           <Insets right="20.0" />
                                        </HBox.margin>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="section" />
+                                       </styleClass>
                                     </TextField>
-                                    <RadioButton mnemonicParsing="false" styleClass="lecture" text="บรรยาย">
+                                    <RadioButton mnemonicParsing="false" text="บรรยาย">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                        <toggleGroup>
                                           <ToggleGroup fx:id="group2" />
                                        </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="lecture" />
+                                       </styleClass>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" styleClass="lab" text="ปฏิบัติการ" toggleGroup="$group2" />
+                                    <RadioButton mnemonicParsing="false" text="ปฏิบัติการ" toggleGroup="$group2">
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="lab" />
+                                       </styleClass></RadioButton>
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="20.0" />
@@ -217,12 +281,16 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                                  <children>
-                                    <Label text="อาจารย์ประจำวิชา (ชื่อ นามสกุล)">
+                                    <Label styleClass="medium-font-size" text="อาจารย์ประจำวิชา (ชื่อ นามสกุล)">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="teacherTextField" styleClass="teacher" />
+                                    <TextField fx:id="teacherTextField">
+                                       <styleClass>
+                                          <String fx:value="medium-font-size" />
+                                          <String fx:value="teacher" />
+                                       </styleClass></TextField>
                                  </children>
                               </HBox>
                            </children>
@@ -234,7 +302,7 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT">
                      <children>
-                        <Button fx:id="createFormButton" focusTraversable="false" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onCreateRegisterForm" styleClass="create-form-button" text="ส่งใบคำร้อง">
+                        <Button fx:id="createFormButton" focusTraversable="false" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onCreateRegisterForm" text="ส่งใบคำร้อง">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -242,23 +310,28 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <styleClass>
+                              <String fx:value="create-form-button" />
+                              <String fx:value="medium-font-size" />
+                           </styleClass>
                         </Button>
                      </children>
                   </HBox>
                </children>
             </VBox>
          </content>
-         <padding>
-            <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
       </ScrollPane>
-      <ImageView fitHeight="50.0" fitWidth="45.0" layoutX="914.0" layoutY="14.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/icons/back-icon.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
+      <Button layoutX="912.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#onBackButtonClick" styleClass="back-button">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/back-icon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

@@ -9,6 +9,7 @@ import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.services.FXRouter;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class ChooseRequestFromController {
@@ -16,6 +17,8 @@ public class ChooseRequestFromController {
 
     @FXML
     public BorderPane borderPane;
+    @FXML
+    public ScrollPane scrollPane;
 
     @FXML
     private void initialize() {

@@ -17,9 +17,7 @@ import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.request.approver.exception.ApproverStatusException;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
-import ku.cs.services.ApproverListFileDatasource;
-import ku.cs.services.Datasource;
-import ku.cs.services.RequestListFileDatasource;
+import ku.cs.services.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -44,9 +42,9 @@ public class MainInformationController {
     @FXML
     private BorderPane borderPane;
     @FXML
-    private Button exitButton;
+    public Button backButton;
     @FXML
-    private ImageView backImageView;
+    public AnchorPane mainAnchorPane;
 
     private AdvisorPageController advisorPageController;
 
@@ -55,6 +53,8 @@ public class MainInformationController {
     }
 
     public void initializeMainInformation() {
+        System.out.println(Theme.getInstance().getCurrentTheme());
+        updateStyle();
         scrollPane.requestFocus();// ให้ ScrollPane ได้รับโฟกัสแทน
         if (!request.getStatusNext().equals("คำร้องส่งต่อให้อาจารย์ที่ปรึกษา")) {
             approveButtonHbox.setDisable(true);
@@ -116,6 +116,8 @@ public class MainInformationController {
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
             AdvisorRequestsController controller = fxmlLoader.getController();
+            controller.setAdvisorPageController(advisorPageController);
+            controller.initializeRequest();
             borderPane.setCenter(pane);
             controller.setBorderPane(borderPane);
         } catch (IOException e) {
@@ -270,6 +272,7 @@ public class MainInformationController {
                 NotApproveController notApproveController = fxmlLoader.getController();
                 notApproveController.setRequest(request);
                 notApproveController.setStage(currentNotApprove);
+                notApproveController.setAdvisorPageController(advisorPageController);
                 notApproveController.setBorderPane(borderPane);
                 scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentNotApprove.setScene(scene);
@@ -280,18 +283,23 @@ public class MainInformationController {
     }
 
     public void setBackPageVisible(boolean status) {
-        backImageView.setVisible(status);
+        backButton.setVisible(status);
     }
 
     public void setCurrentPopupStage(Stage currentPopupStage) {
         this.currentPopupStage = currentPopupStage;
     }
 
-    public void setVisibleExitButton(boolean status) {
-        exitButton.setVisible(status);
-    }
-    @FXML
-    private void onExitClick() {
-        currentPopupStage.close();
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
     }
 }

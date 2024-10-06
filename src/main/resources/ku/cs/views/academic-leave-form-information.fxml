@@ -17,22 +17,22 @@
    <children>
       <HBox>
          <children>
-            <Label text="วันที่สร้างใบคำร้อง:">
+            <Label styleClass="medium-font-size" text="วันที่สร้างใบคำร้อง:">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="createDateTextField" text="2024/7/01 16.55">
+            <Label fx:id="createDateTextField" styleClass="medium-font-size" text="2024/7/01 16.55">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="วันที่อัปเดตล่าสุด:">
+            <Label styleClass="medium-font-size" text="วันที่อัพเดทล่าสุด:">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="updateDateTextField" text="2024/7/02 07.30" />
+            <Label fx:id="updateDateTextField" styleClass="medium-font-size" text="2024/7/02 07.30" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -40,32 +40,32 @@
       </HBox>
       <HBox>
          <children>
-            <Label text="ชื่อ">
+            <Label styleClass="medium-font-size" text="ชื่อ">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="nameTextField" text="นายเมมโมรี่โฟม">
+            <Label fx:id="nameTextField" styleClass="medium-font-size" text="นายเมมโมรี่โฟม">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="นามสกุล">
+            <Label styleClass="medium-font-size" text="นามสกุล">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="surnameTextField" text="รักนอน">
+            <Label fx:id="surnameTextField" styleClass="medium-font-size" text="รักนอน">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="รหัสนิสิต">
+            <Label styleClass="medium-font-size" text="รหัสนิสิต">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="idTextField" text="6610407777" />
+            <Label fx:id="idTextField" styleClass="medium-font-size" text="6610407777" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -73,32 +73,32 @@
       </HBox>
       <HBox>
          <children>
-            <Label text="คณะ">
+            <Label styleClass="medium-font-size" text="คณะ">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="facultyTextField" text="วิทยาศาสตร์">
+            <Label fx:id="facultyTextField" styleClass="medium-font-size" text="วิทยาศาสตร์">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="ภาควิชา">
+            <Label styleClass="medium-font-size" text="ภาควิชา">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="departmentTextField" text="วิทยาการคอมพิวเตอร์">
+            <Label fx:id="departmentTextField" styleClass="medium-font-size" text="วิทยาการคอมพิวเตอร์">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="อีเมล">
+            <Label styleClass="medium-font-size" text="อีเมล">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="gmailTextField" text="memoryfoam.ru@ku.th" />
+            <Label fx:id="gmailTextField" styleClass="medium-font-size" text="memoryfoam.ru@ku.th" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -106,22 +106,22 @@
       </HBox>
       <HBox>
          <children>
-            <Label text="ชื่ออาจารย์ที่ปรึกษา">
+            <Label styleClass="medium-font-size" text="ชื่ออาจารย์ที่ปรึกษา">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="advisorTextField" text="ผศ.ดร.โพลีเอสเตอร์ นอนไม่พอ">
+            <Label fx:id="advisorTextField" styleClass="medium-font-size" text="ผศ.ดร.โพลีเอสเตอร์ นอนไม่พอ">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="รหัสอาจารย์ที่ปรึกษา">
+            <Label styleClass="medium-font-size" text="รหัสอาจารย์ที่ปรึกษา">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="advisorIdTextField" text="D1438">
+            <Label fx:id="advisorIdTextField" styleClass="medium-font-size" text="D1438">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
@@ -138,12 +138,12 @@
       </Line>
       <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="834.0">
          <children>
-            <Label text="เบอร์โทรศัพท์">
+            <Label styleClass="medium-font-size" text="เบอร์โทรศัพท์">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="telTextField" prefHeight="34.0" prefWidth="180.0" />
+            <TextField fx:id="telTextField" prefHeight="34.0" prefWidth="180.0" styleClass="medium-font-size" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -151,30 +151,30 @@
       </HBox>
       <VBox prefWidth="100.0">
          <children>
-            <Label text="ที่อยู่ปัจจุบัน">
+            <Label styleClass="medium-font-size" text="ที่อยู่ปัจจุบัน">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <TextArea fx:id="addressTextArea" prefHeight="100.0" prefWidth="860.0" />
+            <TextArea fx:id="addressTextArea" prefHeight="100.0" prefWidth="860.0" styleClass="medium-font-size" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
          </VBox.margin>
       </VBox>
-      <Label styleClass="subject-header" text="รายละเอียด">
+      <Label styleClass="medium-font-size" text="รายละเอียด">
          <VBox.margin>
             <Insets bottom="20.0" />
          </VBox.margin>
       </Label>
       <VBox prefWidth="100.0">
          <children>
-            <Label text="สาเหตุที่ลา">
+            <Label styleClass="medium-font-size" text="สาเหตุที่ลา">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <TextArea fx:id="sinceLeaveTextArea" prefHeight="100.0" prefWidth="860.0">
+            <TextArea fx:id="sinceLeaveTextArea" prefHeight="100.0" prefWidth="860.0" styleClass="medium-font-size">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
@@ -183,13 +183,13 @@
       </VBox>
       <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="834.0">
          <children>
-            <Label text="ประสงค์ที่จะขอลงพักการศึกษาเป็นจำนวน">
+            <Label styleClass="medium-font-size" text="ประสงค์ที่จะขอลงพักการศึกษาเป็นจำนวน">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="amountLeaveTextField" prefHeight="31.0" prefWidth="51.0" />
-            <Label text="ภาคการศึกษา">
+            <TextField fx:id="amountLeaveTextField" prefHeight="31.0" prefWidth="51.0" styleClass="medium-font-size" />
+            <Label styleClass="medium-font-size" text="ภาคการศึกษา">
                <HBox.margin>
                   <Insets left="10.0" right="20.0" />
                </HBox.margin>
@@ -203,12 +203,12 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="834.0">
                <children>
-                  <Label text="ตั้งแต่ภาค">
+                  <Label styleClass="medium-font-size" text="ตั้งแต่ภาค">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <RadioButton fx:id="fromFirstSemesterRadio" mnemonicParsing="false" text="ต้น">
+                  <RadioButton fx:id="fromFirstSemesterRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ต้น">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -216,17 +216,17 @@
                         <ToggleGroup fx:id="group2" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="fromSecondSemesterRadio" mnemonicParsing="false" text="ปลาย" toggleGroup="$group2">
+                  <RadioButton fx:id="fromSecondSemesterRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ปลาย" toggleGroup="$group2">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </RadioButton>
-                  <Label text="ปีการศึกษา (w.ศ.)">
+                  <Label styleClass="medium-font-size" text="ปีการศึกษา (w.ศ.)">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="fromYearTextField" prefHeight="34.0" prefWidth="184.0" />
+                  <TextField fx:id="fromYearTextField" prefHeight="34.0" prefWidth="184.0" styleClass="medium-font-size" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" />
@@ -234,12 +234,12 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="200.0">
                <children>
-                  <Label text="ถึงภาค">
+                  <Label styleClass="medium-font-size" text="ถึงภาค">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <RadioButton fx:id="toFirstSemesterRadio" mnemonicParsing="false" text="ต้น">
+                  <RadioButton fx:id="toFirstSemesterRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ต้น">
                      <toggleGroup>
                         <ToggleGroup fx:id="group21" />
                      </toggleGroup>
@@ -247,17 +247,17 @@
                         <Insets left="21.5" right="10.0" />
                      </HBox.margin>
                   </RadioButton>
-                  <RadioButton fx:id="toSecondSemesterRadio" mnemonicParsing="false" text="ปลาย" toggleGroup="$group21">
+                  <RadioButton fx:id="toSecondSemesterRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ปลาย" toggleGroup="$group21">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </RadioButton>
-                  <Label text="ปีการศึกษา (w.ศ.)">
+                  <Label styleClass="medium-font-size" text="ปีการศึกษา (w.ศ.)">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="toYearTextField" prefHeight="34.0" prefWidth="184.0" />
+                  <TextField fx:id="toYearTextField" prefHeight="34.0" prefWidth="184.0" styleClass="medium-font-size" />
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -265,12 +265,12 @@
             </HBox>
             <HBox fx:id="haveRegisterHBox" alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="200.0">
                <children>
-                  <RadioButton fx:id="registerRadio" mnemonicParsing="false" text="ข้าพเจ้าได้มีการลงทะเบียนเรียนไว้ในภาค">
+                  <RadioButton fx:id="registerRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ข้าพเจ้าได้มีการลงทะเบียนเรียนไว้ในภาค">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </RadioButton>
-                  <RadioButton fx:id="registerFirstSemester" mnemonicParsing="false" text="ต้น">
+                  <RadioButton fx:id="registerFirstSemester" mnemonicParsing="false" styleClass="medium-font-size" text="ต้น">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -278,22 +278,22 @@
                         <ToggleGroup fx:id="group22" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="registerSecondSemester" mnemonicParsing="false" text="ปลาย" toggleGroup="$group22">
+                  <RadioButton fx:id="registerSecondSemester" mnemonicParsing="false" styleClass="medium-font-size" text="ปลาย" toggleGroup="$group22">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </RadioButton>
-                  <Label text="ปีการศึกษา (พ.ศ.)">
+                  <Label styleClass="medium-font-size" text="ปีการศึกษา (พ.ศ.)">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="registerYearTextField" prefHeight="34.0" prefWidth="150.0">
+                  <TextField fx:id="registerYearTextField" prefHeight="34.0" prefWidth="150.0" styleClass="medium-font-size">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label text="ดังนี้" />
+                  <Label styleClass="medium-font-size" text="ดังนี้" />
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -310,7 +310,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="subjectHaveRegister" text="รายการวิชาที่ลงทะเบียน" />
+            <Label fx:id="subjectHaveRegister" styleClass="medium-font-size" text="รายการวิชาที่ลงทะเบียน" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" />
@@ -320,22 +320,22 @@
          <children>
             <HBox fx:id="subjectHbox" alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="834.0" styleClass="subjectContainer" visible="false">
                <children>
-                  <Label text="รหัสวิชา">
+                  <Label styleClass="medium-font-size" text="รหัสวิชา">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField prefHeight="34.0" prefWidth="180.0" styleClass="subjectId">
+                  <TextField prefHeight="34.0" prefWidth="180.0" styleClass="medium-font-size">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label text="อาจารย์ประจำวิชา">
+                  <Label styleClass="medium-font-size" text="อาจารย์ประจำวิชา">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField prefHeight="34.0" prefWidth="180.0" styleClass="teacher" />
+                  <TextField prefHeight="34.0" prefWidth="180.0" styleClass="medium-font-size" />
                </children>
             </HBox>
          </children>

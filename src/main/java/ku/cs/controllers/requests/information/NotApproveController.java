@@ -10,15 +10,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import ku.cs.controllers.advisor.AdvisorPageController;
 import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.request.approver.exception.ApproverStatusException;
-import ku.cs.services.ApproverListFileDatasource;
-import ku.cs.services.Datasource;
-import ku.cs.services.RequestListFileDatasource;
+import ku.cs.services.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -40,9 +39,13 @@ public class NotApproveController {
     private Label headerNotApprove;
     @FXML
     private Button agreeClickButton;
+    @FXML
+    private AdvisorPageController advisorPageController;
 
     @FXML
     public void initialize() {
+        updateStyle();
+
         anchorPane.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
                 onAgreeClick();
@@ -103,6 +106,8 @@ public class NotApproveController {
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
             AdvisorRequestsController controller = fxmlLoader.getController();
+            controller.setAdvisorPageController(advisorPageController);
+            controller.initializeRequest();
             borderPane.setCenter(pane);
             controller.setBorderPane(borderPane);
         } catch (IOException e) {
@@ -116,5 +121,22 @@ public class NotApproveController {
     @FXML
     private void onExitClick() {
         stage.close();
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(anchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
+    }
+
+    public void setAdvisorPageController(AdvisorPageController advisorPageController) {
+        this.advisorPageController = advisorPageController;
     }
 }

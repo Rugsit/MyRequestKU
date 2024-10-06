@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.department.Department;
@@ -48,8 +49,11 @@ public class AdminManageFacultyController {
     private TableView<Department> departmentTableView;
     @FXML
     private Button addButton;
+    @FXML
+    private AnchorPane mainAnchorPane;
 
     public void initialize() {
+
         SetTransition transition = new SetTransition();
         transition.setButtonBounce(addButton);
 

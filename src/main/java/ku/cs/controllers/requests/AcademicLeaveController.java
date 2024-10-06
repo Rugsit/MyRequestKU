@@ -105,6 +105,7 @@ public class AcademicLeaveController {
                 Label label = (Label) node;
                 Label newLabel = new Label(label.getText());
                 HBox.setMargin(newLabel, HBox.getMargin(label));
+                newLabel.getStyleClass().addAll(label.getStyleClass());
                 newHbox.getChildren().add(newLabel);
             } else if (node instanceof TextField) {
                 TextField textField = (TextField) node;

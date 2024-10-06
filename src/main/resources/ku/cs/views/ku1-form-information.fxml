@@ -19,22 +19,22 @@
    <children>
       <HBox>
          <children>
-            <Label text="วันที่สร้างใบคำร้อง:">
+            <Label styleClass="medium-font-size" text="วันที่สร้างใบคำร้อง:">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="createDateTextField" text="2024/7/01 16.55">
+            <Label fx:id="createDateTextField" styleClass="medium-font-size" text="2024/7/01 16.55">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="วันที่อัปเดตล่าสุด:">
+            <Label styleClass="medium-font-size" text="วันที่อัพเดทล่าสุด:">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="updateDateTextField" text="2024/7/02 07.30" />
+            <Label fx:id="updateDateTextField" styleClass="medium-font-size" text="2024/7/02 07.30" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -42,32 +42,32 @@
       </HBox>
       <HBox>
          <children>
-            <Label text="ชื่อ">
+            <Label styleClass="medium-font-size" text="ชื่อ">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="nameTextField" text="นายเมมโมรี่โฟม">
+            <Label fx:id="nameTextField" styleClass="medium-font-size" text="นายเมมโมรี่โฟม">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="นามสกุล">
+            <Label styleClass="medium-font-size" text="นามสกุล">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="surnameTextField" text="รักนอน">
+            <Label fx:id="surnameTextField" styleClass="medium-font-size" text="รักนอน">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="รหัสนิสิต">
+            <Label styleClass="medium-font-size" text="รหัสนิสิต">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="idTextField" text="6610407777" />
+            <Label fx:id="idTextField" styleClass="medium-font-size" text="6610407777" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -75,32 +75,32 @@
       </HBox>
       <HBox>
          <children>
-            <Label text="คณะ">
+            <Label styleClass="medium-font-size" text="คณะ">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="facultyTextField" text="วิทยาศาสตร์">
+            <Label fx:id="facultyTextField" styleClass="medium-font-size" text="วิทยาศาสตร์">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="ภาควิชา">
+            <Label styleClass="medium-font-size" text="ภาควิชา">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="departmentTextField" text="วิทยาการคอมพิวเตอร์">
+            <Label fx:id="departmentTextField" styleClass="medium-font-size" text="วิทยาการคอมพิวเตอร์">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="อีเมล">
+            <Label styleClass="medium-font-size" text="อีเมล">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="gmailTextField" text="memoryfoam.ru@ku.th" />
+            <Label fx:id="gmailTextField" styleClass="medium-font-size" text="memoryfoam.ru@ku.th" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -108,22 +108,22 @@
       </HBox>
       <HBox>
          <children>
-            <Label text="ชื่ออาจารย์ที่ปรึกษา">
+            <Label styleClass="medium-font-size" text="ชื่ออาจารย์ที่ปรึกษา">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="advisorTextField" text="ผศ.ดร.โพลีเอสเตอร์ นอนไม่พอ">
+            <Label fx:id="advisorTextField" styleClass="medium-font-size" text="ผศ.ดร.โพลีเอสเตอร์ นอนไม่พอ">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="รหัสอาจารย์ที่ปรึกษา">
+            <Label styleClass="medium-font-size" text="รหัสอาจารย์ที่ปรึกษา">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="advisorIdTextField" text="D1438">
+            <Label fx:id="advisorIdTextField" styleClass="medium-font-size" text="D1438">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
@@ -140,12 +140,12 @@
       </Line>
       <HBox alignment="CENTER_LEFT" prefWidth="860.0">
          <children>
-            <Label text="หลักสูตร">
+            <Label styleClass="medium-font-size" text="หลักสูตร">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <RadioButton fx:id="thaiRadio" mnemonicParsing="false" text="ไทย">
+            <RadioButton fx:id="thaiRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ไทย">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
@@ -153,17 +153,17 @@
                   <ToggleGroup fx:id="group4" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="interRadio" mnemonicParsing="false" text="นานาชาติ" toggleGroup="$group4">
+            <RadioButton fx:id="interRadio" mnemonicParsing="false" styleClass="medium-font-size" text="นานาชาติ" toggleGroup="$group4">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </RadioButton>
-            <Label text="เบอร์โทรศัพท์">
+            <Label styleClass="medium-font-size" text="เบอร์โทรศัพท์">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="telTextField" />
+            <TextField fx:id="telTextField" styleClass="medium-font-size" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -171,12 +171,12 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefWidth="200.0">
          <children>
-            <Label text="ภาค">
+            <Label styleClass="medium-font-size" text="ภาค">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <RadioButton fx:id="firstRadio" mnemonicParsing="false" text="ต้น">
+            <RadioButton fx:id="firstRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ต้น">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
@@ -184,12 +184,12 @@
                   <ToggleGroup fx:id="group3" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="secondRadio" mnemonicParsing="false" text="ปลาย" toggleGroup="$group3">
+            <RadioButton fx:id="secondRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ปลาย" toggleGroup="$group3">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </RadioButton>
-            <RadioButton fx:id="summerRadio" mnemonicParsing="false" text="ฤดูร้อน" toggleGroup="$group3" />
+            <RadioButton fx:id="summerRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ฤดูร้อน" toggleGroup="$group3" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -197,22 +197,22 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefWidth="200.0">
          <children>
-            <Label text="ปีการศึกษา (w.ศ.)">
+            <Label styleClass="medium-font-size" text="ปีการศึกษา (w.ศ.)">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="yearTextField">
+            <TextField fx:id="yearTextField" styleClass="medium-font-size">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </TextField>
-            <Label text="วิทยาเขต">
+            <Label styleClass="medium-font-size" text="วิทยาเขต">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="campusTextField" />
+            <TextField fx:id="campusTextField" styleClass="medium-font-size" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -238,7 +238,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label styleClass="subject-header" text="วิชาที่ขอลงทะเบียน" />
+            <Label styleClass="medium-font-size" text="วิชาที่ขอลงทะเบียน" />
          </children>
       </GridPane>
       <VBox fx:id="subjectVbox" prefWidth="100.0">
@@ -247,22 +247,22 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                      <children>
-                        <Label text="รหัสวิชา">
+                        <Label styleClass="medium-font-size" text="รหัสวิชา">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField styleClass="subjectId">
+                        <TextField styleClass="medium-font-size">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </TextField>
-                        <Label text="ชื่อวิชา">
+                        <Label styleClass="medium-font-size" text="ชื่อวิชา">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField styleClass="subjectName" />
+                        <TextField styleClass="medium-font-size" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -270,12 +270,12 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                      <children>
-                        <Label text="ประเภทลงทะเบียน">
+                        <Label styleClass="medium-font-size" text="ประเภทลงทะเบียน">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <RadioButton mnemonicParsing="false" styleClass="creditCheck" text="Credit">
+                        <RadioButton mnemonicParsing="false" styleClass="medium-font-size" text="Credit">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -283,17 +283,17 @@
                               <ToggleGroup fx:id="group1" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" styleClass="auditCheck" text="Audit" toggleGroup="$group1">
+                        <RadioButton mnemonicParsing="false" styleClass="medium-font-size" text="Audit" toggleGroup="$group1">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <Label text="หน่วยกิต">
+                        <Label styleClass="medium-font-size" text="หน่วยกิต">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="34.0" prefWidth="92.0" styleClass="credit" />
+                        <TextField prefHeight="34.0" prefWidth="92.0" styleClass="medium-font-size" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -301,17 +301,17 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                      <children>
-                        <Label text="หมู่">
+                        <Label styleClass="medium-font-size" text="หมู่">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="34.0" prefWidth="92.0" styleClass="section">
+                        <TextField prefHeight="34.0" prefWidth="92.0" styleClass="medium-font-size">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <RadioButton mnemonicParsing="false" styleClass="lecture" text="บรรยาย">
+                        <RadioButton mnemonicParsing="false" styleClass="medium-font-size" text="บรรยาย">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -319,7 +319,7 @@
                               <ToggleGroup fx:id="group2" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" styleClass="lab" text="ปฏิบัติการ" toggleGroup="$group2" />
+                        <RadioButton mnemonicParsing="false" styleClass="medium-font-size" text="ปฏิบัติการ" toggleGroup="$group2" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -327,12 +327,12 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                      <children>
-                        <Label text="อาจารย์ประจำวิชา">
+                        <Label styleClass="medium-font-size" text="อาจารย์ประจำวิชา">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="teacherTextField" styleClass="teacher" />
+                        <TextField fx:id="teacherTextField" styleClass="medium-font-size" />
                      </children>
                   </HBox>
                </children>

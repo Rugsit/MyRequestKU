@@ -6,14 +6,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.user.*;
-import ku.cs.services.Datasource;
-import ku.cs.services.FXRouter;
-import ku.cs.services.SetTransition;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -45,8 +43,15 @@ public class AdminManageStaffController {
     private TextField searchTextField;
     @FXML
     private Button addButton;
+    @FXML
+    private AnchorPane mainAnchorPane;
+    @FXML
+    private Label test;
 
     public void initialize() {
+        System.out.println(test.getStyleClass());
+
+
         SetTransition transition = new SetTransition();
         transition.setButtonBounce(addButton);
 
@@ -200,14 +205,13 @@ public class AdminManageStaffController {
                 controller.showOldUserData(role);
                 controller.setChoiceBox();
                 controller.setCurrentControllPage(this);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentPopupStage.setScene(scene);
                 currentPopupStage.initModality(Modality.APPLICATION_MODAL);
                 currentPopupStage.setTitle("Confirm");
                 currentPopupStage.show();
             }
         } catch (IOException ee) {
-            System.err.println("Error: " + ee.getMessage());
+        ee.printStackTrace();
         }
     }
 

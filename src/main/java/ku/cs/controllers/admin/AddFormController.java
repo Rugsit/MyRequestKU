@@ -15,7 +15,6 @@ import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
-import org.w3c.dom.Text;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +22,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class AddFormController {
+public class AddFormController{
     // store controller ref for user their method example. reload main page when edit data
     private AdminManageStaffController adminStaffController;
     private AdminManageFacultyController adminFacultyController;
@@ -86,6 +85,8 @@ public class AddFormController {
 
     @FXML
     private void initialize() {
+        updateStyle();
+
         SetTransition transition = new SetTransition();
         transition.setButtonBounce(closeButton);
         transition.setButtonBounce(saveButton);
@@ -115,6 +116,19 @@ public class AddFormController {
                 } else if (adminStaffController != null) {
                     onAcceptClick();
                 }
+            }
+        });
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(anchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
             }
         });
     }

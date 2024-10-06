@@ -172,3 +172,9 @@
     -fx-border-radius: 5px;
 }
 
+.change-theme-button {
+    -fx-background-radius: 50;
+    -fx-cursor: hand;
+    -fx-background-color: #374957;
+    /*-fx-font-size: 20px;*/
+}

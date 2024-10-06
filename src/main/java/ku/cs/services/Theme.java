@@ -1,45 +1,90 @@
 package ku.cs.services;
 
+import javafx.scene.layout.AnchorPane;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Theme implements Subject<HashMap<String,String>>{
     private static Theme instance;
-    private HashMap<String,String> theme;
+    private static Theme theme;
+    private HashMap<String,String> themeList;
     private ArrayList<Observer> observers;
-    private Theme() {
+    private String currentTheme = "light";
+    private String currentFont = "font-medium.css";
+    private String currentFontFamily = "printAble4u-font.css";
+
+    private Theme () {
         observers = new ArrayList<>();
     }
+
     public static final Theme getInstance() {
-        if(instance == null) {
-            instance = new Theme();
+        if (theme == null) {
+            theme = new Theme();
         }
-        return instance;
+        return theme;
+    }
+
+
+    public void loadCssToPage(AnchorPane anchorPane, PathGenerator path) {
+        anchorPane.getStylesheets().clear();
+        if (currentTheme.equals("dark")) {
+            anchorPane.getStylesheets().add(path.getThemeDarkPath());
+        } else if (currentTheme.equals("light")) {
+            anchorPane.getStylesheets().add(path.getThemeLightPath());
+        }
+        anchorPane.getStylesheets().add(Theme.class.getResource("/ku/cs/styles/font/" + currentFont).toString());
+    }
+
+    public String getCurrentTheme() {
+        return currentTheme;
+    }
+
+    public void setCurrentTheme(String currentTheme) {
+        this.currentTheme = currentTheme;
+    }
+
+    public String getCurrentFont() {
+        return currentFont;
+    }
+
+    public void setCurrentFont(String currentFont) {
+        this.currentFont = currentFont;
+    }
+
+    public String getCurrentFontFamily() {
+        return currentFontFamily;
+    }
+
+    public void setCurrentFontFamily(String currentFontFamily) {
+        this.currentFontFamily = currentFontFamily;
     }
     public void setTheme(String themeName){
-        if(theme == null) {
-            theme = new HashMap<>();
+        if(themeList == null) {
+            themeList = new HashMap<>();
         }
-        theme.clear();
+        themeList.clear();
         if(themeName.equalsIgnoreCase("dark")) {
-            theme.put("name", themeName);
-            theme.put("primary", "black");
-            theme.put("secondary", "#1E1E1E");
-            theme.put("textColor", "white");
+            themeList.put("name", themeName);
+            themeList.put("primary", "black");
+            themeList.put("secondary", "#1E1E1E");
+            themeList.put("textColor", "white");
+            currentTheme = "dark";
         }else{
-            theme.put("name", themeName);
-            theme.put("primary", "white");
-            theme.put("secondary", "#F4F4F4");
-            theme.put("textColor", "black");
+            themeList.put("name", themeName);
+            themeList.put("primary", "white");
+            themeList.put("secondary", "#F4F4F4");
+            themeList.put("textColor", "black");
+            currentTheme = "light";
         }
-        notifyObservers(theme);
+        notifyObservers(themeList);
     }
 
     public String getThemeName(){
-        return theme.get("name");
+        return themeList.get("name");
     }
     public HashMap<String,String> getTheme(){
-        return theme;
+        return themeList;
     }
     @Override
     public void addObserver(Observer o) {

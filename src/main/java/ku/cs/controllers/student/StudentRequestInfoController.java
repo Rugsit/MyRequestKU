@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -20,7 +21,9 @@ import ku.cs.controllers.advisor.AdvisorStudentRequestsController;
 import ku.cs.controllers.requests.information.*;
 import ku.cs.models.request.*;
 import ku.cs.models.user.Student;
+import ku.cs.services.PathGenerator;
 import ku.cs.services.RequestListFileDatasource;
+import ku.cs.services.Theme;
 import ku.cs.views.components.DefaultTableView;
 import ku.cs.services.RequestStatusColumn;
 
@@ -54,7 +57,9 @@ public class StudentRequestInfoController {
     @FXML
     private Button seeInformationButton;
     @FXML
-    private ImageView backImageView;
+    private Button backButton;
+    @FXML
+    private AnchorPane mainAnchorPane;
 
     private AdvisorPageController advisorPageController;
 
@@ -64,6 +69,7 @@ public class StudentRequestInfoController {
 
     @FXML
     public void initialize() {
+        updateStyle();
         tableView = new DefaultTableView<>(requestLogTableView);
         datasource = new RequestListFileDatasource("data");
         dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
@@ -151,7 +157,6 @@ public class StudentRequestInfoController {
         RequestStatusColumn.setTableStatus(statusNow, "now");
         RequestStatusColumn.setTableStatus(statusNext, "next");
         tableView.getTableView().getSortOrder().add(date);
-        tableView.addStyleSheet("/ku/cs/styles/admin-page-style.css");
 
         RequestList requestList = datasource.queryLog(request);
         for (Request req : requestList.getRequests()) {
@@ -302,6 +307,19 @@ public class StudentRequestInfoController {
     }
 
     public void setBackButtonVisible(boolean status) {
-        backImageView.setVisible(status);
+        backButton.setVisible(status);
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
     }
 }

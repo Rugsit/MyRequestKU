@@ -246,7 +246,10 @@ public class RequestListController implements Observer<HashMap<String, String>> 
         });
         return column;
     }
-
+    @FXML
+    private void goToSetting() {
+        
+    }
 
     @Override
     public void update(HashMap<String, String> data) {

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -23,12 +24,18 @@ import ku.cs.views.components.CropImage;
 import ku.cs.views.components.DefaultButton;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.views.components.RouteButton;
+import ku.cs.models.user.Student;
+import ku.cs.models.user.User;
+import ku.cs.services.*;
+import ku.cs.views.components.*;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class FacultyApproverController {
+public class FacultyApproverController implements Observer<HashMap<String, String>> {
     @FXML
     private Label pageTitleLabel;
 
@@ -40,6 +47,7 @@ public class FacultyApproverController {
     private Button addApproverButton;
     @FXML
     private TableView approverTableView;
+    private DefaultTableView<Approver> approverTable;
 
     @FXML
     private VBox imageEditorVBox;
@@ -73,9 +81,27 @@ public class FacultyApproverController {
 
     @FXML
     private TextField searchTextField;
+    @FXML
+    private AnchorPane mainAnchorPane;
 
     @FXML
     public void initialize() {
+        Theme.getInstance().clearObservers();
+        approverTable = new DefaultTableView<>(approverTableView){
+            @Override
+            public void updateAction(){
+                if(Theme.getInstance().getTheme() != null){
+                    if(Theme.getInstance().getTheme().get("name").equalsIgnoreCase("dark")){
+                        setStyleSheet("/ku/cs/styles/department/pages/approver-list/dark-department-staff-approver-list-table-stylesheet.css");
+                    }else{
+                        setStyleSheet("/ku/cs/styles/department/pages/approver-list/department-staff-approver-list-table-stylesheet.css");
+                    }
+
+                }
+            }
+        };
+        Theme.getInstance().addObserver(approverTable);
+
         loginUser = (FacultyUser) FXRouter.getData();
         showTable();
         approverEditPopUp();
@@ -88,18 +114,21 @@ public class FacultyApproverController {
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             search(newValue);
         });
+
+        Theme.getInstance().addObserver(this);
+        Theme.getInstance().notifyObservers(Theme.getInstance().getTheme());
     }
 
     private void initLabel() {
-        new DefaultLabel(pageTitleLabel);
-        new DefaultLabel(tableViewLabel);
-        new DefaultLabel(approverNameLabel);
-        new DefaultLabel(approverPositionLabel);
-        new DefaultLabel(fileNameLabel);
+        DefaultLabel pageTile = new DefaultLabel(pageTitleLabel);
+        DefaultLabel tableView = new DefaultLabel(tableViewLabel);
+        DefaultLabel approverName = new DefaultLabel(approverNameLabel);
+        DefaultLabel approverPosition = new DefaultLabel(approverPositionLabel);
+        DefaultLabel fileName = new DefaultLabel(fileNameLabel);
     }
 
     private void initButton() {
-        new RouteButton(backButton, "faculty-page", "transparent", "#a6a6a6", "#000000");
+        RouteButton back = new RouteButton(backButton, "faculty-page", "transparent", "#a6a6a6", "#000000");
         new DefaultButton(addApproverButton, "#FFE0A4", "#a6a6a6", "#000000").changeBackgroundRadius(15);
         new DefaultButton(removeFileButton, "transparent", "#a6a6a6", "#000000");
         new DefaultButton(uploadFileButton, "#ABFFA4", "#a6a6a6", "#000000").changeBackgroundRadius(15);
@@ -240,5 +269,8 @@ public class FacultyApproverController {
         }
     }
 
-
+    @Override
+    public void update(HashMap<String, String> data) {
+        mainAnchorPane.setStyle(mainAnchorPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
+    }
 }

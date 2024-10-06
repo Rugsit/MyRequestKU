@@ -56,8 +56,6 @@ public class FacultyRequestsController {
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             search(newValue);
         });
-        requestListTableView.getStylesheets().clear();
-        requestListTableView.getStylesheets().add(getClass().getResource("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet.css").toExternalForm());
     }
 
     private void search(String newValue) {

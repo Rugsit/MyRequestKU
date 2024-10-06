@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -18,22 +19,22 @@
    <children>
       <HBox>
          <children>
-            <Label text="วันที่สร้างใบคำร้อง:">
+            <Label styleClass="medium-font-size" text="วันที่สร้างใบคำร้อง:">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="createDateTextField" text="2024/7/01 16.55">
+            <Label fx:id="createDateTextField" styleClass="medium-font-size" text="2024/7/01 16.55">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="วันที่อัปเดตล่าสุด:">
+            <Label styleClass="medium-font-size" text="วันที่อัพเดทล่าสุด:">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="updateDateTextField" text="2024/7/02 07.30" />
+            <Label fx:id="updateDateTextField" styleClass="medium-font-size" text="2024/7/02 07.30" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -41,32 +42,32 @@
       </HBox>
       <HBox>
          <children>
-            <Label text="ชื่อ">
+            <Label styleClass="medium-font-size" text="ชื่อ">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="nameTextField" text="นายเมมโมรี่โฟม">
+            <Label fx:id="nameTextField" styleClass="medium-font-size" text="นายเมมโมรี่โฟม">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="นามสกุล">
+            <Label styleClass="medium-font-size" text="นามสกุล">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="surnameTextField" text="รักนอน">
+            <Label fx:id="surnameTextField" styleClass="medium-font-size" text="รักนอน">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="รหัสนิสิต">
+            <Label styleClass="medium-font-size" text="รหัสนิสิต">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="idTextField" text="6610407777" />
+            <Label fx:id="idTextField" styleClass="medium-font-size" text="6610407777" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -74,32 +75,32 @@
       </HBox>
       <HBox>
          <children>
-            <Label text="คณะ">
+            <Label styleClass="medium-font-size" text="คณะ">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="facultyTextField" text="วิทยาศาสตร์">
+            <Label fx:id="facultyTextField" styleClass="medium-font-size" text="วิทยาศาสตร์">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="ภาควิชา">
+            <Label styleClass="medium-font-size" text="ภาควิชา">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="departmentTextField" text="วิทยาการคอมพิวเตอร์">
+            <Label fx:id="departmentTextField" styleClass="medium-font-size" text="วิทยาการคอมพิวเตอร์">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="อีเมล">
+            <Label styleClass="medium-font-size" text="อีเมล">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="gmailTextField" text="memoryfoam.ru@ku.th" />
+            <Label fx:id="gmailTextField" styleClass="medium-font-size" text="memoryfoam.ru@ku.th" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -107,22 +108,22 @@
       </HBox>
       <HBox>
          <children>
-            <Label text="ชื่ออาจารย์ที่ปรึกษา">
+            <Label styleClass="medium-font-size" text="ชื่ออาจารย์ที่ปรึกษา">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="advisorTextField" text="ผศ.ดร.โพลีเอสเตอร์ นอนไม่พอ">
+            <Label fx:id="advisorTextField" styleClass="medium-font-size" text="ผศ.ดร.โพลีเอสเตอร์ นอนไม่พอ">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="รหัสอาจารย์ที่ปรึกษา">
+            <Label styleClass="medium-font-size" text="รหัสอาจารย์ที่ปรึกษา">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="advisorIdTextField" text="D1438">
+            <Label fx:id="advisorIdTextField" styleClass="medium-font-size" text="D1438">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
@@ -139,30 +140,34 @@
       </Line>
       <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="883.0">
          <children>
-            <Label text="เบอร์โทรศัพท์">
+            <Label styleClass="medium-font-size" text="เบอร์โทรศัพท์">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="telTextField" prefHeight="31.0" prefWidth="218.0" />
+            <TextField fx:id="telTextField" prefHeight="31.0" prefWidth="218.0" styleClass="medium-font-size" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
          </VBox.margin>
       </HBox>
-      <Label styleClass="require" text="ความประสงค์">
+      <Label text="ความประสงค์">
          <VBox.margin>
             <Insets bottom="20.0" />
          </VBox.margin>
+         <styleClass>
+            <String fx:value="require" />
+            <String fx:value="semi-large-font-size" />
+         </styleClass>
       </Label>
       <VBox fx:id="lostorDamageVbox" prefHeight="66.0" prefWidth="883.0">
          <children>
-            <CheckBox fx:id="degreeCerCheckBox" mnemonicParsing="false" text="ใบแทนปริญญาบัตร">
+            <CheckBox fx:id="degreeCerCheckBox" mnemonicParsing="false" styleClass="medium-font-size" text="ใบแทนปริญญาบัตร">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
             </CheckBox>
-            <RadioButton fx:id="lostRadio" mnemonicParsing="false" text="สูญหาย (ต้องแนบใบแจ้งความ และสำเนาบัตรประชาชน)">
+            <RadioButton fx:id="lostRadio" mnemonicParsing="false" styleClass="medium-font-size" text="สูญหาย (ต้องแนบใบแจ้งความ และสำเนาบัตรประชาชน)">
                <padding>
                   <Insets left="30.0" />
                </padding>
@@ -173,7 +178,7 @@
                   <ToggleGroup fx:id="group1" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="damagedRadio" mnemonicParsing="false" text="ชำรุด (ต้องแนบภาพปริญญาบัตรที่ชำรุด และสำเนาบัตรประชาชน)" toggleGroup="$group1">
+            <RadioButton fx:id="damagedRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ชำรุด (ต้องแนบภาพปริญญาบัตรที่ชำรุด และสำเนาบัตรประชาชน)" toggleGroup="$group1">
                <padding>
                   <Insets left="30.0" />
                </padding>
@@ -185,8 +190,8 @@
       </VBox>
       <VBox fx:id="changeNameVbox" prefHeight="166.0" prefWidth="835.0">
          <children>
-            <CheckBox fx:id="changeNameCheckBox" mnemonicParsing="false" text="เปลี่ยนชื่อ (ต้องแนบใบเปลี่ยนชื่อ)" />
-            <Label styleClass="caution" text="*โปรดระบุทั้งภาษาไทย และภาษาอังกฤษ">
+            <CheckBox fx:id="changeNameCheckBox" mnemonicParsing="false" styleClass="medium-font-size" text="เปลี่ยนชื่อ (ต้องแนบใบเปลี่ยนชื่อ)" />
+            <Label styleClass="medium-font-size" text="*โปรดระบุทั้งภาษาไทย และภาษาอังกฤษ">
                <VBox.margin>
                   <Insets bottom="10.0" left="30.0" />
                </VBox.margin>
@@ -204,22 +209,22 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="จาก" />
-                  <Label text="From" GridPane.rowIndex="1" />
-                  <TextField fx:id="oldThaiNameTextFeild" prefHeight="25.0" prefWidth="627.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="oldEngNameTextFeild" prefHeight="25.0" prefWidth="627.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="เป็น" GridPane.columnIndex="2">
+                  <Label styleClass="medium-font-size" text="จาก" />
+                  <Label styleClass="medium-font-size" text="From" GridPane.rowIndex="1" />
+                  <TextField fx:id="oldThaiNameTextFeild" prefHeight="25.0" prefWidth="627.0" styleClass="medium-font-size" GridPane.columnIndex="1" />
+                  <TextField fx:id="oldEngNameTextFeild" prefHeight="25.0" prefWidth="627.0" styleClass="medium-font-size" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label styleClass="medium-font-size" text="เป็น" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="To" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Label styleClass="medium-font-size" text="To" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="newThaiNameTextFeild" prefHeight="25.0" prefWidth="627.0" GridPane.columnIndex="3" />
-                  <TextField fx:id="newEngNameTextFeild" prefHeight="25.0" prefWidth="627.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <TextField fx:id="newThaiNameTextFeild" prefHeight="25.0" prefWidth="627.0" styleClass="medium-font-size" GridPane.columnIndex="3" />
+                  <TextField fx:id="newEngNameTextFeild" prefHeight="25.0" prefWidth="627.0" styleClass="medium-font-size" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
@@ -229,8 +234,8 @@
       </VBox>
       <VBox fx:id="changeSurNameVbox" prefHeight="166.0" prefWidth="835.0">
          <children>
-            <CheckBox fx:id="surNameCheckBox" mnemonicParsing="false" text="เปลี่ยนชื่อสกุล (ต้องแนบใบเปลี่ยนชื่อสกุล)" />
-            <Label styleClass="caution" text="*โปรดระบุทั้งภาษาไทย และภาษาอังกฤษ">
+            <CheckBox fx:id="surNameCheckBox" mnemonicParsing="false" styleClass="medium-font-size" text="เปลี่ยนชื่อสกุล (ต้องแนบใบเปลี่ยนชื่อสกุล)" />
+            <Label styleClass="medium-font-size" text="*โปรดระบุทั้งภาษาไทย และภาษาอังกฤษ">
                <VBox.margin>
                   <Insets bottom="10.0" left="30.0" />
                </VBox.margin>
@@ -248,22 +253,22 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="จาก" />
-                  <Label text="From" GridPane.rowIndex="1" />
-                  <TextField fx:id="oldThaiSurNameTextFeild" prefHeight="25.0" prefWidth="627.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="oldEngSurNameTextFeild" prefHeight="25.0" prefWidth="627.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="เป็น" GridPane.columnIndex="2">
+                  <Label styleClass="medium-font-size" text="จาก" />
+                  <Label styleClass="medium-font-size" text="From" GridPane.rowIndex="1" />
+                  <TextField fx:id="oldThaiSurNameTextFeild" prefHeight="25.0" prefWidth="627.0" styleClass="medium-font-size" GridPane.columnIndex="1" />
+                  <TextField fx:id="oldEngSurNameTextFeild" prefHeight="25.0" prefWidth="627.0" styleClass="medium-font-size" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label styleClass="medium-font-size" text="เป็น" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="To" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Label styleClass="medium-font-size" text="To" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="newThaiSurNameTextFeild" prefHeight="25.0" prefWidth="627.0" GridPane.columnIndex="3" />
-                  <TextField fx:id="newEngSurNameTextFeild" prefHeight="25.0" prefWidth="627.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <TextField fx:id="newThaiSurNameTextFeild" prefHeight="25.0" prefWidth="627.0" styleClass="medium-font-size" GridPane.columnIndex="3" />
+                  <TextField fx:id="newEngSurNameTextFeild" prefHeight="25.0" prefWidth="627.0" styleClass="medium-font-size" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
@@ -273,12 +278,12 @@
       </VBox>
       <VBox fx:id="otherVbox" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <CheckBox fx:id="otherCheckBox" mnemonicParsing="false" text="อื่น ๆ (ระบุ)">
+            <CheckBox fx:id="otherCheckBox" mnemonicParsing="false" styleClass="medium-font-size" text="อื่น ๆ (ระบุ)">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
             </CheckBox>
-            <TextArea fx:id="otherTextArea" prefHeight="200.0" prefWidth="200.0" />
+            <TextArea fx:id="otherTextArea" prefHeight="200.0" prefWidth="200.0" styleClass="medium-font-size" />
          </children>
       </VBox>
    </children>
