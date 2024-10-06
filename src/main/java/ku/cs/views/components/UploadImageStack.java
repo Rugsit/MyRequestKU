@@ -6,8 +6,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
 import ku.cs.services.ImageDatasource;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 
-public class UploadImageStack extends StackPane {
+import java.util.HashMap;
+
+public class UploadImageStack extends StackPane implements Observer<HashMap<String,String>> {
     private StackPane stackPane;
     private String dir;
     private String fileName;
@@ -20,6 +24,7 @@ public class UploadImageStack extends StackPane {
     private DefaultButton deleteButton;
     private boolean deleteButtonClicked = false;
     private boolean uploadButtonClicked = false;
+    private Theme theme = Theme.getInstance();
 
     private ImageDatasource datasource;
     public UploadImageStack(String dir, String fileName, String curFileName) {
@@ -40,6 +45,7 @@ public class UploadImageStack extends StackPane {
         initialize();
         handleUploadButtonClick();
         handleDeleteButtonClick();
+        theme.addObserver(this);
     }
     private void initialize(){
         fileLabel.changeText(curFileName,18, FontWeight.NORMAL);
@@ -112,5 +118,10 @@ public class UploadImageStack extends StackPane {
             changeFileLabel(curFileName);
         }
         deleteButtonClicked = false;
+    }
+
+    @Override
+    public void update(HashMap<String, String> data) {
+        fileLabel.changeLabelColor(data.get("textColor"));
     }
 }

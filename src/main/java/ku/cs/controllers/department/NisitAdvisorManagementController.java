@@ -11,18 +11,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import ku.cs.models.Session;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
-import ku.cs.services.FXRouter;
-import ku.cs.services.ImageDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 import ku.cs.views.components.*;
 
+import java.util.HashMap;
 import java.util.UUID;
 
-public class NisitAdvisorManagementController {
+public class NisitAdvisorManagementController implements Observer<HashMap<String, String>> {
     @FXML private Label pageTitleLabel;
 
     @FXML private VBox allTableVBox;
@@ -69,6 +71,7 @@ public class NisitAdvisorManagementController {
     private Student selectedStudent;
     private Advisor selectedAdvisor;
     private Session session;
+    private Theme theme = Theme.getInstance();
 
     private void initRouteData(){
         Object object = FXRouter.getData();
@@ -81,6 +84,7 @@ public class NisitAdvisorManagementController {
 
     @FXML
     public void initialize() {
+        theme.clearObservers();
         initRouteData();
         nisitDatasource = new UserListFileDatasource("data","student.csv");
         advisorDatasource = new UserListFileDatasource("data","advisor.csv");
@@ -105,6 +109,9 @@ public class NisitAdvisorManagementController {
 
         initLabel();
         initButton();
+
+        theme.addObserver(this);
+        theme.notifyObservers(theme.getTheme());
     }
     private void initLabel(){
         new DefaultLabel(pageTitleLabel);
@@ -170,6 +177,17 @@ public class NisitAdvisorManagementController {
                     }
                 });
             }
+            @Override
+            public void updateAction(){
+                if(theme.getTheme() != null){
+                    if(theme.getTheme().get("name").equalsIgnoreCase("dark")){
+                        setStyleSheet("/ku/cs/styles/department/pages/nisit-advisor-management/dark-department-nisit-advisor-management-nisit-table-stylesheet.css");
+                    }else{
+                        setStyleSheet("/ku/cs/styles/department/pages/nisit-advisor-management/department-nisit-advisor-management-nisit-table-stylesheet.css");
+                    }
+
+                }
+            }
         };
         nisitTable.getTableView().getColumns().clear();
         nisitTable.getTableView().getItems().clear();
@@ -181,6 +199,8 @@ public class NisitAdvisorManagementController {
         nisitTable.getTableView().getColumns().add(newStatusColumn("สถานะ"));
         nisitTable.getTableView().getColumns().add(newDeleteColumn());
         nisitTable.addStyleSheet("/ku/cs/styles/department/pages/nisit-advisor-management/department-nisit-advisor-management-nisit-table-stylesheet.css");
+
+        theme.addObserver(nisitTable);
     }
     private void initAdvisorTableView(){
         DefaultTableView<User> nisitTable = new DefaultTableView(advisorTableView){
@@ -196,6 +216,17 @@ public class NisitAdvisorManagementController {
                     }
                 });
             }
+            @Override
+            public void updateAction(){
+                if(theme.getTheme() != null){
+                    if(theme.getTheme().get("name").equalsIgnoreCase("dark")){
+                        setStyleSheet("/ku/cs/styles/department/pages/nisit-advisor-management/dark-department-nisit-advisor-management-advisor-table-stylesheet.css");
+                    }else{
+                        setStyleSheet("/ku/cs/styles/department/pages/nisit-advisor-management/department-nisit-advisor-management-advisor-table-stylesheet.css");
+                    }
+
+                }
+            }
         };
         nisitTable.getTableView().getColumns().clear();
         nisitTable.getTableView().getItems().clear();
@@ -205,6 +236,8 @@ public class NisitAdvisorManagementController {
         nisitTable.addColumn("คณะ","faculty");
         nisitTable.addColumn("ภาควิชา","department");
         nisitTable.addStyleSheet("/ku/cs/styles/department/pages/nisit-advisor-management/department-nisit-advisor-management-advisor-table-stylesheet.css");
+
+        theme.addObserver(nisitTable);
     }
     private void refreshNisitTable(){
         nisitTableView.getItems().clear();
@@ -362,6 +395,13 @@ public class NisitAdvisorManagementController {
         column.setSortable(false);//BLOCK SORT BY CLICK
         column.setReorderable(false);//BLOCK DRAG BY MOUSE
         column.setCellFactory(c -> new TableCell<>(){
+            private DefaultLabel line1 = new DefaultLabel("");
+            {
+                line1.changeText("",20, FontWeight.NORMAL);
+                if(theme.getTheme() != null){
+                    line1.changeLabelColor(theme.getTheme().get("textColor"));
+                }
+            }
             @Override
             protected void updateItem(Text item, boolean empty) {
                 super.updateItem(item, empty);
@@ -381,8 +421,8 @@ public class NisitAdvisorManagementController {
                         status = "ไม่มีที่ปรึกษา";
                     }
 
-
-                    setGraphic(new Text(status));
+                    line1.changeText(status);
+                    setGraphic(line1);
                 }
             }
         });
@@ -464,5 +504,10 @@ public class NisitAdvisorManagementController {
                 hbox.setSpacing(10);
             }
         });
+    }
+
+    @Override
+    public void update(HashMap<String, String> data) {
+        mainStackPane.setStyle(mainStackPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
     }
 }

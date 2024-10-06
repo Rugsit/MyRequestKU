@@ -3,35 +3,31 @@ package ku.cs.views.components;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import ku.cs.services.Observer;
 import ku.cs.services.Theme;
 
+import java.util.HashMap;
 import java.util.List;
 
-public class DefaultLabel extends Label{
+public class DefaultLabel extends Label implements Observer<HashMap<String,String>> {
     protected Label label;
     public static final String DEFAULT_FONT = "PrintAble4U";
     public static final String FALLBACK_FONT = "Arial";
     public static final String DEFAULT_LABEL_COLOR = "#000000";
-
+    private Theme theme = Theme.getInstance();
     public DefaultLabel(String text){
         super(text);
         this.label = this;
         setFont(DEFAULT_FONT);
         changeLabelColor(DEFAULT_LABEL_COLOR);
-        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-            changeLabelColor("#ffffff");
-        }
-        this.label.getStyleClass().add("medium-font-size");
+        theme.addObserver(this);
     }
 
     public DefaultLabel(Label label) {
         this.label = label;
         setFont(DEFAULT_FONT);
         changeLabelColor(DEFAULT_LABEL_COLOR);
-        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-            changeLabelColor("#ffffff");
-        }
-        this.label.getStyleClass().add("medium-font-size");
+        theme.addObserver(this);
     }
 
     protected FontWeight currrentFontWeight(Font currentFont){
@@ -70,6 +66,10 @@ public class DefaultLabel extends Label{
         Font newFont = Font.font(fontName,fontWeight,fontSize);
         label.setFont(newFont);
         label.setText(text);
+    }
+    @Override
+    public void update(HashMap<String, String> data) {
+        changeLabelColor(data.get("textColor"));
     }
 }
 

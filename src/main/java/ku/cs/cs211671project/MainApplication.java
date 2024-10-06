@@ -1,17 +1,17 @@
 package ku.cs.cs211671project;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ku.cs.services.FXRouter;
+import ku.cs.services.Theme;
 
 import java.io.IOException;
 
 public class MainApplication extends Application {
     public static final double windowWidth = 1280;
     public static final double windowHeight = 720;
+    private Theme theme = Theme.getInstance();
     @Override
     public void start(Stage stage) throws IOException {
         String fontsPath = "/fonts/";
@@ -23,6 +23,7 @@ public class MainApplication extends Application {
         configRoutes();
 
         FXRouter.goTo("login");
+        theme.setTheme("default");
     }
     private void configRoutes() {
         String viewPath = "ku/cs/views/";

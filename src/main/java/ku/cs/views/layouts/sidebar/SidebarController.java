@@ -3,16 +3,18 @@ package ku.cs.views.layouts.sidebar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import ku.cs.models.Session;
-import ku.cs.models.user.User;
 import ku.cs.services.FXRouter;
 import ku.cs.services.ImageDatasource;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 import ku.cs.views.components.DefaultImage;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.cs211671project.MainApplication;
 
 import java.io.IOException;
+import java.util.HashMap;
 
-public class SidebarController {
+public class SidebarController implements Observer<HashMap<String,String>> {
     private VBox vBox;
     private double width;
     private double height;
@@ -22,6 +24,7 @@ public class SidebarController {
     private final String BASE_LABEL_COLOR = DefaultLabel.DEFAULT_LABEL_COLOR;
     private Session session;
     private String curPage;
+    private Theme theme = Theme.getInstance();;
 
     public SidebarController(String curPage, Session session){
         this.session = session;
@@ -31,6 +34,7 @@ public class SidebarController {
         initVBox();
         setMount(0,0);
         setupChildren();
+        theme.addObserver(this);
     }
     private void initVBox(){
         vBox = new VBox();
@@ -93,4 +97,8 @@ public class SidebarController {
         return vBox;
     }
 
+    @Override
+    public void update(HashMap<String, String> data) {
+        vBox.setStyle(vBox.getStyle() + "-fx-background-color: " + data.get("primary")+";");
+    }
 }

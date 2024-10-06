@@ -9,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -30,23 +29,25 @@ import ku.cs.models.request.RequestList;
 import ku.cs.models.request.approver.*;
 import ku.cs.models.user.*;
 import ku.cs.services.*;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class RequestManagementController {
+public class RequestManagementController implements Observer<HashMap<String, String>> {
     @FXML private Label pageTitleLabel;
     @FXML private Button backButton;
     @FXML private StackPane mainStackPane;
     @FXML private VBox dataVBox;
     @FXML private VBox requestInfoVBox;
     @FXML private HBox requestMenuHBox;
-    @FXML private AnchorPane mainAnchorPane;
     private TableView<Approver> requestApproverTableView;
     private DefaultTableView<Approver> tableView;
     @FXML private VBox mainEditorVBox;
@@ -85,6 +86,8 @@ public class RequestManagementController {
     private UploadImageStack sinatureUploader;
 
     private Session session;
+    private Theme theme = Theme.getInstance();
+    private String textThemeColorHex = "black";
 
     private void initRouteData(){
         Object object = FXRouter.getData();
@@ -98,12 +101,7 @@ public class RequestManagementController {
 
     @FXML
     public void initialize() {
-        mainAnchorPane.getStylesheets().add(getClass().getResource("/ku/cs/styles/font/" + Theme.getInstance().getCurrentFont()).toString());
-        mainAnchorPane.getStylesheets().add(getClass().getResource("/ku/cs/styles/font/" + Theme.getInstance().getCurrentFontFamily()).toString());
-        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-            mainAnchorPane.setStyle("-fx-background-color: #374957");
-        }
-
+        theme.clearObservers();
         initRouteData();
 
         studentDatasource = new UserListFileDatasource("data","student.csv");
@@ -126,6 +124,8 @@ public class RequestManagementController {
 
         }
 
+        theme.addObserver(this);
+        theme.notifyObservers(theme.getTheme());
 
     }
     private void initLabel(){
@@ -135,19 +135,13 @@ public class RequestManagementController {
             pageTitleLabel.setText("จัดการผู้อนุมัติ (คณะ)");
         }
         new DefaultLabel(pageTitleLabel);
-        pageTitleLabel.getStyleClass().add("large-font-size");
     }
     private void initButton(){
         if (session.getUser() instanceof DepartmentUser) {
             new RouteButton(backButton,"department-staff-request-list","transparent","#a6a6a6","#000000");
         } else if (session.getUser() instanceof FacultyUser) {
-            RouteButton facultyPage = new RouteButton(backButton,"faculty-page","transparent","#a6a6a6","#000000");
-            if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-                facultyPage.changeLabelColor("#ffffff");
-                facultyPage.changeColor("#536878");
-                facultyPage.changeHoverColor("#7992A6");
-                facultyPage.changeBaseColor("#536878");
-            }
+            new RouteButton(backButton,"faculty-page","transparent","#a6a6a6","#000000");
+
         }
     }
     private void initRequestInfoVBox(){
@@ -352,15 +346,9 @@ public class RequestManagementController {
                                                 placeholder.setStyle("-fx-font-size: 20");
                                                 approverTableView.getTableView().setPlaceholder(placeholder);
                                                 approverTableView.setStyleSheet("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet.css");
-                                                if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-                                                    approverTableView.setStyleSheet("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet-dark.css");
-                                                }
                                                 secondButton.setButtonSize(120, 30);
                                                 approverListBox = new VBox(approverTableView.getTableView(), secondButton);
                                                 approverListBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
-                                                if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-                                                    approverListBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
-                                                }
                                                 approverListBox.setMaxWidth(850);
                                                 approverListBox.setSpacing(80);
                                                 approverListBox.setMaxHeight(620);
@@ -408,13 +396,7 @@ public class RequestManagementController {
                             vBox.setMaxWidth(600);
                             vBox.setMaxHeight(280);
                             vBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
-                            if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-                                vBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
-                            }
                             mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
-                            if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-                                mainBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
-                            }
                             stackPane.getChildren().add(vBox);
                         }
 
@@ -450,16 +432,7 @@ public class RequestManagementController {
                               controller.setTitleLabel("แบบขอเปลี่ยนแปลงการลงทะเบียนเรียน KU3");
                           }
                       }
-                      Theme.getInstance().loadCssToPage(scene, new PathGenerator() {
-                          @Override
-                          public String getThemeDarkPath() {
-                              return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
-                          }
-                          @Override
-                          public String getThemeLightPath() {
-                              return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
-                          }
-                      });
+                      scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/general-request-form-page-style.css").toExternalForm());
 
                       mainStackPane.getChildren().add(new BlankPopupStack() {
                           VBox mainBox;
@@ -474,9 +447,6 @@ public class RequestManagementController {
                               mainBox.setMaxWidth(600);
                               mainBox.setMaxHeight(620);
                               mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
-                              if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-                                  mainBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
-                              }
                               lineEnd.setAlignment(Pos.CENTER);
                               scene.setStyle("-fx-pref-height: 620px");
                               stackPane.getChildren().add(mainBox);
@@ -516,9 +486,6 @@ public class RequestManagementController {
                                       mainBox.getChildren().addAll(pane, lineEnd);
                                       mainBox.setMaxHeight(620);
                                       mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
-                                      if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-                                          mainBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
-                                      }
                                       pane.setStyle("-fx-pref-height: 620px");
                                       VBox.setMargin(lineEnd,new Insets(20,0,20,0));
                                   } catch (IOException exception) {
@@ -600,9 +567,24 @@ public class RequestManagementController {
         VBox vBox = (VBox) dataVBox.getChildren().getLast();
         vBox.getChildren().clear();
         vBox.getChildren().add(requestApproverTableView);
-         tableView = new DefaultTableView<>(requestApproverTableView);
-         tableView.getTableView().getColumns().clear();
-         tableView.getTableView().getItems().clear();
+        if(tableView!=null){
+            theme.removeObserver(tableView);
+        }
+        tableView = new DefaultTableView<>(requestApproverTableView){
+            @Override
+            public void updateAction() {
+                if (theme.getTheme() != null) {
+                    if (theme.getTheme().get("name").equalsIgnoreCase("dark")) {
+                        setStyleSheet("/ku/cs/styles/department/pages/request/dark-department-request-approver-table-stylesheet.css");
+                    } else {
+                        setStyleSheet("/ku/cs/styles/department/pages/request/department-request-approver-table-stylesheet.css");
+                    }
+
+                }
+            }
+        };
+        tableView.getTableView().getColumns().clear();
+        tableView.getTableView().getItems().clear();
         tableView.getTableView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Approver>() {
             @Override
             public void changed(ObservableValue<? extends Approver> observable, Approver oldValue, Approver newValue) {
@@ -637,9 +619,7 @@ public class RequestManagementController {
 
 
          tableView.setStyleSheet("/ku/cs/styles/department/pages/request/department-request-approver-table-stylesheet.css");
-         if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-             tableView.setStyleSheet("/ku/cs/styles/department/pages/request/department-request-approver-table-stylesheet-dark.css");
-         }
+         theme.addObserver(tableView);
     }
     private void refreshTableData(){
         tableView.getTableView().getItems().clear();
@@ -765,6 +745,8 @@ public class RequestManagementController {
 //            addApproverButton.setDisable(true);
 //            rejectButton.setDisable(true);
         }
+
+        theme.notifyObservers(theme.getTheme());
 
 
 
@@ -927,6 +909,10 @@ public class RequestManagementController {
                 vBox.setAlignment(Pos.CENTER);
                 line1.changeText("",28, FontWeight.BOLD);
                 line2.changeText("",20, FontWeight.NORMAL);
+                if(theme.getTheme() != null){
+                    line1.changeLabelColor(theme.getTheme().get("textColor"));
+                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                }
             }
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -960,6 +946,10 @@ public class RequestManagementController {
                 vBox.setAlignment(Pos.CENTER);
                 line1.changeText("",24, FontWeight.BOLD);
                 line2.changeText("",22, FontWeight.NORMAL);
+                if(theme.getTheme() != null){
+                    line1.changeLabelColor(theme.getTheme().get("textColor"));
+                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                }
             }
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -1062,6 +1052,9 @@ public class RequestManagementController {
                         line1.changeLabelColor("red");
                     }else {
                         line1.changeLabelColor("black");
+                        if(theme.getTheme() != null){
+                            line1.changeLabelColor(theme.getTheme().get("textColor"));
+                        }
                     }
 
 
@@ -1159,7 +1152,8 @@ public class RequestManagementController {
 
         }
 
-
+        Class<?>[] notifyClass = {UploadImageStack.class};
+        theme.notifyObservers(theme.getTheme(),notifyClass);
 
     }
 
@@ -1215,6 +1209,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel titleLabel = new DefaultLabel("");
+        titleLabel.changeLabelColor(this.textThemeColorHex);
         titleLabel.changeText("ขัดข้อง",48, FontWeight.BOLD);
         container.getChildren().add(titleLabel);
         editorVBox.getChildren().add(container);
@@ -1227,6 +1222,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel errorLabel = new DefaultLabel("");
+        errorLabel.changeLabelColor(this.textThemeColorHex);
         errorLabel.changeText(error,28, FontWeight.NORMAL);
         errorLabel.setWrapText(true);
         container.getChildren().add(errorLabel);
@@ -1253,6 +1249,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel statusLabel = new DefaultLabel("");
+        statusLabel.changeLabelColor(this.textThemeColorHex);
         statusLabel.changeText(approverStatus,48, FontWeight.BOLD);
         container.getChildren().add(statusLabel);
         editorVBox.getChildren().add(container);
@@ -1260,6 +1257,7 @@ public class RequestManagementController {
         if(approverStatus.equals("ไม่อนุมัติ") && request.getReasonForNotApprove() != null){
             container = newEditorContainer();
             DefaultLabel rejectReasonLabel = new DefaultLabel("");
+            rejectReasonLabel.changeLabelColor(this.textThemeColorHex);
             rejectReasonLabel.changeText("เหตุผล: " + request.getReasonForNotApprove(),24, FontWeight.NORMAL);
             rejectReasonLabel.setWrapText(true);
             container.getChildren().add(rejectReasonLabel);
@@ -1286,6 +1284,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel statusLabel = new DefaultLabel("");
+        statusLabel.changeLabelColor(this.textThemeColorHex);
         statusLabel.changeText(approverStatus,48, FontWeight.BOLD);
         container.getChildren().add(statusLabel);
         editorVBox.getChildren().add(container);
@@ -1325,6 +1324,7 @@ public class RequestManagementController {
         nameVBox.setAlignment(Pos.CENTER);
         container = newEditorContainer();
         DefaultLabel nameLabel = new DefaultLabel("");
+        nameLabel.changeLabelColor(this.textThemeColorHex);
         nameLabel.changeText(selectedApprover.getName(),28, FontWeight.BOLD);
         container.getChildren().add(nameLabel);
         nameVBox.getChildren().add(nameLabel);
@@ -1341,6 +1341,7 @@ public class RequestManagementController {
         }
         container = newEditorContainer();
         DefaultLabel roleLabel = new DefaultLabel("");
+        roleLabel.changeLabelColor(this.textThemeColorHex);
         roleLabel.changeText(role + extend,24, FontWeight.NORMAL);
         container.getChildren().add(roleLabel);
         nameVBox.getChildren().add(container);
@@ -1442,9 +1443,6 @@ public class RequestManagementController {
                                                         mainBox.setMaxWidth(500);
                                                         mainBox.setMaxHeight(430);
                                                         mainBox.setStyle("-fx-background-color: white;-fx-background-radius: 30;");
-                                                        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-                                                            mainBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
-                                                        }
                                                         HBox container;
                                                         DefaultLabel prefix;
                                                         DefaultLabel data;
@@ -1587,6 +1585,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel statusLabel = new DefaultLabel("");
+        statusLabel.changeLabelColor(this.textThemeColorHex);
         statusLabel.changeText(approverStatus,48, FontWeight.BOLD);
         container.getChildren().add(statusLabel);
         editorVBox.getChildren().add(container);
@@ -1594,6 +1593,7 @@ public class RequestManagementController {
         if(approverStatus.equals("ไม่อนุมัติ") && request.getReasonForNotApprove() != null){
             container = newEditorContainer();
             DefaultLabel rejectReasonLabel = new DefaultLabel("");
+            rejectReasonLabel.changeLabelColor(this.textThemeColorHex);
             rejectReasonLabel.changeText("เหตุผล: " + request.getReasonForNotApprove(),24, FontWeight.NORMAL);
             rejectReasonLabel.setWrapText(true);
             container.getChildren().add(rejectReasonLabel);
@@ -1664,6 +1664,7 @@ public class RequestManagementController {
 
         container = newEditorContainer();
         DefaultLabel statusLabel = new DefaultLabel("");
+        statusLabel.changeLabelColor(this.textThemeColorHex);
         statusLabel.changeText(approverStatus,48, FontWeight.BOLD);
         container.getChildren().add(statusLabel);
         editorVBox.getChildren().add(container);
@@ -1671,6 +1672,7 @@ public class RequestManagementController {
         if(approverStatus.equals("ไม่อนุมัติ") && request.getReasonForNotApprove() != null){
             container = newEditorContainer();
             DefaultLabel rejectReasonLabel = new DefaultLabel("");
+            rejectReasonLabel.changeLabelColor(this.textThemeColorHex);
             rejectReasonLabel.changeText("เหตุผล: " + request.getReasonForNotApprove(),24, FontWeight.NORMAL);
             rejectReasonLabel.setWrapText(true);
             container.getChildren().add(rejectReasonLabel);
@@ -1786,9 +1788,6 @@ public class RequestManagementController {
                     mainBox.setMaxHeight(640);
                     mainBox.setSpacing(10);
                     mainBox.setStyle("-fx-background-color: white;-fx-background-radius: 50");
-                    if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-                        mainBox.setStyle("-fx-background-color: #536878 ; -fx-background-radius: 50px");
-                    }
                     //TITLE
                     HBox container = new HBox();
                     container.setAlignment(Pos.CENTER);
@@ -1949,4 +1948,9 @@ public class RequestManagementController {
         }
     }
 
+    @Override
+    public void update(HashMap<String, String> data) {
+        mainStackPane.setStyle(mainStackPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
+        this.textThemeColorHex = data.get("textColor");
+    }
 }

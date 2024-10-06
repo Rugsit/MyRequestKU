@@ -9,6 +9,8 @@ import ku.cs.views.components.DefaultLabel;
 import ku.cs.views.components.RouteButton;
 import ku.cs.views.components.SquareImage;
 
+import java.util.HashMap;
+
 public class MiniProfile {
     private final VBox vBox;
     protected final ImageView profileImage;
@@ -31,7 +33,13 @@ public class MiniProfile {
 
         new SquareImage(profileImage,image).setClipImage(1000,1000);
         new DefaultLabel(profileName).changeText(name,24, FontWeight.BOLD);
-        this.logoutButton = new RouteButton("login",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR);
+        this.logoutButton = new RouteButton("login",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR){
+            @Override
+            public void update(HashMap<String, String> data) {
+                changeLabelColor(data.get("textColor"));
+                this.hoverColorHex = data.get("secondary");
+            }
+        };
         this.logoutButton.changeText("ออกจากระบบ",18,FontWeight.NORMAL);
 
         vBox.getChildren().addAll(profileImage,profileName,logoutButton);

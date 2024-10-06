@@ -8,13 +8,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.department.RequestListController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="720.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" width="292.0" />
       <Label fx:id="pageTitleLabel" layoutX="308.0" layoutY="34.0" text="จัดการคำร้อง">
          <font>
             <Font size="48.0" />
@@ -34,12 +33,7 @@
             <TableColumn prefWidth="75.0" text="C5" />
         </columns>
       </TableView>
-      <TextField fx:id="seachTextField" layoutX="910.0" layoutY="40.0" prefHeight="59.0" prefWidth="317.0">
-         <font>
-            <Font name="PrintAble4U Regular" size="30.0" />
-         </font>
-      </TextField>
-      <VBox fx:id="routeButtonVBox" alignment="CENTER" disable="true" layoutX="5.0" layoutY="150.0" opacity="0.0" prefHeight="228.0" prefWidth="278.0" style="-fx-spacing: 30;">
+      <VBox fx:id="routeButtonVBox" alignment="CENTER" disable="true" layoutX="5.0" layoutY="150.0" opacity="0.0" prefHeight="280.0" prefWidth="250.0" style="-fx-spacing: 30;">
          <children>
             <Button fx:id="requestSideButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="ใบคำร้อง" textAlignment="CENTER">
                <font>
@@ -91,7 +85,7 @@
             </Button>
          </children>
       </VBox>
-      <VBox fx:id="userProfileVBox" alignment="CENTER" disable="true" layoutX="16.0" layoutY="427.0" opacity="0.0" prefHeight="260.0" prefWidth="260.0" style="-fx-spacing: 10;">
+      <VBox fx:id="userProfileVBox" alignment="CENTER" disable="true" layoutY="460.0" opacity="0.0" prefHeight="260.0" prefWidth="260.0" style="-fx-spacing: 10;">
          <children>
             <ImageView fx:id="userProfileImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="logoutButton" mnemonicParsing="false" text="ออกจากระบบ">
@@ -101,5 +95,15 @@
             </Button>
          </children>
       </VBox>
+      <HBox alignment="CENTER_RIGHT" layoutX="691.0" layoutY="35.0" prefHeight="65.0" prefWidth="538.0" style="-fx-spacing: 20;">
+         <children>
+            <Button fx:id="switchThemeButton" mnemonicParsing="false" text="เปลี่ยนธีม" />
+            <TextField fx:id="seachTextField" prefHeight="59.0" prefWidth="317.0">
+               <font>
+                  <Font name="PrintAble4U Regular" size="30.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
