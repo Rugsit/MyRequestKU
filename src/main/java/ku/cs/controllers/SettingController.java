@@ -72,12 +72,14 @@ public class SettingController {
     @FXML
     private void setThemeDark() {
         Theme.getInstance().setCurrentTheme("dark");
+        Theme.getInstance().setTheme("dark");
         changeCssPage();
     }
 
     @FXML
     private void setThemeLight() {
         Theme.getInstance().setCurrentTheme("light");
+        Theme.getInstance().setTheme("light");
         changeCssPage();
     }
 

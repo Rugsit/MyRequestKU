@@ -13,13 +13,13 @@
 .table-view .column-header {
     -fx-background-color: transparent;
     -fx-font-weight: Bold;
-    
+    -fx-font-size: 28;
 }
 
 .table-view .table-cell{
     -fx-alignment: CENTER;
     -fx-border-color: transparent;
-    
+    -fx-font-size: 20;
 }
 
 .table-row-cell  {

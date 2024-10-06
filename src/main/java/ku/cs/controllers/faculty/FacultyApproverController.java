@@ -21,21 +21,16 @@ import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.FacultyUser;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
-import ku.cs.services.ApproverListFileDatasource;
-import ku.cs.services.FXRouter;
-import ku.cs.services.PathGenerator;
-import ku.cs.services.Theme;
-import ku.cs.views.components.CropImage;
-import ku.cs.views.components.DefaultButton;
-import ku.cs.views.components.DefaultLabel;
-import ku.cs.views.components.RouteButton;
+import ku.cs.services.*;
+import ku.cs.views.components.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class FacultyApproverController {
+public class FacultyApproverController implements Observer<HashMap<String, String>> {
     @FXML
     private Label pageTitleLabel;
 
@@ -47,6 +42,7 @@ public class FacultyApproverController {
     private Button addApproverButton;
     @FXML
     private TableView approverTableView;
+    private DefaultTableView<Approver> approverTable;
 
     @FXML
     private VBox imageEditorVBox;
@@ -85,7 +81,21 @@ public class FacultyApproverController {
 
     @FXML
     public void initialize() {
-        updateStyle();
+        Theme.getInstance().clearObservers();
+        approverTable = new DefaultTableView<>(approverTableView){
+            @Override
+            public void updateAction(){
+                if(Theme.getInstance().getTheme() != null){
+                    if(Theme.getInstance().getTheme().get("name").equalsIgnoreCase("dark")){
+                        setStyleSheet("/ku/cs/styles/department/pages/approver-list/dark-department-staff-approver-list-table-stylesheet.css");
+                    }else{
+                        setStyleSheet("/ku/cs/styles/department/pages/approver-list/department-staff-approver-list-table-stylesheet.css");
+                    }
+
+                }
+            }
+        };
+        Theme.getInstance().addObserver(approverTable);
 
         loginUser = (FacultyUser) FXRouter.getData();
         showTable();
@@ -99,6 +109,9 @@ public class FacultyApproverController {
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             search(newValue);
         });
+
+        Theme.getInstance().addObserver(this);
+        Theme.getInstance().notifyObservers(Theme.getInstance().getTheme());
     }
 
     private void initLabel() {
@@ -107,13 +120,6 @@ public class FacultyApproverController {
         DefaultLabel approverName = new DefaultLabel(approverNameLabel);
         DefaultLabel approverPosition = new DefaultLabel(approverPositionLabel);
         DefaultLabel fileName = new DefaultLabel(fileNameLabel);
-        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-            pageTile.changeLabelColor("#ffffff");
-            tableView.changeLabelColor("#ffffff");
-            approverName.changeLabelColor("#ffffff");
-            approverPosition.changeLabelColor("#ffffff");
-            fileName.changeLabelColor("#ffffff");
-        }
     }
 
     private void initButton() {
@@ -121,12 +127,6 @@ public class FacultyApproverController {
         new DefaultButton(addApproverButton, "#FFE0A4", "#a6a6a6", "#000000").changeBackgroundRadius(15);
         new DefaultButton(removeFileButton, "transparent", "#a6a6a6", "#000000");
         new DefaultButton(uploadFileButton, "#ABFFA4", "#a6a6a6", "#000000").changeBackgroundRadius(15);
-        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-            back.changeLabelColor("#ffffff");
-            back.changeColor("#536878");
-            back.changeHoverColor("#7992A6");
-            back.changeBaseColor("#536878");
-        }
     }
 
     private void search(String newValue) {
@@ -264,18 +264,8 @@ public class FacultyApproverController {
         }
     }
 
-    public void updateStyle() {
-        Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
-            @Override
-            public String getThemeDarkPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
-            }
-            @Override
-            public String getThemeLightPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
-            }
-        });
+    @Override
+    public void update(HashMap<String, String> data) {
+        mainAnchorPane.setStyle(mainAnchorPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
     }
-
-
 }

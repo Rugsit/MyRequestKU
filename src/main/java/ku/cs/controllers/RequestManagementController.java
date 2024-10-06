@@ -432,7 +432,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                               controller.setTitleLabel("แบบขอเปลี่ยนแปลงการลงทะเบียนเรียน KU3");
                           }
                       }
-                      scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/general-request-form-page-style.css").toExternalForm());
 
                       mainStackPane.getChildren().add(new BlankPopupStack() {
                           VBox mainBox;
@@ -447,6 +446,9 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                               mainBox.setMaxWidth(600);
                               mainBox.setMaxHeight(620);
                               mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                              if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+                                  mainBox.setStyle("-fx-background-color: #536878; -fx-background-radius: 50px");
+                              }
                               lineEnd.setAlignment(Pos.CENTER);
                               scene.setStyle("-fx-pref-height: 620px");
                               stackPane.getChildren().add(mainBox);
@@ -486,6 +488,9 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                                       mainBox.getChildren().addAll(pane, lineEnd);
                                       mainBox.setMaxHeight(620);
                                       mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
+                                      if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+                                          mainBox.setStyle("-fx-background-color: #536878; -fx-background-radius: 50px");
+                                      }
                                       pane.setStyle("-fx-pref-height: 620px");
                                       VBox.setMargin(lineEnd,new Insets(20,0,20,0));
                                   } catch (IOException exception) {

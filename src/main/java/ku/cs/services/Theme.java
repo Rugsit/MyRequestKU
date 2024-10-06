@@ -69,11 +69,13 @@ public class Theme implements Subject<HashMap<String,String>>{
             themeList.put("primary", "black");
             themeList.put("secondary", "#1E1E1E");
             themeList.put("textColor", "white");
+            currentTheme = "dark";
         }else{
             themeList.put("name", themeName);
             themeList.put("primary", "white");
             themeList.put("secondary", "#F4F4F4");
             themeList.put("textColor", "black");
+            currentTheme = "light";
         }
         notifyObservers(themeList);
     }
