@@ -287,6 +287,7 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
     private void refreshSearchTableData(Collection<User> users){
         nisitTableView.getItems().clear();
         nisitTableView.getItems().addAll(users);
+        nisitTableView.refresh();
     }
     private void initNisitEditor(User user){
 
