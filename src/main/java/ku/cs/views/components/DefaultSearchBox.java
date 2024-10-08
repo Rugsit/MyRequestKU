@@ -50,7 +50,7 @@ public class DefaultSearchBox<T> extends VBox {
 
         initialize();
     }
-    private void initialize(){
+    protected void initialize(){
         initSearchBox();
         initFilterBox();
         initCompareBox();

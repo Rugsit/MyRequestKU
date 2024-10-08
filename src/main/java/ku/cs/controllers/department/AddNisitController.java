@@ -265,17 +265,33 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
             children.add(container);
 
             //TEXT FIELDS
+            //ID
+            container = newEditorLabelContainerHBox();
+            container.getChildren().addAll(newEditorLabel("รหัสนิสิต"));
+            children.add(container);
             container = newEditorContainerHBox();
             container.getChildren().add(nisitIdTextField = new TextFieldStack(user.getId(),editorHBoxWidth,editorHBoxHeight));
             container.setAlignment(Pos.CENTER);
+            children.add(container);
+            //FIRSTNAME
+            container = newEditorLabelContainerHBox();
+            container.getChildren().addAll(newEditorLabel("ชื่อ"));
             children.add(container);
             container = newEditorContainerHBox();
             container.getChildren().add(nisitFirstnameTextField = new TextFieldStack(user.getFirstname(),editorHBoxWidth,editorHBoxHeight));
             container.setAlignment(Pos.CENTER);
             children.add(container);
+            //LASTNAME
+            container = newEditorLabelContainerHBox();
+            container.getChildren().addAll(newEditorLabel("นามสกุล"));
+            children.add(container);
             container = newEditorContainerHBox();
             container.getChildren().add(nisitLastnameTextField = new TextFieldStack(user.getLastname(),editorHBoxWidth,editorHBoxHeight));
             container.setAlignment(Pos.CENTER);
+            children.add(container);
+            //EMAIL
+            container = newEditorLabelContainerHBox();
+            container.getChildren().addAll(newEditorLabel("อีเมล"));
             children.add(container);
             container = newEditorContainerHBox();
             container.getChildren().add(nisitEmailTextField = new TextFieldStack(user.getEmail(),editorHBoxWidth,editorHBoxHeight));
@@ -312,6 +328,23 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
         container.setPrefSize(w,h);
         return container;
     }
+    private HBox newEditorLabelContainerHBox(){
+        double w = editorHBoxWidth;
+        HBox container = new HBox();
+        container.setMaxWidth(w);
+        container.setPrefWidth(w);
+        container.setAlignment(Pos.BOTTOM_LEFT);
+        return container;
+    }
+    private DefaultLabel newEditorLabel(String text){
+        double fontSize = 24;
+        DefaultLabel label = new DefaultLabel("");
+        label.changeText(text,fontSize,FontWeight.BOLD);
+        if(theme.getTheme() != null){
+            label.changeLabelColor(theme.getTheme().get("textColor"));
+        }
+        return label;
+    }
     private void toggleEditFiled(){
         Class<?>[] notifyClass = {TextFieldStack.class};
         theme.notifyObservers(theme.getTheme(),notifyClass);
@@ -331,7 +364,7 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
             if(node instanceof HBox){
                 HBox hbox = (HBox) node;
                 hbox.setSpacing(20);
-                VBox.setMargin(hbox,new Insets(15,0,0,0));
+                VBox.setMargin(hbox,new Insets(10,0,0,0));
                 for(int i = 0;i < hbox.getChildren().size();i++){
                     Node child = hbox.getChildren().get(i);
                     if(child instanceof TextFieldStack){
