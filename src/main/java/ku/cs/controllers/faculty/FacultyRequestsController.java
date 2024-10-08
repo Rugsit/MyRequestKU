@@ -63,11 +63,13 @@ public class FacultyRequestsController {
             requestListTableView.getItems().clear();
             requestListTableView.getItems().addAll(requestList.getRequests()
                     .stream()
-                    .filter(request -> request.getStatusNow().equals("อนุมัติโดยหัวหน้าภาควิชา") &&
-                            request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") &&
+                    .filter(request ->
                             studentId.contains(request.getNisitId()) &&
-                            (request.getName().toLowerCase().contains(newValue.toLowerCase()) ||
-                                    request.getRequestType().toLowerCase().contains(newValue.toLowerCase())))
+                                    (request.getName().toLowerCase().contains(newValue.toLowerCase()) ||
+                                            request.getRequestType().toLowerCase().contains(newValue.toLowerCase())) ||
+                                    request.getStatusNow().contains(newValue) ||
+                                    request.getStatusNext().contains(newValue)
+                    )
                     .collect(Collectors.toList()));
 
             TableColumn<Request, LocalDateTime> dateColumn = (TableColumn<Request, LocalDateTime>) requestListTableView.getColumns().get(1);
