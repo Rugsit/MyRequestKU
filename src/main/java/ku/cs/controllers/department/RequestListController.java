@@ -3,8 +3,8 @@ package ku.cs.controllers.department;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
 import ku.cs.models.Session;
@@ -20,30 +20,19 @@ import ku.cs.models.request.Request;
 import ku.cs.models.user.UserList;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class RequestListController implements Observer<HashMap<String, String>> {
     @FXML private AnchorPane mainAnchorPane;
     @FXML private Label pageTitleLabel;
 
-    @FXML private ImageView topSideImageView;
-    @FXML private VBox routeButtonVBox;
-    @FXML private Button requestSideButton;
-    @FXML private Button nisitManagementSideButton;
-    @FXML private Button approverManagementSideButton;
-    @FXML private Button nisitAdvisorManagementSideButton;
-
-    @FXML private VBox userProfileVBox;
-    @FXML private ImageView userProfileImageView;
-    @FXML private Button logoutButton;
-
-    @FXML private TextField seachTextField;
     @FXML private TableView<Request> requestTableView;
-    @FXML private UserList userList;
+    private DefaultTableView<Request> reqTable;
     private RequestList requestList;
+    private RequestList departmentRequest;
     private RequestListFileDatasource requestDatasource;
+    private UserListFileDatasource userDatasource;
+    private UserList userList;
 
     private final String BASE_COLOR = "#FFFFFF";
     private final String HOVER_COLOR = "#a6a6a6";
@@ -53,6 +42,8 @@ public class RequestListController implements Observer<HashMap<String, String>> 
     private Session session;
     private Theme theme = Theme.getInstance();
     @FXML private Button switchThemeButton;
+    @FXML private HBox tableTopHBox;
+    private DefaultSearchBox<Request> searchBox;
 
     private void initRouteData(){
         Object object = FXRouter.getData();
@@ -67,14 +58,14 @@ public class RequestListController implements Observer<HashMap<String, String>> 
     public void initialize() {
         theme.clearObservers();
         initRouteData();
+        userDatasource = new UserListFileDatasource("data","student.csv");
         requestDatasource = new RequestListFileDatasource("data");
-        requestList = requestDatasource.readData();
 
         initLabel();
         initButton();
         initTableView();
-//        Image image = new Image(getClass().getResourceAsStream("/images/profile-test.png"));
-//        new SquareImage(userProfileImageView,image).setClipImage(100,100);
+        refreshTableData();
+        initTableTopHBox();
 
         mainAnchorPane.getChildren().add(new SidebarController("request-list",session).getVBox());
 
@@ -101,8 +92,54 @@ public class RequestListController implements Observer<HashMap<String, String>> 
         switchThemeBT.changeText(theme.getThemeName(),24,FontWeight.NORMAL);
         switchThemeBT.changeBackgroundRadius(10);
     }
+    private void initTableTopHBox(){
+        Map<String,StringExtractor<Request>> filterList= new LinkedHashMap<>();
+        filterList.put("ประเภทคำร้อง", obj -> obj.getRequestType());
+        filterList.put("รหัสนิสิต", obj -> obj.getNisitId());
+        filterList.put("ชื่อ-นามสกุล", obj -> obj.getName());
+        filterList.put("เวลาอัพเดต", new StringExtractor<>() {
+            @Override
+            public String extract(Request obj) {
+                String timestamp = DateTools.localDateTimeToFormatString("yyyy/MM/dd HH:mm", obj.getTimeStamp());
+                return timestamp;
+            }
+        });
+        filterList.put("วันที่สร้าง", new StringExtractor<>() {
+            @Override
+            public String extract(Request obj) {
+                String timeCreated = "สร้าง " + DateTools.localDateTimeToFormatString("yyyy/MM/dd", obj.getDate());
+                return timeCreated;
+            }
+        });
+        filterList.put("สถานะปัจจุบัน", obj -> obj.getStatusNow());
+        filterList.put("สถานะถัดไป", obj -> obj.getStatusNext());
+
+        Map<String,Comparator<Request>> comparatorList= new LinkedHashMap<>();
+        Comparator<Request> requestTimeComparator = new Comparator<Request>() {
+            @Override
+            public int compare(Request o1, Request o2) {
+                return o1.getDate().compareTo(o2.getDate());
+            }
+        };
+        Comparator<Request> requestTimestampComparator = new Comparator<Request>() {
+            @Override
+            public int compare(Request o1, Request o2) {
+                return o1.getTimeStamp().compareTo(o2.getTimeStamp());
+            }
+        };
+        comparatorList.put("เวลาอัพเดต",requestTimestampComparator);
+        comparatorList.put("วันที่สร้าง",requestTimeComparator);
+
+        searchBox = new DefaultSearchBox<>(departmentRequest.getRequests(), filterList,comparatorList,652,50){
+            @Override
+            protected void searchAction(){
+                refreshSearchTableData(getQueryItems());
+            }
+        };
+        tableTopHBox.getChildren().addAll(searchBox);
+    }
     private void initTableView(){
-        DefaultTableView<Request> reqTable = new DefaultTableView(requestTableView){
+        reqTable = new DefaultTableView(requestTableView){
             @Override
             protected void handleClick() {
                 getTableView().setOnMouseClicked(e->{
@@ -139,19 +176,19 @@ public class RequestListController implements Observer<HashMap<String, String>> 
         reqTable.addColumn("ประเภทคำร้อง","requestType");
         reqTable.addColumn("รหัสนิสิต","nisitId");
         reqTable.addColumn("ชื่อ-นามสกุล","name");
-//        reqTable.addColumn("วันที่และเวลา","timeStamp");
-//        reqTable.addColumn("สถานะคำร้อง","statusNow");
         reqTable.getTableView().getColumns().add(newTimestampColumn("เวลาอัปเดต"));
         reqTable.getTableView().getColumns().add(newRequestStatusColumn("สถานะคำร้อง"));
         reqTable.addStyleSheet("/ku/cs/styles/department/pages/request-list/department-staff-request-list-table-stylesheet.css");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
+        theme.addObserver(reqTable);
+    }
 
-//        Request request = new Request("ศิริสุข ทานธรรม", LocalDateTime.parse("2024/08/02 23:59:45", formatter), LocalDateTime.parse("2024/08/02 23:59:45", formatter), "6610402230", "คำร้องทั่วไป", "รอภาควิชา", "อนุมัติโดยอาจารย์ที่ปรึกษา");
+    private void refreshTableData(){
+        reqTable.getTableView().getItems().clear();
+        userList = userDatasource.readData();
+        requestList = requestDatasource.readData();
+        departmentRequest = new RequestList();
 
-        UserListFileDatasource userDatasource = new UserListFileDatasource("data","student.csv");
-        UserList userList = userDatasource.readData();
-        RequestList departmentRequest = new RequestList();
         if(session != null && (session.getUser() != null && session.getUser() instanceof DepartmentUser)){;
             for(Request request : requestList.getRequests()){
                 UUID requestDepartmentUUID = ((DepartmentUser)userList.findUserByUUID(request.getOwnerUUID())).getDepartmentUUID();
@@ -159,11 +196,17 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                     departmentRequest.addRequest(request);
                 }
             }
-            reqTable.getTableView().getItems().addAll(departmentRequest.getRequests());
         }else{
-            reqTable.getTableView().getItems().addAll(requestList.getRequests());
+            departmentRequest.concatenate(requestList);
         }
-        theme.addObserver(reqTable);
+        reqTable.getTableView().getItems().addAll(departmentRequest.getRequests());
+        if(searchBox!=null){
+            searchBox.setSearchItems(departmentRequest.getRequests());
+        }
+    }
+    private void refreshSearchTableData(Collection<Request> requests){
+        reqTable.getTableView().getItems().clear();
+        reqTable.getTableView().getItems().addAll(requests);
     }
     private TableColumn<Request,?> newRequestStatusColumn(String colName){
         TableColumn<Request,VBox> column = new TableColumn<>(colName);
@@ -177,10 +220,7 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                 vBox.setAlignment(Pos.CENTER);
                 line1.changeText("",20, FontWeight.NORMAL);
                 line2.changeText("",18, FontWeight.NORMAL);
-                if(theme.getTheme() != null){
-                    line1.changeLabelColor(theme.getTheme().get("textColor"));
-                    line2.changeLabelColor(theme.getTheme().get("textColor"));
-                }
+
             }
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -194,9 +234,28 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                     line1.changeText(statusNow);
                     if(statusNow.equalsIgnoreCase("ใบคำร้องใหม่")){
                         line1.changeLabelColor("green");
+                    }else{
+                        if(theme.getTheme() != null){
+                            line1.changeLabelColor(theme.getTheme().get("textColor"));
+                        }else {
+                            line1.changeLabelColor("black");
+                        }
                     }
                     String statusNext = request.getStatusNext();
                     line2.changeText(statusNext);
+                    if(statusNext.contains("ครบถ้วน")){
+                        line2.changeLabelColor("green");
+                    }else if (statusNext.contains("ปฏิเสธ")){
+                        line2.changeLabelColor("red");
+                    }else if (statusNext.contains("ส่งต่อ")){
+                        line2.changeLabelColor("orange");
+                    }else{
+                        if(theme.getTheme() != null){
+                            line2.changeLabelColor(theme.getTheme().get("textColor"));
+                        }else{
+                            line2.changeLabelColor("black");
+                        }
+                    }
 
                     vBox.getChildren().clear();
                     vBox.getChildren().addAll(line1, line2);
