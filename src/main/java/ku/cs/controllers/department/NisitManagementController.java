@@ -18,6 +18,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
 import ku.cs.models.Session;
+import ku.cs.models.request.Request;
+import ku.cs.models.request.RequestList;
+import ku.cs.models.request.approver.Approver;
+import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.DepartmentUser;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
@@ -484,6 +488,32 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                 ImageDatasource imageDatasource = new ImageDatasource("users");
                 imageDatasource.deleteFile(user.getAvatar());
             }
+
+            //remove associate requests
+            RequestListFileDatasource requestListFileDatasource = new RequestListFileDatasource("data");
+            ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("request-approvers");
+            ImageDatasource imageDatasource = new ImageDatasource("signatures");
+            RequestList requestList = requestListFileDatasource.readData();
+            ApproverList approverList = approverListFileDatasource.readData();
+            Iterator<Request> requestIterator = requestList.getRequests().iterator();
+
+            while (requestIterator.hasNext()) {
+                Request r = requestIterator.next();
+                if (r.getOwnerUUID().equals(user.getUUID())) {
+                    ApproverList tempApprovers = approverList.getApproverList(r.getUuid());
+                    for (Approver a : tempApprovers.getApprovers()) {
+                        if(!a.getSignatureFile().equalsIgnoreCase("no-image")){
+                            imageDatasource.deleteFile(a.getSignatureFile());
+                        }
+                        approverList.deleteApproverByObject(a);
+                    }
+                    requestIterator.remove();
+                }
+            }
+            requestListFileDatasource.writeData(requestList);
+            approverListFileDatasource.writeData(approverList);
+
+
             users.deleteUserByObject(user);
             datasource.writeData(users);
             refreshTableData();
