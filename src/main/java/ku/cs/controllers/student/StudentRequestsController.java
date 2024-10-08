@@ -48,7 +48,6 @@ public class StudentRequestsController {
     Student loginUser;
     DefaultTableView<Request> requestListTable;
 
-    // TODO: fetch data from datasource instead
     public void initialize() {
         showTable();
     }
@@ -177,8 +176,8 @@ public class StudentRequestsController {
         Pattern complete = Pattern.compile(".*ครบถ้วน.*");
 
         requestsNumberLabel.setText("" + myRequests.getRequests().size());
-        approvedNumberLabel.setText("" + myRequests.getRequestsByStatus(complete).size());
-        rejectedNumberLabel.setText("" + myRequests.getRequestsByStatus(rejected).size());
+        approvedNumberLabel.setText("" + myRequests.getRequests(complete).size());
+        rejectedNumberLabel.setText("" + myRequests.getRequests(rejected).size());
 
 
     }

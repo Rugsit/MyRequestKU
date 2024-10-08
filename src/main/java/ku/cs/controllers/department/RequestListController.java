@@ -97,7 +97,7 @@ public class RequestListController implements Observer<HashMap<String, String>> 
         filterList.put("ประเภทคำร้อง", obj -> obj.getRequestType());
         filterList.put("รหัสนิสิต", obj -> obj.getNisitId());
         filterList.put("ชื่อ-นามสกุล", obj -> obj.getName());
-        filterList.put("เวลาอัพเดต", new StringExtractor<>() {
+        filterList.put("เวลาอัปเดต", new StringExtractor<>() {
             @Override
             public String extract(Request obj) {
                 String timestamp = DateTools.localDateTimeToFormatString("yyyy/MM/dd HH:mm", obj.getTimeStamp());
@@ -127,7 +127,7 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                 return o1.getTimeStamp().compareTo(o2.getTimeStamp());
             }
         };
-        comparatorList.put("เวลาอัพเดต",requestTimestampComparator);
+        comparatorList.put("เวลาอัปเดต",requestTimestampComparator);
         comparatorList.put("วันที่สร้าง",requestTimeComparator);
 
         searchBox = new DefaultSearchBox<>(departmentRequest.getRequests(), filterList,comparatorList,652,50){

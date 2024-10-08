@@ -71,7 +71,7 @@ public class RequestList {
         requests.addAll(requestList.getRequests());
     }
 
-    public ArrayList<Request> getRequestsByStatus(Pattern pattern) {
+    public ArrayList<Request> getRequests(Pattern pattern) {
         ArrayList<Request> matchedRequests = new ArrayList<>();
         for (Request request : requests) {
             String status = request.getStatusNext();
