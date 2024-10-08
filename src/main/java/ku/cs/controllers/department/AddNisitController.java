@@ -340,6 +340,9 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
         double fontSize = 24;
         DefaultLabel label = new DefaultLabel("");
         label.changeText(text,fontSize,FontWeight.BOLD);
+        if(theme.getTheme() != null){
+            label.changeLabelColor(theme.getTheme().get("textColor"));
+        }
         return label;
     }
     private void toggleEditFiled(){

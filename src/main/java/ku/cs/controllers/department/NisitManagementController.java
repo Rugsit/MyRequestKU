@@ -408,6 +408,9 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         label.changeText(text,fontSize,FontWeight.BOLD);
         label.setMaxWidth(width);
         label.setPrefWidth(width);
+        if(theme.getTheme() != null){
+            label.changeLabelColor(theme.getTheme().get("textColor"));
+        }
         return label;
     }
     private void toggleEditFiled(){
