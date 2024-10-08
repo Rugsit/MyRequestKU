@@ -564,7 +564,7 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         column.setReorderable(false);//BLOCK DRAG BY MOUSE
         column.setCellFactory(c -> new TableCell<>(){
             private HashMap<String,Image> imageCache = new HashMap<>();
-            private ExecutorService threadPool = Executors.newFixedThreadPool(10);
+//            private ExecutorService threadPool = Executors.newFixedThreadPool(10);
             User user;
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -603,7 +603,8 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                         }
                         //IF NULL NO-IMAGE, SET TO DEFAULT
                     });
-                    threadPool.execute(loadImageTask);
+//                    threadPool.execute(loadImageTask);
+                    new Thread(loadImageTask).start();
                     //ThreadPool nThread reduce create thread
 
                 }
