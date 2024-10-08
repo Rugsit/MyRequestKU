@@ -1,7 +1,5 @@
 package ku.cs.controllers.admin;
 
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -17,7 +15,6 @@ import ku.cs.models.user.UserList;
 import ku.cs.services.*;
 import ku.cs.views.components.SquareImage;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -252,6 +249,11 @@ public class AdminManageUsersController {
         userlist.deleteUserByObject(userlist.findUserByUUID(loginUser.getUUID()));
         userListTableView.getItems().clear();
         userListTableView.getItems().addAll(userlist.getUsers());
+        TableColumn<User, ?> lastTime = userListTableView.getColumns().get(4);
+        lastTime.setSortable(true);
+        lastTime.setSortType(TableColumn.SortType.DESCENDING);
+        userListTableView.getSortOrder().add(lastTime);
+        lastTime.setSortable(false);
     }
 
     public void setLoginUser(Admin loginUser) {
@@ -262,7 +264,6 @@ public class AdminManageUsersController {
         this.userlist = userlist;
     }
 
-//CONFLICTS FOR NEST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private void writeSpecificUsers(String fileName) {
         datasource = new UserListFileDatasource("data", fileName);
         if (fileName.equals("faculty-staff.csv")) {
@@ -281,24 +282,20 @@ public class AdminManageUsersController {
 
         if (role.equals("faculty-staff")) {
             datasource = new UserListFileDatasource("data", "faculty-staff.csv");
-//            datasource.writeData(userlist.getFacultyList());
             datasource.writeData(userlist.getUserList(role));
         } else if (role.equals("department-staff")) {
             datasource = new UserListFileDatasource("data", "department-staff.csv");
-//            datasource.writeData(userlist.getDepartmentList());
             datasource.writeData(userlist.getUserList(role));
         } else if (role.equals("student")) {
             datasource = new UserListFileDatasource("data", "student.csv");
-//            datasource.writeData(userlist.getStudentList());
             datasource.writeData(userlist.getUserList(role));
         } else if (role.equals("advisor")) {
             datasource = new UserListFileDatasource("data", "advisor.csv");
-//            datasource.writeData(userlist.getAdvisorList());
             datasource.writeData(userlist.getUserList(role));
 
         }
     }
-//CONFLICTS FOR NEST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     @FXML
     public void banButton() {
         User currentUser = userListTableView.getSelectionModel().getSelectedItem();
@@ -343,45 +340,5 @@ public class AdminManageUsersController {
         }
         updateTableView();
         searchTextField.setText("");
-    }
-
-
-    @FXML
-    protected void goToAdminManageStaff() {
-        try {
-            FXRouter.goTo("admin-manage-staff", loginUser);
-        } catch (
-                IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    protected void goToAdminManageFaculty() {
-        try {
-            FXRouter.goTo("admin-manage-faculty-department", loginUser);
-        } catch (
-                IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    protected void goToUserProfile() {
-        try {
-            FXRouter.goTo("admin-user-profile", loginUser);
-        } catch (
-                IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    protected void onLogoutClicked() {
-        try {
-            FXRouter.goTo("login");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
