@@ -167,6 +167,12 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
 
         searchBox = new DefaultSearchBox<>(new ArrayList<>(this.filterList.getUsers()), filterList,comparatorList,500,30){
             @Override
+            protected void initialize(){
+                super.initialize();
+                filterBox.getSelectionModel().select(1);//IDX -> รหัสนิสิต
+                compareBox.getSelectionModel().select(1);//IDX ASCENDING
+            }
+            @Override
             protected void searchAction(){
                 refreshSearchTableData(getQueryItems());
             }
