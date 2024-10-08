@@ -58,8 +58,8 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
     private DefaultLabel editorErrorLabel;
     private boolean editMode;
     private boolean showEdit;
-    DefaultComboBoxes departmentComboBox;
-    DefaultComboBoxes facultyComboBox;
+    DefaultComboBox departmentComboBox;
+    DefaultComboBox facultyComboBox;
     private FacultyListFileDatasource facultyDatasource;
     private FacultyList facultyList;
     private DepartmentListFileDatasource departmentDatasource;
@@ -442,7 +442,7 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                         children.add(addNisitEmailTextField);
 
                         if(session == null || (session.getUser() != null && !(session.getUser() instanceof DepartmentUser))){
-                            facultyComboBox = new DefaultComboBoxes<Faculty>(){
+                            facultyComboBox = new DefaultComboBox<Faculty>(){
                                 @Override
                                 protected void setStringExtractor() {
                                     this.extractor = new StringExtractor<Faculty>() {
@@ -454,7 +454,7 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                                 }
                             };
 
-                            departmentComboBox = new DefaultComboBoxes<Department>(){
+                            departmentComboBox = new DefaultComboBox<Department>(){
                                 @Override
                                 protected void setStringExtractor() {
                                     this.extractor = new StringExtractor<Department>() {

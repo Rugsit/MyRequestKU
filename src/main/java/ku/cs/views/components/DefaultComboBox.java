@@ -4,20 +4,20 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.text.Text;
 
-public abstract class DefaultComboBoxes<T> extends ComboBox<T> {
+public abstract class DefaultComboBox<T> extends ComboBox<T> {
     protected ComboBox<T> comboBox;
     protected final String DEFAULT_FONT;
     protected final String FALLBACK_FONT;
     protected double fontSize = 24;
     protected StringExtractor<T> extractor;
 
-    public DefaultComboBoxes(){
+    public DefaultComboBox(){
         this.comboBox = this;
         this.DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
         this.FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
         initialize();
     }
-    public DefaultComboBoxes(ComboBox<T> comboBox) {
+    public DefaultComboBox(ComboBox<T> comboBox) {
         this.comboBox = comboBox;
         this.DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
         this.FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
@@ -96,6 +96,10 @@ public abstract class DefaultComboBoxes<T> extends ComboBox<T> {
         comboBox.setStyle(comboBox.getStyle()+
                 "-fx-background-radius: " + radius + ";"+
                 "-fx-border-radius: " + radius + ";");
+    }
+    public void changeFontSize(double fontSize){
+        comboBox.setStyle(comboBox.getStyle()+"-fx-font-size: " + fontSize + ";");
+
     }
     public ComboBox<T> getComboBox() {
         return this.comboBox;
