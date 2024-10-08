@@ -19,10 +19,10 @@ import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
 import ku.cs.services.Observer;
 import ku.cs.services.Theme;
+import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class NisitAdvisorManagementController implements Observer<HashMap<String, String>> {
     @FXML private Label pageTitleLabel;
@@ -73,6 +73,11 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
     private Session session;
     private Theme theme = Theme.getInstance();
 
+    private DefaultSearchBox<User> nisitSearchBox;
+    private DefaultSearchBox<User> advisorSearchBox;
+    private UserList nisitFilterList;
+    private UserList advisorFilterList;
+
     private void initRouteData(){
         Object object = FXRouter.getData();
         if(object instanceof Session){
@@ -95,6 +100,8 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
         initAdvisorTableView();
         refreshNisitTable();
         refreshAdvisorTable();
+        initNisitTableHeaderHBox();
+        initAdvisorTableHeaderHBox();
 
 
         initShowVBox(showNisitVBox);
@@ -239,71 +246,163 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
 
         theme.addObserver(nisitTable);
     }
+    private void initNisitTableHeaderHBox(){
+        Map<String,StringExtractor<User>> filterList= new LinkedHashMap<>();
+        filterList.put("รหัสนิสิต", obj -> obj.getId());
+        filterList.put("ชื่อ-นามสกุล", obj -> obj.getName());
+        filterList.put("อีเมล", obj -> obj.getEmail());
+        filterList.put("คณะ", obj -> ((DepartmentUser)obj).getFaculty());
+        filterList.put("ภาควิชา", obj -> ((DepartmentUser)obj).getDepartment());
+        filterList.put("ที่ปรึกษา", new StringExtractor<User>() {
+            @Override
+            public String extract(User obj) {
+                Student student = (Student) obj;
+                String status;
+                if(student.getAdvisor() != null){
+                    User cuurentAdvisor = advisorList.findUserByUUID(student.getAdvisor());
+                    if(cuurentAdvisor != null){
+                        status = "มีที่ปรึกษา";
+                    }else{
+                        status = "มีที่ปรึกษา(!)";
+                    }
+                }else{
+                    status = "ไม่มีที่ปรึกษา";
+                }
+
+                return status;
+            }
+        });
+
+        Map<String, Comparator<User>> comparatorList= new LinkedHashMap<>();
+
+
+        nisitSearchBox = new DefaultSearchBox<>(new ArrayList<>(this.nisitFilterList.getUsers()), filterList,comparatorList,500,30){
+            @Override
+            protected void searchAction(){
+                refreshNisitSearchTableData(getQueryItems());
+            }
+            @Override
+            protected void initStyle(){
+                super.initStyle();
+                filterBox.changeFontSize(16);
+                compareBox.changeFontSize(16);
+                searchBox.setFontSize(16);
+            }
+        };
+        nisitTableHeaderHBox.getChildren().add(nisitSearchBox);
+    }
+    private void initAdvisorTableHeaderHBox(){
+        Map<String,StringExtractor<User>> filterList= new LinkedHashMap<>();
+        filterList.put("รหัสอาจารย์", obj -> obj.getId());
+        filterList.put("ชื่อ-นามสกุล", obj -> obj.getName());
+        filterList.put("อีเมล", obj -> obj.getEmail());
+        filterList.put("คณะ", obj -> ((DepartmentUser)obj).getFaculty());
+        filterList.put("ภาควิชา", obj -> ((DepartmentUser)obj).getDepartment());
+
+        Map<String, Comparator<User>> comparatorList= new LinkedHashMap<>();
+
+
+        advisorSearchBox = new DefaultSearchBox<>(new ArrayList<>(this.advisorFilterList.getUsers()), filterList,comparatorList,500,30){
+            @Override
+            protected void searchAction(){
+                refreshAdvisorSearchTableData(getQueryItems());
+            }
+            @Override
+            protected void initStyle(){
+                super.initStyle();
+                filterBox.changeFontSize(16);
+                compareBox.changeFontSize(16);
+                searchBox.setFontSize(16);
+            }
+        };
+        advisorTableHeaderHBox.getChildren().add(advisorSearchBox);
+    }
     private void refreshNisitTable(){
         nisitTableView.getItems().clear();
         nisitList = nisitDatasource.readData();
-        UserList filterList;
+
         if(session != null && session.getUser() != null){
-            filterList = new UserList();
+            nisitFilterList = new UserList();
             UUID currentDepartment = ((DepartmentUser)session.getUser()).getDepartmentUUID();
             for(User user : nisitList.getUsers("student")){
                 if(((Student)user).getDepartmentUUID().equals(currentDepartment)){
                     try {
-                        filterList.addUser(user);
+                        nisitFilterList.addUser(user);
                     } catch (UserException e) {
                         e.printStackTrace();
                     }
                 }
             }
         }else{
-            filterList = nisitList;
+            nisitFilterList = nisitList;
         }
 
-        for(User user : filterList.getUsers("student")){
-            if(user.isRole("student")){
-                nisitTableView.getItems().add(user);
+
+        if(nisitSearchBox!=null){
+            nisitSearchBox.setSearchItems(new ArrayList<>(nisitFilterList.getUsers()));
+            nisitSearchBox.forceSearch();
+
+        }else {
+            for(User user : nisitFilterList.getUsers("student")){
+                if(user.isRole("student")){
+                    nisitTableView.getItems().add(user);
+                }
             }
         }
-        nisitTableView.getSortOrder().clear();
-        TableColumn nisitCol = nisitTableView.getColumns().get(0);
-        nisitCol.setSortable(true);
-        nisitTableView.getSortOrder().add(nisitCol);
-        nisitCol.setSortType(TableColumn.SortType.ASCENDING);
-        nisitTableView.sort();
-        nisitCol.setSortable(false);
+//        nisitTableView.getSortOrder().clear();
+//        TableColumn nisitCol = nisitTableView.getColumns().get(0);
+//        nisitCol.setSortable(true);
+//        nisitTableView.getSortOrder().add(nisitCol);
+//        nisitCol.setSortType(TableColumn.SortType.ASCENDING);
+//        nisitTableView.sort();
+//        nisitCol.setSortable(false);
     }
     private void refreshAdvisorTable(){
         advisorTableView.getItems().clear();
         advisorList = advisorDatasource.readData();
-        UserList filterList;
         if(session != null && session.getUser() != null){
-            filterList = new UserList();
+            advisorFilterList = new UserList();
             UUID currentDepartment = ((DepartmentUser)session.getUser()).getDepartmentUUID();
             for(User user : advisorList.getUsers("advisor")){
                 if(((Advisor)user).getDepartmentUUID().equals(currentDepartment)){
                     try {
-                        filterList.addUser(user);
+                        advisorFilterList.addUser(user);
                     } catch (UserException e) {
                         e.printStackTrace();
                     }
                 }
             }
         }else{
-            filterList = advisorList;
+            advisorFilterList = advisorList;
         }
 
-        for(User user : filterList.getUsers("advisor")){
-            if(user.isRole("advisor")){
-                advisorTableView.getItems().add(user);
+
+        if(advisorSearchBox!=null){
+            advisorSearchBox.setSearchItems(new ArrayList<>(advisorFilterList.getUsers()));
+            advisorSearchBox.forceSearch();
+
+        }else {
+            for(User user : advisorFilterList.getUsers("advisor")){
+                if(user.isRole("advisor")){
+                    advisorTableView.getItems().add(user);
+                }
             }
         }
-        advisorTableView.getSortOrder().clear();
-        TableColumn nisitCol = advisorTableView.getColumns().get(0);
-        nisitCol.setSortable(true);
-        advisorTableView.getSortOrder().add(nisitCol);
-        nisitCol.setSortType(TableColumn.SortType.ASCENDING);
-        advisorTableView.sort();
-        nisitCol.setSortable(false);
+//        advisorTableView.getSortOrder().clear();
+//        TableColumn nisitCol = advisorTableView.getColumns().get(0);
+//        nisitCol.setSortable(true);
+//        advisorTableView.getSortOrder().add(nisitCol);
+//        nisitCol.setSortType(TableColumn.SortType.ASCENDING);
+//        advisorTableView.sort();
+//        nisitCol.setSortable(false);
+    }
+    private void refreshNisitSearchTableData(Collection<? extends User> users){
+        nisitTableView.getItems().clear();
+        nisitTableView.getItems().addAll(users);
+    }
+    private void refreshAdvisorSearchTableData(Collection<? extends User> users){
+        advisorTableView.getItems().clear();
+        advisorTableView.getItems().addAll(users);
     }
     private void selectedStudentListener(){
         if(selectedStudent != null){

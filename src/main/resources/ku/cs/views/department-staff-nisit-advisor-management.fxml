@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -42,11 +41,6 @@
                                           <Font name="Arial Bold" size="40.0" />
                                        </font>
                                     </Label>
-                                    <HBox alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="531.0">
-                                       <children>
-                                          <TextField />
-                                       </children>
-                                    </HBox>
                                  </children>
                               </HBox>
                               <TableView fx:id="nisitTableView" prefHeight="300.0" prefWidth="886.0">
@@ -66,11 +60,6 @@
                                           <Font name="Arial Bold" size="40.0" />
                                        </font>
                                     </Label>
-                                    <HBox alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="531.0">
-                                       <children>
-                                          <TextField />
-                                       </children>
-                                    </HBox>
                                  </children>
                               </HBox>
                               <TableView fx:id="advisorTableView" prefHeight="300.0" prefWidth="886.0">
