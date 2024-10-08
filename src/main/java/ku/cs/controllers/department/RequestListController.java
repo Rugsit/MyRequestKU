@@ -132,6 +132,13 @@ public class RequestListController implements Observer<HashMap<String, String>> 
 
         searchBox = new DefaultSearchBox<>(departmentRequest.getRequests(), filterList,comparatorList,652,50){
             @Override
+            protected void initialize(){
+                super.initialize();
+                //FORCE SORT LATEST UPDATE
+                filterBox.getSelectionModel().select(4);//IDX -> เวลาอัปเดต
+                compareBox.getSelectionModel().selectLast();//IDX DESCENDING
+            }
+            @Override
             protected void searchAction(){
                 refreshSearchTableData(getQueryItems());
             }
