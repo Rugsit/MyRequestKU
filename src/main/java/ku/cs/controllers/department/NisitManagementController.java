@@ -11,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -30,8 +29,11 @@ import ku.cs.services.Theme;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Lock;
 
 public class NisitManagementController implements Observer<HashMap<String, String>> {
     @FXML private Label pageTitleLabel;
@@ -42,7 +44,9 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
 
     @FXML private Label tableViewLabel;
     @FXML private TableView<User> nisitTableView;
-    @FXML private TextField searchTextFiled;
+    @FXML private HBox tableTopHBox;
+    private DefaultSearchBox<User> searchBox;
+    private UserList filterList;
 
     @FXML private VBox nisitEditorVBox;
 
@@ -87,6 +91,7 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         editorErrorLabel = new DefaultLabel("");
         initTableView();
         refreshTableData();
+        initTableTopHBox();
         nisitImageView = new ImageView();
 
         selectedUser = null;
@@ -123,6 +128,53 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
             }
         };
         refreshBt.changeBackgroundRadius(15);
+    }
+    private void initTableTopHBox(){
+        Map<String,StringExtractor<User>> filterList= new LinkedHashMap<>();
+        filterList.put("รหัสนิสิต", obj -> obj.getId());
+        filterList.put("ชื่อ-นามสกุล", obj -> obj.getName());
+        filterList.put("ชื่อผู้ใช้", new StringExtractor<>() {
+            @Override
+            public String extract(User obj) {
+                String username = obj.getUsername();
+                return (username.equalsIgnoreCase("no-username")
+                        && obj.getActiveStatus().equalsIgnoreCase("inactive")
+                        ? "not register" : username);
+            }
+        });
+        filterList.put("อีเมล", obj -> obj.getEmail());
+        filterList.put("สถานะ", obj -> obj.getActiveStatus());
+        filterList.put("ใช้งานล่าสุด", new StringExtractor<>() {
+            @Override
+            public String extract(User obj) {
+                return DateTools.localDateTimeToFormatString("yyyy/MM/dd HH:mm", obj.getLastLogin());
+            }
+        });
+
+
+        Map<String, Comparator<User>> comparatorList= new LinkedHashMap<>();
+        Comparator<User> userTimestampComparator = new Comparator<>() {
+            @Override
+            public int compare(User o1, User o2) {
+                return o1.getLastLogin().compareTo(o2.getLastLogin());
+            }
+        };
+        comparatorList.put("ใช้งานล่าสุด",userTimestampComparator);
+
+        searchBox = new DefaultSearchBox<>(new ArrayList<>(this.filterList.getUsers()), filterList,comparatorList,500,30){
+            @Override
+            protected void searchAction(){
+                refreshSearchTableData(getQueryItems());
+            }
+            @Override
+            protected void initStyle(){
+                super.initStyle();
+                filterBox.changeFontSize(16);
+                compareBox.changeFontSize(16);
+                searchBox.setFontSize(16);
+            }
+        };
+        tableTopHBox.getChildren().addFirst(searchBox);
     }
     private void initTableView(){
         DefaultTableView<User> nisitTable = new DefaultTableView(nisitTableView){
@@ -189,7 +241,6 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         datasource = new UserListFileDatasource("data","student.csv");
         users = datasource.readData();
 
-        UserList filterList;
         if(session != null && session.getUser() != null){
             filterList = new UserList();
             UUID currentDepartment = ((DepartmentUser)session.getUser()).getDepartmentUUID();
@@ -206,20 +257,32 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
             filterList = users;
         }
 
-        for(User user : filterList.getUsers("student")){
-            if(user.isRole("student")){
+
+
+        if(searchBox!=null){
+            searchBox.setSearchItems(new ArrayList<>(filterList.getUsers()));
+            searchBox.forceSearch();
+
+        }else {
+            for(User user : filterList.getUsers("student")){
+                if(user.isRole("student")){
 //                System.out.println(">>>> " + user);
-                nisitTableView.getItems().add(user);
+                    nisitTableView.getItems().add(user);
+                }
             }
         }
-        nisitTableView.getSortOrder().clear();
-        TableColumn nisitedCol = nisitTableView.getColumns().get(1);
-        nisitedCol.setSortable(true);
-        nisitTableView.getSortOrder().add(nisitedCol);
-        nisitedCol.setSortType(TableColumn.SortType.ASCENDING);
-        nisitTableView.sort();
-        nisitedCol.setSortable(false);
+//        nisitTableView.getSortOrder().clear();
+//        TableColumn nisitedCol = nisitTableView.getColumns().get(1);
+//        nisitedCol.setSortable(true);
+//        nisitTableView.getSortOrder().add(nisitedCol);
+//        nisitedCol.setSortType(TableColumn.SortType.ASCENDING);
+//        nisitTableView.sort();
+//        nisitedCol.setSortable(false);
 
+    }
+    private void refreshSearchTableData(Collection<User> users){
+        nisitTableView.getItems().clear();
+        nisitTableView.getItems().addAll(users);
     }
     private void initNisitEditor(User user){
 
@@ -435,8 +498,8 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         column.setSortable(false);//BLOCK SORT BY CLICK
         column.setReorderable(false);//BLOCK DRAG BY MOUSE
         column.setCellFactory(c -> new TableCell<>(){
-            private SquareImage avatar;
             private HashMap<String,Image> imageCache = new HashMap<>();
+            private ExecutorService threadPool = Executors.newFixedThreadPool(10);
             User user;
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -445,17 +508,18 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                     setGraphic(null);
                 } else {
                     setAlignment(Pos.CENTER);
-                    avatar = new SquareImage(new ImageView());
+                    SquareImage avatar = new SquareImage(new ImageView());
                     avatar.getImageView().setFitHeight(50);
                     avatar.getImageView().setFitWidth(50);
                     avatar.getImageView().setPreserveRatio(true);
                     avatar.getImageView().setSmooth(true);
                     avatar.setClipImage(50,50);
 //                    setStyle("-fx-background-color: red");
-                    setGraphic(avatar.getImageView());
+                    setGraphic(avatar.getImageView());//DEFAULT IMAGE
                     Task<Image> loadImageTask = new Task<>() {
                         @Override
                         protected Image call() {
+                            //NoNeed-synchronized -> share data not unique avatar base UUID
                             user = getTableView().getItems().get(getIndex());
                             if(user != null & !user.getAvatar().equalsIgnoreCase("no-image")){
                                 if(imageCache.keySet().contains(user.getAvatar())){
@@ -472,9 +536,10 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                         if(loadImageTask.getValue() != null){
                             avatar.setImage(loadImageTask.getValue());
                         }
-                        setGraphic(avatar.getImageView());
+                        //IF NULL NO-IMAGE, SET TO DEFAULT
                     });
-                    new Thread(loadImageTask).start();
+                    threadPool.execute(loadImageTask);
+                    //ThreadPool nThread reduce create thread
 
                 }
             }
