@@ -26,6 +26,7 @@ public class ProfileController implements Observer<HashMap<String, String>>, Par
     @FXML private Label pageTitleLabel;
     private Session session;
     private DepartmentUser loginUser;
+    private SidebarController sidebarController;
     private Theme theme = Theme.getInstance();
 private void initRouteData(){
     Object object = FXRouter.getData();
@@ -41,11 +42,11 @@ private void initRouteData(){
         initRouteData();
         initLabel();
         setLoginUser(session.getUser());
-        mainAnchorPane.getChildren().add(new SidebarController("profile",session).getVBox());
+        sidebarController = new SidebarController("profile",session);
+        mainAnchorPane.getChildren().add(sidebarController.getVBox());
         theme.addObserver(this);
-        theme.notifyObservers(theme.getTheme());
-        loadProfileCard();
 
+        loadProfileCard();
     }
     private void initLabel() {
         new DefaultLabel(pageTitleLabel);
@@ -60,7 +61,11 @@ private void initRouteData(){
     public void loadProfile() {
         mainAnchorPane.getChildren().removeLast();
         mainAnchorPane.getChildren().removeLast();
-        mainAnchorPane.getChildren().add(new SidebarController("profile",session).getVBox());
+
+        theme.removeObserver(sidebarController);
+        sidebarController = new SidebarController("profile",session);
+        mainAnchorPane.getChildren().add(sidebarController.getVBox());
+
         loadProfileCard();
     }
 
@@ -77,6 +82,8 @@ private void initRouteData(){
             pane.setLayoutX(432);
             pane.setLayoutY(157);
             mainAnchorPane.getChildren().add(pane);
+
+            theme.notifyObservers(theme.getTheme());
 
         } catch (IOException e) {
             throw new RuntimeException(e);
