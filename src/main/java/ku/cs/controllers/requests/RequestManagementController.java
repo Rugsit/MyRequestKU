@@ -33,6 +33,7 @@ import ku.cs.services.Theme;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -82,7 +83,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
     private ApproverList filterApproverList;
 
     private Approver selectedApprover;
-    private UploadImageStack sinatureUploader;
+    private UploadPDFStack signatureUploader;
 
     private Session session;
     private Theme theme = Theme.getInstance();
@@ -1146,7 +1147,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
         }
 
-        Class<?>[] notifyClass = {UploadImageStack.class};
+        Class<?>[] notifyClass = {UploadPDFStack.class};
         theme.notifyObservers(theme.getTheme(),notifyClass);
 
     }
@@ -1343,11 +1344,11 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
         //Signature Uploader
         container = newEditorContainer();
-        sinatureUploader = new UploadImageStack("signatures",
+        signatureUploader = new UploadPDFStack("signatures",
                 selectedApprover.getSignatureFilename(),
                 selectedApprover.getSignatureFile()
         );
-        container.getChildren().add(sinatureUploader);
+        container.getChildren().add(signatureUploader);
         editorVBox.getChildren().add(container);
 
         //EDIT SAVE CANCEL BUTTON
@@ -1372,7 +1373,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
         children.forEach(child -> {
             if(child instanceof HBox){
                 HBox hBox = (HBox) child;
-                if(hBox.getChildren().getFirst() instanceof UploadImageStack){
+                if(hBox.getChildren().getFirst() instanceof UploadPDFStack){
                     hBox.setVisible(editMode);
                 }
                 if(hBox.getChildren().getFirst() instanceof Button){
@@ -1399,8 +1400,8 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                                         @Override
                                         protected void handleClickEvent(){
                                             button.setOnMouseClicked(e -> {
-                                                sinatureUploader.cancelUploadedImage();//IF CLICKED
-                                                sinatureUploader.cancelDeleteImage();//IF CLICKED
+                                                signatureUploader.cancelUploadedImage();//IF CLICKED
+                                                signatureUploader.cancelDeleteImage();//IF CLICKED
                                                 selectedApproverListener();
                                             });
                                         }
@@ -1682,10 +1683,10 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
     private void onSaveSignatureUploader(){
         try {
-            sinatureUploader.saveUploadedImage();//IF CLICKED
-            sinatureUploader.performDeleteImage();//IF CLICKED
+            signatureUploader.saveUploadedImage();//IF CLICKED
+            signatureUploader.performDeleteImage();//IF CLICKED
 
-            selectedApprover.setSignatureFile(sinatureUploader.getCurFileName());
+            selectedApprover.setSignatureFile(signatureUploader.getCurFileName());
             approverDatasource.writeData(approverList);
 
             requestApproverTableView.refresh();
@@ -1773,53 +1774,29 @@ public class RequestManagementController implements Observer<HashMap<String, Str
     }
     private void onSignatureImageView(Approver approver){
         try {
-            mainStackPane.getChildren().add(new BlankPopupStack(){
-                private VBox mainBox;
-                @Override
-                protected void initPopupView(){
-                    mainBox = new VBox();
-                    mainBox.setMaxWidth(960);
-                    mainBox.setMaxHeight(640);
-                    mainBox.setSpacing(10);
-                    mainBox.setStyle("-fx-background-color: white;-fx-background-radius: 50");
-                    //TITLE
-                    HBox container = new HBox();
-                    container.setAlignment(Pos.CENTER);
-                    DefaultLabel titleLabel = new DefaultLabel("");
-                    titleLabel.changeText("ลายเซ็น",32,FontWeight.BOLD);
-                    container.getChildren().add(titleLabel);
-                    mainBox.getChildren().add(container);
-                    VBox.setMargin(container,new Insets(10,0,0,0));
-
-
-
-                    //IMAGE
-                    ImageView imageView = new ImageView();
-                    imageView.setFitWidth(854);
-                    imageView.setFitHeight(480);
-                    ImageDatasource imageDatasource = new ImageDatasource("signatures");
-                    Image signatureImage = imageDatasource.openImage(approver.getSignatureFile());
-                    new CropImage(imageView,signatureImage).setClipImage(100,100);
-
-
-                    //LINE END BUTTON
-                    HBox content = new HBox(imageView);
-                    content.setAlignment(Pos.CENTER);
-                    HBox lineEnd = new HBox(secondButton);
-                    lineEnd.setPrefHeight(100);
-                    lineEnd.setAlignment(Pos.CENTER);
-                    mainBox.getChildren().addAll(content,lineEnd);
-                    stackPane.getChildren().add(mainBox);
-
-                }
-
-                @Override
-                protected void handleSecondButton() {
-                    secondButton.setOnMouseClicked(e->{
-                        mainStackPane.getChildren().removeLast();
-                    });
-                }
-            });
+            PDFDatasource datasource = new PDFDatasource();
+            File pdfFile = datasource.getPDFFile(approver.getSignatureFile());
+            if(pdfFile!=null){
+                mainStackPane.getChildren().add(new PDFViewPopup(pdfFile){
+                    @Override
+                    protected void initPopupView(){
+                        super.initPopupView();
+                        titleLabel.changeText("ลายเซ็น");
+                    }
+                    @Override
+                    protected void handleFirstButton(){
+                        firstButton.setOnMouseClicked(e -> {
+                            datasource.downloadFile(approver.getSignatureFile());
+                        });
+                    }
+                    @Override
+                    protected void handleSecondButton(){
+                        secondButton.setOnMouseClicked(e ->{
+                            mainStackPane.getChildren().removeLast();
+                        });
+                    }
+                });
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

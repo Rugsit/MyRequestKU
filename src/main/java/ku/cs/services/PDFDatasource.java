@@ -1,5 +1,6 @@
 package ku.cs.services;
 
+import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
@@ -42,7 +43,7 @@ public class PDFDatasource {
 
             File uploadedFile = fileChooser.showOpenDialog(null);
             if (uploadedFile == null) {
-                return null;
+                    return "no-image";
             }
 
             File fileDestination = new File(fileDirectory + File.separator + "tmp.pdf");
@@ -106,6 +107,33 @@ public class PDFDatasource {
             } catch (IOException e) {
                 System.err.println("Error clearing temp file");
             }
+        }
+        private String checkIfFileExisted(String fileName){
+            String filePath = fileDirectory + File.separator + fileName;
+            File file = new File(filePath);
+            if (!file.exists()){
+                return null;
+            }
+            return filePath;
+        }
+        public File getPDFFile(String fileName) {
+            fileName = fileName + ".pdf";
+            String filePath = checkIfFileExisted(fileName);
+            if (filePath == null){
+                System.err.println("PDF not found");
+                return null;
+            }
+
+            File pdfFile = null;
+
+            try{
+                pdfFile = new File(filePath);
+            } catch (Exception e){
+                System.err.println("Error loading PDF");
+                e.printStackTrace();
+            }
+
+            return pdfFile;
         }
 
 }
