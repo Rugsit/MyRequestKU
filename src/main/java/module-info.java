@@ -7,6 +7,7 @@ module ku.cs {
     requires java.management;
     requires jdk.compiler;
     requires java.naming;
+    requires org.apache.pdfbox;
 
     opens ku.cs.cs211671project to javafx.fxml;
     exports ku.cs.cs211671project;
