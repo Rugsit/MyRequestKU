@@ -27,7 +27,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Label>
-            <Label styleClass="medium-font-size" text="วันที่อัพเดทล่าสุด:">
+            <Label styleClass="medium-font-size" text="วันที่อัปเดตล่าสุด:">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
