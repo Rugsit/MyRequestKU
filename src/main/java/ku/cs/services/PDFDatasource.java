@@ -15,7 +15,7 @@ public class PDFDatasource {
         private String fileName;
 
         public PDFDatasource(){
-            this.fileDirectory = "data"  + File.separator + "images" + File.separator + "signatures";
+            this.fileDirectory = "data"  + File.separator + "requests" + File.separator + "signatures";
             checkIfDirectoryExisted();
         }
 
