@@ -5,6 +5,7 @@ import ku.cs.models.user.UserList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class RequestList {
     private ArrayList<Request> requests;
@@ -68,6 +69,17 @@ public class RequestList {
 
     public void concatenate(RequestList requestList){
         requests.addAll(requestList.getRequests());
+    }
+
+    public ArrayList<Request> getRequests(Pattern pattern) {
+        ArrayList<Request> matchedRequests = new ArrayList<>();
+        for (Request request : requests) {
+            String status = request.getStatusNext();
+            if (pattern.matcher(status).find()) {
+                matchedRequests.add(request);
+            }
+        }
+        return matchedRequests;
     }
 
 }

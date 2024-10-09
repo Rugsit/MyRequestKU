@@ -167,6 +167,12 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
 
         searchBox = new DefaultSearchBox<>(new ArrayList<>(this.filterList.getUsers()), filterList,comparatorList,500,30){
             @Override
+            protected void initialize(){
+                super.initialize();
+                filterBox.getSelectionModel().select(1);//IDX -> รหัสนิสิต
+                compareBox.getSelectionModel().select(1);//IDX ASCENDING
+            }
+            @Override
             protected void searchAction(){
                 refreshSearchTableData(getQueryItems());
             }
@@ -287,6 +293,7 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
     private void refreshSearchTableData(Collection<User> users){
         nisitTableView.getItems().clear();
         nisitTableView.getItems().addAll(users);
+        nisitTableView.refresh();
     }
     private void initNisitEditor(User user){
 
@@ -321,18 +328,28 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
             container.getChildren().add(editorErrorLabel);
             children.add(container);
 
-            //TEST FIELDS
+            //TEXT FIELDS
+            //FIRSTNAME AND LASTNAME
+            container = newEditorLabelContainerHBox();
+            container.getChildren().addAll(newEditorLabel("ชื่อ"),newEditorLabel("นามสกุล"));
+            children.add(container);
             container = newEditorContainerHBox();
             container.getChildren().add(nisitFirstnameTextField = new TextFieldStack(user.getFirstname()));
             container.getChildren().add(nisitLastnameTextField = new TextFieldStack(user.getLastname()));
+            children.add(container);
+            //ID AND EMAIL
+            container = newEditorLabelContainerHBox();
+            container.getChildren().addAll(newEditorLabel("รหัสนิสิต"),newEditorLabel("อีเมล"));
             children.add(container);
             container = newEditorContainerHBox();
             container.getChildren().add(nisitIdTextField = new TextFieldStack(user.getId()));
             container.getChildren().add(nisitEmailTextField = new TextFieldStack(user.getEmail()));
             children.add(container);
+            //PASSWORD AND DEFAULT PASSWORD
+            container = newEditorLabelContainerHBox();
+            container.getChildren().addAll(newEditorLabel("รหัสผ่าน"),newEditorLabel("รหัสผ่านเริ่มต้น"));
+            children.add(container);
             container = newEditorContainerHBox();
-//            nisitPasswordTextField = new TextFieldStack("PASSWORD",570,50);
-//            container.getChildren().add(nisitPasswordTextField);
             container.getChildren().add(nisitPasswordTextField = new TextFieldStack("PASSWORD"));
             container.getChildren().add(nisitDefaultPasswordTextField = new TextFieldStack(user.getDefaultPassword()));
             children.add(container);
@@ -378,6 +395,24 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         container.setPrefSize(w,h);
         return container;
     }
+    private HBox newEditorLabelContainerHBox(){
+        double w = editorHBoxWidth;
+        HBox container = new HBox();
+        container.setPrefWidth(w);
+        return container;
+    }
+    private DefaultLabel newEditorLabel(String text){
+        double fontSize = 18;
+        double width = editorHBoxWidth;
+        DefaultLabel label = new DefaultLabel("");
+        label.changeText(text,fontSize,FontWeight.BOLD);
+        label.setMaxWidth(width);
+        label.setPrefWidth(width);
+        if(theme.getTheme() != null){
+            label.changeLabelColor(theme.getTheme().get("textColor"));
+        }
+        return label;
+    }
     private void toggleEditFiled(){
         Class<?>[] notifyClass = {TextFieldStack.class,UploadImageStack.class};
         theme.notifyObservers(theme.getTheme(),notifyClass);
@@ -397,7 +432,7 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
             if(node instanceof HBox){
                 HBox hbox = (HBox) node;
                 hbox.setSpacing(20);
-                VBox.setMargin(hbox,new Insets(15,0,0,0));
+                VBox.setMargin(hbox,new Insets(5,0,0,0));
                 for(int i = 0;i < hbox.getChildren().size();i++){
                     Node child = hbox.getChildren().get(i);
                     if(child instanceof TextFieldStack){
@@ -529,7 +564,7 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         column.setReorderable(false);//BLOCK DRAG BY MOUSE
         column.setCellFactory(c -> new TableCell<>(){
             private HashMap<String,Image> imageCache = new HashMap<>();
-            private ExecutorService threadPool = Executors.newFixedThreadPool(10);
+//            private ExecutorService threadPool = Executors.newFixedThreadPool(10);
             User user;
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -568,7 +603,8 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                         }
                         //IF NULL NO-IMAGE, SET TO DEFAULT
                     });
-                    threadPool.execute(loadImageTask);
+//                    threadPool.execute(loadImageTask);
+                    new Thread(loadImageTask).start();
                     //ThreadPool nThread reduce create thread
 
                 }

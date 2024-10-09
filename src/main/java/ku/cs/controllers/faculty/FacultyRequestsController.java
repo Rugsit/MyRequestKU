@@ -63,16 +63,20 @@ public class FacultyRequestsController {
             requestListTableView.getItems().clear();
             requestListTableView.getItems().addAll(requestList.getRequests()
                     .stream()
-                    .filter(request -> request.getStatusNow().equals("อนุมัติโดยหัวหน้าภาควิชา") &&
-                            request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") &&
+                    .filter(request ->
                             studentId.contains(request.getNisitId()) &&
-                            (request.getName().toLowerCase().contains(newValue.toLowerCase()) ||
-                                    request.getRequestType().toLowerCase().contains(newValue.toLowerCase())))
+                                    (request.getName().toLowerCase().contains(newValue.toLowerCase()) ||
+                                            request.getRequestType().toLowerCase().contains(newValue.toLowerCase())) ||
+                                    request.getStatusNow().contains(newValue) ||
+                                    request.getStatusNext().contains(newValue)
+                    )
                     .collect(Collectors.toList()));
 
-            TableColumn<Request, LocalDateTime> dateColumn = (TableColumn<Request, LocalDateTime>) requestListTableView.getColumns().get(1);
+            TableColumn<Request, LocalDateTime> dateColumn = (TableColumn<Request, LocalDateTime>) requestListTableView.getColumns().get(2);
+            dateColumn.setSortable(true);
             dateColumn.setSortType(TableColumn.SortType.DESCENDING);
             requestListTableView.getSortOrder().add(dateColumn);
+            requestListTableView.sort();
         }
     }
 
@@ -99,7 +103,7 @@ public class FacultyRequestsController {
         });
         TableColumn<Request, String> nameColumn = new TableColumn<>("ชื่อ-นามสกุล");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("วันที่อัปเดตล่าสุด");
+        TableColumn<Request, LocalDateTime> dateColumn = new TableColumn<>("อัปเดตล่าสุด");
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("TimeStamp"));
         TableColumn<Request, String> typeColumn = new TableColumn<>("ประเภทคำร้อง");
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("requestType"));
@@ -130,6 +134,10 @@ public class FacultyRequestsController {
         statusNextColumn.setMinWidth(241);
 
         requestListTableView.getColumns().addAll(typeColumn, nameColumn, dateColumn, statusColumn, statusNextColumn);
+        dateColumn.setSortType(TableColumn.SortType.DESCENDING);
+        dateColumn.setSortable(true);
+        requestListTableView.getSortOrder().add(dateColumn);
+        requestListTableView.sort();
     }
 
     private void getStudentId() {

@@ -48,7 +48,6 @@ public class StudentRequestsController {
     Student loginUser;
     DefaultTableView<Request> requestListTable;
 
-    // TODO: fetch data from datasource instead
     public void initialize() {
         showTable();
     }
@@ -165,10 +164,7 @@ public class StudentRequestsController {
         timestamp.setSortable(false);
     }
 
-    // TODO: fetch data from datasource instead
     private void showInfo(){
-        RequestList rejectedRequest = new RequestList();
-        RequestList acceptedRequest = new RequestList();
         if (myRequests == null) {
             requestsNumberLabel.setText("0");
             approvedNumberLabel.setText("0");
@@ -178,19 +174,11 @@ public class StudentRequestsController {
 
         Pattern rejected = Pattern.compile(".*ปฏิเสธ.*");
         Pattern complete = Pattern.compile(".*ครบถ้วน.*");
-        for (Request request : myRequests.getRequests()) {
-            String status = request.getStatusNext();
-            if(rejected.matcher(status).matches()) {
-                rejectedRequest.addRequest(request);
-            }
-            else if(complete.matcher(status).matches()) {
-                acceptedRequest.addRequest(request);
-            }
-        }
 
         requestsNumberLabel.setText("" + myRequests.getRequests().size());
-        approvedNumberLabel.setText("" + acceptedRequest.getRequests().size());
-        rejectedNumberLabel.setText("" + rejectedRequest.getRequests().size());
+        approvedNumberLabel.setText("" + myRequests.getRequests(complete).size());
+        rejectedNumberLabel.setText("" + myRequests.getRequests(rejected).size());
+
 
     }
 
