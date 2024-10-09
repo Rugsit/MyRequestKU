@@ -239,6 +239,8 @@ public class StudentRequestsController {
         Set<Request> filter = myRequests.getRequests()
                 .stream()
                 .filter(request -> request.getRequestType().toLowerCase().contains(searchTextField.getText().toLowerCase()) ||
+                        request.getTimeStamp().format(formatter).contains(searchTextField.getText()) ||
+                        request.getDate().format(formatter).contains(searchTextField.getText()) ||
                         request.getStatusNow().contains(searchTextField.getText()) ||
                         request.getStatusNext().contains(searchTextField.getText()))
                 .collect(Collectors.toSet());
