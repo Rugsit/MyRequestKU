@@ -109,12 +109,11 @@ public class FacultyRequestsController {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("requestType"));
         TableColumn<Request, String> statusColumn = new TableColumn<>("สถานะคำร้อง");
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
-        TableColumn<Request, String> statusNextColumn = new TableColumn<>("สถานะคำร้องต่อไป");
+        TableColumn<Request, String> statusNextColumn = new TableColumn<>("");
         statusNextColumn.setCellValueFactory(new PropertyValueFactory<>("statusNext"));
         RequestStatusColumn.setTableStatus(statusColumn, "now");
         RequestStatusColumn.setTableStatus(statusNextColumn, "next");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//        requestListTableView.g
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         dateColumn.setCellFactory(column -> new TextFieldTableCell<>(new StringConverter<LocalDateTime>() {
             @Override
             public String toString(LocalDateTime lastLogin) {
@@ -127,11 +126,6 @@ public class FacultyRequestsController {
             }
         }));
 
-        nameColumn.setMinWidth(150);
-        dateColumn.setMinWidth(200);
-        typeColumn.setMinWidth(150);
-        statusColumn.setMinWidth(190);
-        statusNextColumn.setMinWidth(241);
 
         requestListTableView.getColumns().addAll(typeColumn, nameColumn, dateColumn, statusColumn, statusNextColumn);
         dateColumn.setSortType(TableColumn.SortType.DESCENDING);

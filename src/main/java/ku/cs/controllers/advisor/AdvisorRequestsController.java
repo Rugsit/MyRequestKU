@@ -117,11 +117,6 @@ public class AdvisorRequestsController {
             }
         });
 
-//        nameColumn.setMinWidth(150);
-//        dateColumn.setMinWidth(200);
-//        typeColumn.setMinWidth(150);
-//        statusColumn.setMinWidth(190);
-//        statusNextColumn.setMinWidth(241);
 
         dateColumn.setSortable(false);
         nameColumn.setSortable(false);
