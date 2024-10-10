@@ -93,7 +93,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <Label fx:id="requestsNumberLabel" style="-fx-font-size: px;" text="0">
+                  <Label fx:id="requestsNumberLabel" text="0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -132,7 +132,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <Label fx:id="approvedNumberLabel" style="-fx-font-size: px;" text="0">
+                  <Label fx:id="approvedNumberLabel" text="0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -171,7 +171,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <Label fx:id="rejectedNumberLabel" prefWidth="15.0" style="-fx-font-size: px;" text="0">
+                  <Label fx:id="rejectedNumberLabel" prefWidth="15.0" text="0">
                      <font>
                         <Font size="18.0" />
                      </font>

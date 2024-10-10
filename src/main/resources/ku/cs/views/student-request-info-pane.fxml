@@ -27,15 +27,11 @@
             <String fx:value="large-font-size" />
          </styleClass>
       </Label>
-      <TableView fx:id="requestLogTableView" layoutX="29.0" layoutY="261.0" prefHeight="392.0" prefWidth="931.0">
+      <TableView fx:id="requestLogTableView" layoutX="29.0" layoutY="261.0" prefHeight="392.0" prefWidth="931.0" styleClass="semi-medium-font-size">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
-         <styleClass>
-            <String fx:value="RequestsTable" />
-            <String fx:value="semi-medium-font-size" />
-         </styleClass>
       </TableView>
       <Button fx:id="seeReject" graphicTextGap="10.0" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#seeRejectReason" prefHeight="45.0" text="ดูเหตุผลที่ถูกปฏิเสธคำร้อง" visible="false">
          <cursor>

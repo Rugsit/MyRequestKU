@@ -316,9 +316,9 @@
             <Insets bottom="10.0" />
          </VBox.margin>
       </GridPane>
-      <VBox fx:id="subjectVbox" prefWidth="100.0">
+      <VBox fx:id="subjectVbox" prefWidth="100.0" visible="false">
          <children>
-            <HBox fx:id="subjectHbox" alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="834.0" styleClass="subjectContainer" visible="false">
+            <HBox fx:id="subjectHbox" alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="834.0" styleClass="subjectContainer">
                <children>
                   <Label styleClass="medium-font-size" text="รหัสวิชา">
                      <HBox.margin>
@@ -335,7 +335,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField prefHeight="34.0" prefWidth="180.0" styleClass="medium-font-size" />
+                  <TextField maxWidth="350.0" minWidth="180.0" prefHeight="34.0" styleClass="medium-font-size" />
                </children>
             </HBox>
          </children>
