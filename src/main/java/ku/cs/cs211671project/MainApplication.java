@@ -19,9 +19,9 @@ public class MainApplication extends Application {
         Font.loadFont(getClass().getResourceAsStream(fontsPath + "PrintAble4U Bold ver 1.00.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream(fontsPath + "PrintAble4U Italic ver 1.00.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream(fontsPath + "PrintAble4U Bold Italic ver 1.00.ttf"), 12);
-        FXRouter.bind(this, stage, "CS211 Project", windowWidth, windowHeight);
+        FXRouter.bind(this, stage, "MyRequestKU", windowWidth, windowHeight);
         configRoutes();
-
+        stage.setResizable(false);
         FXRouter.goTo("login");
         theme.setTheme("default");
     }
