@@ -11,19 +11,21 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.controllers.ParentController;
 import ku.cs.controllers.SettingController;
 import ku.cs.controllers.UserProfileCardController;
 import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.user.Advisor;
 import ku.cs.models.user.FacultyUser;
+import ku.cs.models.user.User;
 import ku.cs.services.*;
 import ku.cs.views.components.SquareImage;
 
 import java.io.IOException;
 import java.util.HashMap;
 
-public class FacultyPageController implements Observer<HashMap<String, String>> {
+public class FacultyPageController implements Observer<HashMap<String, String>>, ParentController {
     @FXML
     Circle imageCircle;
     @FXML
@@ -34,14 +36,14 @@ public class FacultyPageController implements Observer<HashMap<String, String>> 
     BorderPane contentBorderPane;
     @FXML
     private AnchorPane mainAnchorPane;
-    private static FacultyUser loginUser;
+    private FacultyUser loginUser;
     ImageDatasource datasource;
 
     public void initialize(){
         updateStyle();
 
         if (FXRouter.getData() instanceof FacultyUser){
-            loginUser = (FacultyUser) FXRouter.getData();
+            setLoginUser((User) FXRouter.getData());
         }
 
         datasource = new ImageDatasource("users");
@@ -70,7 +72,7 @@ public class FacultyPageController implements Observer<HashMap<String, String>> 
             Pane pane = fxmlLoader.load();
             UserProfileCardController controller = fxmlLoader.getController();
             controller.setLoginUser(loginUser);
-            //controller.setParentController(this);
+            controller.setParentController(this);
             controller.initialize();
             contentBorderPane.setCenter(pane);
         } catch (IOException e) {
@@ -149,5 +151,19 @@ public class FacultyPageController implements Observer<HashMap<String, String>> 
     @Override
     public void update(HashMap<String, String> data) {
         mainAnchorPane.setStyle(mainAnchorPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
+    }
+
+
+    @Override
+    public void setLoginUser(User loginUser) {
+        this.loginUser = (FacultyUser) loginUser;
+    }
+
+    @Override
+    public void loadProfile() {
+        datasource = new ImageDatasource("users");
+        SquareImage profilePic = new SquareImage(tabProfilePicImageView);
+        profilePic.setClipImage(150, 150);
+        profilePic.setImage(datasource.openImage(loginUser.getAvatar()));
     }
 }
