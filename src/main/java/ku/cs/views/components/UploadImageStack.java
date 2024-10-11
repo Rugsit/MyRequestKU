@@ -122,6 +122,8 @@ public class UploadImageStack extends StackPane implements Observer<HashMap<Stri
 
     @Override
     public void update(HashMap<String, String> data) {
-        fileLabel.changeLabelColor(data.get("textColor"));
+        fileLabel.update(data);
+        uploadButton.update(data);
+        deleteButton.update(data);
     }
 }

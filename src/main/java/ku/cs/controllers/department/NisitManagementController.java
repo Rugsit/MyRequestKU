@@ -625,8 +625,8 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                 line1.changeText("",18, FontWeight.NORMAL);
                 line2.changeText("",18, FontWeight.NORMAL);
                 if(theme.getTheme() != null){
-                    line1.changeLabelColor(theme.getTheme().get("textColor"));
-                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                    line1.update(theme.getTheme());
+                    line2.update(theme.getTheme());
                 }
             }
             @Override
@@ -664,7 +664,8 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                 line1.changeText("",18,FontWeight.NORMAL);
                 line2.changeText("",18,FontWeight.NORMAL);
                 if(theme.getTheme() != null){
-                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                    line1.update(theme.getTheme());
+                    line2.update(theme.getTheme());
                 }
             }
             @Override

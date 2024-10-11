@@ -3,6 +3,7 @@ package ku.cs.controllers.department;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,6 +19,7 @@ import ku.cs.views.components.*;
 import ku.cs.views.layouts.sidebar.SidebarController;
 import ku.cs.models.request.Request;
 import ku.cs.models.user.UserList;
+import ku.cs.views.layouts.theme.themeSettingPopup;
 
 import java.io.IOException;
 import java.util.*;
@@ -76,21 +78,46 @@ public class RequestListController implements Observer<HashMap<String, String>> 
         new DefaultLabel(pageTitleLabel);
     }
     private void initButton(){
-        DefaultButton switchThemeBT = new DefaultButton(switchThemeButton,"#ABFFA4","#80BF7A","#000000"){
+        DefaultButton switchThemeBT = new DefaultButton(switchThemeButton,"white","white","white"){
+            private Image defaultImage = new Image(getClass().getResourceAsStream("/images/icons/sun-icon.png"));
+            private Image darkImage = new Image(getClass().getResourceAsStream("/images/icons/moon-icon.png"));
+            @Override
+            public void update(HashMap<String, String> data) {
+                String curTheme = data.get("name");
+                Image iconImage;
+                if(curTheme.equals("dark")){
+                    iconImage = darkImage;
+                    baseColorHex = "#2731B7";
+                    hoverColorHex = "#212A9E";
+                    changeColor(baseColorHex);
+                }else{
+                    iconImage = defaultImage;
+                    baseColorHex = "#69EEFF";
+                    hoverColorHex = "#62DCEC";
+                    changeColor(baseColorHex);
+                }
+                setImage(iconImage,30,30);
+                setButtonSize(50,50);
+                changeBackgroundRadius(100);
+                setMaxSize(50,50);
+            }
+
+
             @Override
             protected void handleClickEvent() {
-                getButton().setOnMouseClicked(e->{
-                    if(theme.getThemeName().equals("dark")){
-                        theme.setTheme("default");
-                    }else{
-                        theme.setTheme("dark");
-                    }
-                    changeText(theme.getThemeName());
+                getButton().setOnMouseClicked(e -> {
+                    mainAnchorPane.getChildren().addLast(new themeSettingPopup() {
+                        @Override
+                        protected void handleSecondButton() {
+                            secondButton.setOnMouseClicked(e -> {
+                                mainAnchorPane.getChildren().removeLast();
+                            });
+                        }
+                    });
                 });
             }
         };
-        switchThemeBT.changeText(theme.getThemeName(),24,FontWeight.NORMAL);
-        switchThemeBT.changeBackgroundRadius(10);
+        switchThemeBT.changeText("");
     }
     private void initTableTopHBox(){
         Map<String,StringExtractor<Request>> filterList= new LinkedHashMap<>();
@@ -227,7 +254,10 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                 vBox.setAlignment(Pos.CENTER);
                 line1.changeText("",20, FontWeight.NORMAL);
                 line2.changeText("",18, FontWeight.NORMAL);
-
+                if(theme.getTheme() != null){
+                    line1.update(theme.getTheme());
+                    line2.update(theme.getTheme());
+                }
             }
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -242,10 +272,9 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                     if(statusNow.equalsIgnoreCase("ใบคำร้องใหม่")){
                         line1.changeLabelColor("green");
                     }else{
+                        line1.changeLabelColor("black");
                         if(theme.getTheme() != null){
                             line1.changeLabelColor(theme.getTheme().get("textColor"));
-                        }else {
-                            line1.changeLabelColor("black");
                         }
                     }
                     String statusNext = request.getStatusNext();
@@ -257,10 +286,9 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                     }else if (statusNext.contains("ส่งต่อ")){
                         line2.changeLabelColor("orange");
                     }else{
+                        line2.changeLabelColor("black");
                         if(theme.getTheme() != null){
                             line2.changeLabelColor(theme.getTheme().get("textColor"));
-                        }else{
-                            line2.changeLabelColor("black");
                         }
                     }
 
@@ -286,8 +314,8 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                 line1.changeText("",20, FontWeight.NORMAL);
                 line2.changeText("",18, FontWeight.NORMAL);
                 if(theme.getTheme() != null){
-                    line1.changeLabelColor(theme.getTheme().get("textColor"));
-                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                    line1.update(theme.getTheme());
+                    line2.update(theme.getTheme());
                 }
             }
             @Override

@@ -498,7 +498,7 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
             {
                 line1.changeText("",20, FontWeight.NORMAL);
                 if(theme.getTheme() != null){
-                    line1.changeLabelColor(theme.getTheme().get("textColor"));
+                    line1.update(theme.getTheme());
                 }
             }
             @Override

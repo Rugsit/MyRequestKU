@@ -905,8 +905,8 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                 line1.changeText("",28, FontWeight.BOLD);
                 line2.changeText("",20, FontWeight.NORMAL);
                 if(theme.getTheme() != null){
-                    line1.changeLabelColor(theme.getTheme().get("textColor"));
-                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                    line1.update(theme.getTheme());
+                    line2.update(theme.getTheme());
                 }
             }
             @Override
@@ -942,8 +942,8 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                 line1.changeText("",24, FontWeight.BOLD);
                 line2.changeText("",22, FontWeight.NORMAL);
                 if(theme.getTheme() != null){
-                    line1.changeLabelColor(theme.getTheme().get("textColor"));
-                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                    line1.update(theme.getTheme());
+                    line2.update(theme.getTheme());
                 }
             }
             @Override
@@ -1041,6 +1041,9 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                         line1.setMaxWidth(75);
                     }
                     line1.changeText(status);
+                    if(theme.getTheme() != null){
+                        line1.update(theme.getTheme());
+                    }
                     if(status.equals("เรียบร้อย")){
                         line1.changeLabelColor("green");
                     } else if (status.equals("ไม่อนุมัติ")) {
