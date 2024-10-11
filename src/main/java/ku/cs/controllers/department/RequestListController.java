@@ -18,6 +18,7 @@ import ku.cs.views.components.*;
 import ku.cs.views.layouts.sidebar.SidebarController;
 import ku.cs.models.request.Request;
 import ku.cs.models.user.UserList;
+import ku.cs.views.layouts.theme.themeSettingPopup;
 
 import java.io.IOException;
 import java.util.*;
@@ -80,12 +81,14 @@ public class RequestListController implements Observer<HashMap<String, String>> 
             @Override
             protected void handleClickEvent() {
                 getButton().setOnMouseClicked(e->{
-                    if(theme.getThemeName().equals("dark")){
-                        theme.setTheme("default");
-                    }else{
-                        theme.setTheme("dark");
-                    }
-                    changeText(theme.getThemeName());
+                    mainAnchorPane.getChildren().addLast(new themeSettingPopup(){
+                        @Override
+                        protected void handleSecondButton(){
+                            secondButton.setOnMouseClicked(e ->{
+                                mainAnchorPane.getChildren().removeLast();
+                            });
+                        }
+                    });
                 });
             }
         };
@@ -227,7 +230,10 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                 vBox.setAlignment(Pos.CENTER);
                 line1.changeText("",20, FontWeight.NORMAL);
                 line2.changeText("",18, FontWeight.NORMAL);
-
+                if(theme.getTheme() != null){
+                    line1.update(theme.getTheme());
+                    line2.update(theme.getTheme());
+                }
             }
             @Override
             protected void updateItem(VBox item, boolean empty) {
@@ -242,10 +248,9 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                     if(statusNow.equalsIgnoreCase("ใบคำร้องใหม่")){
                         line1.changeLabelColor("green");
                     }else{
+                        line1.changeLabelColor("black");
                         if(theme.getTheme() != null){
                             line1.changeLabelColor(theme.getTheme().get("textColor"));
-                        }else {
-                            line1.changeLabelColor("black");
                         }
                     }
                     String statusNext = request.getStatusNext();
@@ -257,10 +262,9 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                     }else if (statusNext.contains("ส่งต่อ")){
                         line2.changeLabelColor("orange");
                     }else{
+                        line2.changeLabelColor("black");
                         if(theme.getTheme() != null){
                             line2.changeLabelColor(theme.getTheme().get("textColor"));
-                        }else{
-                            line2.changeLabelColor("black");
                         }
                     }
 
@@ -286,8 +290,8 @@ public class RequestListController implements Observer<HashMap<String, String>> 
                 line1.changeText("",20, FontWeight.NORMAL);
                 line2.changeText("",18, FontWeight.NORMAL);
                 if(theme.getTheme() != null){
-                    line1.changeLabelColor(theme.getTheme().get("textColor"));
-                    line2.changeLabelColor(theme.getTheme().get("textColor"));
+                    line1.update(theme.getTheme());
+                    line2.update(theme.getTheme());
                 }
             }
             @Override

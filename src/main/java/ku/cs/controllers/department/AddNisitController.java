@@ -420,12 +420,23 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                     private VBox bottomBox;
                     private HBox lineEnd;
                     private VBox verticalTextFieldBox;
+                    private DefaultLabel title;
                     private TextFieldStack addNisitIdTextField;
                     private TextFieldStack addNisitFirstnameTextField;
                     private TextFieldStack addNisitLastnameTextField;
                     private TextFieldStack addNisitEmailTextField;
                     private DefaultLabel errorLabel;
 
+                    @Override
+                    public void update(HashMap<String, String> data) {
+                        super.update(data);
+                        mainBox.setStyle(mainBox.getStyle()+"-fx-background-color: "+ data.get("secondary") +";");
+                        title.update(data);
+                        addNisitEmailTextField.update(data);
+                        addNisitFirstnameTextField.update(data);
+                        addNisitLastnameTextField.update(data);
+                        addNisitIdTextField.update(data);
+                    }
                     @Override
                     protected void initPopupView(){
                         double mainWidth = 600;
@@ -444,7 +455,7 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                         VBox top = new VBox();
                         top.setAlignment(Pos.CENTER);
                         top.setPrefHeight(100);
-                        DefaultLabel title = new DefaultLabel("");
+                        title = new DefaultLabel("");
                         title.changeText("เพิ่มรายชื่อนิสิต",32,FontWeight.BOLD);
                         top.getChildren().add(title);
 
@@ -542,6 +553,8 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                             children.add(parentsSelector);
                         }
                         children.add(errorLabel = new DefaultLabel(""));
+
+                        update(theme.getTheme());
 
                         children.forEach(child ->{
                             if(child instanceof TextFieldStack){

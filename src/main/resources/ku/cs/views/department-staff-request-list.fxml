@@ -11,7 +11,7 @@
    <children>
       <Label fx:id="pageTitleLabel" layoutX="308.0" layoutY="34.0" text="จัดการคำร้อง">
          <font>
-            <Font size="48.0" />
+            <Font name="Arial Bold" size="48.0" />
          </font>
       </Label>
       <TableView fx:id="requestTableView" layoutX="319.0" layoutY="150.0" prefHeight="522.0" prefWidth="910.0" />
