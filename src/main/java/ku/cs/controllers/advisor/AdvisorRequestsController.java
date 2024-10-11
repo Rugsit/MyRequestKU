@@ -66,7 +66,7 @@ public class AdvisorRequestsController {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("requestType"));
         TableColumn<Request, String> statusColumn = new TableColumn<>("สถานะคำร้อง");
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("statusNow"));
-        TableColumn<Request, String> statusNextColumn = new TableColumn<>("สถานะคำร้องต่อไป");
+        TableColumn<Request, String> statusNextColumn = new TableColumn<>("");
         statusNextColumn.setCellValueFactory(new PropertyValueFactory<>("statusNext"));
         RequestStatusColumn.setTableStatus(statusColumn, "now");
         RequestStatusColumn.setTableStatus(statusNextColumn, "next");

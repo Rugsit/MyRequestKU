@@ -29,10 +29,14 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label styleClass="large-font-size" text="จัดการคำร้องที่รอการอนุมัติ">
+                  <Label text="จัดการคำร้องที่รอการอนุมัติ">
                      <font>
                         <Font size="36.0" />
                      </font>
+                     <styleClass>
+                        <String fx:value="large-font-size" />
+                        <String fx:value="header" />
+                     </styleClass>
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="296.0" styleClass="searchHBox" GridPane.columnIndex="1">
                      <children>

@@ -20,9 +20,9 @@
             <String fx:value="header" />
             <String fx:value="large-font-size" />
          </styleClass></Label>
-      <HBox layoutX="25.0" layoutY="116.0" prefHeight="522.0" prefWidth="938.0" styleClass="hbox-choose-request">
+      <HBox layoutX="25.0" layoutY="116.0" prefWidth="938.0" styleClass="hbox-choose-request">
          <children>
-            <VBox alignment="TOP_CENTER" onMouseClicked="#onGeneralRequestVBoxClick" prefHeight="572.0" prefWidth="310.0" styleClass="v-box-request">
+            <VBox alignment="TOP_CENTER" onMouseClicked="#onGeneralRequestVBoxClick" prefWidth="310.0" styleClass="v-box-request">
                <children>
                   <ImageView fitHeight="59.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" styleClass="v-box-request-img">
                      <image>
@@ -53,14 +53,9 @@
                      </font>
                      <styleClass>
                         <String fx:value="details-request" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Label>
-                  <Label prefHeight="85.0" prefWidth="259.0" text="**นิสิตอาจต้องกรอกใบคำร้อง&#10;หลายใบต่อ ๆ กันหากคำขอต้อง&#10;การใบคำร้องเพิ่มเติม">
-                     <styleClass>
-                        <String fx:value="caution" />
-                        <String fx:value="medium-font-size" />
-                     </styleClass></Label>
                </children>
                <HBox.margin>
                   <Insets />
@@ -96,13 +91,13 @@
                      </VBox.margin>
                      <styleClass>
                         <String fx:value="details-request" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Label>
-                  <Label prefHeight="77.0" prefWidth="259.0" text="**นิสิตอาจต้องอัปโหลดเอกสาร&#10;เพิ่มเติมหากคำขอต้องการเอกสาร&#10;เพิ่มเติม">
+                  <Label prefHeight="85.0" prefWidth="259.0" text="**นิสิตอาจต้องกรอกใบคำร้อง เพิ่มเติม" wrapText="true">
                      <styleClass>
                         <String fx:value="caution" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass></Label>
                </children>
                <HBox.margin>
@@ -139,7 +134,7 @@
                      </VBox.margin>
                      <styleClass>
                         <String fx:value="details-request" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Label>
                </children>

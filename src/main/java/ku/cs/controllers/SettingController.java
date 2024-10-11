@@ -13,7 +13,7 @@ public class SettingController {
     @FXML
     private ChoiceBox<String> fontSizeChoiceBox;
     @FXML
-    private ComboBox<String> fontComboBox;
+    private ChoiceBox<String> fontChoiceBox;
     @FXML
     private AnchorPane mainAnchorPane;
     @FXML
@@ -36,6 +36,31 @@ public class SettingController {
         } else if (Theme.getInstance().getCurrentFont().contains("tiny")) {
             fontSizeChoiceBox.setValue("จิ๋ว");
         }
+
+        fontChoiceBox.getItems().addAll("Maehongson", "THSarabunNew", "PrintAble4u");
+        if (Theme.getInstance().getCurrentFontFamily().contains("Maehongson")) {
+            fontChoiceBox.setValue("Maehongson");
+        } else if (Theme.getInstance().getCurrentFontFamily().contains("THSarabunNew")) {
+            fontChoiceBox.setValue("THSarabunNew");
+        } else if (Theme.getInstance().getCurrentFontFamily().contains("printAble4u")) {
+            fontChoiceBox.setValue("PrintAble4u");
+        }
+
+        fontChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                String pathToFile = "";
+                if (newValue.equals("Maehongson")) {
+                    pathToFile = "PK-Maehongson-Demo.css";
+                } else if (newValue.equals("THSarabunNew")) {
+                    pathToFile = "THSarabunNew.css";
+                } else if (newValue.equals("PrintAble4u")) {
+                    pathToFile = "printAble4u-font.css";
+                }
+                Theme.getInstance().setCurrentFontFamily(pathToFile);
+                changeCssPage();
+            }
+        });
+
 
         fontSizeChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {

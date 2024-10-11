@@ -70,13 +70,13 @@ public class RegisterInformationRequestFormController {
     @FXML
     private TextField newCredit;
     @FXML
-    private TextField newFalTextField;
+    private Label newFalTextField;
     @FXML
     private TextField oldCredit;
     @FXML
-    private TextField oldFalTextField;
+    private Label oldFalTextField;
     @FXML
-    private TextArea otherTextArea;
+    private Label otherTextArea;
     @FXML
     private RadioButton registerBelowNineRadio;
     @FXML

@@ -197,7 +197,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefWidth="200.0">
          <children>
-            <Label styleClass="medium-font-size" text="ปีการศึกษา (w.ศ.)">
+            <Label styleClass="medium-font-size" text="ปีการศึกษา (พ.ศ.)">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
@@ -212,7 +212,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="campusTextField" styleClass="medium-font-size" />
+            <TextField fx:id="campusTextField" prefWidth="300.0" styleClass="medium-font-size" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />
@@ -262,7 +262,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField styleClass="medium-font-size" />
+                        <TextField prefWidth="300.0" styleClass="medium-font-size" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -332,7 +332,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="teacherTextField" styleClass="medium-font-size" />
+                        <TextField fx:id="teacherTextField" prefWidth="300.0" styleClass="medium-font-size" />
                      </children>
                   </HBox>
                </children>

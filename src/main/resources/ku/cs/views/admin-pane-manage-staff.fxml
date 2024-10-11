@@ -17,10 +17,14 @@
 
 <AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.AdminManageStaffController">
    <children>
-      <Label fx:id="test" layoutX="37.0" layoutY="21.0" styleClass="large-font-size" text="จัดการข้อมูลเจ้าหน้าที่">
+      <Label fx:id="test" layoutX="37.0" layoutY="21.0" text="จัดการข้อมูลเจ้าหน้าที่">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
+         <styleClass>
+            <String fx:value="large-font-size" />
+            <String fx:value="header" />
+         </styleClass>
       </Label>
       <TabPane fx:id="staffTabPane" layoutX="58.0" layoutY="91.0" prefHeight="546.0" prefWidth="894.0" styleClass="medium-font-size" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="300.0" tabMinHeight="50.0" tabMinWidth="265.0">
         <tabs>

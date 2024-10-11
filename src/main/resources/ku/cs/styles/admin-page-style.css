@@ -1,6 +1,5 @@
 * {
     -fx-text-fill: #374957;
-    -fx-font-family: PrintAble4U;
 }
 
 .side-bar-button {
@@ -15,7 +14,6 @@
 .about-us {
     -fx-cursor: hand;
     -fx-text-fill: #909194;
-    
 }
 
 .imagePane {
@@ -251,7 +249,7 @@
     -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #FFD5D5, #F66262);
 }
 .header-inbox {
-    
+    -fx-font-weight: bold;
 }
 .label-all {
     -fx-text-fill: #4E7FFF;
@@ -302,7 +300,6 @@
 }
 
 .desc {
-    
     -fx-alignment: center;
     -fx-font-weight: bold;
     -fx-text-fill: #626262;
@@ -674,3 +671,18 @@
     -fx-text-fill: #FF5D5D;
 }
 /*Choose Request Style*/
+
+.text-area-copycat {
+    -fx-background-color: #F2F2F2;
+    -fx-border-width: 0px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+}
+
+.text-field-copycat {
+    -fx-border-radius: 5;
+    -fx-font-weight: 500;
+    -fx-padding: 10px;
+    -fx-background-color: #F2F2F2;
+    -fx-background-radius: 5;
+}

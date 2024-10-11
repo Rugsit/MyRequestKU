@@ -38,6 +38,7 @@ public class Theme implements Subject<HashMap<String,String>>{
             anchorPane.getStylesheets().add(path.getThemeLightPath());
         }
         anchorPane.getStylesheets().add(Theme.class.getResource("/ku/cs/styles/font/" + currentFont).toString());
+        anchorPane.getStylesheets().add(Theme.class.getResource("/ku/cs/styles/font/" + currentFontFamily).toString());
     }
 
     public String getCurrentTheme() {

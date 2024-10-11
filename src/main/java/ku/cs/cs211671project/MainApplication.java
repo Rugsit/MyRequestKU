@@ -1,13 +1,14 @@
 package ku.cs.cs211671project;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ku.cs.services.FXRouter;
 import ku.cs.services.Theme;
 
+import java.awt.*;
 import java.io.IOException;
-
 public class MainApplication extends Application {
     public static final double windowWidth = 1280;
     public static final double windowHeight = 720;
@@ -23,8 +24,27 @@ public class MainApplication extends Application {
         Font.loadFont(getClass().getResourceAsStream(fontsPath + "Krub Bold.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream(fontsPath + "Krub Regular.ttf"), 12);
 
-        FXRouter.bind(this, stage, "CS211 Project", windowWidth, windowHeight);
+        Font.loadFont(getClass().getResourceAsStream(fontsPath + "THSarabunNew Bold.ttf"), 12);
+        Font.loadFont(getClass().getResourceAsStream(fontsPath + "THSarabunNew.ttf"), 12);
+        Font.loadFont(getClass().getResourceAsStream(fontsPath + "PK Maehongson Round Demo.ttf"), 12);
+        FXRouter.bind(this, stage, "MyRequestKU", windowWidth, windowHeight);
+
         configRoutes();
+        stage.setResizable(false);
+        Image logo16 = new Image(getClass().getResourceAsStream("/images/logos/application-logo16x16.png"));
+        Image logo32 = new Image(getClass().getResourceAsStream("/images/logos/application-logo32x32.png"));
+        Image logo48 = new Image(getClass().getResourceAsStream("/images/logos/application-logo48x48.png"));
+        Image logo64 = new Image(getClass().getResourceAsStream("/images/logos/application-logo64x64.png"));
+        Image logo128 = new Image(getClass().getResourceAsStream("/images/logos/application-logo128x128.png"));
+        Image logo500 = new Image(getClass().getResourceAsStream("/images/logos/application-logo500x500.png"));
+        stage.getIcons().addAll(logo16, logo32, logo48, logo64, logo128, logo500);
+
+        if (System.getProperty("os.name").contains("Mac")) {
+            Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+            java.awt.Image image = defaultToolkit.getImage(getClass().getResource("/images/logos/application-logo128x128.png"));
+            Taskbar taskbar = Taskbar.getTaskbar();
+            taskbar.setIconImage(image);
+        }
 
         FXRouter.goTo("login");
         theme.setTheme("default");

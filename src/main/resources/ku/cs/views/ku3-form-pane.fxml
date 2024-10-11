@@ -96,7 +96,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                      <children>
-                        <Label styleClass="medium-font-size" text="ปีการศึกษา (w.ศ.)">
+                        <Label styleClass="medium-font-size" text="ปีการศึกษา (พ.ศ.)">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -288,7 +288,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                                  <children>
-                                    <Label styleClass="medium-font-size" text="อาจารย์ประจำวิชา (ชื่อ นามสกุล)">
+                                    <Label styleClass="medium-font-size" text="อาจารย์ประจำวิชา (ชื่อ นามสกุล) เพียง 1 คน">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
@@ -471,7 +471,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                                  <children>
-                                    <Label styleClass="medium-font-size" text="อาจารย์ประจำวิชา (ชื่อ นามสกุล)">
+                                    <Label styleClass="medium-font-size" text="อาจารย์ประจำวิชา (ชื่อ นามสกุล) เพียง 1 คน">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>

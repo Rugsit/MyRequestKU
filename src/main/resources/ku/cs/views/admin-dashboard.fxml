@@ -16,10 +16,14 @@
 
 <AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" styleClass="admin-user-pane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.DashBoardController">
    <children>
-      <Label layoutX="37.0" layoutY="21.0" styleClass="large-font-size" text="สรุปข้อมูล">
+      <Label layoutX="37.0" layoutY="14.0" text="สรุปข้อมูล">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
+         <styleClass>
+            <String fx:value="large-font-size" />
+            <String fx:value="header" />
+         </styleClass>
       </Label>
       <TabPane fx:id="requestTabPane" layoutX="45.0" layoutY="360.0" prefHeight="310.0" prefWidth="426.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="300.0" tabMinHeight="50.0" tabMinWidth="180.0">
         <tabs>
@@ -43,7 +47,7 @@
             <String fx:value="table-view-other" />
             <String fx:value="semi-medium-font-size" />
          </styleClass></TableView>
-      <Label layoutX="116.0" layoutY="327.0" text="จำนวนคำร้องที่ได้รับการอนุมัติ">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="325.0" prefHeight="46.0" prefWidth="482.0" styleClass="semi-large-font-size" text="จำนวนคำร้องที่ได้รับการอนุมัติ">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
@@ -160,9 +164,9 @@
             </VBox>
          </children>
       </GridPane>
-      <VBox layoutX="515.0" layoutY="79.0" prefHeight="269.0" prefWidth="410.0">
+      <VBox layoutX="515.0" layoutY="79.0" prefWidth="410.0">
          <children>
-            <HBox styleClass="box-amount-user">
+            <HBox maxHeight="10.0" styleClass="box-amount-user">
                <children>
                   <Label prefHeight="14.0" prefWidth="205.0" text="รวม">
                      <styleClass>
@@ -176,10 +180,10 @@
                      </styleClass></Label>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox styleClass="box-amount-user">
+            <HBox maxHeight="30.0" styleClass="box-amount-user">
                <children>
                   <Label prefHeight="14.0" prefWidth="205.0" text="เจ้าหน้าที่คณะ">
                      <styleClass>
@@ -193,13 +197,13 @@
                      </styleClass></Label>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox styleClass="box-amount-user">
+            <HBox maxHeight="30.0" styleClass="box-amount-user">
                <children>
                   <Label prefHeight="14.0" prefWidth="205.0" text="เจ้าหน้าที่ภาควิชา">
                      <styleClass>
@@ -213,13 +217,13 @@
                      </styleClass></Label>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox styleClass="box-amount-user">
+            <HBox maxHeight="30.0" styleClass="box-amount-user">
                <children>
                   <Label prefHeight="14.0" prefWidth="205.0" text="อาจารย์ที่ปรึกษา">
                      <styleClass>
@@ -233,13 +237,13 @@
                      </styleClass></Label>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox styleClass="box-amount-user">
+            <HBox maxHeight="30.0" styleClass="box-amount-user">
                <children>
                   <Label prefHeight="14.0" prefWidth="205.0" text="นิสิต">
                      <styleClass>
@@ -253,7 +257,7 @@
                      </styleClass></Label>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                </padding>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -261,7 +265,7 @@
             </HBox>
          </children>
       </VBox>
-      <Label layoutX="596.0" layoutY="37.0" text="จำนวนผู้ใช้ระบบที่เข้าใช้งาน">
+      <Label alignment="CENTER" layoutX="523.0" layoutY="32.0" prefHeight="46.0" prefWidth="393.0" styleClass="semi-large-font-size" text="จำนวนผู้ใช้ระบบที่เข้าใช้งาน">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
