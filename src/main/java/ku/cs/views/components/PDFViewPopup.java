@@ -14,6 +14,7 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class PDFViewPopup extends BlankPopupStack{
     protected File pdfFile;
@@ -23,6 +24,7 @@ public class PDFViewPopup extends BlankPopupStack{
     public PDFViewPopup(File pdfFIle){
         this.pdfFile = pdfFIle;
         initPDFPages();
+        update(theme.getTheme());
     }
     @Override
     protected void initPopupView(){
@@ -113,6 +115,13 @@ public class PDFViewPopup extends BlankPopupStack{
         pixelWriter.setPixels(0, 0, width, height, PixelFormat.getIntArgbInstance(), buffer, 0, width);
 
         return writableImage;
+    }
+
+    @Override
+    public void update(HashMap<String, String> data) {
+        super.update(data);
+        mainBox.setStyle("-fx-background-color: "+data.get("secondary")+"; -fx-background-radius: 50;");
+        titleLabel.update(data);
     }
 
 }

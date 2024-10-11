@@ -8,8 +8,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 
-public class ConfirmStack extends StackPane {
+import java.util.HashMap;
+
+public class ConfirmStack extends StackPane implements Observer<HashMap<String,String>> {
     private DefaultLabel titleLabel;
     private DefaultLabel descriptionLabel;
     private String title;
@@ -26,6 +30,7 @@ public class ConfirmStack extends StackPane {
     private HBox line3;
     private DefaultButton acceptButton;
     private DefaultButton declineButton;
+    private Theme theme = Theme.getInstance();
     public ConfirmStack(String title, String description) {
         this.title = title;
         this.description = description;
@@ -43,6 +48,7 @@ public class ConfirmStack extends StackPane {
 
 
         initialize();
+        update(theme.getTheme());
     }
     protected void initialize(){
         initStackPain();
@@ -133,5 +139,15 @@ public class ConfirmStack extends StackPane {
         declineButton.setOnMouseClicked(e ->{
             System.out.println("Decline button clicked");
         });
+    }
+
+    @Override
+    public void update(HashMap<String, String> data) {
+        mainBox.setStyle(mainBox.getStyle()+"-fx-background-color: "+ data.get("secondary") +";");
+
+        titleLabel.update(data);
+        descriptionLabel.update(data);
+        acceptButton.update(data);
+        declineButton.update(data);
     }
 }
