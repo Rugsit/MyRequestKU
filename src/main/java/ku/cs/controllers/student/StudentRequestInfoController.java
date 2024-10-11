@@ -69,6 +69,7 @@ public class StudentRequestInfoController {
 
     @FXML
     public void initialize() {
+
         tableView = new DefaultTableView<>(requestLogTableView);
         datasource = new RequestListFileDatasource("data");
         dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
@@ -307,5 +308,21 @@ public class StudentRequestInfoController {
 
     public void setBackButtonVisible(boolean status) {
         backButton.setVisible(status);
+        if (!backButton.isVisible()) {
+            updateStyle();
+        }
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
     }
 }

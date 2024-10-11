@@ -18,9 +18,9 @@
    <children>
       <Pane prefHeight="718.0" prefWidth="292.0" styleClass="side-bar-pane">
          <children>
-            <VBox layoutX="-2.0" layoutY="102.0" prefHeight="169.0" prefWidth="292.0">
+            <VBox layoutX="-2.0" layoutY="102.0" prefWidth="292.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onStudentClicked" prefHeight="70.0" prefWidth="274.0" text="จัดการนิสิตในที่ปรึกษา">
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="70.0" mnemonicParsing="false" onAction="#onStudentClicked" prefWidth="274.0" text="จัดการนิสิตในที่ปรึกษา" wrapText="true">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -40,10 +40,10 @@
                      <styleClass>
                         <String fx:value="manageRequestTab" />
                         <String fx:value="side-bar-button" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onRequestsClicked" prefHeight="75.0" prefWidth="330.0" text="จัดการคำร้องที่รออนุมัติ">
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="70.0" mnemonicParsing="false" onAction="#onRequestsClicked" prefWidth="330.0" text="จัดการคำร้องที่รออนุมัติ" wrapText="true">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -63,7 +63,7 @@
                      <styleClass>
                         <String fx:value="manageRequestTab" />
                         <String fx:value="side-bar-button" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Button>
                </children>

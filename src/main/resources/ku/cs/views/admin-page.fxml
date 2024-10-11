@@ -18,9 +18,9 @@
    <children>
       <Pane prefHeight="718.0" prefWidth="292.0" styleClass="side-bar-pane">
          <children>
-            <VBox layoutY="106.0" prefHeight="299.0" prefWidth="292.0">
+            <VBox layoutY="106.0" prefWidth="292.0">
                <children>
-                  <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#gotoDashBoard" prefHeight="70.0" prefWidth="434.0" text="  สรุปข้อมูล">
+                  <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" minHeight="70.0" mnemonicParsing="false" onAction="#gotoDashBoard" prefWidth="434.0" text="  สรุปข้อมูล">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -39,10 +39,10 @@
                      </cursor>
                      <styleClass>
                         <String fx:value="side-bar-button" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="userButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToAdminManageUsers" prefHeight="75.0" prefWidth="330.0" text="  จัดการข้อมูลผู้ใช้">
+                  <Button fx:id="userButton" alignment="BASELINE_LEFT" minHeight="70.0" mnemonicParsing="false" onAction="#goToAdminManageUsers" prefWidth="330.0" text="  จัดการข้อมูลผู้ใช้">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -54,17 +54,17 @@
                         </ImageView>
                      </graphic>
                      <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="5.0" />
+                        <Insets left="10.0" right="10.0" top="2.0" />
                      </VBox.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <styleClass>
                         <String fx:value="side-bar-button" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="facultyButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToAdminManageFaculty" prefHeight="79.0" prefWidth="430.0" text="  จัดการข้อมูลคณะหรือ&#10;  ภาควิชา">
+                  <Button fx:id="facultyButton" alignment="BASELINE_LEFT" minHeight="70.0" mnemonicParsing="false" onAction="#goToAdminManageFaculty" prefWidth="430.0" text="  จัดการข้อมูลคณะหรือ&#10;  ภาควิชา">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -76,17 +76,17 @@
                         </ImageView>
                      </graphic>
                      <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="5.0" />
+                        <Insets left="10.0" right="10.0" top="2.0" />
                      </VBox.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <styleClass>
                         <String fx:value="side-bar-button" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="staffButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goToAdminManageStaff" prefHeight="82.0" prefWidth="418.0" text="  จัดการข้อมูลเจ้าหน้าที่&#10;  และอาจารย์ที่ปรึกษา">
+                  <Button fx:id="staffButton" alignment="BASELINE_LEFT" minHeight="70.0" mnemonicParsing="false" onAction="#goToAdminManageStaff" prefWidth="418.0" text="  จัดการข้อมูลเจ้าหน้าที่&#10;  และอาจารย์ที่ปรึกษา">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -98,20 +98,20 @@
                         </ImageView>
                      </graphic>
                      <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="5.0" />
+                        <Insets left="10.0" right="10.0" top="2.0" />
                      </VBox.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <styleClass>
                         <String fx:value="side-bar-button" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Button>
                </children>
             </VBox>
             <Pane layoutX="11.0" layoutY="101.0" prefHeight="1.0" prefWidth="266.0" styleClass="imagePane" />
-            <VBox alignment="TOP_CENTER" layoutY="417.0" prefHeight="251.0" prefWidth="292.0">
+            <VBox alignment="TOP_CENTER" layoutY="417.0" prefWidth="292.0">
                <children>
                   <VBox alignment="CENTER">
                      <children>

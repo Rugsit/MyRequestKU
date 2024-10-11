@@ -37,7 +37,7 @@
                </cursor>
                <styleClass>
                   <String fx:value="side-bar-button" />
-                  <String fx:value="medium-font-size" />
+                  <String fx:value="semi-medium-font-size" />
                </styleClass>
                 </Button>
             </children>

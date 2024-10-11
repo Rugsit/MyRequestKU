@@ -35,6 +35,10 @@
                      <font>
                         <Font size="36.0" />
                      </font>
+                     <styleClass>
+                        <String fx:value="header" />
+                        <String fx:value="large-font-size" />
+                     </styleClass>
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="314.0" styleClass="searchHBox" GridPane.columnIndex="1">
                      <children>

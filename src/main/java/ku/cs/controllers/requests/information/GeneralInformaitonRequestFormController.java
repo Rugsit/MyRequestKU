@@ -58,25 +58,25 @@ public class GeneralInformaitonRequestFormController {
     @FXML
     private Label nameTextField;
     @FXML
-    private TextField newEngNameTextFeild;
+    private Label newEngNameTextFeild;
     @FXML
-    private TextField newEngSurNameTextFeild;
+    private Label newEngSurNameTextFeild;
     @FXML
-    private TextField newThaiNameTextFeild;
+    private Label newThaiNameTextFeild;
     @FXML
-    private TextField newThaiSurNameTextFeild;
+    private Label newThaiSurNameTextFeild;
     @FXML
-    private TextField oldEngNameTextFeild;
+    private Label oldEngNameTextFeild;
     @FXML
-    private TextField oldEngSurNameTextFeild;
+    private Label oldEngSurNameTextFeild;
     @FXML
-    private TextField oldThaiNameTextFeild;
+    private Label oldThaiNameTextFeild;
     @FXML
-    private TextField oldThaiSurNameTextFeild;
+    private Label oldThaiSurNameTextFeild;
     @FXML
     private CheckBox otherCheckBox;
     @FXML
-    private TextArea otherTextArea;
+    private Label otherTextArea;
     @FXML
     private CheckBox surNameCheckBox;
     @FXML

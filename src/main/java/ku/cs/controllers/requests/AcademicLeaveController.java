@@ -189,7 +189,7 @@ public class AcademicLeaveController {
             } else {
                 form.setSemesterTo("Second");
             }
-            form.setYearTo(fromYearTextField.getText());
+            form.setYearTo(toYearTextField.getText());
             if (registerRadio.isSelected()) {
                 form.setHaveRegister(registerRadio.isSelected());
                 if (!registerFirstSemester.isSelected() && !registerSecondSemester.isSelected()) {

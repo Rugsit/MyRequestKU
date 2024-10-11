@@ -82,7 +82,7 @@
                                           <Insets right="20.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <Label styleClass="medium-font-size" text="ปีการศึกษา (w.ศ.)">
+                                    <Label styleClass="medium-font-size" text="ปีการศึกษา (พ.ศ.)">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
@@ -240,7 +240,7 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextArea fx:id="otherTextArea" prefHeight="500.0" prefWidth="200.0" styleClass="medium-font-size" />
+                        <TextArea fx:id="otherTextArea" prefHeight="500.0" prefWidth="200.0" styleClass="medium-font-size" wrapText="true" />
                      </children>
                      <VBox.margin>
                         <Insets />

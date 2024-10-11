@@ -308,7 +308,7 @@
 .desc {
     -fx-alignment: center;
     -fx-font-weight: bold;
-    -fx-text-fill: #626262;
+    -fx-text-fill: white;
 }
 
 .agreeButton {
@@ -684,3 +684,20 @@
     -fx-text-fill: #FF5D5D;
 }
 /*Choose Request Style*/
+
+.text-area-copycat {
+    -fx-text-fill: white;
+    -fx-border-width: 0px;
+    -fx-background-radius: 5px;
+    -fx-background-color: #7992A6;
+    -fx-padding: 10px;
+}
+
+.text-field-copycat {
+    -fx-border-radius: 5;
+    -fx-font-weight: 500;
+    -fx-padding: 10px;
+    -fx-background-color: #7992A6;
+    -fx-background-radius: 5;
+    -fx-text-fill: white;
+}

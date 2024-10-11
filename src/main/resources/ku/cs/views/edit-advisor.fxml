@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="726.0" prefWidth="720.0" styleClass="root-popup" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.EditFormController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="758.0" prefWidth="720.0" styleClass="root-popup" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.admin.EditFormController">
    <children>
       <Label layoutX="24.0" layoutY="14.0" prefHeight="90.0" prefWidth="554.0" styleClass="large-font-size" text="แก้ไขข้อมูล">
          <font>
@@ -213,7 +213,7 @@
          </children>
       </VBox>
       <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="393.0" layoutY="588.0" prefHeight="66.0" prefWidth="315.0" styleClass="error-label" text="error" visible="false" wrapText="true" />
-      <HBox alignment="BOTTOM_RIGHT" layoutX="393.0" layoutY="604.0" prefHeight="109.0" prefWidth="315.0">
+      <HBox alignment="BOTTOM_RIGHT" layoutX="393.0" layoutY="637.0" prefHeight="109.0" prefWidth="315.0">
          <children>
             <Button fx:id="saveButton" focusTraversable="false" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onAcceptClick" text="ตกลง">
                <graphic>

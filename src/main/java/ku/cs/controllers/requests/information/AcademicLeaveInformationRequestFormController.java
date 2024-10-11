@@ -47,7 +47,7 @@ public class AcademicLeaveInformationRequestFormController {
     @FXML
     private VBox OutterVbox;
     @FXML
-    private TextArea addressTextArea;
+    private Label addressTextArea;
     @FXML
     private Label advisorIdTextField;
     @FXML
@@ -81,7 +81,7 @@ public class AcademicLeaveInformationRequestFormController {
     @FXML
     private TextField registerYearTextField;
     @FXML
-    private TextArea sinceLeaveTextArea;
+    private Label sinceLeaveTextArea;
     @FXML
     private Label surnameTextField;
     @FXML
@@ -145,6 +145,7 @@ public class AcademicLeaveInformationRequestFormController {
                 if (i % 2 != 0) subjectAdvisor = request.getSubject().get(i);
                 if (i % 2 != 0) {
                     HBox newHbox = deepCopyHBox(subjectHbox, subjectId, subjectAdvisor);
+                    VBox.setMargin(newHbox, VBox.getMargin(subjectHbox));
                     subjectVbox.getChildren().add(newHbox);
                 }
             }
@@ -185,6 +186,12 @@ public class AcademicLeaveInformationRequestFormController {
                 Label newLabel = new Label(label.getText());
                 HBox.setMargin(newLabel, HBox.getMargin(label));
                 newLabel.getStyleClass().addAll(label.getStyleClass());
+                if (label.getText().isEmpty()) {
+                    countTextField++;
+                    if (countTextField == 1) newLabel.setText(subjectId);
+                    if (countTextField == 2) newLabel.setText(subjectAdvisor);
+                    newLabel.setPrefWidth(label.getPrefWidth());
+                }
                 newHbox.getChildren().add(newLabel);
             } else if (node instanceof TextField) {
                 countTextField++;

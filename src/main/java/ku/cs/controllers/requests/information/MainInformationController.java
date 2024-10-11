@@ -53,8 +53,10 @@ public class MainInformationController {
     }
 
     public void initializeMainInformation() {
-        System.out.println(Theme.getInstance().getCurrentTheme());
-        updateStyle();
+
+        if (!backButton.isVisible()) {
+            updateStyle();
+        }
         scrollPane.requestFocus();// ให้ ScrollPane ได้รับโฟกัสแทน
         if (!request.getStatusNext().equals("คำร้องส่งต่อให้อาจารย์ที่ปรึกษา")) {
             approveButtonHbox.setDisable(true);
