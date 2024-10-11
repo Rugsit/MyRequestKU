@@ -1,6 +1,7 @@
 package ku.cs.services;
 
 import javafx.scene.layout.AnchorPane;
+import ku.cs.views.components.DefaultLabel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,10 @@ public class Theme implements Subject<HashMap<String,String>>{
     private String currentTheme = "light";
     private String currentFont = "font-medium.css";
     private String currentFontFamily = "printAble4u-font.css";
+    private String currentTextSize = "normal";
+    private String currentTextFont = DefaultLabel.DEFAULT_FONT;
+    private String[] availableTextSize = {"small","normal","large"};
+    private String[] availableTextFont = {"PrintAble4U","Krub"};
 
     private Theme () {
         observers = new ArrayList<>();
@@ -24,7 +29,6 @@ public class Theme implements Subject<HashMap<String,String>>{
         }
         return theme;
     }
-
 
     public void loadCssToPage(AnchorPane anchorPane, PathGenerator path) {
         anchorPane.getStylesheets().clear();
@@ -69,15 +73,54 @@ public class Theme implements Subject<HashMap<String,String>>{
             themeList.put("primary", "black");
             themeList.put("secondary", "#1E1E1E");
             themeList.put("textColor", "white");
+            themeList.put("textSize", currentTextSize);
+            themeList.put("textFont", currentTextFont);
             currentTheme = "dark";
         }else{
             themeList.put("name", themeName);
             themeList.put("primary", "white");
             themeList.put("secondary", "#F4F4F4");
             themeList.put("textColor", "black");
+            themeList.put("textSize", currentTextSize);
+            themeList.put("textFont", currentTextFont);
             currentTheme = "light";
         }
         notifyObservers(themeList);
+    }
+    public void setTextSize(String textSize){
+        currentTextSize = textSize;
+        setTheme(currentTheme);
+    }
+
+    public String[] getAvailableTextSize(){
+        return availableTextSize;
+    }
+
+    public void setTextFont(String fontName){
+        currentTextFont = fontName;
+        setTheme(currentTheme);
+    }
+
+    public String[] getAvailableTextFont(){
+        return availableTextFont;
+    }
+
+    public double getCalculatedFontSize(double loadFontSize){
+        String textSize = getTheme().get("textSize");
+        if(currentTextFont.equalsIgnoreCase("PrintAble4U")){
+            loadFontSize *= 0.9;
+        }else{
+            loadFontSize *= 0.65;
+        }
+        double size;
+        if(textSize.equalsIgnoreCase("large")){
+            size = loadFontSize*1.1;
+        }else if(textSize.equalsIgnoreCase("small")){
+            size = loadFontSize*0.9;
+        }else{
+            size = loadFontSize;
+        }
+        return size;
     }
 
     public String getThemeName(){
