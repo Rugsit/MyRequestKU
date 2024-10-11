@@ -169,7 +169,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                                  <children>
-                                    <Label styleClass="medium-font-size" text="ชื่อวิชา">
+                                    <Label styleClass="medium-font-size" text="รหัสวิชา">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
@@ -183,7 +183,7 @@
                                           <String fx:value="subjectId" />
                                        </styleClass>
                                     </TextField>
-                                    <Label styleClass="medium-font-size" text="รหัสวิชา">
+                                    <Label styleClass="medium-font-size" text="ชื่อวิชา">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
