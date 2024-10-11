@@ -14,6 +14,7 @@ public class DefaultLabel extends Label implements Observer<HashMap<String,Strin
     public static final String DEFAULT_FONT = "PrintAble4U";
     public static final String FALLBACK_FONT = "Arial";
     public static final String DEFAULT_LABEL_COLOR = "#000000";
+    private double onLoadFontSize;
     private Theme theme = Theme.getInstance();
     public DefaultLabel(String text){
         super(text);
@@ -54,6 +55,7 @@ public class DefaultLabel extends Label implements Observer<HashMap<String,Strin
         fontName = getAvailableFont(fontName);
         Font newFont = Font.font(fontName,curFontWeight,curFontSize);
         label.setFont(newFont);
+        onLoadFontSize = curFontSize;
     }
     public void changeLabelColor(String colorHex){
         label.setStyle(label.getStyle() + "-fx-text-fill: " + colorHex + ";");
@@ -66,9 +68,27 @@ public class DefaultLabel extends Label implements Observer<HashMap<String,Strin
         Font newFont = Font.font(fontName,fontWeight,fontSize);
         label.setFont(newFont);
         label.setText(text);
+        onLoadFontSize = fontSize;
+    }
+    //FOR THEME UPDATE ONLY
+    private void changeFontSize(double fontSize){
+        Font curFont = label.getFont();
+        FontWeight curFontWeight = currrentFontWeight(curFont);
+
+        double tmpFontSize = onLoadFontSize;
+        changeText(label.getText(),fontSize,curFontWeight);
+        onLoadFontSize = tmpFontSize;
+    }
+    private void changeTextFont(String fontName){
+        double tmpFontSize = onLoadFontSize;
+        setFont(fontName);
+        onLoadFontSize = tmpFontSize;
     }
     @Override
     public void update(HashMap<String, String> data) {
+        changeFontSize(theme.getCalculatedFontSize(onLoadFontSize));
+        changeTextFont(data.get("textFont"));
+
         changeLabelColor(data.get("textColor"));
     }
 }

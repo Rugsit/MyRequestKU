@@ -4,12 +4,17 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.FontWeight;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 
-public class BlankPopupStack extends StackPane {
+import java.util.HashMap;
+
+public class BlankPopupStack extends StackPane implements Observer<HashMap<String,String>>{
     protected StackPane stackPane;
     protected Pane backgroundPane;
     protected DefaultButton firstButton;
     protected DefaultButton secondButton;
+    protected Theme theme = Theme.getInstance();
     public BlankPopupStack() {
         initButton();
         stackPane = this;
@@ -67,5 +72,10 @@ public class BlankPopupStack extends StackPane {
         secondButton.setOnMouseClicked(e ->{
             System.out.println("Second button clicked");
         });
+    }
+    @Override
+    public void update(HashMap<String, String> data) {
+        firstButton.update(data);
+        secondButton.update(data);
     }
 }
