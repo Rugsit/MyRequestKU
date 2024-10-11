@@ -123,6 +123,8 @@ public class UploadPDFStack extends StackPane implements Observer<HashMap<String
 
     @Override
     public void update(HashMap<String, String> data) {
-        fileLabel.changeLabelColor(data.get("textColor"));
+        fileLabel.update(data);
+        uploadButton.update(data);
+        deleteButton.update(data);
     }
 }
