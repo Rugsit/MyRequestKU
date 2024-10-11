@@ -64,6 +64,9 @@ public class NavList {
         ){
             @Override
             public void update(HashMap<String, String> data) {
+                super.updateTextSize(data);
+                super.updateTextFont(data);
+                if(!observeTheme)return;
                 changeLabelColor(data.get("textColor"));
                 this.hoverColorHex = data.get("secondary");
             }

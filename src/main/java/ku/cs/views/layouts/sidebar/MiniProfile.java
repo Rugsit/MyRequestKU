@@ -36,6 +36,9 @@ public class MiniProfile {
         this.logoutButton = new RouteButton("login",BASE_COLOR,HOVER_COLOR,BASE_LABEL_COLOR){
             @Override
             public void update(HashMap<String, String> data) {
+                super.updateTextSize(data);
+                super.updateTextFont(data);
+                if(!observeTheme)return;
                 changeLabelColor(data.get("textColor"));
                 this.hoverColorHex = data.get("secondary");
             }
