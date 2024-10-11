@@ -2,6 +2,7 @@ package ku.cs.controllers.requests;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -14,10 +15,7 @@ import ku.cs.models.user.Advisor;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
-import ku.cs.services.ApproverListFileDatasource;
-import ku.cs.services.Datasource;
-import ku.cs.services.RequestListFileDatasource;
-import ku.cs.services.UserListFileDatasource;
+import ku.cs.services.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,10 +34,13 @@ public class ConfirmRequestFormController {
 
     @FXML
     public BorderPane borderPane;
+    @FXML
+    public AnchorPane mainAnchorPane;
 
     @FXML
     private void initialize() {
         datasource = new RequestListFileDatasource("data");
+        updateStyle();
     }
 
     @FXML
@@ -134,5 +135,18 @@ public class ConfirmRequestFormController {
         } catch (ApproverException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
     }
 }

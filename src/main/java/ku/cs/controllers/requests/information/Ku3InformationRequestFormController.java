@@ -70,10 +70,6 @@ public class Ku3InformationRequestFormController {
     @FXML
     private Label surnameTextField;
     @FXML
-    private TextField teacherTextField;
-    @FXML
-    private TextField teacherTextField1;
-    @FXML
     private TextField telTextField;
     @FXML
     private RadioButton thaiRadio;
@@ -175,6 +171,12 @@ public class Ku3InformationRequestFormController {
                 Label newLabel = new Label(label.getText());
                 HBox.setMargin(newLabel, HBox.getMargin(label));
                 newLabel.getStyleClass().addAll(label.getStyleClass());
+                if (label.getText().isEmpty()) {
+                    newLabel.setText(data.get(count[0]));
+                    count[0]++;
+                    newLabel.setWrapText(true);
+                }
+                newLabel.setPrefWidth(label.getPrefWidth());
                 newHbox.getChildren().add(newLabel);
             } else if (node instanceof TextField) {
                 TextField textField = (TextField) node;

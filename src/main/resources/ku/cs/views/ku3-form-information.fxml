@@ -257,6 +257,20 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                      <children>
+                        <Label styleClass="medium-font-size" text="ชื่อวิชา">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="oldThaiNameTextFeild" alignment="TOP_LEFT" prefWidth="280.0" wrapText="true">
+                           <styleClass>
+                              <String fx:value="medium-font-size" />
+                              <String fx:value="text-field-copycat" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
                         <Label styleClass="medium-font-size" text="รหัสวิชา">
                            <HBox.margin>
                               <Insets right="10.0" />
@@ -267,12 +281,6 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </TextField>
-                        <Label styleClass="medium-font-size" text="ชื่อวิชา">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Label>
-                        <TextField prefWidth="300.0" styleClass="medium-font-size" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -342,7 +350,12 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="teacherTextField" prefWidth="300.0" styleClass="medium-font-size" />
+                        <Label fx:id="oldThaiNameTextFeild1" alignment="TOP_LEFT" prefWidth="280.0" wrapText="true">
+                           <styleClass>
+                              <String fx:value="medium-font-size" />
+                              <String fx:value="text-field-copycat" />
+                           </styleClass>
+                        </Label>
                      </children>
                   </HBox>
                </children>
@@ -378,6 +391,20 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                      <children>
+                        <Label styleClass="medium-font-size" text="ชื่อวิชา">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="oldThaiNameTextFeild11" alignment="TOP_LEFT" prefWidth="280.0" wrapText="true">
+                           <styleClass>
+                              <String fx:value="medium-font-size" />
+                              <String fx:value="text-field-copycat" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
                         <Label styleClass="medium-font-size" text="รหัสวิชา">
                            <HBox.margin>
                               <Insets right="10.0" />
@@ -388,12 +415,6 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </TextField>
-                        <Label styleClass="medium-font-size" text="ชื่อวิชา">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Label>
-                        <TextField prefWidth="300.0" styleClass="medium-font-size" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -463,7 +484,12 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="teacherTextField1" prefWidth="300.0" styleClass="medium-font-size" />
+                        <Label fx:id="oldThaiNameTextFeild111" alignment="TOP_LEFT" prefWidth="280.0" wrapText="true">
+                           <styleClass>
+                              <String fx:value="medium-font-size" />
+                              <String fx:value="text-field-copycat" />
+                           </styleClass>
+                        </Label>
                      </children>
                   </HBox>
                </children>

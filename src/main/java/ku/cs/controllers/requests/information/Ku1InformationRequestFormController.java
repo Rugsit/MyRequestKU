@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.AcademicLeaveRequestForm;
@@ -63,8 +60,6 @@ public class Ku1InformationRequestFormController {
     private RadioButton summerRadio;
     @FXML
     private Label surnameTextField;
-    @FXML
-    private TextField teacherTextField;
     @FXML
     private TextField telTextField;
     @FXML
@@ -140,6 +135,7 @@ public class Ku1InformationRequestFormController {
         for (Node node : vbox.getChildren()) {
             newVbox.getChildren().add(deepCopyHBox((HBox) node, count, data));
         }
+        newVbox.setPrefHeight(vbox.getPrefHeight());
         return newVbox;
     }
 
@@ -148,12 +144,20 @@ public class Ku1InformationRequestFormController {
         HBox newHbox = new HBox();
         newHbox.setAlignment(hbox.getAlignment());
         VBox.setMargin(newHbox, VBox.getMargin(hbox));
+        newHbox.setPrefHeight(hbox.getPrefHeight());
         for (Node node : hbox.getChildren()) {
             if (node instanceof Label) {
                 Label label = (Label) node;
                 Label newLabel = new Label(label.getText());
                 HBox.setMargin(newLabel, HBox.getMargin(label));
                 newLabel.getStyleClass().addAll(label.getStyleClass());
+                if (label.getText().isEmpty()) {
+                    newLabel.setText(data.get(count[0]));
+                    count[0]++;
+                    newLabel.setWrapText(true);
+                }
+                newLabel.setPrefWidth(label.getPrefWidth());
+                newLabel.setPrefHeight(label.getPrefHeight());
                 newHbox.getChildren().add(newLabel);
             } else if (node instanceof TextField) {
                 TextField textField = (TextField) node;

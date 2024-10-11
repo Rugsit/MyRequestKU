@@ -191,6 +191,7 @@ public class AcademicLeaveInformationRequestFormController {
                     if (countTextField == 1) newLabel.setText(subjectId);
                     if (countTextField == 2) newLabel.setText(subjectAdvisor);
                     newLabel.setPrefWidth(label.getPrefWidth());
+                    newLabel.setWrapText(true);
                 }
                 newHbox.getChildren().add(newLabel);
             } else if (node instanceof TextField) {

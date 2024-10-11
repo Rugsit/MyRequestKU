@@ -108,7 +108,6 @@ public class MainInformationController {
         } else if (backPage != null && backPage.equalsIgnoreCase("advisorStudentRequest")) {
             goToStudentPage(backPage);
         }
-
     }
 
     private void goToAdvisorRequest() {

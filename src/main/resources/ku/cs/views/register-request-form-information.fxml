@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<VBox prefWidth="850.0" styleClass="vbox-in-scroll-pane" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.information.RegisterInformationRequestFormController">
+<VBox prefWidth="850.0" styleClass="vbox-in-scroll-pane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.information.RegisterInformationRequestFormController">
    <children>
       <VBox prefWidth="834.0">
          <children>
