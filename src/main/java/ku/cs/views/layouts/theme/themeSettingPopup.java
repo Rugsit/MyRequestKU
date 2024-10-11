@@ -1,38 +1,75 @@
 package ku.cs.views.layouts.theme;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import ku.cs.views.components.BlankPopupStack;
-import ku.cs.views.components.DefaultButton;
-import ku.cs.views.components.DefaultComboBox;
+import javafx.scene.text.FontWeight;
+import ku.cs.views.components.*;
+
+import java.util.HashMap;
 
 public class themeSettingPopup extends BlankPopupStack {
     private VBox mainBox;
-    private DefaultButton lightButton;
-    private DefaultButton darkButton;
+    private DefaultLabel titleLabel;
+    private DefaultButton switchThemeButton;
     private DefaultComboBox<String> textSizeSelector;
     private DefaultComboBox<String> textFontSelector;
+    @Override
+    protected void initialize(){
+        super.initialize();
+        theme.addObserver(this);
+    }
 
     private void initButtons() {
-        lightButton = new DefaultButton("#ABFFA4","#80BF7A","#000000"){
+        switchThemeButton = new DefaultButton("white","white","white"){
+            private Image defaultImage = new Image(getClass().getResourceAsStream("/images/icons/sun-icon.png"));
+            private Image darkImage = new Image(getClass().getResourceAsStream("/images/icons/moon-icon.png"));
+            {
+                String curTheme = theme.getCurrentTheme();
+                Image iconImage;
+                if(curTheme.equals("dark")){
+                    iconImage = darkImage;
+                    baseColorHex = "#2731B7";
+                    hoverColorHex = "#212A9E";
+                    changeColor(baseColorHex);
+                }else{
+                    iconImage = defaultImage;
+                    baseColorHex = "#69EEFF";
+                    hoverColorHex = "#62DCEC";
+                    changeColor(baseColorHex);
+                }
+                setImage(iconImage,100,100);
+                setButtonSize(150,150);
+                changeBackgroundRadius(150);
+            }
             @Override
             protected void handleClickEvent() {
                 getButton().setOnMouseClicked(e->{
-                    theme.setTheme("default");
+                    String curTheme = theme.getCurrentTheme();
+                    Image iconImage;
+                    if(curTheme.equals("dark")){
+                        theme.setTheme("default");
+                        iconImage = defaultImage;
+                        baseColorHex = "#69EEFF";
+                        hoverColorHex = "#62DCEC";
+                        changeColor(baseColorHex);
+                    }else{
+                        theme.setTheme("dark");
+                        iconImage = darkImage;
+                        baseColorHex = "#2731B7";
+                        hoverColorHex = "#212A9E";
+                        changeColor(baseColorHex);
+                    }
+                    setImage(iconImage,100,100);
                 });
             }
         };
-        lightButton.changeText("L");
-        darkButton = new DefaultButton("#ABFFA4","#80BF7A","#000000"){
-            @Override
-            protected void handleClickEvent() {
-                getButton().setOnMouseClicked(e->{
-                    theme.setTheme("dark");
-                });
-            }
-        };
-        darkButton.changeText("D");
+        switchThemeButton.changeText("");
     }
+
 
     private void initComboBoxes(){
         textSizeSelector = new DefaultComboBox<>() {
@@ -44,6 +81,7 @@ public class themeSettingPopup extends BlankPopupStack {
         textSizeSelector.getItems().addAll(theme.getAvailableTextSize());
         handleTextSizeSelectorChange();
         textSizeSelector.getSelectionModel().select(theme.getTheme().get("textSize"));
+        textSizeSelector.changeBackgroundRadius(10);
 
         textFontSelector = new DefaultComboBox<>() {
             @Override
@@ -54,6 +92,7 @@ public class themeSettingPopup extends BlankPopupStack {
         textFontSelector.getItems().addAll(theme.getAvailableTextFont());
         handleTextFontSelectorChange();
         textFontSelector.getSelectionModel().select(theme.getTheme().get("textFont"));
+        textFontSelector.changeBackgroundRadius(10);
     }
     private void handleTextSizeSelectorChange(){
         textSizeSelector.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -74,22 +113,44 @@ public class themeSettingPopup extends BlankPopupStack {
     protected void initPopupView(){
         verifyTheme();
         mainBox = new VBox();
-        mainBox.setMaxWidth(300);
-        mainBox.setMaxHeight(300);
-        mainBox.setStyle("-fx-background-color: white;");
+        mainBox.setMaxWidth(400);
+        mainBox.setMaxHeight(400);
+        mainBox.setAlignment(Pos.CENTER);
+        mainBox.setSpacing(20);
         initButtons();
         initComboBoxes();
-        HBox line1 = new HBox();
-        line1.getChildren().addAll(lightButton, darkButton,textSizeSelector);
+        HBox titleLine = new HBox();
+        titleLine.setAlignment(Pos.CENTER);
+        titleLabel = new DefaultLabel("");
+        titleLabel.changeText("เปลี่ยนทีม",32, FontWeight.BOLD);
+        titleLine.getChildren().add(titleLabel);
 
+        HBox line1 = new HBox();
+        line1.setAlignment(Pos.CENTER);
+        line1.getChildren().addAll(switchThemeButton);
 
 
         HBox line2 = new HBox();
-        line2.getChildren().add(textFontSelector);
+        line2.setAlignment(Pos.CENTER);
+        line2.setSpacing(10);
+        line2.getChildren().addAll(textFontSelector,textSizeSelector);
 
 
         HBox lineEnd = new HBox(secondButton);
-        mainBox.getChildren().addAll(line1,line2,lineEnd);
+        lineEnd.setAlignment(Pos.CENTER);
+        mainBox.getChildren().addAll(titleLine,line1,line2,lineEnd);
         stackPane.getChildren().addAll(mainBox);
+        VBox.setMargin(titleLine, new Insets(20,0,0,0));
+        update(theme.getTheme());
+    }
+    @Override
+    public void update(HashMap<String, String> data) {
+        super.update(data);
+        mainBox.setStyle("-fx-background-color: "+data.get("secondary")+"; -fx-background-radius: 50;");
+        titleLabel.update(data);
+        switchThemeButton.update(data);
+        textSizeSelector.update(data);
+        textFontSelector.update(data);
+
     }
 }

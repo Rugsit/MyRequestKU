@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.department.RequestListController">
@@ -15,7 +16,13 @@
          </font>
       </Label>
       <TableView fx:id="requestTableView" layoutX="319.0" layoutY="150.0" prefHeight="522.0" prefWidth="910.0" />
-      <Button fx:id="switchThemeButton" layoutX="320.0" layoutY="101.0" mnemonicParsing="false" text="เปลี่ยนธีม" />
-      <HBox fx:id="tableTopHBox" alignment="CENTER_RIGHT" layoutX="578.0" layoutY="35.0" prefHeight="65.0" prefWidth="652.0" style="-fx-spacing: 20;" />
+      <HBox fx:id="tableTopHBox" alignment="CENTER_RIGHT" layoutX="578.0" layoutY="35.0" prefHeight="65.0" prefWidth="652.0" style="-fx-spacing: 20;">
+         <children>
+            <VBox alignment="CENTER" prefHeight="50.0" prefWidth="50.0">
+               <children>
+                  <Button fx:id="switchThemeButton" mnemonicParsing="false" text="เปลี่ยนธีม" />
+               </children>
+            </VBox>
+         </children></HBox>
    </children>
 </AnchorPane>
