@@ -136,6 +136,7 @@ public class TextFieldStack extends StackPane implements Observer<HashMap<String
 
     @Override
     public void update(HashMap<String, String> data) {
+        textField.update(data);
         this.editTextColorHex = data.get("textColor");
         this.showTextColorHex = data.get("textColor");
         this.editColorHex = data.get("primary");

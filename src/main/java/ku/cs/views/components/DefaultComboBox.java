@@ -3,25 +3,33 @@ package ku.cs.views.components;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.text.Text;
+import ku.cs.services.Observer;
+import ku.cs.services.Theme;
 
-public abstract class DefaultComboBox<T> extends ComboBox<T> {
+import java.util.HashMap;
+
+public abstract class DefaultComboBox<T> extends ComboBox<T> implements Observer<HashMap<String,String>>{
     protected ComboBox<T> comboBox;
     protected final String DEFAULT_FONT;
     protected final String FALLBACK_FONT;
     protected double fontSize = 24;
     protected StringExtractor<T> extractor;
+    private double onLoadFontSize;
+    private Theme theme = Theme.getInstance();
 
     public DefaultComboBox(){
         this.comboBox = this;
         this.DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
         this.FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
         initialize();
+        theme.addObserver(this);
     }
     public DefaultComboBox(ComboBox<T> comboBox) {
         this.comboBox = comboBox;
         this.DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
         this.FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
         initialize();
+        theme.addObserver(this);
     }
 
     protected void setStringExtractor() {
@@ -90,6 +98,7 @@ public abstract class DefaultComboBox<T> extends ComboBox<T> {
                 }
             }
         });
+        onLoadFontSize = fontSize;
 //        comboBox.setEditable(true);
     }
     public void changeBackgroundRadius(int radius){
@@ -99,9 +108,27 @@ public abstract class DefaultComboBox<T> extends ComboBox<T> {
     }
     public void changeFontSize(double fontSize){
         comboBox.setStyle(comboBox.getStyle()+"-fx-font-size: " + fontSize + ";");
+        onLoadFontSize = fontSize;
 
+    }
+    //FOR THEME UPDATE ONLY
+    private void updateFontSize(double fontSize){
+        double tmpFontSize = onLoadFontSize;
+        changeFontSize(fontSize);
+        onLoadFontSize = tmpFontSize;
+    }
+    private void updateTextFont(String fontName){
+        double tmpFontSize = onLoadFontSize;
+        comboBox.setStyle(comboBox.getStyle()+"-fx-font-family:" + fontName +";");
+        onLoadFontSize = tmpFontSize;
     }
     public ComboBox<T> getComboBox() {
         return this.comboBox;
+    }
+    @Override
+    public void update(HashMap<String, String> data) {
+        updateFontSize(theme.getCalculatedFontSize(onLoadFontSize));
+        updateTextFont(data.get("textFont"));
+
     }
 }
