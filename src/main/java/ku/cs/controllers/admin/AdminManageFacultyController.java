@@ -54,8 +54,7 @@ public class AdminManageFacultyController {
 
     public void initialize() {
 
-        SetTransition transition = new SetTransition();
-        transition.setButtonBounce(addButton);
+        SetTransition.setButtonBounce(addButton);
 
         Label placeHolder = new Label("ไม่พบข้อมูล");
         facultyTableView.setPlaceholder(placeHolder);

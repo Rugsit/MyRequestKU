@@ -3,6 +3,7 @@ package ku.cs.controllers.advisor;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -16,13 +17,11 @@ import ku.cs.controllers.SettingController;
 import ku.cs.controllers.UserProfileCardController;
 import ku.cs.models.user.Advisor;
 import ku.cs.models.user.User;
-import ku.cs.services.FXRouter;
-import ku.cs.services.ImageDatasource;
-import ku.cs.services.PathGenerator;
-import ku.cs.services.Theme;
+import ku.cs.services.*;
 import ku.cs.views.components.SquareImage;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.UUID;
 
 public class AdvisorPageController implements ParentController {
@@ -30,6 +29,9 @@ public class AdvisorPageController implements ParentController {
     @FXML Label tabAccountNameLabel;
     @FXML ImageView tabProfilePicImageView;
     @FXML BorderPane contentBorderPane;
+    @FXML private Button settingButton;
+    @FXML private Button requestButton;
+    @FXML private Button studentButton;
 
     private Advisor loginUser;
     private ImageDatasource datasource;
@@ -37,6 +39,10 @@ public class AdvisorPageController implements ParentController {
 
     public void initialize(){
         updateStyle();
+
+        SetTransition.setButtonBounce(settingButton);
+        SetTransition.setButtonBounce(requestButton);
+        SetTransition.setButtonBounce(studentButton);
         if (FXRouter.getData() instanceof Advisor) {
             setLoginUser((Advisor) FXRouter.getData());
         }

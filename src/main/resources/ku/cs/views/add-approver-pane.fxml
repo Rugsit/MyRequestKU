@@ -112,12 +112,20 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="550.0" prefHeight="66.0" prefWidth="338.0" styleClass="error-label" text="error" textAlignment="CENTER" visible="false" wrapText="true">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-      <HBox alignment="BOTTOM_RIGHT" layoutX="346.0" layoutY="480.0" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="BOTTOM_RIGHT" layoutX="157.0" layoutY="505.0" prefHeight="75.0" prefWidth="390.0">
          <children>
+            <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" text="error" textAlignment="CENTER" visible="false" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="error-label" />
+                  <String fx:value="semi-medium-font-size" />
+               </styleClass>
+            </Label>
             <Button focusTraversable="false" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onAcceptClick" text="ตกลง">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

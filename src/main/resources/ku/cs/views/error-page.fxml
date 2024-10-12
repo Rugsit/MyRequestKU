@@ -23,7 +23,7 @@
          </styleClass>
       </Label>
       <Line endX="370.20001220703125" layoutX="65.0" layoutY="219.0" startX="-32.99998474121094" styleClass="line" />
-      <Label fx:id="errorMessage" layoutX="44.0" layoutY="231.0" prefHeight="27.0" prefWidth="379.0" text="เนื่องจากอาจกรอกข้อมูลบางส่วนไม่ครบถ้วน" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="errorMessage" layoutX="44.0" layoutY="231.0" prefWidth="379.0" text="เนื่องจากอาจกรอกข้อมูลบางส่วนไม่ครบถ้วน" textAlignment="CENTER" wrapText="true">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>

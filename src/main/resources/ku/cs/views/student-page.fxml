@@ -18,7 +18,7 @@
     <children>
         <VBox layoutY="110.0" prefHeight="601.0" prefWidth="292.0" styleClass="side-bar-pane" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="120.0">
             <children>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onRequestsButtonClicked" prefHeight="70.0" prefWidth="434.0" text="ใบคำร้องทั้งหมด">
+                <Button fx:id="allRequestButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onRequestsButtonClicked" prefHeight="70.0" prefWidth="434.0" text="ใบคำร้องทั้งหมด">
                     <font>
                         <Font size="18.0" />
                     </font>

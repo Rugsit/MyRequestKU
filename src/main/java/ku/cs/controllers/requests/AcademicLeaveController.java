@@ -14,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.AcademicLeaveRequestForm;
 import ku.cs.models.user.User;
+import ku.cs.services.SetTransition;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -63,10 +64,22 @@ public class AcademicLeaveController {
     private VBox subjectVbox;
     @FXML
     private HBox subjectHbox;
+    @FXML
+    private Button backButton;
+    @FXML
+    private Button addButton;
+    @FXML
+    private Button removeButton;
+    @FXML
+    private Button createFormButton;
 
 
     @FXML
     public void initialize() {
+        SetTransition.setButtonBounce(backButton);
+        SetTransition.setButtonBounce(addButton);
+        SetTransition.setButtonBounce(removeButton);
+        SetTransition.setButtonBounce(createFormButton);
         amountSubject = 1;
         bindRegister(registerRadio, registerFirstSemester);
         bindRegister(registerRadio, registerSecondSemester);

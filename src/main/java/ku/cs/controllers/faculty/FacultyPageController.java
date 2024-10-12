@@ -3,6 +3,7 @@ package ku.cs.controllers.faculty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -36,11 +37,21 @@ public class FacultyPageController implements Observer<HashMap<String, String>>,
     BorderPane contentBorderPane;
     @FXML
     private AnchorPane mainAnchorPane;
+    @FXML
+    private Button settingButton;
+    @FXML
+    private Button requestButton;
+    @FXML
+    private Button approveButton;
     private FacultyUser loginUser;
     ImageDatasource datasource;
 
     public void initialize(){
         updateStyle();
+
+        SetTransition.setButtonBounce(settingButton);
+        SetTransition.setButtonBounce(requestButton);
+        SetTransition.setButtonBounce(approveButton);
 
         if (FXRouter.getData() instanceof FacultyUser){
             setLoginUser((User) FXRouter.getData());

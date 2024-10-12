@@ -3,6 +3,7 @@ package ku.cs.controllers.student;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -15,11 +16,8 @@ import ku.cs.controllers.SettingController;
 import ku.cs.controllers.UserProfileCardController;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
-import ku.cs.services.ImageDatasource;
-import ku.cs.services.PathGenerator;
-import ku.cs.services.Theme;
+import ku.cs.services.*;
 import ku.cs.views.components.SquareImage;
-import ku.cs.services.FXRouter;
 
 import java.io.IOException;
 
@@ -28,6 +26,8 @@ public class StudentPageController implements ParentController {
     @FXML private ImageView tabProfilePicImageView;
     @FXML private Label tabAccountNameLabel;
     @FXML private AnchorPane mainAnchorPane;
+    @FXML private Button allRequestButton;
+    @FXML private Button settingButton;
 
     private Student loginUser;
     ImageDatasource datasource;
@@ -35,6 +35,9 @@ public class StudentPageController implements ParentController {
     @FXML
     public void initialize() {
         updateStyle();
+
+        SetTransition.setButtonBounce(allRequestButton);
+        SetTransition.setButtonBounce(settingButton);
 
         if (FXRouter.getData() instanceof Student)
         {

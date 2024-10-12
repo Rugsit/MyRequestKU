@@ -11,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.GeneralRequestForm;
 import ku.cs.models.user.User;
+import ku.cs.services.SetTransition;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -57,9 +58,15 @@ public class GeneralRequestFormController {
     private TextField telTextField;
     @FXML
     public BorderPane borderPane;
+    @FXML
+    private Button backButton;
+    @FXML
+    private Button createFormButton;
 
     @FXML
     public void initialize() {
+        SetTransition.setButtonBounce(backButton);
+        SetTransition.setButtonBounce(createFormButton);
         bindCheckBox(lostRadio, degreeCerCheckBox);
         bindCheckBox(damagedRadio, degreeCerCheckBox);
 

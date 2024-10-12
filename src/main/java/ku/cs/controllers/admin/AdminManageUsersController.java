@@ -56,9 +56,8 @@ public class AdminManageUsersController {
 
     public void initializeUser() {
 
-        SetTransition transition = new SetTransition();
-        transition.setButtonBounce(banButton);
-        transition.setButtonBounce(unBanButton);
+        SetTransition.setButtonBounce(banButton);
+        SetTransition.setButtonBounce(unBanButton);
 
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableView.setPlaceholder(placeHolder);

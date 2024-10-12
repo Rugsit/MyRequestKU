@@ -2,14 +2,15 @@ package ku.cs.controllers.requests;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.services.FXRouter;
+import ku.cs.services.SetTransition;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class ChooseRequestFromController {
@@ -18,10 +19,11 @@ public class ChooseRequestFromController {
     @FXML
     public BorderPane borderPane;
     @FXML
-    public ScrollPane scrollPane;
+    private Button backButton;
 
     @FXML
     private void initialize() {
+        SetTransition.setButtonBounce(backButton);
         if (FXRouter.getData() instanceof User) {
             loginUser = (User) FXRouter.getData();
         }

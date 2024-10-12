@@ -144,9 +144,9 @@
             </VBox>
          </children>
       </HBox>
-      <Button layoutX="912.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#onBackButtonClick" styleClass="back-button">
+      <Button fx:id="backButton" layoutX="912.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#onBackButtonClick" styleClass="back-button">
          <graphic>
-            <ImageView fx:id="backButton" fitHeight="50.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="50.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/icons/back-icon.png" />
                </image>

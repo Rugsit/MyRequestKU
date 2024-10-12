@@ -12,6 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.RegisterRequestForm;
 import ku.cs.models.user.User;
+import ku.cs.services.SetTransition;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -70,9 +71,15 @@ public class RegisterRequestFormController {
     private Button nextFormButton;
     @FXML
     private Button createFormButton;
+    @FXML
+    private Button backButton;
 
     @FXML
     public void initialize() {
+
+        SetTransition.setButtonBounce(backButton);
+        SetTransition.setButtonBounce(nextFormButton);
+        SetTransition.setButtonBounce(createFormButton);
         showButtonWhenClick(lateRegistrationRadio, nextFormButton);
         showButtonWhenClick(addDropRadio, nextFormButton);
         showButtonWhenClick(registerRadio, nextFormButton);

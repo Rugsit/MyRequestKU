@@ -46,7 +46,7 @@
          </styleClass></Label>
       <HBox fx:id="approveButtonHbox" layoutX="38.0" layoutY="650.0" prefWidth="900.0" visible="false">
          <children>
-            <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#notApprove" text="ปฎิเสธคำร้อง">
+            <Button fx:id="notApproveButton" graphicTextGap="10.0" mnemonicParsing="false" onAction="#notApprove" text="ปฎิเสธคำร้อง">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -59,7 +59,7 @@
                   <String fx:value="medium-font-size" />
                </styleClass>
             </Button>
-            <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#approve" text="อนุมัติคำร้อง">
+            <Button fx:id="approveButton" graphicTextGap="10.0" mnemonicParsing="false" onAction="#approve" text="อนุมัติคำร้อง">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>

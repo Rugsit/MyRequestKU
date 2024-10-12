@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import ku.cs.models.request.Ku1AndKu3RequestForm;
 import ku.cs.models.request.RegisterRequestForm;
 import ku.cs.models.user.User;
+import ku.cs.services.SetTransition;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -64,8 +65,30 @@ public class Ku3FormController {
     @FXML
     public BorderPane borderPane;
 
+
+    @FXML
+    private Button removePart1Button;
+    @FXML
+    private Button addPart1Button;
+    @FXML
+    private Button removePart2Button;
+    @FXML
+    private Button addPart2Button;
+
+    @FXML
+    private Button createFormButton;
+    @FXML
+    private Button backButton;
+
     @FXML
     public void initialize() {
+
+        SetTransition.setButtonBounce(removePart1Button);
+        SetTransition.setButtonBounce(addPart1Button);
+        SetTransition.setButtonBounce(removePart2Button);
+        SetTransition.setButtonBounce(addPart2Button);
+        SetTransition.setButtonBounce(createFormButton);
+        SetTransition.setButtonBounce(backButton);
         amountSubjectPart1 = 1;
         amountSubjectPart2 = 1;
         subjectVbox.disableProperty().bind(Bindings.not(part1Checkbox.selectedProperty()));

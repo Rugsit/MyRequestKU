@@ -20,7 +20,7 @@
          <children>
             <VBox layoutX="-2.0" layoutY="102.0" prefHeight="169.0" prefWidth="292.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onRequestsButtonClicked" prefHeight="70.0" prefWidth="274.0" text="ใบคำร้อง">
+                  <Button fx:id="requestButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onRequestsButtonClicked" prefHeight="70.0" prefWidth="274.0" text="ใบคำร้อง">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -40,10 +40,10 @@
                      <styleClass>
                         <String fx:value="manageRequestTab" />
                         <String fx:value="side-bar-button" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onApproverButtonClicked" prefHeight="75.0" prefWidth="330.0" text="จัดการผู้อนุมัติ">
+                  <Button fx:id="approveButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onMouseClicked="#onApproverButtonClicked" prefHeight="75.0" prefWidth="330.0" text="จัดการผู้อนุมัติ">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -63,7 +63,7 @@
                      <styleClass>
                         <String fx:value="manageRequestTab" />
                         <String fx:value="side-bar-button" />
-                        <String fx:value="medium-font-size" />
+                        <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Button>
                </children>
@@ -142,7 +142,7 @@
          </cursor>
          <styleClass>
             <String fx:value="side-bar-button" />
-            <String fx:value="medium-font-size" />
+            <String fx:value="semi-medium-font-size" />
          </styleClass>
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

@@ -87,9 +87,8 @@ public class AddFormController{
     private void initialize() {
         updateStyle();
 
-        SetTransition transition = new SetTransition();
-        transition.setButtonBounce(closeButton);
-        transition.setButtonBounce(saveButton);
+        SetTransition.setButtonBounce(closeButton);
+        SetTransition.setButtonBounce(saveButton);
 
         Datasource<DepartmentList> datasourceDepartment = new DepartmentListFileDatasource("data");
         departmentList = datasourceDepartment.readData();

@@ -36,7 +36,7 @@
             </Label>
             <VBox layoutX="230.0" layoutY="126.0">
                <children>
-                  <HBox>
+                  <HBox alignment="CENTER_LEFT">
                      <children>
                         <ImageView fx:id="userTypeIconImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -132,7 +132,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox>
+                        <HBox alignment="CENTER_LEFT">
                            <children>
                               <ImageView fx:id="facultyIconImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -166,7 +166,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="1">
+                        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
                            <children>
                               <ImageView fx:id="idIconImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -183,7 +183,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
                               <ImageView fx:id="advisorIconImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

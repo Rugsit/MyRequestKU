@@ -144,7 +144,7 @@
                         </Label>
                         <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                            <children>
-                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#onRemoveSubjectClick" text="ลบวิชา">
+                              <Button fx:id="removeButton" alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#onRemoveSubjectClick" text="ลบวิชา">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -153,7 +153,7 @@
                                     <String fx:value="medium-font-size" />
                                  </styleClass>
                               </Button>
-                              <Button alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#addSubject" text="เพิ่มวิชา">
+                              <Button fx:id="addButton" alignment="CENTER_RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#addSubject" text="เพิ่มวิชา">
                                  <styleClass>
                                     <String fx:value="add-subject-button" />
                                     <String fx:value="medium-font-size" />
@@ -321,7 +321,7 @@
             </VBox>
          </content>
       </ScrollPane>
-      <Button layoutX="912.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#onBackButtonClick" styleClass="back-button">
+      <Button fx:id="backButton" layoutX="912.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#onBackButtonClick" styleClass="back-button">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>

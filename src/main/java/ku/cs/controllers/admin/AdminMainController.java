@@ -54,12 +54,11 @@ public class AdminMainController implements ParentController {
     public void initialize() {
         updateStyle();
 
-        SetTransition transition = new SetTransition();
-        transition.setClickChangeColor(facultyButton, "#374957" , "#FFFFFF");
-        transition.setClickChangeColor(dashboardButton, "#374957" , "#FFFFFF");
-        transition.setClickChangeColor(userButton, "#374957" , "#FFFFFF");
-        transition.setClickChangeColor(staffButton, "#374957" , "#FFFFFF");
-        transition.setClickChangeColor(settingButton, "#374957" , "#FFFFFF");
+        SetTransition.setButtonBounce(facultyButton);
+        SetTransition.setButtonBounce(dashboardButton);
+        SetTransition.setButtonBounce(userButton);
+        SetTransition.setButtonBounce(staffButton);
+        SetTransition.setButtonBounce(settingButton);
 
         if (FXRouter.getData() instanceof Admin) {
             loginUser = (Admin) FXRouter.getData();

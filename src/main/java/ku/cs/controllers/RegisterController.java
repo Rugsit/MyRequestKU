@@ -20,6 +20,7 @@ import ku.cs.services.SetTransition;
 import ku.cs.services.UserListFileDatasource;
 
 import java.io.IOException;
+import java.util.Set;
 
 public class RegisterController {
     @FXML private TextField usernameTextField;
@@ -40,7 +41,7 @@ public class RegisterController {
     @FXML
     public void initialize() {
         SetTransition transition = new SetTransition();
-        transition.setButtonBounce(loginButton);
+        SetTransition.setButtonBounce(loginButton);
         final String[] imagePaths = {
                 getClass().getResource("/images/backgrounds/background-login1.jpg").toString(),
                 getClass().getResource("/images/backgrounds/background-login2.jpg").toString(),

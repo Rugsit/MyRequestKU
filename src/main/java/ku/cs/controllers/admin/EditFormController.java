@@ -99,9 +99,8 @@ public class EditFormController implements ChangeThemeController {
     private void initialize() {
         updateStyle();
 
-        SetTransition transition = new SetTransition();
-        transition.setButtonBounce(saveButton);
-        transition.setButtonBounce(closeButton);
+        SetTransition.setButtonBounce(saveButton);
+        SetTransition.setButtonBounce(closeButton);
 
         Datasource<DepartmentList> datasource = new DepartmentListFileDatasource("data");
         departmentList = datasource.readData();

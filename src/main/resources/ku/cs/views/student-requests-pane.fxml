@@ -69,7 +69,7 @@
             <Insets left="10.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER" layoutX="29.0" layoutY="615.0">
+      <HBox alignment="CENTER" layoutX="28.0" layoutY="613.0">
          <children>
             <HBox alignment="CENTER" styleClass="number-box">
                <children>

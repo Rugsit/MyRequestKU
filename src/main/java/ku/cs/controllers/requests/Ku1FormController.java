@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -18,6 +15,7 @@ import javafx.stage.Stage;
 import ku.cs.models.request.Ku1AndKu3RequestForm;
 import ku.cs.models.request.RegisterRequestForm;
 import ku.cs.models.user.User;
+import ku.cs.services.SetTransition;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -59,8 +57,23 @@ public class Ku1FormController {
     @FXML
     private TextField teacherTextField;
 
+
+    @FXML
+    private Button removeButton;
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private Button createFormButton;
+    @FXML
+    private Button backButton;
+
     @FXML
     public void initialize() {
+        SetTransition.setButtonBounce(removeButton);
+        SetTransition.setButtonBounce(addButton);
+        SetTransition.setButtonBounce(createFormButton);
+        SetTransition.setButtonBounce(backButton);
         amountSubject = 1;
     }
 

@@ -437,7 +437,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                               mainBox.setMaxHeight(620);
                               mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
                               if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-                                  mainBox.setStyle("-fx-background-color: #536878; -fx-background-radius: 50px");
+                                  mainBox.setStyle("-fx-background-color: #1f1e1f; -fx-background-radius: 50px");
                               }
                               lineEnd.setAlignment(Pos.CENTER);
                               scene.setStyle("-fx-pref-height: 620px");
@@ -479,7 +479,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                                       mainBox.setMaxHeight(620);
                                       mainBox.setStyle("-fx-background-color: white; -fx-background-radius: 50px");
                                       if (Theme.getInstance().getCurrentTheme().equals("dark")) {
-                                          mainBox.setStyle("-fx-background-color: #536878; -fx-background-radius: 50px");
+                                          mainBox.setStyle("-fx-background-color: #1f1e1f; -fx-background-radius: 50px");
                                       }
                                       pane.setStyle("-fx-pref-height: 620px");
                                       VBox.setMargin(lineEnd,new Insets(20,0,20,0));

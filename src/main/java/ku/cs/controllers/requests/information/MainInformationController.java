@@ -45,6 +45,10 @@ public class MainInformationController {
     public Button backButton;
     @FXML
     public AnchorPane mainAnchorPane;
+    @FXML
+    private Button notApproveButton;
+    @FXML
+    private Button approveButton;
 
     private AdvisorPageController advisorPageController;
 
@@ -53,7 +57,9 @@ public class MainInformationController {
     }
 
     public void initializeMainInformation() {
-
+        SetTransition.setButtonBounce(backButton);
+        SetTransition.setButtonBounce(notApproveButton);
+        SetTransition.setButtonBounce(approveButton);
         if (!backButton.isVisible()) {
             updateStyle();
         }

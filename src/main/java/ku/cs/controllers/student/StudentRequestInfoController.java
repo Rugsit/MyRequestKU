@@ -21,11 +21,8 @@ import ku.cs.controllers.advisor.AdvisorStudentRequestsController;
 import ku.cs.controllers.requests.information.*;
 import ku.cs.models.request.*;
 import ku.cs.models.user.Student;
-import ku.cs.services.PathGenerator;
-import ku.cs.services.RequestListFileDatasource;
-import ku.cs.services.Theme;
+import ku.cs.services.*;
 import ku.cs.views.components.DefaultTableView;
-import ku.cs.services.RequestStatusColumn;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -70,6 +67,8 @@ public class StudentRequestInfoController {
     @FXML
     public void initialize() {
 
+        SetTransition.setButtonBounce(seeInformationButton);
+        SetTransition.setButtonBounce(backButton);
         tableView = new DefaultTableView<>(requestLogTableView);
         datasource = new RequestListFileDatasource("data");
         dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");

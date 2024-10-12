@@ -18,6 +18,7 @@ import ku.cs.models.request.RequestList;
 import ku.cs.models.user.Student;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
+import ku.cs.services.SetTransition;
 import ku.cs.views.components.DefaultTableView;
 import ku.cs.services.RequestStatusColumn;
 
@@ -50,6 +51,7 @@ public class StudentRequestsController {
 
     public void initialize() {
         showTable();
+        SetTransition.setButtonBounce(createRequestFormButton);
     }
 
     public void showTable(){
@@ -198,6 +200,7 @@ public class StudentRequestsController {
 
         } catch (IOException | IllegalArgumentException e) {
             try {
+                System.out.println(e.getMessage());
                 if (currentErrorStage == null || !currentErrorStage.isShowing()) {
                     currentErrorStage = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/error-page.fxml"));

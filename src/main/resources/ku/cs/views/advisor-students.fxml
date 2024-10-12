@@ -20,7 +20,7 @@
          <children>
             <VBox layoutX="-2.0" layoutY="102.0" prefWidth="292.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="70.0" mnemonicParsing="false" onAction="#onStudentClicked" prefWidth="274.0" text="จัดการนิสิตในที่ปรึกษา" wrapText="true">
+                  <Button fx:id="studentButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="70.0" mnemonicParsing="false" onAction="#onStudentClicked" prefWidth="274.0" text="จัดการนิสิตในที่ปรึกษา" wrapText="true">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -43,7 +43,7 @@
                         <String fx:value="semi-medium-font-size" />
                      </styleClass>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="70.0" mnemonicParsing="false" onAction="#onRequestsClicked" prefWidth="330.0" text="จัดการคำร้องที่รออนุมัติ" wrapText="true">
+                  <Button fx:id="requestButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="70.0" mnemonicParsing="false" onAction="#onRequestsClicked" prefWidth="330.0" text="จัดการคำร้องที่รออนุมัติ" wrapText="true">
                      <font>
                         <Font size="18.0" />
                      </font>

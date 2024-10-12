@@ -52,8 +52,7 @@ public class AdminManageStaffController {
         System.out.println(test.getStyleClass());
 
 
-        SetTransition transition = new SetTransition();
-        transition.setButtonBounce(addButton);
+        SetTransition.setButtonBounce(addButton);
 
         Label placeHolder = new Label("ไม่พบข้อมูล");
         userListTableview.setPlaceholder(placeHolder);

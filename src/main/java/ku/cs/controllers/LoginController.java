@@ -54,7 +54,7 @@ public class LoginController {
     @FXML
     private void initialize() {
         SetTransition transition = new SetTransition();
-        transition.setButtonBounce(loginButton);
+        SetTransition.setButtonBounce(loginButton);
         final String[] imagePaths = {
                 getClass().getResource("/images/backgrounds/background-login1.jpg").toString(),
                 getClass().getResource("/images/backgrounds/background-login2.jpg").toString(),

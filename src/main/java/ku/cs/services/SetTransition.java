@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableRow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -14,7 +15,7 @@ import javafx.util.Duration;
 import java.awt.*;
 
 public class SetTransition {
-    public void setButtonBounce(Button button) {
+    public static void setButtonBounce(Button button) {
         button.setOnMousePressed(event -> {
             ScaleTransition scaleUp = new ScaleTransition(Duration.millis(200), button);
             scaleUp.setToX(1.1);  // ขยายปุ่มตามแนวนอน 1.1 เท่า
