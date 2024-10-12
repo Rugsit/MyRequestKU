@@ -49,7 +49,7 @@ public class AdvisorPageController implements ParentController {
         profilePic.setClipImage(150, 150);
         profilePic.setImage(datasource.openImage(loginUser.getAvatar()));
 
-        onStudentClicked();
+        onSideProfileClicked();
         tabAccountNameLabel.setText(loginUser.getName());
     }
 

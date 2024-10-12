@@ -180,7 +180,7 @@
                      </styleClass></Label>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
             </HBox>
             <HBox maxHeight="30.0" styleClass="box-amount-user">
@@ -197,7 +197,7 @@
                      </styleClass></Label>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -217,7 +217,7 @@
                      </styleClass></Label>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -237,7 +237,7 @@
                      </styleClass></Label>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -257,7 +257,7 @@
                      </styleClass></Label>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
                <VBox.margin>
                   <Insets top="10.0" />

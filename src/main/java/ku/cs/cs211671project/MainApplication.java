@@ -24,9 +24,6 @@ public class MainApplication extends Application {
         Font.loadFont(getClass().getResourceAsStream(fontsPath + "Krub Bold.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream(fontsPath + "Krub Regular.ttf"), 12);
 
-        Font.loadFont(getClass().getResourceAsStream(fontsPath + "THSarabunNew Bold.ttf"), 12);
-        Font.loadFont(getClass().getResourceAsStream(fontsPath + "THSarabunNew.ttf"), 12);
-        Font.loadFont(getClass().getResourceAsStream(fontsPath + "PK Maehongson Round Demo.ttf"), 12);
         FXRouter.bind(this, stage, "MyRequestKU", windowWidth, windowHeight);
 
         configRoutes();

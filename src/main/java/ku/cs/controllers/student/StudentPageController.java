@@ -41,7 +41,7 @@ public class StudentPageController implements ParentController {
             loginUser = (Student)FXRouter.getData();
         }
         loadProfile();
-        onRequestsButtonClicked();
+        onSideProfileClicked();
         tabAccountNameLabel.setText(loginUser.getName());
     }
 

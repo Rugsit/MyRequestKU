@@ -18,8 +18,7 @@ public class RequestStatusColumn {
                 super.updateItem(item, empty);
                 statusCell.setMouseTransparent(true);
                 statusCell.setFocusTraversable(false);
-                String buttonStyle = "-fx-border-radius: 3;" +
-                        "-fx-font-size: 18;" +
+                String buttonStyle = "-fx-border-radius: 3;"+
                         "-fx-text-alignment: center;" +
                         "-fx-cursor: none;" +
                         "-fx-pref-width: 234;" +
@@ -75,6 +74,7 @@ public class RequestStatusColumn {
                                         buttonStyle
                         );
                     }
+                    statusCell.getStyleClass().add(".semi-medium-font-size");
                 }
             }
         });
