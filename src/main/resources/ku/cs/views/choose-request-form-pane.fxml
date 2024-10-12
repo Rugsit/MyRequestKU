@@ -41,7 +41,7 @@
                      </font>
                      <styleClass>
                         <String fx:value="type-request" />
-                        <String fx:value="semi-large-font-size" />
+                        <String fx:value="medium-font-size" />
                      </styleClass>
                   </Label>
                   <Label prefWidth="273.0" text="- ขอใบแทนปริญญาบัตร&#10;- แจ้งเปลี่ยนชื่อ&#10;- แจ้งเปลี่ยนนามสกุล&#10;- อื่น ๆ ">
@@ -82,7 +82,7 @@
                      </VBox.margin>
                      <styleClass>
                         <String fx:value="type-request" />
-                        <String fx:value="semi-large-font-size" />
+                        <String fx:value="medium-font-size" />
                      </styleClass>
                   </Label>
                   <Label prefWidth="280.0" text="- ขอลงทะเบียนล่าช้า / รักษาสถาน&#10;ภาพนิสิต&#10;- เพิ่ม / ถอนรายวิชาล่าช้า&#10;- ขอลงทะเบียนเกิน จำนวนหน่วยกิต&#10;- ขอลงทะเบียนต่ำกว่า 9 หน่วยกิต&#10;- ผ่อนผันค่าธรรมเนียมการศึกษา&#10;- ขอย้ายคณะ หรือเปลี่ยนสาขา" wrapText="true">
@@ -125,7 +125,7 @@
                      </VBox.margin>
                      <styleClass>
                         <String fx:value="type-request" />
-                        <String fx:value="semi-large-font-size" />
+                        <String fx:value="medium-font-size" />
                      </styleClass>
                   </Label>
                   <Label prefHeight="42.0" prefWidth="264.0" text="- ขอลาพักการศึกษา">

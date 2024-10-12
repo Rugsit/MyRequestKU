@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -28,8 +29,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class DashBoardController {
-    private FacultyList facultyList;
-    private DepartmentList departmentList;
     private User loginUser;
     private long  lastModified = 0;
 
@@ -84,18 +83,54 @@ public class DashBoardController {
         amountUserDepartmentColumn.setCellValueFactory(new PropertyValueFactory<>("UsersCount"));
         userInDepartmentTableView.getColumns().addAll(departmentNameColumn, amountUserDepartmentColumn);
 
+        TableColumn<Department, String> departmentRequestNameColumn = new TableColumn<>("ชื่อภาควิชา");
+        departmentRequestNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumn<Faculty, Integer> amountRequestFacultyColumn = new TableColumn<>("จำนวนคำร้อง");
         amountRequestFacultyColumn.setCellValueFactory(new PropertyValueFactory<>("RequestsCount"));
         TableColumn<Department, Integer> amountRequestDepartmentColumn = new TableColumn<>("จำนวนคำร้อง");
         amountRequestDepartmentColumn.setCellValueFactory(new PropertyValueFactory<>("RequestsCount"));
         requestFacultyTableView.getColumns().addAll(facultyNameColumn, amountRequestFacultyColumn);
-        requestDepartmentTableView.getColumns().addAll(departmentNameColumn, amountRequestDepartmentColumn);
-        Datasource<FacultyList> facDatasource = new FacultyListFileDatasource("data");
-        facultyList = facDatasource.readData();
-        Datasource<DepartmentList> departmentListFileDatasource = new DepartmentListFileDatasource("data");
-        departmentList = departmentListFileDatasource.readData();
+        requestDepartmentTableView.getColumns().addAll(departmentRequestNameColumn, amountRequestDepartmentColumn);
 
-        updatePage();
+
+        userInFacultyTableView.setPlaceholder(new Label("กำลังโหลดข้อมูล..."));
+        userInDepartmentTableView.setPlaceholder(new Label("กำลังโหลดข้อมูล..."));
+        requestFacultyTableView.setPlaceholder(new Label("กำลังโหลดข้อมูล..."));
+        requestDepartmentTableView.setPlaceholder(new Label("กำลังโหลดข้อมูล..."));
+        updateEmptyUI(); // อัปเดต UI เปล่า เช่นตัวเลขใน label อื่น ๆ
+
+        Task<Void> loadDataTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                // โหลดข้อมูลหนัก ๆ ใน background
+                showTableAmountUser(facultyUserTab);
+                showTableAmountUser(departmentUserTab);
+                showTableAmountUser(facultyRequestTab);
+                showTableAmountUser(departmentRequestTab);
+                return null;
+            }
+
+            @Override
+            protected void succeeded() {
+                Platform.runLater(() -> {
+                    // อัปเดต TableView หลังจากโหลดข้อมูลเสร็จ
+                    updatePage();
+
+                    // Refresh TableView ให้แสดงข้อมูล
+                    userInFacultyTableView.refresh();
+                    userInDepartmentTableView.refresh();
+                    requestFacultyTableView.refresh();
+                    requestDepartmentTableView.refresh();
+                });
+            }
+        };
+
+        // รัน Task ใน background thread
+        Thread thread = new Thread(loadDataTask);
+        thread.setDaemon(true);
+        thread.start();
+
+
         userTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 if (newValue == facultyUserTab) {
@@ -156,24 +191,28 @@ public class DashBoardController {
     private void showTableAmountUser(Tab currentTab) {
         Datasource<FacultyList> facDatasource = new FacultyListFileDatasource("data");
         FacultyList facultyList = facDatasource.readData();
+        Datasource<DepartmentList> departmentListFileDatasource = new DepartmentListFileDatasource("data");
+        DepartmentList departmentList = departmentListFileDatasource.readData();
 
-        if (facultyUserTab == currentTab) {
-            userInFacultyTableView.getItems().clear();
-            userInFacultyTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            userInFacultyTableView.getItems().addAll(facultyList.getFacultyList());
-        } else if (departmentUserTab == currentTab) {
-            userInDepartmentTableView.getItems().clear();
-            userInDepartmentTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            userInDepartmentTableView.getItems().addAll(departmentList.getDepartments());
-        } else if (facultyRequestTab == currentTab) {
-            requestFacultyTableView.getItems().clear();
-            requestFacultyTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            requestFacultyTableView.getItems().addAll(facultyList.getFacultyList());
-        } else if (departmentRequestTab == currentTab) {
-            requestDepartmentTableView.getItems().clear();
-            requestDepartmentTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            requestDepartmentTableView.getItems().addAll(departmentList.getDepartments());
-        }
+        Platform.runLater(() -> {
+            if (facultyUserTab == currentTab) {
+                userInFacultyTableView.getItems().clear();
+                userInFacultyTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+                userInFacultyTableView.getItems().addAll(facultyList.getFacultyList());
+            } else if (departmentUserTab == currentTab) {
+                userInDepartmentTableView.getItems().clear();
+                userInDepartmentTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+                userInDepartmentTableView.getItems().addAll(departmentList.getDepartments());
+            } else if (facultyRequestTab == currentTab) {
+                requestFacultyTableView.getItems().clear();
+                requestFacultyTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+                requestFacultyTableView.getItems().addAll(facultyList.getFacultyList());
+            } else if (departmentRequestTab == currentTab) {
+                requestDepartmentTableView.getItems().clear();
+                requestDepartmentTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+                requestDepartmentTableView.getItems().addAll(departmentList.getDepartments());
+            }
+        });
     }
 
     private void updatePage() {
@@ -203,5 +242,18 @@ public class DashBoardController {
         processRequestLabel.setText(String.valueOf(requestList.getRequests().size() - (amountReject + amountSuccess)));
         sucessRequestLabel.setText(String.valueOf(amountSuccess));
         rejectRequestLabel.setText(String.valueOf(amountReject));
+    }
+
+    private void updateEmptyUI() {
+        // อัปเดต UI เปล่า เช่นตัวเลขใน label ต่าง ๆ โดยไม่โหลดข้อมูลจริง ๆ ก่อน
+        allUsersLabel.setText("กำลังโหลด...");
+        facultyStaffLabel.setText("กำลังโหลด...");
+        departmentStaffLabel.setText("กำลังโหลด...");
+        advisorLabel.setText("กำลังโหลด...");
+        studentLabel.setText("กำลังโหลด...");
+        allRequestLabel.setText("กำลังโหลด...");
+        processRequestLabel.setText("กำลังโหลด...");
+        sucessRequestLabel.setText("กำลังโหลด...");
+        rejectRequestLabel.setText("กำลังโหลด...");
     }
 }

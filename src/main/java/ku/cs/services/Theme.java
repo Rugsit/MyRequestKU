@@ -3,8 +3,14 @@ package ku.cs.services;
 import javafx.scene.layout.AnchorPane;
 import ku.cs.views.components.DefaultLabel;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Theme implements Subject<HashMap<String,String>>{
     private static Theme instance;
@@ -37,7 +43,13 @@ public class Theme implements Subject<HashMap<String,String>>{
         } else if (currentTheme.equals("light")) {
             anchorPane.getStylesheets().add(path.getThemeLightPath());
         }
-        anchorPane.getStylesheets().add(Theme.class.getResource("/ku/cs/styles/font/" + currentFont).toString());
+        try {
+            String css = modifyCSS("/ku/cs/styles/font/" + currentFont);
+            String tempCss = "data:text/css," + css;
+            anchorPane.getStylesheets().add(tempCss);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         anchorPane.getStylesheets().add(Theme.class.getResource("/ku/cs/styles/font/" + currentFontFamily).toString());
     }
 
@@ -124,6 +136,22 @@ public class Theme implements Subject<HashMap<String,String>>{
         return size;
     }
 
+    private double getCalculatedFontSizePrivate(double loadFontSize){
+        double size;
+        if(!currentFontFamily.contains("printAble4u")) {
+            loadFontSize *= 0.7;
+            if (currentFont.contains("large")) {
+                size = loadFontSize * 1.05;
+            } else if (currentFont.contains("small")) {
+                size = loadFontSize * 0.95;
+            } else {
+                size = loadFontSize;
+            }
+        } else {size = loadFontSize;}
+
+        return size;
+    }
+
     public String getThemeName(){
         return themeList.get("name");
     }
@@ -162,5 +190,28 @@ public class Theme implements Subject<HashMap<String,String>>{
             }
 
         }
+    }
+
+    private String modifyCSS(String path) throws IOException {
+        InputStream stream = getClass().getResourceAsStream(path);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        String content = "";
+        String line;
+
+        //Regex find -fx-font-size: xx;
+        Pattern pattern = Pattern.compile("-fx-font-size:\\s*(\\d+(\\.\\d+)?)\\s*;");
+        while ((line = reader.readLine()) != null) {
+            Matcher matcher = pattern.matcher(line);
+            if (matcher.find()) {
+                double curSize = Double.parseDouble(matcher.group(1));
+//                double newSize = curSize * scaleFactor;
+                double newSize = getCalculatedFontSizePrivate(curSize);
+                line = line.replaceFirst("-fx-font-size:\\s*\\d+(\\.\\d+)?;", String.format("-fx-font-size: %.2f;", newSize));
+            }
+            content += line + "\n";
+        }
+
+        reader.close();
+        return content;
     }
 }

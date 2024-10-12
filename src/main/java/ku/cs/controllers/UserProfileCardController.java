@@ -55,9 +55,6 @@ public class UserProfileCardController{
 
     @FXML
     public void initialize()  {
-        updateStyle();
-
-
         if (loginUser == null) {return;}
         imageDatasource = new ImageDatasource("users");
         profilePicture = new DefaultImage(profilePictureImageView);
@@ -224,9 +221,18 @@ public class UserProfileCardController{
 
     private void showNotification(String messages, boolean error) {
         if (error) {
-            notificationLabel.setStyle("-fx-text-fill: red;");
+            if (Theme.getInstance().getCurrentTheme().equals("light")) {
+                notificationLabel.setStyle("-fx-text-fill: red;");
+            } else {
+                notificationLabel.setStyle("-fx-text-fill: #ff908a;");
+            }
         } else {
-            notificationLabel.setStyle("-fx-text-fill: green;");
+            if (Theme.getInstance().getCurrentTheme().equals("light")) {
+                notificationLabel.setStyle("-fx-text-fill: green;");
+            } else {
+                notificationLabel.setStyle("-fx-text-fill: #9effb8;");
+            }
+
         }
         notificationLabel.setText(messages);
         FadeTransition fadeTransition = new FadeTransition();
@@ -246,12 +252,11 @@ public class UserProfileCardController{
                 "    -fx-background-color: "+ color + ";" +
                         "-fx-cursor: hand;" +
                         "-fx-text-fill: #FFFFFF;" +
-                        "-fx-font-size: 14;" +
                         "-fx-font-weight: bold;" +
-                        "-fx-pref-width: 126;" +
                         "-fx-pref-height: 30;" +
                         "-fx-background-radius: 10;"
         );
+        editPasswordButton.getStyleClass().add(".semi-medium-font-size");
     }
 
     @FXML
@@ -312,7 +317,7 @@ public class UserProfileCardController{
 
     @FXML
     protected void onCancelEditPasswordButtonClicked() {
-        changeEditPasswordButton("แก้ไขรหัสผ่าน", "red");
+        changeEditPasswordButton("แก้ไขรหัสผ่าน", "#FF4E4E");
         oldPasswordTextField.setDisable(true);
         oldPasswordTextField.setEditable(false);
         oldPasswordTextField.setVisible(false);
@@ -331,18 +336,5 @@ public class UserProfileCardController{
         editPasswordButton.setDefaultButton(false);
         cancelEditPasswordButton.setDisable(true);
         cancelEditPasswordButton.setVisible(false);
-    }
-
-    public void updateStyle() {
-        Theme.getInstance().loadCssToPage(anchorPane, new PathGenerator() {
-            @Override
-            public String getThemeDarkPath() {
-                return getClass().getResource("/ku/cs/styles/user-profile-card-dark.css").toString();
-            }
-            @Override
-            public String getThemeLightPath() {
-                return getClass().getResource("/ku/cs/styles/user-profile-card.css").toString();
-            }
-        });
     }
 }

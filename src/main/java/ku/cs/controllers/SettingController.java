@@ -2,8 +2,11 @@ package ku.cs.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ku.cs.services.PathGenerator;
@@ -18,6 +21,8 @@ public class SettingController {
     private AnchorPane mainAnchorPane;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private Button changeThemeButton;
 
     private Stage stage;
     private String lightCSS;
@@ -26,22 +31,19 @@ public class SettingController {
     @FXML
     private void initialize() {
         Platform.runLater(this::changeCssPage);
-        fontSizeChoiceBox.getItems().addAll("จิ๋ว", "เล็ก", "กลาง", "ใหญ่");
+        Platform.runLater(this::updateChangeThemeButton);
+        fontSizeChoiceBox.getItems().addAll( "เล็ก", "กลาง", "ใหญ่");
         if (Theme.getInstance().getCurrentFont().contains("large")) {
             fontSizeChoiceBox.setValue("ใหญ่");
         } else if (Theme.getInstance().getCurrentFont().contains("medium")) {
             fontSizeChoiceBox.setValue("กลาง");
         } else if (Theme.getInstance().getCurrentFont().contains("small")) {
             fontSizeChoiceBox.setValue("เล็ก");
-        } else if (Theme.getInstance().getCurrentFont().contains("tiny")) {
-            fontSizeChoiceBox.setValue("จิ๋ว");
         }
 
-        fontChoiceBox.getItems().addAll("Maehongson", "THSarabunNew", "PrintAble4u");
-        if (Theme.getInstance().getCurrentFontFamily().contains("Maehongson")) {
-            fontChoiceBox.setValue("Maehongson");
-        } else if (Theme.getInstance().getCurrentFontFamily().contains("THSarabunNew")) {
-            fontChoiceBox.setValue("THSarabunNew");
+        fontChoiceBox.getItems().addAll( "PrintAble4u", "Krub");
+        if (Theme.getInstance().getCurrentFontFamily().contains("Krub")) {
+            fontChoiceBox.setValue("Krub");
         } else if (Theme.getInstance().getCurrentFontFamily().contains("printAble4u")) {
             fontChoiceBox.setValue("PrintAble4u");
         }
@@ -49,12 +51,12 @@ public class SettingController {
         fontChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 String pathToFile = "";
-                if (newValue.equals("Maehongson")) {
-                    pathToFile = "PK-Maehongson-Demo.css";
-                } else if (newValue.equals("THSarabunNew")) {
-                    pathToFile = "THSarabunNew.css";
+                if (newValue.equals("Krub")) {
+                    pathToFile = "Krub.css";
+                    Theme.getInstance().setTextFont("Krub");
                 } else if (newValue.equals("PrintAble4u")) {
                     pathToFile = "printAble4u-font.css";
+                    Theme.getInstance().setTextFont("PrintAble4U");
                 }
                 Theme.getInstance().setCurrentFontFamily(pathToFile);
                 changeCssPage();
@@ -65,14 +67,15 @@ public class SettingController {
         fontSizeChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 String pathToFile = "";
-                if (newValue.equals("จิ๋ว")) {
-                    pathToFile = "font-tiny.css";
-                } else if (newValue.equals("เล็ก")) {
+                if (newValue.equals("เล็ก")) {
                     pathToFile = "font-small.css";
+                    Theme.getInstance().setTextSize("small");
                 } else if (newValue.equals("กลาง")) {
                     pathToFile = "font-medium.css";
+                    Theme.getInstance().setTextSize("normal");
                 } else if (newValue.equals("ใหญ่")) {
                     pathToFile = "font-large.css";
+                    Theme.getInstance().setTextSize("large");
                 }
                 Theme.getInstance().setCurrentFont(pathToFile);
                 changeCssPage();
@@ -95,17 +98,42 @@ public class SettingController {
     }
 
     @FXML
-    private void setThemeDark() {
-        Theme.getInstance().setCurrentTheme("dark");
-        Theme.getInstance().setTheme("dark");
-        changeCssPage();
+    private void changeTheme() {
+        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+            Theme.getInstance().setCurrentTheme("light");
+            Theme.getInstance().setTheme("light");
+            changeCssPage();
+            updateChangeThemeButton();
+
+        } else {
+            Theme.getInstance().setCurrentTheme("dark");
+            Theme.getInstance().setTheme("dark");
+            changeCssPage();
+            updateChangeThemeButton();
+        }
     }
 
-    @FXML
-    private void setThemeLight() {
-        Theme.getInstance().setCurrentTheme("light");
-        Theme.getInstance().setTheme("light");
-        changeCssPage();
+    private void updateChangeThemeButton() {
+        if (Theme.getInstance().getCurrentTheme().equals("dark")) {
+            changeCssPage();
+            changeThemeButton.setStyle("-fx-background-radius: 150;\n" +
+                    "    -fx-cursor: hand;\n" +
+                    "    -fx-background-color: #2731B7;");
+            ImageView imageView = new ImageView(new Image(getClass().getResource("/images/icons/moon-icon.png").toString()));
+            imageView.setFitWidth(100);
+            imageView.setFitHeight(100);
+            changeThemeButton.setGraphic(imageView);
+
+        } else {
+            changeCssPage();
+            changeThemeButton.setStyle("-fx-background-radius: 150;\n" +
+                    "    -fx-cursor: hand;\n" +
+                    "    -fx-background-color: #69eeff;");
+            ImageView imageView = new ImageView(new Image(getClass().getResource("/images/icons/sun-icon.png").toString()));
+            imageView.setFitWidth(100);
+            imageView.setFitHeight(100);
+            changeThemeButton.setGraphic(imageView);
+        }
     }
 
     private void changeCssPage(){
