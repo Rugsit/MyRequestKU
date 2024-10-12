@@ -142,10 +142,10 @@ public class FacultyApproverController implements Observer<HashMap<String, Strin
         Set<Approver> filteredApprovers = approverList.getApprovers()
                 .stream()
                 .filter(approver -> approver.getFirstname().toLowerCase().contains(newValue.toLowerCase()) ||
-                        approver.getLastname().toLowerCase().contains(newValue.toLowerCase()) &&
+                        approver.getLastname().toLowerCase().contains(newValue.toLowerCase()) ||
+                        approver.getRole().toLowerCase().contains(newValue.toLowerCase()) &&
                                 approver.getAssociateUUID().equals(loginUser.getFacultyUUID()))
                 .collect(Collectors.toSet());
-        System.out.println(loginUser.getFacultyUUID());
 
         approverTableView.getItems().clear();
         approverTableView.getItems().addAll(filteredApprovers);
