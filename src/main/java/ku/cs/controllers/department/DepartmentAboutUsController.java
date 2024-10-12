@@ -1,31 +1,32 @@
 package ku.cs.controllers.department;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import ku.cs.controllers.ParentController;
-import ku.cs.controllers.UserProfileCardController;
+import javafx.scene.layout.VBox;
+import ku.cs.controllers.AboutUsController;
 import ku.cs.models.Session;
-import ku.cs.models.user.DepartmentUser;
-import ku.cs.models.user.User;
 import ku.cs.services.FXRouter;
 import ku.cs.services.Observer;
 import ku.cs.services.Theme;
+import ku.cs.views.components.CircleImage;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.views.layouts.sidebar.SidebarController;
 
 import java.io.IOException;
 import java.util.HashMap;
 
-public class ProfileController implements Observer<HashMap<String, String>>, ParentController {
+public class DepartmentAboutUsController implements Observer<HashMap<String, String>> {
     @FXML private AnchorPane mainAnchorPane;
-    @FXML private StackPane mainStackPane;
+    @FXML private StackPane mainStackPane;//FOR MANUAL PDF VIEW
     @FXML private Label pageTitleLabel;
     private Session session;
-    private DepartmentUser loginUser;
     private SidebarController sidebarController;
     private Theme theme = Theme.getInstance();
     private void initRouteData(){
@@ -41,55 +42,50 @@ public class ProfileController implements Observer<HashMap<String, String>>, Par
         theme.clearObservers();
         initRouteData();
         initLabel();
-        setLoginUser(session.getUser());
-        sidebarController = new SidebarController("profile",session);
+        sidebarController = new SidebarController("aboutus",session);
         mainAnchorPane.getChildren().add(sidebarController.getVBox());
-        theme.addObserver(this);
+        loadAboutUs();
 
-        loadProfileCard();
+        theme.addObserver(this);
+        theme.notifyObservers(theme.getTheme());
+
     }
     private void initLabel() {
         new DefaultLabel(pageTitleLabel);
     }
-
-    @Override
-    public void setLoginUser(User loginUser) {
-        this.loginUser = (DepartmentUser) loginUser;
+    private void initChildren(ObservableList<Node> children) {
+        for(Node child : children){
+            if(child instanceof Label){
+                Label label = (Label) child;
+                new DefaultLabel(label);
+            }
+            if(child instanceof ImageView){
+                ImageView imageView = (ImageView) child;
+                new CircleImage(imageView,imageView.getImage());
+            }
+            if(child instanceof VBox){
+                initChildren(((VBox) child).getChildren());
+            }
+        }
     }
-
-    @Override
-    public void loadProfile() {
-        mainAnchorPane.getChildren().removeLast();
-        mainAnchorPane.getChildren().removeLast();
-
-        theme.removeObserver(sidebarController);
-        sidebarController = new SidebarController("profile",session);
-        mainAnchorPane.getChildren().add(sidebarController.getVBox());
-
-        loadProfileCard();
-    }
-
-    private void loadProfileCard() {
+    private void loadAboutUs() {
         try {
-            String viewPath = "/ku/cs/views/user-profile-card.fxml";
+            String viewPath = "/ku/cs/views/about-us-pane.fxml";
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
-            UserProfileCardController controller = fxmlLoader.getController();
-            controller.setLoginUser(loginUser);
-            controller.setParentController(this);
+            AboutUsController controller = fxmlLoader.getController();
             controller.initialize();
-            pane.setLayoutX(432);
-            pane.setLayoutY(157);
+            initChildren(pane.getChildren());
+            pane.setPrefSize(1020,720);
+            pane.setLayoutX(260);
+            pane.setLayoutY(50);
             mainAnchorPane.getChildren().add(pane);
-
-            theme.notifyObservers(theme.getTheme());
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
     @Override
     public void update(HashMap<String, String> data) {
         mainAnchorPane.setStyle(mainAnchorPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
