@@ -1,5 +1,6 @@
 package ku.cs.views.layouts.sidebar;
 
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -48,6 +49,7 @@ public class MiniProfile {
         vBox.getChildren().addAll(profileImage,profileName,logoutButton);
         initStyle();
         handleClickEvent();
+        handleHoverEvent();
     }
     private void initStyle(){
         vBox.setStyle("-fx-alignment: center; -fx-spacing: 5");
@@ -60,6 +62,18 @@ public class MiniProfile {
         profileImage.setOnMouseClicked(e -> {
             System.out.println("Profile Image Clicked!");
         });
+    }
+    protected void handleHoverEvent(){
+        profileImage.setOnMouseEntered(
+                (e -> {
+                    profileImage.setCursor(Cursor.HAND);
+                })
+        );
+        profileImage.setOnMouseExited(
+                (e -> {
+                    profileImage.setCursor(Cursor.DEFAULT);
+                })
+        );
     }
     public VBox getVBox() {
         return vBox;
