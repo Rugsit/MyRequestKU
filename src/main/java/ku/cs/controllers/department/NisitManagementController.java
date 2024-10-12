@@ -377,12 +377,10 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         }else{
             nisitEditorVBox.setAlignment(Pos.CENTER);
             container = newEditorContainerHBox();
-            nisitImageView.setPreserveRatio(true);
-            nisitImageView.setFitWidth(300);
-            nisitImageView.setFitHeight(400);
-            CropImage nisitImage = new CropImage(nisitImageView);
-            nisitImage.setClipImage(50,50);
-            container.getChildren().add(nisitImageView);
+            DefaultLabel fallbackLabel = new DefaultLabel("");
+            fallbackLabel.changeText("ยังไม่ได้เลือก",24,FontWeight.NORMAL);
+            fallbackLabel.changeLabelColor("black");
+            container.getChildren().add(fallbackLabel);
             container.setAlignment(Pos.CENTER);
             children.add(container);
         }
