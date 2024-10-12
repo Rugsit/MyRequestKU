@@ -99,8 +99,6 @@ public class DashBoardController {
         requestDepartmentTableView.setPlaceholder(new Label("กำลังโหลดข้อมูล..."));
         updateEmptyUI(); // อัปเดต UI เปล่า เช่นตัวเลขใน label อื่น ๆ
 
-//        updatePage();
-
         Task<Void> loadDataTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
