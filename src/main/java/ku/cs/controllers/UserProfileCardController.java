@@ -139,7 +139,11 @@ public class UserProfileCardController{
             Datasource<UserList> datasource = new UserListFileDatasource("data", "advisor.csv");
             UserList advisors = datasource.readData();
             Advisor advisor = (Advisor) advisors.findUserByUUID(student.getAdvisor());
-            advisorLabel.setText(advisor.getName());
+            if (advisor != null) {
+                advisorLabel.setText(advisor.getName());
+            } else {
+                advisorLabel.setText("ไม่มีอาจารย์ที่ปรึกษา");
+            }
         }
     }
 
