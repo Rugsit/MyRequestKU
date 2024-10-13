@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.controllers.AboutUsController;
 import ku.cs.controllers.ParentController;
 import ku.cs.controllers.SettingController;
 import ku.cs.controllers.UserProfileCardController;
@@ -147,6 +148,9 @@ public class AdminMainController implements ParentController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
+            AboutUsController controller = fxmlLoader.getController();
+            controller.setLoginUser(loginUser);
+            controller.initialize();
             borderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);

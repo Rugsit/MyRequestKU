@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.controllers.AboutUsController;
 import ku.cs.controllers.ParentController;
 import ku.cs.controllers.SettingController;
 import ku.cs.controllers.UserProfileCardController;
@@ -151,6 +152,9 @@ public class AdvisorPageController implements ParentController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
+            AboutUsController controller = fxmlLoader.getController();
+            controller.setLoginUser(loginUser);
+            controller.initialize();
             contentBorderPane.setCenter(pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
