@@ -14,7 +14,7 @@ public class AboutUsController {
     @FXML private Button backButton;
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         showImage();
         RouteButton back = new RouteButton(backButton, "login", "transparent",
                                "#EBEBEB", "#FFFFFF");

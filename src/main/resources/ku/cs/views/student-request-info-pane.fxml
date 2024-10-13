@@ -101,18 +101,26 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Button fx:id="requestStatus1" maxHeight="35.0" maxWidth="234.0" minHeight="35.0" minWidth="234.0" mnemonicParsing="false" mouseTransparent="true" prefHeight="35.0" prefWidth="234.0" styleClass="RequestStatus" text="status1">
+                  <Button fx:id="requestStatus1" maxHeight="35.0" maxWidth="234.0" minHeight="35.0" minWidth="234.0" mnemonicParsing="false" mouseTransparent="true" prefHeight="35.0" prefWidth="234.0" text="status1">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
+                     <styleClass>
+                        <String fx:value="RequestStatus" />
+                        <String fx:value="semi-medium-font-size" />
+                     </styleClass>
                   </Button>
-                  <Button fx:id="requestStatus2" maxHeight="35.0" maxWidth="234.0" minHeight="35.0" minWidth="234.0" mnemonicParsing="false" mouseTransparent="true" prefHeight="35.0" prefWidth="234.0" styleClass="RequestStatus" text="status2">
+                  <Button fx:id="requestStatus2" maxHeight="35.0" maxWidth="234.0" minHeight="35.0" minWidth="234.0" mnemonicParsing="false" mouseTransparent="true" prefHeight="35.0" prefWidth="234.0" text="status2">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <styleClass>
+                        <String fx:value="RequestStatus" />
+                        <String fx:value="semi-medium-font-size" />
+                     </styleClass>
                   </Button>
                </children>
             </HBox>

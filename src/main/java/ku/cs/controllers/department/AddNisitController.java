@@ -313,7 +313,7 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
             nisitEditorVBox.setAlignment(Pos.CENTER);
             container = newEditorContainerHBox();
             DefaultLabel fallbackLabel = new DefaultLabel("");
-            fallbackLabel.changeText("No user selected!",18,FontWeight.NORMAL);
+            fallbackLabel.changeText("ยังไม่ได้เลือก",18,FontWeight.NORMAL);
             fallbackLabel.changeLabelColor("black");
             container.getChildren().add(fallbackLabel);
             container.setAlignment(Pos.CENTER);

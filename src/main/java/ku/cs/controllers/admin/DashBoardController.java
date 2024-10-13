@@ -175,7 +175,6 @@ public class DashBoardController {
                         System.out.println("CSV file has been modified!");
                         // สามารถโหลดข้อมูลใหม่หรืออัปเดต UI ได้ที่นี่
                     });
-
                 }
             }
         };
@@ -228,11 +227,13 @@ public class DashBoardController {
         UserListFileDatasource userDatasource = new UserListFileDatasource("data", "admin.csv");
         UserList userList = userDatasource.readAllUser();
         userList.deleteUserByObject(userList.findUserByUUID(loginUser.getUUID()));
-        allUsersLabel.setText(String.valueOf(userList.getUsers().size()));
+
+
+        allUsersLabel.setText(String.valueOf(userList.getUsers().stream().filter(user -> !user.getUsername().equals("no-username")).toList().size()));
         facultyStaffLabel.setText(String.valueOf(userList.getUsers("faculty-staff").size()));
         departmentStaffLabel.setText(String.valueOf(userList.getUsers("department-staff").size()));
         advisorLabel.setText(String.valueOf(userList.getUsers("advisor").size()));
-        studentLabel.setText(String.valueOf(userList.getUsers("student").size()));
+        studentLabel.setText(String.valueOf(userList.getUsers("student").stream().filter(user -> !user.getUsername().equals("no-username")).toList().size()));
 
         Datasource<RequestList> requestDatasource = new RequestListFileDatasource("data");
         RequestList requestList = requestDatasource.readData();
