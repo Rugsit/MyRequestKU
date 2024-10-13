@@ -377,12 +377,10 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         }else{
             nisitEditorVBox.setAlignment(Pos.CENTER);
             container = newEditorContainerHBox();
-            nisitImageView.setPreserveRatio(true);
-            nisitImageView.setFitWidth(300);
-            nisitImageView.setFitHeight(400);
-            CropImage nisitImage = new CropImage(nisitImageView);
-            nisitImage.setClipImage(50,50);
-            container.getChildren().add(nisitImageView);
+            DefaultLabel fallbackLabel = new DefaultLabel("");
+            fallbackLabel.changeText("ยังไม่ได้เลือก",24,FontWeight.NORMAL);
+            fallbackLabel.changeLabelColor("black");
+            container.getChildren().add(fallbackLabel);
             container.setAlignment(Pos.CENTER);
             children.add(container);
         }
@@ -527,7 +525,7 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
             //remove associate requests
             RequestListFileDatasource requestListFileDatasource = new RequestListFileDatasource("data");
             ApproverListFileDatasource approverListFileDatasource = new ApproverListFileDatasource("request-approvers");
-            ImageDatasource imageDatasource = new ImageDatasource("signatures");
+            PDFDatasource pdfDatasource = new PDFDatasource();
             RequestList requestList = requestListFileDatasource.readData();
             ApproverList approverList = approverListFileDatasource.readData();
             Iterator<Request> requestIterator = requestList.getRequests().iterator();
@@ -538,7 +536,7 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                     ApproverList tempApprovers = approverList.getApproverList(r.getUuid());
                     for (Approver a : tempApprovers.getApprovers()) {
                         if(!a.getSignatureFile().equalsIgnoreCase("no-image")){
-                            imageDatasource.deleteFile(a.getSignatureFile());
+                            pdfDatasource.deleteFile(a.getSignatureFile());
                         }
                         approverList.deleteApproverByObject(a);
                     }

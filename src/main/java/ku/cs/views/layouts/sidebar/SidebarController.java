@@ -1,7 +1,11 @@
 package ku.cs.views.layouts.sidebar;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.FontWeight;
 import ku.cs.models.Session;
 import ku.cs.services.FXRouter;
 import ku.cs.services.ImageDatasource;
@@ -10,6 +14,7 @@ import ku.cs.services.Theme;
 import ku.cs.views.components.DefaultImage;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.cs211671project.MainApplication;
+import ku.cs.views.components.RouteButton;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,6 +29,7 @@ public class SidebarController implements Observer<HashMap<String,String>> {
     private final String BASE_LABEL_COLOR = DefaultLabel.DEFAULT_LABEL_COLOR;
     private Session session;
     private String curPage;
+    private RouteButton aboutUsButton;
     private Theme theme = Theme.getInstance();;
 
     public SidebarController(String curPage, Session session){
@@ -32,6 +38,7 @@ public class SidebarController implements Observer<HashMap<String,String>> {
         this.width = 260;
         this.height = MainApplication.windowHeight;//720
         initVBox();
+        initButton();
         setMount(0,0);
         setupChildren();
         theme.addObserver(this);
@@ -40,6 +47,32 @@ public class SidebarController implements Observer<HashMap<String,String>> {
         vBox = new VBox();
         vBox.setPrefWidth(width);
         vBox.setPrefHeight(height);
+    }
+    private void initButton(){
+        aboutUsButton = new RouteButton("department-aboutus","transparent","black","black",this.session){
+            @Override
+            protected void handleClickEvent(){
+                button.setOnMouseClicked(e->{
+                    if(!curPage.equalsIgnoreCase("aboutus")){
+                        try {
+                            FXRouter.goTo("department-aboutus",session);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+
+                    }
+                });
+            }
+            @Override
+            public void update(HashMap<String, String> data) {
+                super.updateTextSize(data);
+                super.updateTextFont(data);
+                if(!observeTheme)return;
+                changeLabelColor(data.get("textColor"));
+                this.hoverColorHex = data.get("secondary");
+            }
+        };
+        aboutUsButton.changeText("เกี่ยวกับพวกเรา",16, FontWeight.NORMAL);
     }
     public void setMount(double x, double y){
         vBox.setLayoutX(x);
@@ -90,7 +123,12 @@ public class SidebarController implements Observer<HashMap<String,String>> {
         };
         miniProfile.mount(0,460);
         //The VBox bypass child mount location but still need
-        vBox.getChildren().addAll(centerImageLayout.getVBox(),navListLayout.getVBox(),miniProfile.getVBox());
+
+        HBox lineEnd = new HBox(aboutUsButton);
+        HBox.setMargin(aboutUsButton, new Insets(0,0,20,0));
+        lineEnd.setAlignment(Pos.CENTER);
+
+        vBox.getChildren().addAll(centerImageLayout.getVBox(),navListLayout.getVBox(),miniProfile.getVBox(),lineEnd);
 
     }
     public VBox getVBox(){
