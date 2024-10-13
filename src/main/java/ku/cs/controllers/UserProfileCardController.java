@@ -2,6 +2,7 @@ package ku.cs.controllers;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +16,8 @@ import ku.cs.models.user.exceptions.EmailException;
 import ku.cs.models.user.exceptions.PasswordException;
 import ku.cs.services.*;
 import ku.cs.views.components.DefaultImage;
+
+import java.util.List;
 
 
 public class UserProfileCardController{
@@ -63,6 +66,13 @@ public class UserProfileCardController{
         users = datasource.readData();
         loginUser = users.findUserByUUID(loginUser.getUUID());
         showInfo();
+
+        Platform.runLater(() -> {
+            List<String> styleListString = anchorPane.getParent().getScene().getRoot().getStylesheets();
+            if (styleListString.isEmpty() || !styleListString.getFirst().contains("admin")) {
+                updateStyle();
+            }
+        });
     }
 
     private void setUpRole() {
@@ -336,5 +346,18 @@ public class UserProfileCardController{
         editPasswordButton.setDefaultButton(false);
         cancelEditPasswordButton.setDisable(true);
         cancelEditPasswordButton.setVisible(false);
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(anchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+            }
+        });
     }
 }

@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
+import ku.cs.services.Theme;
 import ku.cs.views.components.*;
 
 import java.util.HashMap;
@@ -51,6 +52,7 @@ public class themeSettingPopup extends BlankPopupStack {
                     String curTheme = theme.getCurrentTheme();
                     Image iconImage;
                     if(curTheme.equals("dark")){
+                        Theme.getInstance().setCurrentTheme("light");
                         theme.setTheme("default");
                         iconImage = defaultImage;
                         baseColorHex = "#69EEFF";
@@ -58,6 +60,7 @@ public class themeSettingPopup extends BlankPopupStack {
                         changeColor(baseColorHex);
                     }else{
                         theme.setTheme("dark");
+                        Theme.getInstance().setCurrentTheme("dark");
                         iconImage = darkImage;
                         baseColorHex = "#2731B7";
                         hoverColorHex = "#212A9E";
@@ -97,11 +100,27 @@ public class themeSettingPopup extends BlankPopupStack {
     private void handleTextSizeSelectorChange(){
         textSizeSelector.valueProperty().addListener((observable, oldValue, newValue) -> {
             theme.setTextSize(newValue);
+            String pathToFile = "";
+            if (newValue.equals("small")) {
+                pathToFile = "font-small.css";
+            } else if (newValue.equals("normal")) {
+                pathToFile = "font-medium.css";
+            } else if (newValue.equals("large")) {
+                pathToFile = "font-large.css";
+            }
+            Theme.getInstance().setCurrentFont(pathToFile);
         });
     }
     private void handleTextFontSelectorChange(){
         textFontSelector.valueProperty().addListener((observable, oldValue, newValue) -> {
             theme.setTextFont(newValue);
+            String pathToFile = "";
+            if (newValue.equalsIgnoreCase("Krub")) {
+                pathToFile = "Krub.css";
+            } else if (newValue.equalsIgnoreCase("PrintAble4U")) {
+                pathToFile = "printAble4u-font.css";
+            }
+            Theme.getInstance().setCurrentFontFamily(pathToFile);
         });
     }
 
