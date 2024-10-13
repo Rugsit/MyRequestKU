@@ -16,10 +16,7 @@ import ku.cs.views.components.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static java.lang.Thread.sleep;
 
@@ -83,18 +80,52 @@ public class AboutUsController {
                     จากนั้นเลือก “ เพิ่มผู้อนุมัติจากรายชื่อ ” และกดที่ชื่อผู้อนุมัติที่ต้องการจะเพิ่ม
                     """;
 
-            tips.add(staffTip1);
+
+            String staffTip2 = """
+                    เจ้าหน้าที่จะต้องอัปโหลดไฟล์ PDF ซึ่งเป็นหลักฐานลายเซ็นของผู้อนุมัติก่อนจึงจะสามารถกดอนุมัติให้
+                     
+                    ผู้อนุมัติคนนั้น ๆ ได้ โดยกดที่ icon รูปสัญลักษณ์ถูกต้อง ของผู้อนุมัติคนนั้น ๆ จากนั้นสถานะของ
+                    
+                    ผู้อนุมัติคนนั้นจะเปลี่ยนไปเป็น " เรียบร้อย "
+                    
+                    เมื่อผู้อนุมัติทุกคนอนุมัติแล้ว และทุกคนขึ้นสถานะว่า " เรียบร้อย " เจ้าหน้าที่จึงจะสามารถกดอนุมัติคำร้องนั้นได้
+                    """;
+            tips.addAll(Arrays.asList(staffTip1, staffTip2));
 
         }
 
+        if (loginUser instanceof DepartmentUser && ! (loginUser instanceof Student) && ! (loginUser instanceof Advisor)) {
+            String departmentStaffTip1 = """
+                    เมื่อผู้อนุมัติทุกคนอนุมัติแล้ว และสถานะของผู้อนุมัติทุกคนในระดับภาควิชาขึ้นว่า " เรียบร้อย "
+                    
+                    เจ้าหน้าที่ภาควิชาจะสามารถเลือกได้ว่า คำร้องนี้ควรจะสิ้นสุดที่ภาควิชา หรือต้องส่งคำร้องต่อให้คณะพิจารณา
+                    
+                    หากต้องการสิ้นสุดใบคำร้องที่ภาควิชา เจ้าหน้าที่สามารถกดได้ที่ปุ่ม " อนุมัติ "
+                    
+                    หากต้องการส่งให้คณะพิจารณา เจ้าหน้าที่จะต้องกดไปที่รายชื่อของผู้อนุมัติระดับคณะ แล้วกดปุ่มส่งหาคณะ
+                    """;
 
+            String departmentStaffTip2 = """
+                    เจ้าหน้าที่ภาควิชาสามารถกดเพิ่มนิสิตหลาย ๆ คนพร้อมกันได้ ด้วยการอัปโหลดไฟล์ CSV ที่มีโครงสร้างต่อไปนี้
+                    
+                    รหัสนิสิต,ชื่อจริง,นามสกุล,อีเมล
+                    """;
+
+            tips.addAll(Arrays.asList(departmentStaffTip1, departmentStaffTip2));
+        }
+
+
+        Collections.shuffle(tips);
         tipsLabel.setText(tips.getFirst());
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10), new EventHandler<ActionEvent>() {
             int current = 1;
             public void handle(ActionEvent actionEvent) {
                 tipsLabel.setText(tips.get(current));
                 current++;
-                if (current == tips.size()) { current = 0; }
+                if (current == tips.size()) {
+                    current = 0;
+                    Collections.shuffle(tips);
+                }
             }
         }));
 
