@@ -1,8 +1,6 @@
 package ku.cs.models.request.approver;
 
-import ku.cs.models.user.UserRoles;
-
-public enum ApproverTier {
+public enum ApproverTiers {
     ADVISOR("advisor"),
     DEPARTMENT("department"),
     FACULTY("faculty"),
@@ -10,7 +8,7 @@ public enum ApproverTier {
 
     private final String text;
 
-    ApproverTier(String text) {
+    ApproverTiers(String text) {
         this.text = text;
     }
 
@@ -20,8 +18,8 @@ public enum ApproverTier {
     }
 
     public static boolean contains(String text) {
-        for (ApproverTier role : ApproverTier.values()) {
-            if (role.toString().equals(text)) {
+        for (ApproverTiers availableTier : ApproverTiers.values()) {
+            if (availableTier.toString().equals(text)) {
                 return true;
             }
         }
