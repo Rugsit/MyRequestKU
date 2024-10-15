@@ -12,12 +12,6 @@ import java.util.Comparator;
 import java.util.UUID;
 
 public abstract class Approver implements Comparable<Approver> {
-    public static final ArrayList<String> AVAILABLE_TIER = new ArrayList<>(Arrays.asList(
-            "advisor",
-            "department",
-            "faculty",
-            "other"
-    ));
     protected final UUID uuid;
     protected UUID requestUUID;
     protected String firstname;
@@ -55,8 +49,8 @@ public abstract class Approver implements Comparable<Approver> {
         //Tier Checker
         if (tier == null) throw new ApproverTierException("tier must not be null");
         if (tier.isEmpty()) throw new ApproverTierException("tier must not be empty");
-        if (AVAILABLE_TIER.contains(tier)) this.tier = tier;
-        else throw new ApproverTierException("Not Available Tier : " + tier);
+        if (ApproverTier.contains(tier)) this.tier = tier;
+        else throw new ApproverTierException("Not Available Tiesssr : " + tier);
 
         if (role == null) throw new ApproverRoleException("role must not be null");
         if (role.isEmpty()) throw new ApproverRoleException("role must not be empty");

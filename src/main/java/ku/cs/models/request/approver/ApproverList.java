@@ -9,8 +9,8 @@ public class ApproverList {
     private HashMap<String, ArrayList<Approver>> approvers;
     public ApproverList() {
         approvers = new HashMap<>();
-        for(String tier : Approver.AVAILABLE_TIER){
-            approvers.put(tier, new ArrayList<>());
+        for(ApproverTier tier : ApproverTier.values()){
+            approvers.put(tier.toString(), new ArrayList<>());
         }
     }
     //CONSTRUCTOR FOR NEW APPROVER
@@ -136,11 +136,11 @@ public class ApproverList {
         return list;
     }
     public Collection<Approver> getApprovers(String tier){
-        if(!Approver.AVAILABLE_TIER.contains(tier))return  null;
+        if(!ApproverTier.contains(tier))return  null;
         return approvers.get(tier);
     }
     public ApproverList getApproverList(String tier){
-        if(!Approver.AVAILABLE_TIER.contains(tier))return  null;
+        if(!ApproverTier.contains(tier))return  null;
         ApproverList newApproverList = new ApproverList();
         newApproverList.getApprovers(tier).addAll(approvers.get(tier));
         return newApproverList;
