@@ -6,7 +6,7 @@
 
     <groupId>ku.cs</groupId>
     <artifactId>MyRequestKU</artifactId>
-    <version>1.0</version>
+    <version>4.0.0</version>
     <name>cs211-671-project</name>
 
     <properties>
