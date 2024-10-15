@@ -37,6 +37,7 @@ import java.util.*;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.locks.Lock;
 
 public class NisitManagementController implements Observer<HashMap<String, String>> {
@@ -561,9 +562,7 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         column.setSortable(false);//BLOCK SORT BY CLICK
         column.setReorderable(false);//BLOCK DRAG BY MOUSE
         column.setCellFactory(c -> new TableCell<>(){
-            private HashMap<String,Image> imageCache = new HashMap<>();
-//            private ExecutorService threadPool = Executors.newFixedThreadPool(10);
-            User user;
+            private Hashtable<String,Image> imageCache = new Hashtable<>();
             @Override
             protected void updateItem(VBox item, boolean empty) {
                 super.updateItem(item, empty);
@@ -582,8 +581,8 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                     Task<Image> loadImageTask = new Task<>() {
                         @Override
                         protected Image call() {
-                            //NoNeed-synchronized -> share data not unique avatar base UUID
-                            user = getTableView().getItems().get(getIndex());
+                            //NoNeed-synchronized -> because all resources are synchronized e.g. Hashtable
+                            User user = getTableView().getItems().get(getIndex());
                             if(user != null & !user.getAvatar().equalsIgnoreCase("no-image")){
                                 if(imageCache.keySet().contains(user.getAvatar())){
                                     return imageCache.get(user.getAvatar());
@@ -601,9 +600,7 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                         }
                         //IF NULL NO-IMAGE, SET TO DEFAULT
                     });
-//                    threadPool.execute(loadImageTask);
                     new Thread(loadImageTask).start();
-                    //ThreadPool nThread reduce create thread
 
                 }
             }
