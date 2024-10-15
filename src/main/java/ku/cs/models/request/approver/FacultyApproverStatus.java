@@ -1,6 +1,6 @@
 package ku.cs.models.request.approver;
 
-public enum FacultyApproverStatuses {
+public enum FacultyApproverStatus {
     INIT("รอส่งคณะ"),
     IN_PROCESS("รอคณะดำเนินการ"),
     FINISH("เรียบร้อย"),
@@ -8,7 +8,7 @@ public enum FacultyApproverStatuses {
 
     private final String text;
 
-    FacultyApproverStatuses(String text) {
+    FacultyApproverStatus(String text) {
         this.text = text;
     }
 
@@ -23,7 +23,7 @@ public enum FacultyApproverStatuses {
     }
 
     public static boolean contains(String status) {
-        for (FacultyApproverStatuses availableStatus : FacultyApproverStatuses.values()) {
+        for (FacultyApproverStatus availableStatus : FacultyApproverStatus.values()) {
             if (availableStatus.toString().equals(status)) {
                 return true;
             }

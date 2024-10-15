@@ -9,8 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.approver.Approver;
-import ku.cs.models.request.approver.DepartmentApprover;
-import ku.cs.models.request.approver.FacultyApprover;
 import ku.cs.models.user.DepartmentUser;
 import ku.cs.models.user.FacultyUser;
 import ku.cs.models.user.User;
@@ -75,12 +73,12 @@ public class AddApproverController{
             try {
                 Approver approver = null;
                 if (loginUser instanceof DepartmentUser) {
-                    approver = new DepartmentApprover("department", ((DepartmentUser) loginUser).getDepartmentUUID().toString(), academicRole, name, lastName);
+                    approver = new Approver("department", ((DepartmentUser) loginUser).getDepartmentUUID().toString(), academicRole, name, lastName);
                     if (!approverType.equals("approver") && request != null) {
                         approver.setRequestUUID(request);
                     }
                 } else if (loginUser instanceof FacultyUser) {
-                    approver = new FacultyApprover("faculty", ((FacultyUser) loginUser).getFacultyUUID().toString(), academicRole, name, lastName);
+                    approver = new Approver("faculty", ((FacultyUser) loginUser).getFacultyUUID().toString(), academicRole, name, lastName);
                     if (!approverType.equals("approver") && request != null) {
                         approver.setRequestUUID(request);
                         approver.setStatus("รอคณะดำเนินการ");

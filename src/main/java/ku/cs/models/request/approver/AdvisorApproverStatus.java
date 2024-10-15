@@ -1,13 +1,13 @@
 package ku.cs.models.request.approver;
 
-public enum AdvisorApproverStatuses {
+public enum AdvisorApproverStatus {
     INIT("รออาจารย์ที่ปรึกษา"),
     FINISH("เรียบร้อย"),
     REJECTED("ไม่อนุมัติ");
 
     private final String text;
 
-    AdvisorApproverStatuses(String text) {
+    AdvisorApproverStatus(String text) {
         this.text = text;
     }
 
@@ -22,7 +22,7 @@ public enum AdvisorApproverStatuses {
     }
 
     public static boolean contains(String status) {
-        for (AdvisorApproverStatuses availableStatus : AdvisorApproverStatuses.values()) {
+        for (AdvisorApproverStatus availableStatus : AdvisorApproverStatus.values()) {
             if (availableStatus.toString().equals(status)) {
                 return true;
             }

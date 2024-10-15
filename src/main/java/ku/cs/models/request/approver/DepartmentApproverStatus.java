@@ -1,13 +1,13 @@
 package ku.cs.models.request.approver;
 
-public enum DepartmentApproverStatuses {
+public enum DepartmentApproverStatus {
     INIT("รอภาควิชาดำเนินการ"),
     FINISH("เรียบร้อย"),
     REJECTED("ไม่อนุมัติ");
 
     private final String text;
 
-    DepartmentApproverStatuses(String text) {
+    DepartmentApproverStatus(String text) {
         this.text = text;
     }
 
@@ -22,7 +22,7 @@ public enum DepartmentApproverStatuses {
     }
 
     public static boolean contains(String status) {
-        for (DepartmentApproverStatuses availableStatus : DepartmentApproverStatuses.values()) {
+        for (DepartmentApproverStatus availableStatus : DepartmentApproverStatus.values()) {
             if (availableStatus.toString().equals(status)) {
                 return true;
             }

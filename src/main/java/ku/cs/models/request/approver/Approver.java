@@ -6,12 +6,10 @@ import ku.cs.models.request.approver.exception.ApproverRoleException;
 import ku.cs.models.request.approver.exception.ApproverStatusException;
 import ku.cs.models.request.approver.exception.ApproverTierException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.UUID;
 
-public abstract class Approver implements Comparable<Approver> {
+public class Approver implements Comparable<Approver> {
     protected final UUID uuid;
     protected UUID requestUUID;
     protected String firstname;
@@ -49,8 +47,8 @@ public abstract class Approver implements Comparable<Approver> {
         //Tier Checker
         if (tier == null) throw new ApproverTierException("tier must not be null");
         if (tier.isEmpty()) throw new ApproverTierException("tier must not be empty");
-        if (ApproverTier.contains(tier)) this.tier = tier;
-        else throw new ApproverTierException("Not Available Tiesssr : " + tier);
+        if (ApproverTiers.contains(tier)) this.tier = tier;
+        else throw new ApproverTierException("Invalid approver tier : " + tier);
 
         if (role == null) throw new ApproverRoleException("role must not be null");
         if (role.isEmpty()) throw new ApproverRoleException("role must not be empty");
@@ -120,7 +118,17 @@ public abstract class Approver implements Comparable<Approver> {
     }
 
     public void setStatus(String status) throws ApproverStatusException {
-        this.status = status;
+        if (
+                (tier.equals(ApproverTiers.FACULTY.toString()) && FacultyApproverStatus.contains(status)) ||
+                (tier.equals(ApproverTiers.DEPARTMENT.toString()) && DepartmentApproverStatus.contains(status)) ||
+                (tier.equals(ApproverTiers.ADVISOR.toString()) && AdvisorApproverStatus.contains(status)) ||
+                (tier.equals(ApproverTiers.OTHER.toString()) && OtherApproverStatus.contains(status))
+        ) {
+            this.status = status;
+        } else {
+            throw new ApproverStatusException("Invalid" + tier + "approver status : " + status);
+        }
+
     }
     public void setDisableView(boolean disableView){
         this.disableView = disableView;
@@ -150,7 +158,17 @@ public abstract class Approver implements Comparable<Approver> {
     }
 
 
-    protected abstract void setInitialStatus();
+    protected void setInitialStatus() {
+        if (tier.equals(ApproverTiers.FACULTY.toString())) {
+            this.status = FacultyApproverStatus.getFirst();
+        } else if (tier.equals(ApproverTiers.DEPARTMENT.toString())) {
+            this.status = DepartmentApproverStatus.getFirst();
+        } else if (tier.equals(ApproverTiers.ADVISOR.toString())) {
+            this.status = AdvisorApproverStatus.getFirst();
+        } else {
+            this.status = OtherApproverStatus.getFirst();
+        }
+    }
 
     @Override
     public boolean equals(Object obj) {

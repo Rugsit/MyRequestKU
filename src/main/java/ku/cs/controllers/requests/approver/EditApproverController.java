@@ -7,14 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import ku.cs.models.request.approver.Approver;
-import ku.cs.models.request.approver.ApproverList;
-import ku.cs.models.request.approver.DepartmentApprover;
-import ku.cs.models.request.approver.FacultyApprover;
+import ku.cs.models.request.approver.*;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.PathGenerator;
 import ku.cs.services.Theme;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,9 +63,9 @@ public class EditApproverController {
         if (approver == null){ return; }
         this.approver = approver;
 
-        if (approver instanceof DepartmentApprover){
+        if (approver.getTier().equals(ApproverTiers.DEPARTMENT.toString())){
             roles = new ArrayList<>(Arrays.asList("หัวหน้าภาควิชา", "รองหัวหน้าภาควิชา", "รักษาการณ์แทนหัวหน้าภาควิชา", "อื่น ๆ"));
-        } else if (approver instanceof FacultyApprover){
+        } else if (approver.getTier().equals(ApproverTiers.FACULTY.toString())){
             roles = new ArrayList<>(Arrays.asList("คณบดี", "รองคณบดี", "รักษาการณ์แทนคณบดี", "อื่น ๆ"));
         }
 

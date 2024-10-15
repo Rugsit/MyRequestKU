@@ -1,13 +1,13 @@
 package ku.cs.models.request.approver;
 
-public enum OtherApproverStatuses {
+public enum OtherApproverStatus {
     INIT("รออัปโหลด"),
     FINISH("เรียบร้อย"),
     REJECTED("ไม่อนุมัติ");
 
     private final String text;
 
-    OtherApproverStatuses(String text) {
+    OtherApproverStatus(String text) {
         this.text = text;
     }
 
@@ -21,7 +21,7 @@ public enum OtherApproverStatuses {
     }
 
     public static boolean contains(String status) {
-        for (OtherApproverStatuses availableStatus : OtherApproverStatuses.values()) {
+        for (OtherApproverStatus availableStatus : OtherApproverStatus.values()) {
             if (availableStatus.toString().equals(status)) {
                 return true;
             }

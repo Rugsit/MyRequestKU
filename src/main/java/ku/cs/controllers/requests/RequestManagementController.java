@@ -632,12 +632,12 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             haveReject = false;
             goToFaculty = false;
             for(Approver a : filterApproverList.getApprovers()){
-                if(a instanceof AdvisorApprover)advisorStatus = a.getStatus();
-                if(a instanceof DepartmentApprover || a instanceof OtherApprover){
+                if(a.getTier().equals(ApproverTiers.ADVISOR.toString()))advisorStatus = a.getStatus();
+                if(a.getTier().equals(ApproverTiers.DEPARTMENT.toString()) || a.getTier().equals(ApproverTiers.OTHER.toString())){
                     sumApprover++;
                     if(a.getStatus().equals("เรียบร้อย"))sumAprroved++;
                 }
-                if(a instanceof FacultyApprover){
+                if(a.getTier().equals(ApproverTiers.FACULTY.toString())){
                     sumApproverFaculty++;
                     if(a.getStatus().equals("เรียบร้อย"))sumApprovedFaculty++;
                     if(!a.getStatus().equals("รอส่งคณะ") && session.getUser() instanceof DepartmentUser)goToFaculty = true;
@@ -648,10 +648,10 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             //ADD APPROVER TO TABLE
             for(Approver a : filterApproverList.getApprovers()){
 
-                if(!(a instanceof AdvisorApprover)){
+                if(!(a.getTier().equals(ApproverTiers.ADVISOR.toString()))){
                     if(advisorStatus.equals("เรียบร้อย")){
                         a.setDisableView(false);//DEPARTMENT OT OTHER
-                        if (a instanceof FacultyApprover ) {
+                        if (a.getTier().equals(ApproverTiers.FACULTY.toString())) {
                             if(sumAprroved != sumApprover){
                                 a.setDisableView(true);
                             }
@@ -700,7 +700,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
         if(sumApprover == 0){
             for(Approver a : filterApproverList.getApprovers()){
-                if(a instanceof AdvisorApprover){
+                if(a.getTier().equals(ApproverTiers.ADVISOR.toString())){
                     if(a.getStatus().equals("เรียบร้อย")){
 //                        addApproverButton.setDisable(true);
                         if(!request.getStatusNext().equals("คำร้องดำเนินการครบถ้วน")){
@@ -865,13 +865,13 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                 } else {
                     Approver approver = getTableView().getItems().get(getIndex());
                     if (session.getUser() instanceof DepartmentUser) {
-                        if (approver instanceof AdvisorApprover || approver instanceof FacultyApprover) {
+                        if (approver.getTier().equals(ApproverTiers.ADVISOR.toString()) || approver.getTier().equals(ApproverTiers.FACULTY.toString())) {
                             editButton.setDisable(true);
     //                        signatureButton.setDisable(true);
                             approveButton.setDisable(true);
                         }
                     } else if (session.getUser() instanceof FacultyUser) {
-                        if (approver instanceof AdvisorApprover || approver instanceof DepartmentApprover) {
+                        if (approver.getTier().equals(ApproverTiers.ADVISOR.toString()) || approver.getTier().equals(ApproverTiers.DEPARTMENT.toString())) {
                             editButton.setDisable(true);
                             approveButton.setDisable(true);
                         }
@@ -1756,13 +1756,13 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             sumApproverFaculty = 0;
             sumApprovedFaculty = 0;
             for(Approver a : filterApproverList.getApprovers()){
-                if(a instanceof DepartmentApprover || a instanceof  OtherApprover){
+                if(a.getTier().equals(ApproverTiers.DEPARTMENT.toString()) || a.getTier().equals(ApproverTiers.OTHER.toString())){
                     sumApprover++;
                     if(a.getStatus().equals("เรียบร้อย")){
                         sumAprroved++;
                     }
                 }
-                if(a instanceof  FacultyApprover){
+                if(a.getTier().equals(ApproverTiers.FACULTY.toString())){
                     sumApproverFaculty++;
                     if(a.getStatus().equals("เรียบร้อย"))sumApprovedFaculty++;
                 }
@@ -1838,7 +1838,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
     private void onSendToFacultyConfirm(){
         try {
             for(Approver a : filterApproverList.getApprovers()){
-                if(a instanceof FacultyApprover && a.getStatus().equals("รอส่งคณะ")){
+                if(a.getTier().equals(ApproverTiers.FACULTY.toString()) && a.getStatus().equals("รอส่งคณะ")){
                     a.setStatus("รอคณะดำเนินการ");
                 }
             }
@@ -1897,7 +1897,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             requestDatasource.appendData(request,"log");
             if(sumApprover != 0){
                 for(Approver a : filterApproverList.getApprovers()){
-                    if(a instanceof FacultyApprover){
+                    if(a.getTier().equals(ApproverTiers.FACULTY.toString())){
                         a.setStatus("เรียบร้อย");
                     }
                 }

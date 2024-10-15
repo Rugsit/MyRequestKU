@@ -1,7 +1,6 @@
 package ku.cs.models.request.approver;
 
 import ku.cs.models.request.approver.exception.ApproverException;
-import ku.cs.models.request.approver.exception.ApproverTierException;
 
 import java.util.*;
 
@@ -9,72 +8,24 @@ public class ApproverList {
     private HashMap<String, ArrayList<Approver>> approvers;
     public ApproverList() {
         approvers = new HashMap<>();
-        for(ApproverTier tier : ApproverTier.values()){
+        for(ApproverTiers tier : ApproverTiers.values()){
             approvers.put(tier.toString(), new ArrayList<>());
         }
     }
     //CONSTRUCTOR FOR NEW APPROVER
     public void addApprover(String requestUUID,String tier, String associateUUID, String role, String firstname, String lastname) throws ApproverException {
-        Approver approver;
-        switch (tier){
-            case "advisor":
-                approver = new AdvisorApprover(requestUUID,tier,associateUUID,role,firstname,lastname);
-                break;
-            case "department":
-                approver = new DepartmentApprover(requestUUID,tier,associateUUID,role,firstname,lastname);
-                break;
-            case "faculty":
-                approver = new FacultyApprover(requestUUID,tier,associateUUID,role,firstname,lastname);
-                break;
-            case "other":
-                approver = new OtherApprover(requestUUID,tier,associateUUID,role,firstname,lastname);
-                break;
-            default:
-                throw new ApproverTierException("Invalid approver tier");
-        }
+        Approver approver = new Approver(requestUUID, tier, associateUUID, role, firstname, lastname);
         approvers.get(tier).add(approver);
     }
     //CONSTRUCTOR FOR DATASOURCE
     public void addApprover(String uuid, String requestUUID, String tier, String associateUUID, String role, String status,String signatureFile, String firstname, String lastname) throws ApproverException {
-        Approver approver;
-        switch (tier){
-            case "advisor":
-                approver = new AdvisorApprover(uuid,requestUUID,tier,associateUUID,role,status,signatureFile,firstname,lastname);
-                break;
-            case "department":
-                approver = new DepartmentApprover(uuid,requestUUID,tier,associateUUID,role,status,signatureFile,firstname,lastname);
-                break;
-            case "faculty":
-                approver = new FacultyApprover(uuid,requestUUID,tier,associateUUID,role,status,signatureFile,firstname,lastname);
-                break;
-            case "other":
-                approver = new OtherApprover(uuid,requestUUID,tier,associateUUID,role,status,signatureFile,firstname,lastname);
-                break;
-            default:
-                throw new ApproverTierException("Invalid approver tier");
-        }
+        Approver approver = new Approver(uuid,requestUUID,tier,associateUUID,role,status,signatureFile,firstname,lastname);
         approvers.get(tier).add(approver);
     }
 
     // CONSTRUCTOR FOR ADDING NEW APPROVER TO APPROVER-LIST
     public void addApprover(String tier, String associateUUID, String role, String firstname, String lastname) throws ApproverException {
-        Approver approver;
-        switch (tier){
-            case "advisor":
-                approver = new AdvisorApprover(tier,associateUUID,role,firstname,lastname);
-                break;
-            case "department":
-                approver = new DepartmentApprover(tier,associateUUID,role,firstname,lastname);
-                break;
-            case "faculty":
-                approver = new FacultyApprover(tier,associateUUID,role,firstname,lastname);
-                break;
-            case "other":
-                approver = new OtherApprover(tier,associateUUID,role,firstname,lastname);
-                break;
-            default:
-                throw new ApproverTierException("Invalid approver tier");
-        }
+        Approver approver = new Approver(tier,associateUUID,role,firstname,lastname);
         approvers.get(tier).add(approver);
     }
     public void addApprover(Approver approver){
@@ -136,11 +87,11 @@ public class ApproverList {
         return list;
     }
     public Collection<Approver> getApprovers(String tier){
-        if(!ApproverTier.contains(tier))return  null;
+        if(!ApproverTiers.contains(tier))return  null;
         return approvers.get(tier);
     }
     public ApproverList getApproverList(String tier){
-        if(!ApproverTier.contains(tier))return  null;
+        if(!ApproverTiers.contains(tier))return  null;
         ApproverList newApproverList = new ApproverList();
         newApproverList.getApprovers(tier).addAll(approvers.get(tier));
         return newApproverList;
