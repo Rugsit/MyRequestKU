@@ -75,6 +75,7 @@ public class DepartmentAboutUsController implements Observer<HashMap<String, Str
             fxmlLoader.setLocation(getClass().getResource(viewPath));
             Pane pane = fxmlLoader.load();
             AboutUsController controller = fxmlLoader.getController();
+            controller.setLoginUser(session.getUser());
             controller.initialize();
             initChildren(pane.getChildren());
             pane.setPrefSize(1020,720);

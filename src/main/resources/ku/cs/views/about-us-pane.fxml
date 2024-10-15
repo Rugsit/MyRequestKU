@@ -138,7 +138,10 @@
                 </ImageView>
             </graphic>
         </Button>
-      <Label fx:id="tipsLabel" layoutX="104.0" layoutY="461.0" styleClass="medium-font-size" text="tips" />
+      <Label fx:id="tipsLabel" layoutX="104.0" layoutY="458.0" styleClass="medium-font-size" text="tips">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
       <ImageView fitHeight="35.0" fitWidth="33.0" layoutX="46.0" layoutY="453.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/icons/light-bulb-icon.png" />
