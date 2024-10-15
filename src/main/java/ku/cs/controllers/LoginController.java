@@ -145,6 +145,8 @@ public class LoginController {
                 controller.setCurrentUser(currentUser);
                 controller.setStage(currentPopupStage);
 
+                scene.setOnKeyPressed(controller::onKeyPressed);
+
                 currentPopupStage.setScene(scene);
                 currentPopupStage.initModality(Modality.APPLICATION_MODAL);
                 currentPopupStage.setTitle("Change password");
