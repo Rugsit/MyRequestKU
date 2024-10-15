@@ -9,8 +9,8 @@ public class UserList implements Serializable {
     private HashMap<String, ArrayList<User>> users;
     public UserList() {
         users = new HashMap<>();
-        for(String role : Identifiable.AVAILABLE_ROLES){
-            users.put(role, new ArrayList<>());
+        for(UserRoles role : UserRoles.values()){
+            users.put(role.toString(), new ArrayList<>());
         }
     }
 
@@ -211,11 +211,11 @@ public class UserList implements Serializable {
         return list;
     }
     public Collection<User> getUsers(String role){
-        if(!Identifiable.AVAILABLE_ROLES.contains(role))return  null;
+        if(!UserRoles.contains(role))return  null;
         return users.get(role);
     }
     public UserList getUserList(String role){
-        if(!Identifiable.AVAILABLE_ROLES.contains(role))return  null;
+        if(!UserRoles.contains(role))return  null;
         UserList newUserList = new UserList();
         newUserList.getUsers(role).addAll(users.get(role));
         return newUserList;

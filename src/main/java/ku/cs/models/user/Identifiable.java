@@ -9,16 +9,6 @@ import java.util.Date;
 import java.util.UUID;
 
 public interface Identifiable {
-    //public static final
-    ArrayList<String> AVAILABLE_ROLES = new ArrayList<>(Arrays.asList(
-            "admin",
-            "advisor",
-            "faculty-staff",
-            "faculty-approver",
-            "department-staff",
-            "department-approver",
-            "student"
-    ));
     //Identical data getter
     UUID getUUID();
     String getId();
@@ -30,8 +20,7 @@ public interface Identifiable {
     String getLastname();
     LocalDateTime getLastLogin();
     String getEmail();
-//    String getFaculty();
-//    String getDepartment();
+
     //Identify method
     Boolean isUUID(UUID uuid);
     Boolean isId(String id);

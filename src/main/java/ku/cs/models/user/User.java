@@ -169,8 +169,8 @@ public abstract class User implements Identifiable, Comparable<User> {
         if(!isAlphaNumberic(role)) throw new RoleException("Role must be alphanumeric");
         Boolean valid = false;
         role = role.trim().toLowerCase();
-        for(String r : AVAILABLE_ROLES){
-            if(r.equals(role.trim())) valid = true;
+        for(UserRoles r : UserRoles.values()){
+            if(r.toString().equals(role.trim())) valid = true;
         }
         if(!valid) throw new RoleException("Role is not valid");
         this.role = role;
