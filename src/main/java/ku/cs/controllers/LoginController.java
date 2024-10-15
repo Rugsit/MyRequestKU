@@ -92,16 +92,6 @@ public class LoginController {
                 showError("บัญชี้นี้ได้ถูกระงับการใช้งานชั่วคราว");
             }
             else{
-                try {
-                    String fileName = loginUser.getRole();
-                    datasource = new UserListFileDatasource("data", fileName+".csv");
-                    UserList users = datasource.readData();
-                    User existingUser = users.findUserByUUID(loginUser.getUUID());
-                    existingUser.setLastLogin(LocalDateTime.now().format(DateTimeFormatter.ofPattern(User.DATE_FORMAT)));
-                    datasource.writeData(users);
-                } catch (Exception e){
-                    showError("ไม่สามารถบันทึกเวลาในการเข้าใช้ได้");
-                }
 
                 hideError();
 
@@ -113,6 +103,17 @@ public class LoginController {
                     passwordTextField.setText("");
                 }
                 else{
+                    try {
+                        String fileName = loginUser.getRole();
+                        datasource = new UserListFileDatasource("data", fileName+".csv");
+                        UserList users = datasource.readData();
+                        User existingUser = users.findUserByUUID(loginUser.getUUID());
+                        existingUser.setLastLogin(LocalDateTime.now().format(DateTimeFormatter.ofPattern(User.DATE_FORMAT)));
+                        datasource.writeData(users);
+                    } catch (Exception e){
+                        showError("ไม่สามารถบันทึกเวลาในการเข้าใช้ได้");
+                    }
+                    hideError();
                     if (loginUser.getRole().equalsIgnoreCase("faculty-staff")) {goToFacultyManage();}
                     else if (loginUser.getRole().equalsIgnoreCase("admin")) {goToAdminManage();}
                     else if (loginUser.getRole().equalsIgnoreCase("student")){onStudentButtonClicked();}
