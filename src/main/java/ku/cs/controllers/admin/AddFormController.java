@@ -196,14 +196,14 @@ public class AddFormController{
     @FXML
     public void onAcceptClick() {
         UUID uuid = UUID.randomUUID();
-        LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
+//        LocalDateTime date = LocalDateTime.now();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         Datasource<UserList> datasource = new UserListFileDatasource("data", currentRole+".csv");
         try {
             if (facultyChoiceBox.getValue() == null) throw new UserException("กรุณาเลือกคณะ");
             if (departmentChoiceBox != null && departmentChoiceBox.getValue() == null) throw new UserException("กรุณาเลือกภาควิชา");
             if (currentRole.equals("faculty-staff")) {
-                FacultyUser facultyUser = new FacultyUser("0000000000", userNameTextField.getText(), "faculty-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText().isEmpty() ? "DEFAULT" : startPassword.getText(), facultyChoiceBox.getValue());
+                FacultyUser facultyUser = new FacultyUser("0000000000", userNameTextField.getText(), "faculty-staff", firstNameTextField.getText(), lastNameTextField.getText(), "0001-01-01:00:00:00", "fscixxa@ku.th", startPassword.getText().isEmpty() ? "DEFAULT" : startPassword.getText(), facultyChoiceBox.getValue());
                 if (!startPassword.getText().isEmpty()) {
                     facultyUser.setDefaultPassword(startPassword.getText());
                 }
@@ -211,7 +211,7 @@ public class AddFormController{
                 datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadFacultyStaff();
             } else if (currentRole.equals("department-staff")) {
-                DepartmentUser departmentUser = new DepartmentUser("0000000000", userNameTextField.getText(), "department-staff", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText().isEmpty() ? "DEFAULT" : startPassword.getText(), facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
+                DepartmentUser departmentUser = new DepartmentUser("0000000000", userNameTextField.getText(), "department-staff", firstNameTextField.getText(), lastNameTextField.getText(), "0001-01-01:00:00:00", "fscixxa@ku.th", startPassword.getText().isEmpty() ? "DEFAULT" : startPassword.getText(), facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
                 if (!startPassword.getText().isEmpty()) {
                     departmentUser.setDefaultPassword(startPassword.getText());
                 }
@@ -219,7 +219,7 @@ public class AddFormController{
                 datasource.writeData(userList.getUserList(currentRole));
                 adminStaffController.loadDepartmentStaff();
             } else if (currentRole.equals("advisor")) {
-                Advisor advisor = new Advisor(advisorIdTextField.getText(), userNameTextField.getText(), "advisor", firstNameTextField.getText(), lastNameTextField.getText(), date.format(formatter), "fscixxa@ku.th", startPassword.getText().isEmpty() ? "DEFAULT" : startPassword.getText(), facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
+                Advisor advisor = new Advisor(advisorIdTextField.getText(), userNameTextField.getText(), "advisor", firstNameTextField.getText(), lastNameTextField.getText(), "0001-01-01:00:00:00", "fscixxa@ku.th", startPassword.getText().isEmpty() ? "DEFAULT" : startPassword.getText(), facultyChoiceBox.getValue(), departmentChoiceBox.getValue());
                 if (!startPassword.getText().isEmpty()) {
                     advisor.setDefaultPassword(startPassword.getText());
                 }
