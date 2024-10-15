@@ -110,7 +110,7 @@
                      </HBox.margin>
                      <styleClass>
                         <String fx:value="RequestStatus" />
-                        <String fx:value="semi-medium-font-size" />
+                        <String fx:value="small-font-size" />
                      </styleClass>
                   </Button>
                   <Button fx:id="requestStatus2" maxHeight="35.0" maxWidth="234.0" minHeight="35.0" minWidth="234.0" mnemonicParsing="false" mouseTransparent="true" prefHeight="35.0" prefWidth="234.0" text="status2">
@@ -119,7 +119,7 @@
                      </font>
                      <styleClass>
                         <String fx:value="RequestStatus" />
-                        <String fx:value="semi-medium-font-size" />
+                        <String fx:value="small-font-size" />
                      </styleClass>
                   </Button>
                </children>

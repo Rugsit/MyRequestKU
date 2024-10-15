@@ -168,8 +168,7 @@ public class GeneralRequestFormController {
                     Scene scene = new Scene(fxmlLoader.load());
                     ErrorGeneralRequestFormController errorGeneralRequestFormController = fxmlLoader.getController();
                     errorGeneralRequestFormController.setErrorMessage(e.getMessage());
-                    ErrorGeneralRequestFormController controller = fxmlLoader.getController();
-                    controller.setStage(this.currentErrorStage);
+                    errorGeneralRequestFormController.setStage(this.currentErrorStage);
                     scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                     currentErrorStage.setScene(scene);
                     currentErrorStage.initModality(Modality.APPLICATION_MODAL);

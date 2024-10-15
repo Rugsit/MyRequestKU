@@ -74,8 +74,8 @@ public class RequestStatusColumn {
                                         buttonStyle
                         );
                     }
-                    statusCell.getStyleClass().add(".semi-medium-font-size");
                 }
+                statusCell.getStyleClass().add("small-font-size");
             }
         });
     }
