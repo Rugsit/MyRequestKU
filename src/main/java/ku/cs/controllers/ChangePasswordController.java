@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
@@ -89,6 +91,13 @@ public class ChangePasswordController {
         System.out.println("Exit button clicked");
         if (stage != null) {
             stage.close();
+        }
+    }
+
+    @FXML
+    protected void onKeyPressed(KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER){
+            onAcceptClick();
         }
     }
 
