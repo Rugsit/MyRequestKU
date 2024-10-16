@@ -60,7 +60,6 @@ public class MiniProfile {
     }
     protected void handleClickEvent(){
         profileImage.setOnMouseClicked(e -> {
-            System.out.println("Profile Image Clicked!");
         });
     }
     protected void handleHoverEvent(){

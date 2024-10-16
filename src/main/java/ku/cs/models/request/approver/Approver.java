@@ -5,8 +5,6 @@ import ku.cs.models.request.approver.exception.ApproverException;
 import ku.cs.models.request.approver.exception.ApproverRoleException;
 import ku.cs.models.request.approver.exception.ApproverStatusException;
 import ku.cs.models.request.approver.exception.ApproverTierException;
-
-import java.util.Comparator;
 import java.util.UUID;
 
 public class Approver implements Comparable<Approver> {
@@ -39,7 +37,6 @@ public class Approver implements Comparable<Approver> {
         if (associateUUID.isEmpty()) throw new ApproverException("associate uuid must not be null");
         this.uuid = UUID.fromString(uuid);
         this.associateUUID = UUID.fromString(associateUUID);
-//        if (requestUUID == null) throw new ApproverException("requestUUID must not be null");
         if (requestUUID != null && !requestUUID.equals("no-request")) {
             if (requestUUID.isEmpty()) throw new ApproverException("requestUUID must not be empty");
             this.requestUUID = UUID.fromString(requestUUID);
@@ -58,12 +55,6 @@ public class Approver implements Comparable<Approver> {
         this.firstname = firstname;
         this.lastname = lastname;
     }
-    //Comparator
-    public static Comparator<Approver> requestUUIDComparator = new Comparator<>() {
-        public int compare(Approver a1, Approver a2) {
-            return a1.getRequestUUID().compareTo(a2.getRequestUUID());
-        }
-    };
 
     public UUID getUUID() {
         return uuid;

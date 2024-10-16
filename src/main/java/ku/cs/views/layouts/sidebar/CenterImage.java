@@ -26,7 +26,6 @@ public class CenterImage {
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
         imageView.setImage(image);
-//        new CropImage(imageView,image);
     }
     private void setVBoxStyle(){
         vBox.setStyle("-fx-alignment: CENTER;");

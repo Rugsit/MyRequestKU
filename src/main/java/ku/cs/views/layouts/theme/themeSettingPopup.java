@@ -3,7 +3,6 @@ package ku.cs.views.layouts.theme;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
@@ -141,7 +140,7 @@ public class themeSettingPopup extends BlankPopupStack {
         HBox titleLine = new HBox();
         titleLine.setAlignment(Pos.CENTER);
         titleLabel = new DefaultLabel("");
-        titleLabel.changeText("เปลี่ยนทีม",32, FontWeight.BOLD);
+        titleLabel.changeText("เปลี่ยนธีม",32, FontWeight.BOLD);
         titleLine.getChildren().add(titleLabel);
 
         HBox line1 = new HBox();

@@ -35,15 +35,6 @@ public class DepartmentList {
         return departments;
     }
 
-    public Department getDepartmentById(String id){
-        for (Department department : departments) {
-            if (department.getId().equals(id)) {
-                return department;
-            }
-        }
-        return null;
-    }
-
     public Department getDepartmentByName(String name){
         for (Department department : departments) {
             if (department.getName().equals(name)) {
@@ -53,21 +44,6 @@ public class DepartmentList {
         return null;
     }
 
-    public void removeDepartmentById(String id) {
-        for (Department department : departments) {
-            if (department.getId().equals(id)) {
-                departments.remove(department);
-            }
-        }
-    }
-
-    public void removeDepartmentByName(String name) {
-        for (Department department : departments) {
-            if (department.getName().equals(name)) {
-                departments.remove(department);
-            }
-        }
-    }
     public Department getDepartmentByUuid(String uuid) {
         for (Department department : departments) {
             if (department.getUuid().equals(UUID.fromString(uuid))) {

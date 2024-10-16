@@ -2,7 +2,6 @@ package ku.cs.views.components;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -76,7 +75,6 @@ public class ConfirmStack extends StackPane implements Observer<HashMap<String,S
         double mainHeight = 300;
         mainBox.setMaxWidth(mainWidth);
         mainBox.setMaxHeight(mainHeight);
-//        mainBox.setAlignment(Pos.CENTER);
         mainBox.setStyle("-fx-background-radius: 50;-fx-background-color: white;");
 
         line1VBox = new VBox(line1);
@@ -91,7 +89,6 @@ public class ConfirmStack extends StackPane implements Observer<HashMap<String,S
         line2VBox.setAlignment(Pos.TOP_LEFT);
         line3VBox.setPrefWidth(mainWidth);
         line3VBox.setPrefHeight(100);
-//        line3VBox.setStyle("-fx-background-color: yellow");
         line3VBox.setAlignment(Pos.CENTER);
 
         VBox.setMargin(line2, new Insets(0, 50, 0, 50));
@@ -132,12 +129,10 @@ public class ConfirmStack extends StackPane implements Observer<HashMap<String,S
     }
     protected void handleAcceptButton(){
         acceptButton.setOnMouseClicked(e -> {
-            System.out.println("Accept button clicked");
         });
     }
     protected void handleDeclineButton(){
         declineButton.setOnMouseClicked(e ->{
-            System.out.println("Decline button clicked");
         });
     }
 

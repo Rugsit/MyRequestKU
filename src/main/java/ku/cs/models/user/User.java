@@ -3,12 +3,10 @@ package ku.cs.models.user;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import ku.cs.models.user.exceptions.*;
 import ku.cs.services.UserListFileDatasource;
-
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Random;
 import java.util.UUID;
-
 import static ku.cs.services.utils.DateTools.localDateTimeToFormatString;
 import static ku.cs.services.utils.DateTools.formatToLocalDateTime;
 import static ku.cs.services.utils.StringCompare.*;
@@ -27,7 +25,7 @@ public abstract class User implements Identifiable, Comparable<User> {
     private boolean active;
     private String password;
     private String defaultPassword;
-    public static String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss";
+    public static final String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss";
     private UserListFileDatasource checkUserListFileDatasource;
     private UserList checkUserList;
 
@@ -74,12 +72,12 @@ public abstract class User implements Identifiable, Comparable<User> {
         initDefaultPassword(defaultPassword);
     }
     //Comparator
-    public static Comparator<User> userIdComparator = new Comparator<>() {
+    public static final Comparator<User> userIdComparator = new Comparator<>() {
         public int compare(User u1, User u2) {
             return u1.getId().compareTo(u2.getId());
         }
     };
-    public static Comparator<User> usernameComparator = new Comparator<>() {
+    public static final Comparator<User> usernameComparator = new Comparator<>() {
         public int compare(User u1, User u2) {
             return u1.getUsername().compareTo(u2.getUsername());
         }
@@ -161,7 +159,7 @@ public abstract class User implements Identifiable, Comparable<User> {
         if(!isAlphaNumberic(id)) throw new IDException("รหัสหรือไอดีต้องเป็นตัวอักษรและตัวเลข");
 
         if(check){
-            checkUserListFileDatasource = new UserListFileDatasource("data","users.csv");
+            checkUserListFileDatasource = new UserListFileDatasource("data","student.csv");
             checkUserList = checkUserListFileDatasource.readAllUser();
             if(id != "0000000000" && id !=  "no-id"){
                 User exitUser = checkUserList.findUserById(id);
@@ -185,7 +183,7 @@ public abstract class User implements Identifiable, Comparable<User> {
         if(username.length() > 30) throw new UsernameException("ชื่อผู้ใช้งานต้องมีน้อยกว่าหรือเท่ากับ 30 ตัวอักษร");
 
         if(check){
-            checkUserListFileDatasource = new UserListFileDatasource("data","users.csv");
+            checkUserListFileDatasource = new UserListFileDatasource("data","student.csv");
             checkUserList = checkUserListFileDatasource.readAllUser();
             if(username != "no-username"){
                 User exitUser = checkUserList.findUserByUsername(username);
@@ -235,7 +233,6 @@ public abstract class User implements Identifiable, Comparable<User> {
         if(dateString == null) throw new DateException("dateString must not be null");
         if(dateString.isEmpty()) throw new DateException("dateString must not be empty");
         LocalDateTime date = formatToLocalDateTime(DATE_FORMAT,dateString);
-//        if(date == null) throw new DateException("Invalid " + DATE_FORMAT + "format dateString");
         this.lastLogin = date;
     }
 

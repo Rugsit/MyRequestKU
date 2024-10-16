@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import ku.cs.controllers.ParentController;
 import ku.cs.controllers.UserProfileCardController;
 import ku.cs.models.Session;
@@ -22,7 +21,6 @@ import java.util.HashMap;
 
 public class ProfileController implements Observer<HashMap<String, String>>, ParentController {
     @FXML private AnchorPane mainAnchorPane;
-    @FXML private StackPane mainStackPane;
     @FXML private Label pageTitleLabel;
     private Session session;
     private DepartmentUser loginUser;

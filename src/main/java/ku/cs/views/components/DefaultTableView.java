@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,9 +49,7 @@ public class DefaultTableView<S> extends TableView implements Observer<HashMap<S
     protected void handleClick(){
         tableView.setOnMouseClicked(event -> {
             S selected = tableView.getSelectionModel().getSelectedItem();
-            if(selected != null){
-                System.out.println("Table clicked!");
-            }
+            if(selected != null){}
         });
     }
     public void addStyleSheet(String path){
@@ -106,9 +103,6 @@ public class DefaultTableView<S> extends TableView implements Observer<HashMap<S
 
     @Override
     public void update(HashMap<String, String> data) {
-//        for (TableColumn<?, ?> column : tableView.getColumns()) {
-//            column.setStyle(column.getStyle() + "-fx-text-fill: " + data.get("textColor") + ";");
-//        }
         updateAction();
         setStyleSheetAndScaleFont(currentStylePath);
         tableView.setStyle(tableView.getStyle()+"-fx-font-family: " + data.get("textFont")  + ";");
@@ -118,6 +112,5 @@ public class DefaultTableView<S> extends TableView implements Observer<HashMap<S
     }
 
     public void updateAction() {
-        System.out.println("update tableView action");
     }
 }

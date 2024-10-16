@@ -65,12 +65,10 @@ public class BlankPopupStack extends StackPane implements Observer<HashMap<Strin
     };
     protected void handleFirstButton(){
         firstButton.setOnMouseClicked(e -> {
-            System.out.println("First button clicked");
         });
     }
     protected void handleSecondButton(){
         secondButton.setOnMouseClicked(e ->{
-            System.out.println("Second button clicked");
         });
     }
     @Override

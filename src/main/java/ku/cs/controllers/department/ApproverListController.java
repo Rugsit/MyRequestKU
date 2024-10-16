@@ -24,7 +24,6 @@ import ku.cs.services.FXRouter;
 import ku.cs.services.Observer;
 import ku.cs.services.Theme;
 import ku.cs.views.components.*;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
@@ -34,7 +33,6 @@ public class ApproverListController implements Observer<HashMap<String, String>>
     @FXML private StackPane mainStackPane;
     @FXML
     private Label pageTitleLabel;
-
     @FXML
     private HBox tableHeaderHBox;
     @FXML
@@ -44,7 +42,6 @@ public class ApproverListController implements Observer<HashMap<String, String>>
     @FXML
     private TableView approverTableView;
     private DefaultTableView<Approver> approverTable;
-
     @FXML
     private VBox imageEditorVBox;
     @FXML
@@ -53,31 +50,19 @@ public class ApproverListController implements Observer<HashMap<String, String>>
     private Label approverNameLabel;
     @FXML
     private Label approverPositionLabel;
-
-    @FXML
-    private HBox uploadHBox;
-    @FXML
-    private ImageView iconPdfImageView;
     @FXML
     private Label fileNameLabel;
     @FXML
     private Button removeFileButton;
     @FXML
-    private ImageView iconRemoveFileImageView;
-
-    @FXML
     private Button uploadFileButton;
-
     @FXML
     private Button backButton;
     @FXML
     private Stage currentPopupStage;
-
     private DepartmentUser loginUser;
-
     @FXML
     private TextField searchTextField;
-
     private Session session;
     private Theme theme = Theme.getInstance();
 
@@ -95,7 +80,6 @@ public class ApproverListController implements Observer<HashMap<String, String>>
         theme.clearObservers();
         initRouteData();
         loginUser = (DepartmentUser) session.getUser();
-        System.out.println(loginUser);
         approverTable = new DefaultTableView<>(approverTableView){
             @Override
             public void updateAction(){
@@ -162,8 +146,6 @@ public class ApproverListController implements Observer<HashMap<String, String>>
         tableHeaderHBox.setSpacing(20);
     }
     private void initImageEditorVBox(){
-//        imageEditorVBox.setStyle("-fx-spacing: 5px;");
-//        imageEditorVBox.setPadding(new Insets(0,0,0,0));
         imageEditorVBox.setSpacing(5);
         approverNameLabel.setPadding(new Insets(15,0,0,0));
     }

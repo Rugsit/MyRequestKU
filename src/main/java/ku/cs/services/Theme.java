@@ -13,7 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Theme implements Subject<HashMap<String,String>>{
-    private static Theme instance;
     private static Theme theme;
     private HashMap<String,String> themeList;
     private ArrayList<Observer> observers;
@@ -204,7 +203,6 @@ public class Theme implements Subject<HashMap<String,String>>{
             Matcher matcher = pattern.matcher(line);
             if (matcher.find()) {
                 double curSize = Double.parseDouble(matcher.group(1));
-//                double newSize = curSize * scaleFactor;
                 double newSize = getCalculatedFontSizePrivate(curSize);
                 line = line.replaceFirst("-fx-font-size:\\s*\\d+(\\.\\d+)?;", String.format("-fx-font-size: %.2f;", newSize));
             }

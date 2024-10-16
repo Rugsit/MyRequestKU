@@ -19,17 +19,12 @@ import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
 import ku.cs.services.Observer;
 import ku.cs.services.Theme;
-import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
 
 import java.util.*;
 
 public class NisitAdvisorManagementController implements Observer<HashMap<String, String>> {
     @FXML private Label pageTitleLabel;
-
-    @FXML private VBox allTableVBox;
-    @FXML private VBox nisitTableVBox;
-    @FXML private VBox advisorTableVBox;
 
     @FXML private HBox nisitTableHeaderHBox;
     @FXML private HBox advisorTableHeaderHBox;
@@ -51,14 +46,12 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
     @FXML private Label nisitAdvisorNameLabel;
     @FXML private Label nisitAdvisorIdPrefixLabel;
     @FXML private Label nisitAdvisorIdLabel;
-    @FXML private HBox nisitNameHBox;
 
     @FXML private ImageView advisorImageView;
     @FXML private Label advisorNamePrefixLabel;
     @FXML private Label advisorNameLabel;
     @FXML private Label advisorIdPrefixLabel;
     @FXML private Label advisorIdLabel;
-    @FXML private HBox advisorNameHBox;
 
     @FXML private Button changeAdvisorButton;
     @FXML private Button backButton;
@@ -110,7 +103,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
         showNisitVBox.setDisable(true);
         showAdvisorVBox.setVisible(false);
         showAdvisorVBox.setDisable(true);
-//        changeAdvisorButton.setVisible(false);
         changeAdvisorButton.setDisable(true);
         showAdvisorVBox.setPadding(new Insets(20,0,0,0));
 
@@ -146,12 +138,10 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
           @Override
           protected void handleClickEvent(){
               button.setOnMouseClicked(e -> {
-                  System.out.println(buttonName + "clicked!");
                   mainStackPane.getChildren().add(new ConfirmStack("ยืนยัน","คุณต้องการเปลี่ยนอาจารย์ที่ปรึกษาใช่มั้ย"){
                       @Override
                       protected void handleAcceptButton(){
                           getAcceptButton().setOnMouseClicked(e -> {
-                              System.out.println("Accept button clicked");
                               mainStackPane.getChildren().removeLast();
                               onChangeAdvisor();
                           });
@@ -159,7 +149,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
                       @Override
                       protected void handleDeclineButton(){
                           getDeclineButton().setOnMouseClicked(e -> {
-                              System.out.println("Decline button clicked");
                               mainStackPane.getChildren().removeLast();
                           });
                       }
@@ -349,13 +338,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
                 }
             }
         }
-//        nisitTableView.getSortOrder().clear();
-//        TableColumn nisitCol = nisitTableView.getColumns().get(0);
-//        nisitCol.setSortable(true);
-//        nisitTableView.getSortOrder().add(nisitCol);
-//        nisitCol.setSortType(TableColumn.SortType.ASCENDING);
-//        nisitTableView.sort();
-//        nisitCol.setSortable(false);
     }
     private void refreshAdvisorTable(){
         advisorTableView.getItems().clear();
@@ -388,13 +370,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
                 }
             }
         }
-//        advisorTableView.getSortOrder().clear();
-//        TableColumn nisitCol = advisorTableView.getColumns().get(0);
-//        nisitCol.setSortable(true);
-//        advisorTableView.getSortOrder().add(nisitCol);
-//        nisitCol.setSortType(TableColumn.SortType.ASCENDING);
-//        advisorTableView.sort();
-//        nisitCol.setSortable(false);
     }
     private void refreshNisitSearchTableData(Collection<? extends User> users){
         nisitTableView.getItems().clear();
@@ -471,7 +446,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
         try {
             selectedStudent.setAdvisor(selectedAdvisor);
             nisitDatasource.writeData(nisitList);
-//            refreshNisitTable();
             nisitTableView.refresh();
             selectedStudentListener();
         }catch (Exception e){
@@ -482,7 +456,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
         try {
             student.setAdvisor("no-advisor");
             nisitDatasource.writeData(nisitList);
-//            refreshNisitTable();
             nisitTableView.refresh();
             selectedStudentListener();
         }catch (Exception e){
@@ -544,12 +517,10 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
                     protected void handleClickEvent() {
                         button.setOnMouseClicked(e -> {
                             User user = getTableView().getItems().get(getIndex());
-                            System.out.println("Remove link-advisor clicked for student: " + user.getId() + " " + user.getName());
                             mainStackPane.getChildren().add(new ConfirmStack("ยืนยัน","คุณต้องการลบอาจารย์ที่ปรึกษาใช่มั้ย"){
                                 @Override
                                 protected void handleAcceptButton(){
                                     getAcceptButton().setOnMouseClicked(e -> {
-                                        System.out.println("Accept button clicked");
                                         mainStackPane.getChildren().removeLast();
                                         onRemoveLinkAdvisor((Student) user);
                                     });
@@ -557,7 +528,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
                                 @Override
                                 protected void handleDeclineButton(){
                                     getDeclineButton().setOnMouseClicked(e -> {
-                                        System.out.println("Decline button clicked");
                                         mainStackPane.getChildren().removeLast();
                                     });
                                 }
@@ -590,7 +560,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
         return column;
     }
     private void initShowVBox(VBox vbox){
-//        vbox.setSpacing(5);
         vbox.getChildren().forEach(child ->{
             if(child instanceof HBox){
                 HBox hbox = (HBox) child;

@@ -29,31 +29,6 @@ public class FacultyList {
         return facultyList;
     }
 
-    public void removeFacultyById(String Id) {
-        for (Faculty faculty : facultyList) {
-            if (faculty.getId().equals(Id)) {
-                facultyList.remove(faculty);
-            }
-        }
-    }
-
-    public void removeFacultyByName(String name) {
-        for (Faculty faculty : facultyList) {
-            if (faculty.getName().equals(name)) {
-                facultyList.remove(faculty);
-            }
-        }
-    }
-
-    public Faculty getFacultyById(String Id) {
-        for (Faculty faculty : facultyList) {
-            if (faculty.getId().equals(Id)) {
-                return faculty;
-            }
-        }
-        return null;
-    }
-
     public Faculty getFacultyByName(String name) {
         for (Faculty faculty : facultyList) {
             if (faculty.getName().equals(name)) {

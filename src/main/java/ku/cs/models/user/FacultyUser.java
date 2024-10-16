@@ -80,11 +80,6 @@ public class FacultyUser extends User{
             e.printStackTrace();
         }
     }
-//
-//    private boolean isValidFaculty(String faculty){
-//        return true; //WAITING...
-//    }
-
     @Override
     public String toString() {
         return super.toString() + ","

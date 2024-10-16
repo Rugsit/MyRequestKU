@@ -24,7 +24,6 @@ public class UserListFileDatasource implements Datasource<UserList> {
             String imageDirectory = directoryName + File.separator + "images";
             File imageDirectoryFile = new File(imageDirectory);
             imageDirectoryFile.mkdirs();
-            imageDirectory = directoryName + File.separator + "images" + File.separator + "users";
             file = new File(directoryName + File.separator + "users");
             file.mkdir();
             createRootUser();
@@ -59,7 +58,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println("Error creating new user file");
+                System.err.println("Error creating new user file");
             }
         }
     }
@@ -73,7 +72,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
             UserListFileDatasource userListDatasource = new UserListFileDatasource("data", "admin.csv");
             userListDatasource.appendData(root);
         } catch (IOException e) {
-            System.out.println("Error creating root user");
+            System.err.println("Error creating root user");
         } catch (UserException e) {
             throw new RuntimeException(e);
         }
@@ -90,7 +89,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
         try {
             fileInputStream = new FileInputStream(file);
         } catch (FileNotFoundException e) {
-            System.out.println("Error opening user file");
+            System.err.println("Error opening user file");
         }
 
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
@@ -126,7 +125,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
             }
 
         } catch (UserException | IOException e) {
-            System.out.println("Error reading user file");
+            System.err.println("Error reading user file");
         }
 
         return userList;
@@ -143,7 +142,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
         try {
             fileOutputStream = new FileOutputStream(file);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.err.println("Error opening user file to write : " + file.getAbsolutePath());
         }
 
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
@@ -164,7 +163,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Error writing user data to file");
         }
     }
 
@@ -177,7 +176,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
         try {
             fileOutputStream = new FileOutputStream(file, true);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.err.println("Error opening file to append : " + file.getAbsolutePath());
         }
 
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
@@ -195,7 +194,7 @@ public class UserListFileDatasource implements Datasource<UserList> {
             bufferedWriter.newLine();
             bufferedWriter.flush();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Error appending data to file");
         }
     }
 

@@ -25,11 +25,8 @@ import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
 import ku.cs.services.Observer;
 import ku.cs.services.Theme;
-import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
-
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -115,7 +112,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                       @Override
                       protected void handleAcceptButton(){
                           getAcceptButton().setOnMouseClicked(e -> {
-                              System.out.println("Accept button clicked");
                               mainStackPane.getChildren().removeLast();
                               onResetButton();
                           });
@@ -123,7 +119,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                       @Override
                       protected void handleDeclineButton(){
                           getDeclineButton().setOnMouseClicked(e -> {
-                              System.out.println("Decline button clicked");
                               mainStackPane.getChildren().removeLast();
                           });
                       }
@@ -136,7 +131,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
             @Override
             protected void handleClickEvent() {
                 getButton().setOnMouseClicked(e -> {
-                    System.out.println("saveAddNisit clicked");
                     onSaveAddNisitButton();
                 });
             }
@@ -146,7 +140,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
             @Override
             protected void handleClickEvent() {
                 getButton().setOnMouseClicked(e -> {
-                    System.out.println("addNisitButton clicked");
                     if(session != null && (session.getUser() != null && session.getUser() instanceof DepartmentUser)){
                             DepartmentUser user = (DepartmentUser) session.getUser();
                             addDepartment = departmentList.getDepartmentByUuid(user.getDepartmentUUID().toString());
@@ -161,7 +154,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
             @Override
             protected void handleClickEvent() {
                 getButton().setOnMouseClicked(e -> {
-                    System.out.println("addNisitCSVButton clicked");
                     if(session != null && (session.getUser() != null && session.getUser() instanceof DepartmentUser)){
                         DepartmentUser user = (DepartmentUser) session.getUser();
                         addDepartment = departmentList.getDepartmentByUuid(user.getDepartmentUUID().toString());
@@ -237,7 +229,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
 
         for(User user : users.getUsers("student")){
             if(user.isRole("student")){
-//                System.out.println(">>>> " + user);
                 nisitTableView.getItems().add(user);
             }
         }
@@ -349,7 +340,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
         Class<?>[] notifyClass = {TextFieldStack.class};
         theme.notifyObservers(theme.getTheme(),notifyClass);
         editMode = !editMode;
-        System.out.println(editMode);
         boolean editable = editMode;
         String editButtonColor = editable ? "#ABFFA4" : "#FFA4A4";
         String editButtonHoverColor = editable ? "#80BF7A" : "#E19494";
@@ -370,9 +360,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                     if(child instanceof TextFieldStack){
                         TextFieldStack t = (TextFieldStack) child;
                         t.toggleTextField(editMode);
-//                        if(i == 0){
-//                            HBox.setMargin(child,new Insets(0,0,0,0));
-//                        }
                     }else if(child instanceof StackPane){
                         child.setVisible(editMode);
                         child.setDisable(!editMode);
@@ -515,7 +502,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                                     addDepartment = newValue;
                                 }
                             });
-//                            departmentComboBox.getItems().addAll(departmentList.getDepartments());
                             departmentComboBox.changeBackgroundRadius(10);
                             departmentComboBox.setPromptText("กรุณาเลือกภาควิชา");
 
@@ -583,7 +569,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                     @Override
                     protected void handleFirstButton(){
                         firstButton.setOnMouseClicked(e -> {
-                            System.out.println("Accept button clicked");
                             UserList tmpUserList = new UserList();
                             ObservableList<Node> children =  verticalTextFieldBox.getChildren();
                             children.forEach(child ->{
@@ -617,7 +602,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                                 } catch (UserException err){
                                     errorLabel.changeText(err.getMessage(),24,FontWeight.NORMAL);
                                     errorLabel.changeLabelColor("red");
-                                    System.out.println("UserException Error : " + err.getMessage());
                                     children.forEach(child ->{
                                         if(child instanceof TextFieldStack){
                                             TextFieldStack t = (TextFieldStack) child;
@@ -644,7 +628,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                     @Override
                     protected void handleSecondButton(){
                         secondButton.setOnMouseClicked(e ->{
-                            System.out.println("Decline button clicked");
                             mainStackPane.getChildren().removeLast();
                             addFaculty = null;
                             addDepartment = null;
@@ -720,14 +703,12 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                     @Override
                     protected void handleAcceptButton(){
                         getAcceptButton().setOnMouseClicked(e -> {
-                            System.out.println("Accept button clicked");
                             mainStackPane.getChildren().removeLast();
                         });
                     }
                     @Override
                     protected void handleDeclineButton(){
                         getDeclineButton().setOnMouseClicked(e -> {
-                            System.out.println("Decline button clicked");
                             mainStackPane.getChildren().removeLast();
                         });
                     }
@@ -756,14 +737,12 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                 @Override
                 protected void handleAcceptButton(){
                     getAcceptButton().setOnMouseClicked(e -> {
-                        System.out.println("Accept button clicked");
                         mainStackPane.getChildren().removeLast();
                     });
                 }
                 @Override
                 protected void handleDeclineButton(){
                     getDeclineButton().setOnMouseClicked(e -> {
-                        System.out.println("Decline button clicked");
                         mainStackPane.getChildren().removeLast();
                     });
                 }
@@ -773,7 +752,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                 @Override
                 protected void handleAcceptButton(){
                     getAcceptButton().setOnMouseClicked(e -> {
-                        System.out.println("Accept button clicked");
                         try {
                             datasource = new UserListFileDatasource("data","student.csv");
                             UserList studentUserList = datasource.readData();
@@ -797,7 +775,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                 @Override
                 protected void handleDeclineButton(){
                     getDeclineButton().setOnMouseClicked(e -> {
-                        System.out.println("Decline button clicked");
                         mainStackPane.getChildren().removeLast();
                     });
                 }
@@ -848,18 +825,15 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
             private final HBox hbox = new HBox(actionButton);
             {
                 hbox.setAlignment(Pos.CENTER);
-//                hbox.setPrefSize(35,35);
                 DefaultButton b =new DefaultButton(actionButton,"transparent", "#e0e0e0", "#000000"){
                     @Override
                     protected void handleClickEvent() {
                         button.setOnMouseClicked(e -> {
                             User user = getTableView().getItems().get(getIndex());
-                            System.out.println("DeleteButton clicked for item: " + user.getId() + " " + user.getName());
                             mainStackPane.getChildren().add(new ConfirmStack("ยืนยัน","คุณต้องการลบใช่มั้ย"){
                                 @Override
                                 protected void handleAcceptButton(){
                                     getAcceptButton().setOnMouseClicked(e -> {
-                                        System.out.println("Accept button clicked");
                                         mainStackPane.getChildren().removeLast();
                                         onDeleteButton(user);
                                     });
@@ -867,7 +841,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                                 @Override
                                 protected void handleDeclineButton(){
                                     getDeclineButton().setOnMouseClicked(e -> {
-                                        System.out.println("Decline button clicked");
                                         mainStackPane.getChildren().removeLast();
                                     });
                                 }
@@ -877,10 +850,8 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                     }
                 };
                 Image deleteButtonImage = new Image(getClass().getResourceAsStream("/images/pages/department/global/red-bin.png"));
-//                b.setButtonSize(50,50);
                 b.changeBackgroundRadius(20);
                 b.setImage(deleteButtonImage,35,35);
-//                b.changeText("",20, FontWeight.NORMAL);
             }
             @Override
             protected void updateItem(HBox item, boolean empty) {
@@ -888,7 +859,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                 if (empty) {
                     setGraphic(null); // No content for empty cells
                 } else {
-//                    setStyle("-fx-background-color: red");
                     setGraphic(hbox); // Set the HBox with the button as the cell's graphic
                 }
             }

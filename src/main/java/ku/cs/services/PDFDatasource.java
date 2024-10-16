@@ -1,6 +1,5 @@
 package ku.cs.services;
 
-import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
@@ -94,7 +93,7 @@ public class PDFDatasource {
                 Files.setLastModifiedTime(fileDestination.toPath(), FileTime.from(Instant.now()));
                 deleteFile("tmp");
             } catch (IOException e) {
-                System.err.println("Error loading/saving image");
+                System.err.println("Error loading/saving file");
             }
 
             return fileName;
