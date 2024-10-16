@@ -141,7 +141,7 @@ public class themeSettingPopup extends BlankPopupStack {
         HBox titleLine = new HBox();
         titleLine.setAlignment(Pos.CENTER);
         titleLabel = new DefaultLabel("");
-        titleLabel.changeText("เปลี่ยนทีม",32, FontWeight.BOLD);
+        titleLabel.changeText("เปลี่ยนธีม",32, FontWeight.BOLD);
         titleLine.getChildren().add(titleLabel);
 
         HBox line1 = new HBox();
