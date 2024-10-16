@@ -14,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
+import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.Authentication;
 import ku.cs.services.FXRouter;
 import ku.cs.services.SetTransition;
@@ -93,7 +94,14 @@ public class RegisterController {
         if (lastName.isEmpty()) warningText += "นามสกุล, ";
         if (id.isEmpty()) warningText += "รหัสนิสิต, ";
         if (email.isEmpty()) warningText += "อีเมลล์, ";
-
+        String target = ",";
+        int lastIndex = warningText.lastIndexOf(target);
+        if (lastIndex != -1) {
+            // Target substring not found
+            String before = warningText.substring(0, lastIndex);
+            String after = warningText.substring(lastIndex + target.length());
+            warningText = before + "" + after;
+        }
         // Check if user exists in the datasource
         UserList users = datasource.readData();
         User existingUser = users.findUserById(id);
@@ -124,9 +132,12 @@ public class RegisterController {
                 } else {
                     showError("ผู้ใช้งานได้ทำการลงทะเบียนก่อนหน้าเรียบร้อยแล้ว");
                 }
-            } catch (Exception e) {
-                showError("กรุณากรอกรหัสผ่านที่มีความยาวมากกว่า 8 ตัวอักษร");
+            } catch (UserException e) {
+                showError(e.getMessage());
                 System.out.println(e.getMessage());
+            } catch (Exception e) {
+                showError("เกิดข้อผิดพลาดกรุณาติดต่อผู้ดูแลระบบ");
+                e.printStackTrace();
             }
         }
     }
