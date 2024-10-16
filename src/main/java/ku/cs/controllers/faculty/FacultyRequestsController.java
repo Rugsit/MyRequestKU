@@ -7,27 +7,19 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 import javafx.util.StringConverter;
 import ku.cs.models.Session;
 import ku.cs.models.request.*;
-import ku.cs.models.request.approver.Approver;
-import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.FacultyUser;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.*;
-import ku.cs.views.components.DefaultTableView;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FacultyRequestsController {
@@ -157,8 +149,6 @@ public class FacultyRequestsController {
             requestListTableView.getItems().addAll(requestList.getRequests()
                     .stream()
                     .filter(request -> request.getFacultyUUID().equals(loginUser.getFacultyUUID()) &&
-//                            request.getStatusNow().equals("อนุมัติโดยหัวหน้าภาควิชา") &&
-//                            request.getStatusNext().equals("คำร้องส่งต่อให้คณบดี") &&
                             studentId.contains(request.getNisitId()))
                     .collect(Collectors.toList()));
 

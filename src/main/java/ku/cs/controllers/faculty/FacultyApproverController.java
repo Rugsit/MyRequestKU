@@ -24,13 +24,10 @@ import ku.cs.views.components.CropImage;
 import ku.cs.views.components.DefaultButton;
 import ku.cs.views.components.DefaultLabel;
 import ku.cs.views.components.RouteButton;
-import ku.cs.models.user.Student;
-import ku.cs.models.user.User;
 import ku.cs.services.*;
 import ku.cs.views.components.*;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -59,15 +56,9 @@ public class FacultyApproverController implements Observer<HashMap<String, Strin
     private Label approverPositionLabel;
 
     @FXML
-    private HBox uploadHBox;
-    @FXML
-    private ImageView iconPdfImageView;
-    @FXML
     private Label fileNameLabel;
     @FXML
     private Button removeFileButton;
-    @FXML
-    private ImageView iconRemoveFileImageView;
 
     @FXML
     private Button uploadFileButton;
@@ -233,10 +224,6 @@ public class FacultyApproverController implements Observer<HashMap<String, Strin
                 .stream()
                 .filter(approver -> approver.getAssociateUUID().equals(loginUser.getFacultyUUID()))
                 .collect(Collectors.toSet());
-        System.out.println(loginUser.getFacultyUUID());
-        for (Approver a : filteredApprovers){
-            System.out.println(a.getAssociateUUID());
-        }
         approverTableView.getItems().clear();
         approverTableView.getItems().setAll(filteredApprovers);
     }

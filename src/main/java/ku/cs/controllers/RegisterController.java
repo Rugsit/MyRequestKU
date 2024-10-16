@@ -1,8 +1,5 @@
 package ku.cs.controllers;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,17 +8,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.util.Duration;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
-import ku.cs.services.Authentication;
 import ku.cs.services.FXRouter;
 import ku.cs.services.SetTransition;
 import ku.cs.services.UserListFileDatasource;
-
 import java.io.IOException;
-import java.util.Set;
 
 public class RegisterController {
     @FXML private TextField usernameTextField;
@@ -36,8 +29,6 @@ public class RegisterController {
     @FXML private Button loginButton;
 
     private UserListFileDatasource datasource;
-    private Authentication authentication;
-    private User user;
     private int currentImageIndex = 0;
     @FXML
     public void initialize() {
@@ -156,7 +147,6 @@ public class RegisterController {
     protected void onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER){
             onRegisterButtonClick();
-            System.out.println("register");
         }
     }
 }
