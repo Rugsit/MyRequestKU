@@ -8,8 +8,6 @@ import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
-
-import java.util.HashSet;
 import java.util.UUID;
 
 public class Faculty implements Comparable<Faculty>{
