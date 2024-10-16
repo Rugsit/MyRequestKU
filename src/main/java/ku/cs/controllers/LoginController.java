@@ -57,7 +57,6 @@ public class LoginController {
         transition.setSlideImageShow(backgroundImageView, imagePaths);
 
         errorLabel.setText("");
-        DefaultLabel aboutUs = new DefaultLabel(aboutUsLabel);
         authController = new Authentication();
 
 
@@ -74,7 +73,6 @@ public class LoginController {
             errorLabel.setText("ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง");
         }
 
-        // Normal login method.
         if (loginUser != null){
             if (!username.isEmpty() && !password.isEmpty() && loginUser.getActiveStatus().equals("Inactive")){
                 showError("บัญชี้นี้ได้ถูกระงับการใช้งานชั่วคราว");
@@ -83,9 +81,7 @@ public class LoginController {
 
                 hideError();
 
-                // change default password check.
                 if (loginUser.getDefaultPassword().equals(password) && !loginUser.getRole().equals("student")){
-                    System.out.println("Need to change password");
                     changePasswordPopup(loginUser);
                     userNameTextField.setText("");
                     passwordTextField.setText("");
