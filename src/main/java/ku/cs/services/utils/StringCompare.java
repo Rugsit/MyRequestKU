@@ -25,7 +25,8 @@ public class StringCompare {
         return str.matches(".*\\s{2,}.*");
     }
     public static Boolean isValidEmailPattern(String str) {
-        //MAY NOT WORK AS EXPECTED
-        return str.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
+        if(str.equals("no-email")) return true;
+        return str.matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
     }
 }
