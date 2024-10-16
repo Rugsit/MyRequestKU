@@ -12,7 +12,6 @@ import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.Request;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.user.Student;
-import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.RequestListFileDatasource;
 import ku.cs.services.RequestStatusColumn;
@@ -37,10 +36,8 @@ public class AdvisorStudentRequestsController {
     private TextField searchTextField;
 
     private Datasource<RequestList> requestListDatasource;
-    private Datasource<UserList> datasource;
     private RequestList requestList;
     private ArrayList<String> studentId;
-    private UserList userlist;
     private String selectedStudentId;
     private String studentName;
 

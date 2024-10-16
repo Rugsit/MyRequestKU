@@ -1,32 +1,23 @@
 package ku.cs.controllers.admin;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import ku.cs.models.department.Department;
 import ku.cs.models.department.DepartmentList;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.request.RequestList;
 import ku.cs.models.user.Admin;
-import ku.cs.models.user.FacultyUser;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class DashBoardController {
     private User loginUser;
@@ -66,8 +57,6 @@ public class DashBoardController {
     private TableView<Department> userInDepartmentTableView, requestDepartmentTableView;
     @FXML
     private TabPane requestTabPane;
-    @FXML
-    private AnchorPane mainAnchorPane;
 
     public void initializeDashBoard() throws IOException {
 

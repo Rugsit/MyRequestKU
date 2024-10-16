@@ -1,6 +1,5 @@
 package ku.cs.controllers.admin;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,7 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.department.Department;
@@ -16,11 +14,9 @@ import ku.cs.models.department.DepartmentList;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.Admin;
-import ku.cs.models.user.User;
 import ku.cs.services.*;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -50,8 +46,6 @@ public class AdminManageFacultyController {
     private TableView<Department> departmentTableView;
     @FXML
     private Button addButton;
-    @FXML
-    private AnchorPane mainAnchorPane;
 
     public void initialize() {
 

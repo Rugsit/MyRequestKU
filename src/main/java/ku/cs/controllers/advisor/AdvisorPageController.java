@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.controllers.AboutUsController;
@@ -26,17 +25,16 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class AdvisorPageController implements ParentController {
-    @FXML Circle imageCircle;
-    @FXML Label tabAccountNameLabel;
-    @FXML ImageView tabProfilePicImageView;
-    @FXML BorderPane contentBorderPane;
+    @FXML private Label tabAccountNameLabel;
+    @FXML private ImageView tabProfilePicImageView;
+    @FXML private BorderPane contentBorderPane;
     @FXML private Button settingButton;
     @FXML private Button requestButton;
     @FXML private Button studentButton;
 
     private Advisor loginUser;
     private ImageDatasource datasource;
-    @FXML AnchorPane mainAnchorPane;
+    @FXML private AnchorPane mainAnchorPane;
 
     public void initialize(){
         updateStyle();

@@ -54,7 +54,7 @@ public class RegisterController {
         Image image = new Image(imagePaths[currentImageIndex]);
         backgroundImageView.setImage(image);
 
-        transition.setSlideImageShow(backgroundImageView, imagePaths);
+        SetTransition.getInstance().setSlideImageShow(backgroundImageView, imagePaths);
 
         datasource = new UserListFileDatasource("data", "student.csv");
         usernameTextField.requestFocus();
@@ -64,6 +64,8 @@ public class RegisterController {
     @FXML
         protected void goToLogin() {
         try {
+            SetTransition.getInstance().getTimeline().stop();
+            SetTransition.getInstance().setTimeline(null);
             FXRouter.goTo("login");
         } catch (
                 IOException e) {

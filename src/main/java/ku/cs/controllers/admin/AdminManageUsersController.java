@@ -51,8 +51,6 @@ public class AdminManageUsersController {
     private Button banButton;
     @FXML
     private Button unBanButton;
-    @FXML
-    private AnchorPane mainAnchorPane;
 
     public void initializeUser() {
 

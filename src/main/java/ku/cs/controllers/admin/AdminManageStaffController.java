@@ -7,16 +7,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ku.cs.models.faculty.Faculty;
 import ku.cs.models.user.*;
 import ku.cs.services.*;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,8 +41,6 @@ public class AdminManageStaffController {
     private TextField searchTextField;
     @FXML
     private Button addButton;
-    @FXML
-    private AnchorPane mainAnchorPane;
     @FXML
     private Label test;
 

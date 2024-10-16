@@ -9,8 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import ku.cs.models.request.Request;
-import ku.cs.models.user.Advisor;
 import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
@@ -20,7 +18,6 @@ import ku.cs.services.UserListFileDatasource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class AdvisorStudentListController {
