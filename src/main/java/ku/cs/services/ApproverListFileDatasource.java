@@ -117,7 +117,7 @@ public class ApproverListFileDatasource implements Datasource<ApproverList> {
     }
 
     public void appendData(Approver approver, String type) {
-        String filePath = null;
+        String filePath;
         if (type.equals("approver") || type.contains("list")) {
             if (approver.getRequestUUID() != null) {
                 return;
@@ -159,7 +159,7 @@ public class ApproverListFileDatasource implements Datasource<ApproverList> {
         String signatureFile = approverData[6];
         String firstName = approverData[7];
         String lastName = approverData[8];
-        Approver approver = null;
+        Approver approver;
         try {
             if (selectedApprover.getTier().equals(ApproverTiers.FACULTY.toString())) {
                 status = "รอคณะดำเนินการ";

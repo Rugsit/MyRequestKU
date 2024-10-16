@@ -70,7 +70,6 @@ public class FacultyListFileDatasource implements Datasource<FacultyList> {
         }
 
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
-        String dataLine;
         try(BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
             for(Faculty faculty : data.getFacultyList()) {
                 bufferedWriter.write(faculty.toString());

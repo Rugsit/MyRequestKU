@@ -2,7 +2,6 @@ package ku.cs.controllers;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,19 +12,14 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import ku.cs.models.user.*;
 import ku.cs.views.components.*;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.*;
 
-import static java.lang.Thread.sleep;
 
 public class AboutUsController {
     @FXML private ImageView tanaananImageView;
     @FXML private ImageView rugsitImageView;
     @FXML private ImageView sirisukImageView;
     @FXML private ImageView narakornImageView;
-    @FXML private Button backButton;
     @FXML private Label tipsLabel;
 
     private User loginUser;
@@ -33,8 +27,6 @@ public class AboutUsController {
     @FXML
     public void initialize() {
         showImage();
-        RouteButton back = new RouteButton(backButton, "login", "transparent",
-                               "#EBEBEB", "#FFFFFF");
         showTips();
     }
 
@@ -43,10 +35,10 @@ public class AboutUsController {
         Image rugsit = new Image(getClass().getResourceAsStream("/images/team-members/rugsit.png"));
         Image sirisuk = new Image(getClass().getResourceAsStream("/images/team-members/sirisuk.png"));
         Image narakorn = new Image(getClass().getResourceAsStream("/images/team-members/narakorn.png"));
-        CircleImage tanaananImage = new CircleImage(tanaananImageView, tanaanan);
-        CircleImage rugsitImage = new CircleImage(rugsitImageView, rugsit);
-        CircleImage sirisukImage = new CircleImage(sirisukImageView, sirisuk);
-        CircleImage narakornImage = new CircleImage(narakornImageView, narakorn);
+        new CircleImage(tanaananImageView, tanaanan);
+        new CircleImage(rugsitImageView, rugsit);
+        new CircleImage(sirisukImageView, sirisuk);
+        new CircleImage(narakornImageView, narakorn);
     }
 
     private void showTips() {

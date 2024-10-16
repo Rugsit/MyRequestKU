@@ -54,7 +54,6 @@ public class UserProfileCardController{
     private String emailTextBeforeEdit;
     Datasource<UserList> datasource;
     UserList users;
-    private Theme theme;
 
     @FXML
     public void initialize()  {

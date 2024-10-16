@@ -9,8 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-
 public class ImageDatasource{
     private final String imageDirectory;
     private String fileName;

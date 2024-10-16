@@ -1,6 +1,5 @@
 package ku.cs.models.department;
 
-import javafx.scene.chart.PieChart;
 import ku.cs.models.faculty.Faculty;
 import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.request.Request;
@@ -99,7 +98,7 @@ public class Department implements Comparable<Department>{
         if (faculty.isEmpty()) {
             throw new NoFacultyException("กรุณาใส่ชื่อคณะให้ถูกต้อง");
         }
-        FacultyList facultyList = new FacultyList();
+        FacultyList facultyList;
         Datasource<FacultyList> facultyListFileDatasource = new FacultyListFileDatasource("data");
         facultyList = facultyListFileDatasource.readData();
         if(facultyList.getFacultyByName(faculty) == null) {
