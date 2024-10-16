@@ -46,12 +46,12 @@ public class Approver implements Comparable<Approver> {
         }
         //Tier Checker
         if (tier == null) throw new ApproverTierException("tier must not be null");
-        if (tier.isEmpty()) throw new ApproverTierException("tier must not be empty");
+        if (tier.isEmpty()) throw new ApproverTierException("ระดับต้องไม่เป็นค่าว่าง");
         if (ApproverTiers.contains(tier)) this.tier = tier;
         else throw new ApproverTierException("Invalid approver tier : " + tier);
 
         if (role == null) throw new ApproverRoleException("role must not be null");
-        if (role.isEmpty()) throw new ApproverRoleException("role must not be empty");
+        if (role.isEmpty()) throw new ApproverRoleException("ตำแหน่งต้องไม่เป็นค่าว่าง");
         this.role = role;
         this.status = status;
         this.signatureFile = signatureFile;
