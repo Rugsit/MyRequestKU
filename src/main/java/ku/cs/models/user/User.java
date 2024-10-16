@@ -151,6 +151,7 @@ public abstract class User implements Identifiable, Comparable<User> {
     }
     public void setId(String id,boolean check) throws IDException{
         if(id == null) throw new IDException("ID must not be null");
+        if(this.id != null && this.id.equalsIgnoreCase(id))return;
         if(id.isEmpty()) throw new IDException("รหัสหรือไอดีต้องไม่เป็นค่าว่าง");
         if(haveSpace(id)) throw new IDException("รหัสหรือไอดีต้องไม่มีช่องว่าง");
         if(role.equalsIgnoreCase("student")){
@@ -177,6 +178,7 @@ public abstract class User implements Identifiable, Comparable<User> {
     }
     public void setUsername(String username,boolean check) throws UsernameException{
         if(username == null) throw new UsernameException("Username must not be null");
+        if(this.username != null && this.username.equalsIgnoreCase(username))return;
         if(username.isEmpty()) throw new UsernameException("ชื่อผู้ใช้งานต้องไม่เป็นค่าว่าง");
         if(haveSpace(username))throw new UsernameException("ชื่อผู้ใช้งานต้องไม่มีช่องว่าง");
         if(!isAlphaNumberic(username)) throw new UsernameException("ชื่อผู้ใช้งานต้องเป็นตัวอักษรและตัวเลข");
