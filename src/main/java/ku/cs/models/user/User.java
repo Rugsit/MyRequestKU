@@ -151,13 +151,13 @@ public abstract class User implements Identifiable, Comparable<User> {
     }
     public void setId(String id,boolean check) throws IDException{
         if(id == null) throw new IDException("ID must not be null");
-        if(id.isEmpty()) throw new IDException("ID must not be empty");
-        if(haveSpace(id)) throw new IDException("ID must not contain spaces");
+        if(id.isEmpty()) throw new IDException("รหัสหรือไอดีต้องไม่เป็นค่าว่าง");
+        if(haveSpace(id)) throw new IDException("รหัสหรือไอดีต้องไม่มีช่องว่าง");
         if(role.equalsIgnoreCase("student")){
-            if(!isDigit(id)) throw new IDException("Nisit ID must be digits");
-            if(id.length() != 10) throw new IDException("Nisit ID must be 10 characters");
+            if(!isDigit(id)) throw new IDException("รหัสนิสิตต้องเป็นตัวเลข");
+            if(id.length() != 10) throw new IDException("รหัสนิสิตต้องมี 10 ตัวอักษร");
         }
-        if(!isAlphaNumberic(id)) throw new IDException("ID must be a alphanumeric");
+        if(!isAlphaNumberic(id)) throw new IDException("รหัสหรือไอดีต้องเป็นตัวอักษรและตัวเลข");
 
         if(check){
             checkUserListFileDatasource = new UserListFileDatasource("data","users.csv");
@@ -177,10 +177,10 @@ public abstract class User implements Identifiable, Comparable<User> {
     }
     public void setUsername(String username,boolean check) throws UsernameException{
         if(username == null) throw new UsernameException("Username must not be null");
-        if(username.isEmpty()) throw new UsernameException("Username must not be empty");
-        if(haveSpace(username))throw new UsernameException("Username must not contain spaces");
-        if(!isAlphaNumberic(username)) throw new UsernameException("Username must be alphanumeric");
-        if(username.length() > 30) throw new UsernameException("Username must be equal or less than 30 characters");
+        if(username.isEmpty()) throw new UsernameException("ชื่อผู้ใช้งานต้องไม่เป็นค่าว่าง");
+        if(haveSpace(username))throw new UsernameException("ชื่อผู้ใช้งานต้องไม่มีช่องว่าง");
+        if(!isAlphaNumberic(username)) throw new UsernameException("ชื่อผู้ใช้งานต้องเป็นตัวอักษรและตัวเลข");
+        if(username.length() > 30) throw new UsernameException("ชื่อผู้ใช้งานต้องมีน้อยกว่าหรือเท่ากับ 30 ตัวอักษร");
 
         if(check){
             checkUserListFileDatasource = new UserListFileDatasource("data","users.csv");
@@ -197,35 +197,35 @@ public abstract class User implements Identifiable, Comparable<User> {
 
     public void setRole(String role) throws RoleException{
         if(role == null) throw new RoleException("Role must not be null");
-        if(role.isEmpty()) throw new RoleException("Role must not be empty");
-        if(haveSpace(role))throw new RoleException("Role must not contain spaces");
-        if(!isAlphaNumberic(role)) throw new RoleException("Role must be alphanumeric");
+        if(role.isEmpty()) throw new RoleException("บทบาทต้องไม่เป็นค่าว่าง");
+        if(haveSpace(role))throw new RoleException("บทบาทต้องไม่มีช่องว่าง");
+        if(!isAlphaNumberic(role)) throw new RoleException("บทบาทต้องเป็นตัวอักษรและตัวเลข");
         Boolean valid = false;
         role = role.trim().toLowerCase();
         for(UserRoles r : UserRoles.values()){
             if(r.toString().equals(role.trim())) valid = true;
         }
-        if(!valid) throw new RoleException("Role is not valid");
+        if(!valid) throw new RoleException("บทบาทไม่ถูกต้อง");
         this.role = role;
     }
 
     public void setFirstname(String firstname) throws NameException{
         if(firstname == null) throw new NameException("Firstname must not be null");
-        if(firstname.isEmpty()) throw new NameException("Firstname must not be empty");
-        if(startWithSpace(firstname)) throw new NameException("Firstname must not start with spaces");
-        if(endWithSpace(firstname)) throw new NameException("Firstname must not end with spaces");
-        if(haveDuplicateSpace(firstname)) throw new NameException("Firstname must not contain duplicate spaces");
-        if(!isAplha(firstname)) throw new NameException("Firstname must be alphabet");
+        if(firstname.isEmpty()) throw new NameException("ชื่อจริงต้องไม่เป็นค่าว่าง");
+        if(startWithSpace(firstname)) throw new NameException("ชื่อจริงต้องไม่เริ่มต้นด้วยช่องว่าง");
+        if(endWithSpace(firstname)) throw new NameException("ชื่อจริงต้องไม่ลงท้ายด้วยช่องว่าง");
+        if(haveDuplicateSpace(firstname)) throw new NameException("ชื่อจริงต้องไม่มีช่องว่างซ้ำกัน");
+        if(!isAplha(firstname)) throw new NameException("ชื่อจริงต้องเป็นตัวอักษร");
         this.firstname = firstname.trim().toLowerCase();
     }
 
     public void setLastname(String lastname) throws NameException{
         if(lastname == null) throw new NameException("Lastname must not be null");
-        if(lastname.isEmpty()) throw new NameException("Lastname must not be empty");
-        if(startWithSpace(lastname)) throw new NameException("Lastname must not start with spaces");
-        if(endWithSpace(lastname)) throw new NameException("Lastname must not end with spaces");
-        if(haveDuplicateSpace(lastname)) throw new NameException("Lastname must not contain duplicate spaces");
-        if(!isAplha(lastname)) throw new NameException("Lastname must be alphabet");
+        if(lastname.isEmpty()) throw new NameException("นามสกุลต้องไม่เป็นค่าว่าง");
+        if(startWithSpace(lastname)) throw new NameException("นามสกุลต้องไม่เริ่มต้นด้วยช่องว่าง");
+        if(endWithSpace(lastname)) throw new NameException("นามสกุลต้องไม่ลงท้ายด้วยช่องว่าง");
+        if(haveDuplicateSpace(lastname)) throw new NameException("นามสกุลต้องไม่มีช่องว่างซ้ำกัน");
+        if(!isAplha(lastname)) throw new NameException("นามสกุลต้องเป็นตัวอักษร");
         this.lastname = lastname.trim().toLowerCase();
     }
 
@@ -239,32 +239,32 @@ public abstract class User implements Identifiable, Comparable<User> {
 
     public void setEmail(String email) throws EmailException{
         if(email == null) throw new EmailException("Email must not be null");
-        if(email.isEmpty()) throw new EmailException("Email must not be empty");
-        if(haveSpace(email)) throw new EmailException("Email must not contain spaces");
-        if(!isValidEmailPattern(email)) throw new EmailException("Invalid email pattern");
+        if(email.isEmpty()) throw new EmailException("อีเมลต้องไม่เป็นค่าว่าง");
+        if(haveSpace(email)) throw new EmailException("อีเมลต้องไม่มีช่องว่าง");
+        if(!isValidEmailPattern(email)) throw new EmailException("รูปแบบอีเมลไม่ถูกต้อง");
         this.email = email.trim();
     }
     private void initDefaultPassword(String password) throws PasswordException {
         if(password == null) throw new PasswordException("DefaultPassword cannot be null");
-        if(password.isEmpty()) throw new PasswordException("DefaultPassword must not be empty");
-        if(haveSpace(password)) throw new PasswordException("DefaultPassword must not contain spaces");
+        if(password.isEmpty()) throw new PasswordException("รหัสผ่านเริ่มต้นต้องไม่เป็นค่าว่าง");
+        if(haveSpace(password)) throw new PasswordException("รหัสผ่านเริ่มต้นต้องไม่มีช่องว่าง");
         if(password.equalsIgnoreCase("DEFAULT")) {
             password = generatePassword();
         }
         if(password.length() <= 8)
-            throw new PasswordException("password must be more than 8 characters");
+            throw new PasswordException("รหัสผ่านเริ่มต้นต้องมีมากกว่า 8 ตัวอักษร");
         this.defaultPassword = password;
 
     }
     public void setDefaultPassword(String password) throws PasswordException {
         if(password == null) throw new PasswordException("DefaultPassword cannot be null");
-        if(password.isEmpty()) throw new PasswordException("DefaultPassword must not be empty");
-        if(haveSpace(password)) throw new PasswordException("DefaultPassword must not contain spaces");
+        if(password.isEmpty()) throw new PasswordException("รหัสผ่านเริ่มต้นไม่ควรเป็นค่าว่าง");
+        if(haveSpace(password)) throw new PasswordException("รหัสผ่านเริ่มต้นไม่ควรมีช่องว่าง");
         if(password.equalsIgnoreCase("DEFAULT")) {
             password = generatePassword();
         }
         if(password.length() <= 8)
-            throw new PasswordException("password must be more than 8 characters");
+            throw new PasswordException("รหัสผ่านเริ่มต้นต้องมีมากกว่า 8 ตัวอักษร");
         boolean samePassword = validatePassword(this.defaultPassword);//take long time, use only for manual UI
         this.defaultPassword = password;
 
@@ -275,13 +275,13 @@ public abstract class User implements Identifiable, Comparable<User> {
     }
     public void setPassword(String password) throws PasswordException {
         if(password == null) throw new PasswordException("Password cannot be null");
-        if(password.isEmpty()) throw new PasswordException("Password must not be empty");
-        if(haveSpace(password)) throw new PasswordException("Password must not contain spaces");
+        if(password.isEmpty()) throw new PasswordException("รหัสผ่านต้องไม่เป็นค่าว่าง");
+        if(haveSpace(password)) throw new PasswordException("รหัสผ่านต้องไม่มีช่องว่าง");
         if(password.equalsIgnoreCase("DEFAULT")) {
             password = getDefaultPassword();
         }
         if(password.length() <= 8)
-            throw new PasswordException("password must be more than 8 characters");
+            throw new PasswordException("รหัสผ่านต้องมีมากกว่า 8 ตัวอักษร");
 
 
         String bcryptHashString = BCrypt.withDefaults().hashToString(12, password.toCharArray());
