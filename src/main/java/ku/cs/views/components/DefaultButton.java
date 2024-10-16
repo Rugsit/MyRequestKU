@@ -152,7 +152,6 @@ public class DefaultButton extends Button implements Observer<HashMap<String,Str
         }
         imageView.setFitWidth(width);
         imageView.setFitHeight(height);
-//        imageView.setImage(image);
         new SquareImage(imageView,image);
     }
     public void setButtonSize(double width,double height){

@@ -110,7 +110,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
         showNisitVBox.setDisable(true);
         showAdvisorVBox.setVisible(false);
         showAdvisorVBox.setDisable(true);
-//        changeAdvisorButton.setVisible(false);
         changeAdvisorButton.setDisable(true);
         showAdvisorVBox.setPadding(new Insets(20,0,0,0));
 
@@ -349,13 +348,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
                 }
             }
         }
-//        nisitTableView.getSortOrder().clear();
-//        TableColumn nisitCol = nisitTableView.getColumns().get(0);
-//        nisitCol.setSortable(true);
-//        nisitTableView.getSortOrder().add(nisitCol);
-//        nisitCol.setSortType(TableColumn.SortType.ASCENDING);
-//        nisitTableView.sort();
-//        nisitCol.setSortable(false);
     }
     private void refreshAdvisorTable(){
         advisorTableView.getItems().clear();
@@ -388,13 +380,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
                 }
             }
         }
-//        advisorTableView.getSortOrder().clear();
-//        TableColumn nisitCol = advisorTableView.getColumns().get(0);
-//        nisitCol.setSortable(true);
-//        advisorTableView.getSortOrder().add(nisitCol);
-//        nisitCol.setSortType(TableColumn.SortType.ASCENDING);
-//        advisorTableView.sort();
-//        nisitCol.setSortable(false);
     }
     private void refreshNisitSearchTableData(Collection<? extends User> users){
         nisitTableView.getItems().clear();
@@ -471,7 +456,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
         try {
             selectedStudent.setAdvisor(selectedAdvisor);
             nisitDatasource.writeData(nisitList);
-//            refreshNisitTable();
             nisitTableView.refresh();
             selectedStudentListener();
         }catch (Exception e){
@@ -482,7 +466,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
         try {
             student.setAdvisor("no-advisor");
             nisitDatasource.writeData(nisitList);
-//            refreshNisitTable();
             nisitTableView.refresh();
             selectedStudentListener();
         }catch (Exception e){
@@ -590,7 +573,6 @@ public class NisitAdvisorManagementController implements Observer<HashMap<String
         return column;
     }
     private void initShowVBox(VBox vbox){
-//        vbox.setSpacing(5);
         vbox.getChildren().forEach(child ->{
             if(child instanceof HBox){
                 HBox hbox = (HBox) child;

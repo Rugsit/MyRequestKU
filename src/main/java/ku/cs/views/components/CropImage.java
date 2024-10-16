@@ -22,8 +22,6 @@ public class CropImage extends DefaultImage{
 
         double cropWidth = (int)(width/ viewWidth) * viewWidth;
         double cropHeight = (int)(height/viewHeight) * viewHeight;
-//        System.out.println("view " + viewWidth + " " + viewWidth);
-//        System.out.println("crop " + cropWidth + " " + cropHeight);
         if(viewWidth > width){
             cropWidth = width;
         }
@@ -46,7 +44,6 @@ public class CropImage extends DefaultImage{
     }
     @Override
     public void setImage(Image image){
-//        System.out.println("SET IMG OVERIDE");
         if(image != null){
             Image cropped = cropCenterImage(image);
             imageView.setImage(cropped);

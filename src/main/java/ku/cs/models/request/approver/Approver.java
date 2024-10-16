@@ -39,7 +39,6 @@ public class Approver implements Comparable<Approver> {
         if (associateUUID.isEmpty()) throw new ApproverException("associate uuid must not be null");
         this.uuid = UUID.fromString(uuid);
         this.associateUUID = UUID.fromString(associateUUID);
-//        if (requestUUID == null) throw new ApproverException("requestUUID must not be null");
         if (requestUUID != null && !requestUUID.equals("no-request")) {
             if (requestUUID.isEmpty()) throw new ApproverException("requestUUID must not be empty");
             this.requestUUID = UUID.fromString(requestUUID);

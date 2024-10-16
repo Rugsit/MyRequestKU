@@ -8,7 +8,6 @@ import java.util.Date;
 
 public class DateTools {
     public static LocalDateTime formatToLocalDateTime(String format, String dateString) {
-//        SimpleDateFormat formatter = new SimpleDateFormat(format);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         LocalDateTime date = null;
         try {

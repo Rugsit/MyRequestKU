@@ -54,7 +54,6 @@ public abstract class DefaultComboBox<T> extends ComboBox<T> implements Observer
         cell.setStyle(
                 "-fx-text-fill: black; " +
                 "-fx-background-color: white; " +
-//                "-fx-background-radius: 10; " +
                 "-fx-border-color: transparent; " +
                 "-fx-border-radius: 10; " +
                 "-fx-border-width: 0;"
@@ -99,7 +98,6 @@ public abstract class DefaultComboBox<T> extends ComboBox<T> implements Observer
             }
         });
         onLoadFontSize = fontSize;
-//        comboBox.setEditable(true);
     }
     public void changeBackgroundRadius(int radius){
         comboBox.setStyle(comboBox.getStyle()+
