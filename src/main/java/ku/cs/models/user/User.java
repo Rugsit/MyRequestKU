@@ -25,7 +25,7 @@ public abstract class User implements Identifiable, Comparable<User> {
     private boolean active;
     private String password;
     private String defaultPassword;
-    public static String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss";
+    public static final String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss";
     private UserListFileDatasource checkUserListFileDatasource;
     private UserList checkUserList;
 
@@ -72,12 +72,12 @@ public abstract class User implements Identifiable, Comparable<User> {
         initDefaultPassword(defaultPassword);
     }
     //Comparator
-    public static Comparator<User> userIdComparator = new Comparator<>() {
+    public static final Comparator<User> userIdComparator = new Comparator<>() {
         public int compare(User u1, User u2) {
             return u1.getId().compareTo(u2.getId());
         }
     };
-    public static Comparator<User> usernameComparator = new Comparator<>() {
+    public static final Comparator<User> usernameComparator = new Comparator<>() {
         public int compare(User u1, User u2) {
             return u1.getUsername().compareTo(u2.getUsername());
         }
