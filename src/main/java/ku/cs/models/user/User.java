@@ -2,6 +2,7 @@ package ku.cs.models.user;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import ku.cs.models.user.exceptions.*;
+import ku.cs.services.UserListFileDatasource;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -27,6 +28,8 @@ public abstract class User implements Identifiable, Comparable<User> {
     private String password;
     private String defaultPassword;
     public static String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss";
+    private UserListFileDatasource checkUserListFileDatasource;
+    private UserList checkUserList;
 
     public User(String id,
                 String username,
@@ -38,6 +41,8 @@ public abstract class User implements Identifiable, Comparable<User> {
                 String password) throws UserException {
         //Constructor for New User
         this(UUID.randomUUID().toString(), id, username, role, firstname, lastname, lastLogin, email, password, "no-image","active","DEFAULT");
+        setId(id,true);//try to check when new user
+        setUsername(username,true);//try to check when new user
         setPassword(password);
         this.active = !role.equalsIgnoreCase("student");
     }
@@ -57,8 +62,8 @@ public abstract class User implements Identifiable, Comparable<User> {
         if(uuid == null) throw new UUIDException("UUID must not be null");
         this.uuid = UUID.fromString(uuid);
         setRole(role);
-        setId(id);
-        setUsername(username);
+        setId(id,false);//not check when use datasource - TRUST!
+        setUsername(username,false);//not check when use datasource - TRUST!
         setFirstname(firstname);
         setLastname(lastname);
         setLastLogin(lastLogin);
@@ -142,6 +147,9 @@ public abstract class User implements Identifiable, Comparable<User> {
     //SETTER
 
     public void setId(String id) throws IDException{
+        setId(id, true);//for normal use, must check
+    }
+    public void setId(String id,boolean check) throws IDException{
         if(id == null) throw new IDException("ID must not be null");
         if(id.isEmpty()) throw new IDException("ID must not be empty");
         if(haveSpace(id)) throw new IDException("ID must not contain spaces");
@@ -150,15 +158,40 @@ public abstract class User implements Identifiable, Comparable<User> {
             if(id.length() != 10) throw new IDException("Nisit ID must be 10 characters");
         }
         if(!isAlphaNumberic(id)) throw new IDException("ID must be a alphanumeric");
+
+        if(check){
+            checkUserListFileDatasource = new UserListFileDatasource("data","users.csv");
+            checkUserList = checkUserListFileDatasource.readAllUser();
+            if(id != "0000000000" && id !=  "no-id"){
+                User exitUser = checkUserList.findUserById(id);
+                if(exitUser != null) {
+                    throw new IDException("มีไอดีผู้ใช้นงานี้อยู่แล้ว");
+                }
+            }
+        }
         this.id = id.trim();
     }
 
     public void setUsername(String username) throws UsernameException{
+        setUsername(username, true);//for normal use, must check
+    }
+    public void setUsername(String username,boolean check) throws UsernameException{
         if(username == null) throw new UsernameException("Username must not be null");
         if(username.isEmpty()) throw new UsernameException("Username must not be empty");
         if(haveSpace(username))throw new UsernameException("Username must not contain spaces");
         if(!isAlphaNumberic(username)) throw new UsernameException("Username must be alphanumeric");
         if(username.length() > 30) throw new UsernameException("Username must be equal or less than 30 characters");
+
+        if(check){
+            checkUserListFileDatasource = new UserListFileDatasource("data","users.csv");
+            checkUserList = checkUserListFileDatasource.readAllUser();
+            if(username != "no-username"){
+                User exitUser = checkUserList.findUserByUsername(username);
+                if(exitUser != null) {
+                    throw new UsernameException("มีชื่อผู้ใช้งานนี้อยู่แล้ว");
+                }
+            }
+        }
         this.username = username.trim();
     }
 
@@ -208,7 +241,7 @@ public abstract class User implements Identifiable, Comparable<User> {
         if(email == null) throw new EmailException("Email must not be null");
         if(email.isEmpty()) throw new EmailException("Email must not be empty");
         if(haveSpace(email)) throw new EmailException("Email must not contain spaces");
-//        if(isValidEmailPattern(email)) throw new EmailException("Invalid email pattern");
+        if(!isValidEmailPattern(email)) throw new EmailException("Invalid email pattern");
         this.email = email.trim();
     }
     private void initDefaultPassword(String password) throws PasswordException {
