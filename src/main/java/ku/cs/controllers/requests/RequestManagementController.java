@@ -233,7 +233,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
     private void initRequestMenuHBox(){
         requestMenuHBox.getChildren().clear();
-//        requestMenuHBox.setStyle("-fx-background-color: red");
         HBox menuHBox = new HBox();
         menuHBox.setAlignment(Pos.CENTER);
         menuHBox.setSpacing(20);
@@ -549,7 +548,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
         requestMenuHBox.getChildren().addAll(menuHBox,controlHBox);
         requestMenuHBox.setAlignment(Pos.CENTER);
-//        requestMenuHBox.setSpacing(200);
 
     }
 
@@ -604,14 +602,10 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             }
         });
 
-//         tableView.addColumn("","name");
         tableView.getTableView().getColumns().add(newNameColumn(""));
         tableView.getTableView().getColumns().add(newPositionColumn(""));
-//         tableView.addColumn("","role");
          tableView.getTableView().getColumns().add(newEditButtonColumn());
          tableView.getTableView().getColumns().add(newStatusColumn(""));
-//         tableView.addColumn("","status");
-
 
          tableView.setStyleSheet("/ku/cs/styles/department/pages/request/department-request-approver-table-stylesheet.css");
          theme.addObserver(tableView);
@@ -664,12 +658,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             }
         }
         requestApproverTableView.getSortOrder().clear();
-//        TableColumn nisitedCol = nisitTableView.getColumns().get(1);
-//        nisitedCol.setSortable(true);
-//        nisitTableView.getSortOrder().add(nisitedCol);
-//        nisitedCol.setSortType(TableColumn.SortType.ASCENDING);
-//        nisitTableView.sort();
-//        nisitedCol.setSortable(false);
 
     }
     private void refreshAllData(){
@@ -702,7 +690,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             for(Approver a : filterApproverList.getApprovers()){
                 if(a.getTier().equals(ApproverTiers.ADVISOR.toString())){
                     if(a.getStatus().equals("เรียบร้อย")){
-//                        addApproverButton.setDisable(true);
                         if(!request.getStatusNext().equals("คำร้องดำเนินการครบถ้วน")){
                             approveButton.setDisable(false);
                         }else{
@@ -737,8 +724,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
         if(goToFaculty && session.getUser() instanceof DepartmentUser){
             approveButton.setDisable(true);
-//            addApproverButton.setDisable(true);
-//            rejectButton.setDisable(true);
         }
 
         theme.notifyObservers(theme.getTheme());
@@ -773,7 +758,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
             private final HBox hBox = new HBox(editButton,signatureButton,approveButton);
             {
-//                setStyle("-fx-background-color: red");
                 setPrefSize(200,60);
                 hBox.setAlignment(Pos.CENTER);
                 hBox.setSpacing(10);
@@ -867,7 +851,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                     if (session.getUser() instanceof DepartmentUser) {
                         if (approver.getTier().equals(ApproverTiers.ADVISOR.toString()) || approver.getTier().equals(ApproverTiers.FACULTY.toString())) {
                             editButton.setDisable(true);
-    //                        signatureButton.setDisable(true);
                             approveButton.setDisable(true);
                         }
                     } else if (session.getUser() instanceof FacultyUser) {
@@ -985,7 +968,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             private DefaultLabel line1 = new DefaultLabel("");
             private SquareImage icon = new SquareImage(new ImageView());
             {
-//                setStyle("-fx-background-color: red");
                 hBox.setAlignment(Pos.CENTER_RIGHT);
                 hBox.setSpacing(20);
                 line1.changeText("",28, FontWeight.BOLD);
@@ -1058,7 +1040,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
                     HBox statusBox = new HBox();
                     statusBox.setPrefWidth(120);
-//                    statusBox.setStyle("-fx-background-color: red");
                     statusBox.setAlignment(Pos.CENTER);
                     statusBox.getChildren().add(line1);
 
@@ -1164,11 +1145,9 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                     initEditThisTierWaitUpload();
                     break;
                 case "เรียบร้อย":
-    //                statusImageFileName = "approver-approve-green-check.png";
                     initEditThisTierApprove();
                     break;
                 case "ไม่อนุมัติ":
-    //                statusImageFileName = "approver-reject-red-x.png";
                     initEditThisTierReject();
                     break;
             }
@@ -1211,12 +1190,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
         titleLabel.changeText("ขัดข้อง",48, FontWeight.BOLD);
         container.getChildren().add(titleLabel);
         editorVBox.getChildren().add(container);
-
-//        container = newEditorContainer();
-//        DefaultLabel statusLabel = new DefaultLabel("");
-//        statusLabel.changeText("สถานะ " + approverStatus,32, FontWeight.NORMAL);
-//        container.getChildren().add(statusLabel);
-//        editorVBox.getChildren().add(container);
 
         container = newEditorContainer();
         DefaultLabel errorLabel = new DefaultLabel("");
@@ -1296,18 +1269,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
         //IMAGE
         container = newEditorContainer();
         CropImage editorImage = new SquareImage(new ImageView());
-//        if(!selectedApprover.getSignatureFile().equals("no-image")){
-//            ImageDatasource imageDatasource = new ImageDatasource("signatures");
-//            editorImage.setImage(imageDatasource.openImage(selectedApprover.getSignatureFile()));
-//            editorImage.getImageView().setFitWidth(200);
-//            editorImage.getImageView().setFitHeight(150);
-//            editorImage.setClipImage(50,50);
-//        }else{
-//            editorImage.setImage(new Image(getClass().getResourceAsStream("/images/pages/department/department-staff-request/" + statusImageFileName)));
-//            editorImage.getImageView().setFitWidth(150);
-//            editorImage.getImageView().setFitHeight(150);
-//            editorImage.setClipImage(50,50);
-//        }
         editorImage.setImage(new Image(getClass().getResourceAsStream("/images/pages/department/department-staff-request/" + statusImageFileName)));
         editorImage.getImageView().setFitWidth(150);
         editorImage.getImageView().setFitHeight(150);

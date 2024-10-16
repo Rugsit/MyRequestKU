@@ -70,7 +70,6 @@ public class TextFieldStack extends StackPane implements Observer<HashMap<String
         };
         resetButton.setPrefSize(w,h);
         resetButton.changeBackgroundRadius(20);
-//        resetButton.setText("R");
         Image resetImageIcon = new Image(getClass().getResourceAsStream("/images/pages/department/global/components/textfield-stack/rollback-textfield-green.png"));
         resetButton.setImage(resetImageIcon,25,25);
 
@@ -87,11 +86,6 @@ public class TextFieldStack extends StackPane implements Observer<HashMap<String
         clearButton.changeBackgroundRadius(20);
         Image clearImageIcon = new Image(getClass().getResourceAsStream("/images/pages/department/global/components/textfield-stack/clear-textfield-red.png"));
         clearButton.setImage(clearImageIcon,25,25);
-//        clearButton.setText("C");
-
-//        buttonHBox = new HBox();
-//        buttonHBox.setPrefSize(w,h);
-//        buttonHBox.getChildren().add(button);
     }
     private void initStackBox(double w, double h){
         stackBox.setPrefSize(w,h);
@@ -102,7 +96,6 @@ public class TextFieldStack extends StackPane implements Observer<HashMap<String
         StackPane.setMargin(resetButton,new Insets(0,40,0,0));
     }
     public void toggleTextField(boolean editMode){
-//        System.out.println(editMode);
         boolean editable = editMode;
         String backgroundColor = editable ? editColorHex : showColorHex;
         String textColor = editable ? editTextColorHex : showTextColorHex;

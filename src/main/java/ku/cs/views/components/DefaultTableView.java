@@ -106,9 +106,6 @@ public class DefaultTableView<S> extends TableView implements Observer<HashMap<S
 
     @Override
     public void update(HashMap<String, String> data) {
-//        for (TableColumn<?, ?> column : tableView.getColumns()) {
-//            column.setStyle(column.getStyle() + "-fx-text-fill: " + data.get("textColor") + ";");
-//        }
         updateAction();
         setStyleSheetAndScaleFont(currentStylePath);
         tableView.setStyle(tableView.getStyle()+"-fx-font-family: " + data.get("textFont")  + ";");

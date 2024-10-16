@@ -235,7 +235,6 @@ public abstract class User implements Identifiable, Comparable<User> {
         if(dateString == null) throw new DateException("dateString must not be null");
         if(dateString.isEmpty()) throw new DateException("dateString must not be empty");
         LocalDateTime date = formatToLocalDateTime(DATE_FORMAT,dateString);
-//        if(date == null) throw new DateException("Invalid " + DATE_FORMAT + "format dateString");
         this.lastLogin = date;
     }
 

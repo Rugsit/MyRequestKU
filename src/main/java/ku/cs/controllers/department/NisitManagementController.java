@@ -101,19 +101,12 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
 
         selectedUser = null;
         selectedUserListener();
-//        this.editMode = true;
 
         this.editorHBoxWidth = 270;
         this.editorHBoxHeight = 50;
 
         initLabel();
         initButton();
-//        nisitImage = new SquareImage(nisitImageView);
-//        nisitImage.setClipImage(50,50);
-//        nisitImage.setImage(new Image(getClass().getResourceAsStream("/images/profile-test.png")));
-//        toggleEditFiled();
-//        mainStackPane.getChildren().add(new ConfirmStack("ยืนยัน","This is a long label text that will wrap to the next line if it exceeds the maximum width."));
-
         theme.addObserver(this);
         theme.notifyObservers(theme.getTheme());
     }
@@ -191,13 +184,6 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         DefaultTableView<User> nisitTable = new DefaultTableView(nisitTableView){
             @Override
             protected void handleClick() {
-//                getTableView().setOnMouseClicked(event -> {
-//                    Object selected = getTableView().getSelectionModel().getSelectedItem();
-//                    if(selected instanceof User){
-//                        selectedUser = (User) selected;
-//                        selectedUserListener();
-//                    }
-//                });
                 getTableView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
                     @Override
                     public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {
@@ -228,7 +214,6 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         nisitTable.addColumn("ชื่อ-นามสกุล","name");
         nisitTable.getTableView().getColumns().add(newUsernameEmailColumn("ชื่อผู้ใช้/อีเมล"));
         nisitTable.getTableView().getColumns().add(newStatusLatestColumn("สถานะ/ล่าสุด"));
-//        nisitTable.addColumn("รหัสเริ่มต้น","defaultPassword");
         nisitTable.getTableView().getColumns().add(newDeleteColumn());
         nisitTable.addStyleSheet("/ku/cs/styles/department/pages/nisit-management/department-nisit-management-table-stylesheet.css");
 
@@ -277,18 +262,10 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         }else {
             for(User user : filterList.getUsers("student")){
                 if(user.isRole("student")){
-//                System.out.println(">>>> " + user);
                     nisitTableView.getItems().add(user);
                 }
             }
         }
-//        nisitTableView.getSortOrder().clear();
-//        TableColumn nisitedCol = nisitTableView.getColumns().get(1);
-//        nisitedCol.setSortable(true);
-//        nisitTableView.getSortOrder().add(nisitedCol);
-//        nisitedCol.setSortType(TableColumn.SortType.ASCENDING);
-//        nisitTableView.sort();
-//        nisitedCol.setSortable(false);
 
     }
     private void refreshSearchTableData(Collection<User> users){
@@ -323,8 +300,6 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
             setEditorErrorLabel("");
             container.setAlignment(Pos.CENTER);
             container.setPrefHeight(20);
-            //
-//            container.setStyle("-fx-background-color: #fff");
 
             container.getChildren().add(editorErrorLabel);
             children.add(container);
@@ -437,9 +412,6 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                     if(child instanceof TextFieldStack){
                         TextFieldStack t = (TextFieldStack) child;
                         t.toggleTextField(editMode);
-//                        if(i == 0){
-//                            HBox.setMargin(child,new Insets(0,0,0,0));
-//                        }
                     }else if(child instanceof StackPane){
                         child.setVisible(editMode);
                         child.setDisable(!editMode);
@@ -576,7 +548,6 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                     avatar.getImageView().setPreserveRatio(true);
                     avatar.getImageView().setSmooth(true);
                     avatar.setClipImage(50,50);
-//                    setStyle("-fx-background-color: red");
                     setGraphic(avatar.getImageView());//DEFAULT IMAGE
                     Task<Image> loadImageTask = new Task<>() {
                         @Override
@@ -728,10 +699,8 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                     }
                 };
                 Image deleteButtonImage = new Image(getClass().getResourceAsStream("/images/pages/department/global/red-bin.png"));
-//                b.setButtonSize(50,50);
                 b.changeBackgroundRadius(20);
                 b.setImage(deleteButtonImage,35,35);
-//                b.changeText("",20, FontWeight.NORMAL);
             }
             @Override
             protected void updateItem(HBox item, boolean empty) {

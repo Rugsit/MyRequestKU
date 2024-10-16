@@ -204,7 +204,6 @@ public class Theme implements Subject<HashMap<String,String>>{
             Matcher matcher = pattern.matcher(line);
             if (matcher.find()) {
                 double curSize = Double.parseDouble(matcher.group(1));
-//                double newSize = curSize * scaleFactor;
                 double newSize = getCalculatedFontSizePrivate(curSize);
                 line = line.replaceFirst("-fx-font-size:\\s*\\d+(\\.\\d+)?;", String.format("-fx-font-size: %.2f;", newSize));
             }

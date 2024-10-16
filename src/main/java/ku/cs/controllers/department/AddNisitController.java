@@ -237,7 +237,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
 
         for(User user : users.getUsers("student")){
             if(user.isRole("student")){
-//                System.out.println(">>>> " + user);
                 nisitTableView.getItems().add(user);
             }
         }
@@ -370,9 +369,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                     if(child instanceof TextFieldStack){
                         TextFieldStack t = (TextFieldStack) child;
                         t.toggleTextField(editMode);
-//                        if(i == 0){
-//                            HBox.setMargin(child,new Insets(0,0,0,0));
-//                        }
                     }else if(child instanceof StackPane){
                         child.setVisible(editMode);
                         child.setDisable(!editMode);
@@ -515,7 +511,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                                     addDepartment = newValue;
                                 }
                             });
-//                            departmentComboBox.getItems().addAll(departmentList.getDepartments());
                             departmentComboBox.changeBackgroundRadius(10);
                             departmentComboBox.setPromptText("กรุณาเลือกภาควิชา");
 
@@ -848,7 +843,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
             private final HBox hbox = new HBox(actionButton);
             {
                 hbox.setAlignment(Pos.CENTER);
-//                hbox.setPrefSize(35,35);
                 DefaultButton b =new DefaultButton(actionButton,"transparent", "#e0e0e0", "#000000"){
                     @Override
                     protected void handleClickEvent() {
@@ -877,10 +871,8 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                     }
                 };
                 Image deleteButtonImage = new Image(getClass().getResourceAsStream("/images/pages/department/global/red-bin.png"));
-//                b.setButtonSize(50,50);
                 b.changeBackgroundRadius(20);
                 b.setImage(deleteButtonImage,35,35);
-//                b.changeText("",20, FontWeight.NORMAL);
             }
             @Override
             protected void updateItem(HBox item, boolean empty) {
@@ -888,7 +880,6 @@ public class AddNisitController implements Observer<HashMap<String, String>> {
                 if (empty) {
                     setGraphic(null); // No content for empty cells
                 } else {
-//                    setStyle("-fx-background-color: red");
                     setGraphic(hbox); // Set the HBox with the button as the cell's graphic
                 }
             }

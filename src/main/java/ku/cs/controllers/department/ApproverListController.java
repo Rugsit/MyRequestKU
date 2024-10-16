@@ -162,8 +162,6 @@ public class ApproverListController implements Observer<HashMap<String, String>>
         tableHeaderHBox.setSpacing(20);
     }
     private void initImageEditorVBox(){
-//        imageEditorVBox.setStyle("-fx-spacing: 5px;");
-//        imageEditorVBox.setPadding(new Insets(0,0,0,0));
         imageEditorVBox.setSpacing(5);
         approverNameLabel.setPadding(new Insets(15,0,0,0));
     }
