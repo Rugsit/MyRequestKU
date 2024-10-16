@@ -161,16 +161,10 @@ public class ApproverListFileDatasource implements Datasource<ApproverList> {
         String lastName = approverData[8];
         Approver approver = null;
         try {
-            if (selectedApprover instanceof FacultyApprover) {
+            if (selectedApprover.getTier().equals(ApproverTiers.FACULTY.toString())) {
                 status = "รอคณะดำเนินการ";
-                approver = new FacultyApprover(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
-            } else if (selectedApprover instanceof DepartmentApprover) {
-                approver = new DepartmentApprover(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
-            } else if (selectedApprover instanceof AdvisorApprover) {
-                approver = new AdvisorApprover(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
-            } else {
-                approver = new OtherApprover(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
             }
+            approver = new Approver(uuid, requestUuid, tier, associateUUID, role, status, signatureFile, firstName, lastName);
         } catch (ApproverException e) {
             throw new RuntimeException(e);
         }
