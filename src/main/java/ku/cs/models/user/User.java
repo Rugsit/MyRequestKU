@@ -161,7 +161,7 @@ public abstract class User implements Identifiable, Comparable<User> {
         if(!isAlphaNumberic(id)) throw new IDException("รหัสหรือไอดีต้องเป็นตัวอักษรและตัวเลข");
 
         if(check){
-            checkUserListFileDatasource = new UserListFileDatasource("data","users.csv");
+            checkUserListFileDatasource = new UserListFileDatasource("data","student.csv");
             checkUserList = checkUserListFileDatasource.readAllUser();
             if(id != "0000000000" && id !=  "no-id"){
                 User exitUser = checkUserList.findUserById(id);
@@ -185,7 +185,7 @@ public abstract class User implements Identifiable, Comparable<User> {
         if(username.length() > 30) throw new UsernameException("ชื่อผู้ใช้งานต้องมีน้อยกว่าหรือเท่ากับ 30 ตัวอักษร");
 
         if(check){
-            checkUserListFileDatasource = new UserListFileDatasource("data","users.csv");
+            checkUserListFileDatasource = new UserListFileDatasource("data","student.csv");
             checkUserList = checkUserListFileDatasource.readAllUser();
             if(username != "no-username"){
                 User exitUser = checkUserList.findUserByUsername(username);
