@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -209,10 +210,11 @@ public class StudentRequestsController {
                     errorGeneralRequestFormController.setErrorMessage(e.getMessage());
                     ErrorGeneralRequestFormController controller = fxmlLoader.getController();
                     controller.setStage(this.currentErrorStage);
-                    scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                     currentErrorStage.setScene(scene);
                     currentErrorStage.initModality(Modality.APPLICATION_MODAL);
-                    currentErrorStage.setTitle("Error");
+                    currentErrorStage.setTitle("เกิดข้อผิดพลาด");
+                    currentErrorStage.setResizable(false);
+                    addImageToPopup(currentErrorStage);
                     currentErrorStage.show();
                 }
             } catch (IOException ee) {
@@ -250,5 +252,15 @@ public class StudentRequestsController {
 
         requestListTableView.getItems().clear();
         requestListTableView.getItems().addAll(filter);
+    }
+
+    private void addImageToPopup(Stage currentPopupStage) {
+        Image logo16 = new Image(getClass().getResourceAsStream("/images/logos/application-logo16x16.png"));
+        Image logo32 = new Image(getClass().getResourceAsStream("/images/logos/application-logo32x32.png"));
+        Image logo48 = new Image(getClass().getResourceAsStream("/images/logos/application-logo48x48.png"));
+        Image logo64 = new Image(getClass().getResourceAsStream("/images/logos/application-logo64x64.png"));
+        Image logo128 = new Image(getClass().getResourceAsStream("/images/logos/application-logo128x128.png"));
+        Image logo500 = new Image(getClass().getResourceAsStream("/images/logos/application-logo500x500.png"));
+        currentPopupStage.getIcons().addAll(logo16, logo32, logo48, logo64, logo128, logo500);
     }
 }

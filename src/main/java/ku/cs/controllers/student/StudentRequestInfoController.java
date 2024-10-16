@@ -228,6 +228,7 @@ public class StudentRequestInfoController {
             controller.setRequest(request);
             controller.setBorderPane(borderPane);
             controller.setBackPage(backPage);
+            controller.setAdvisorPageController(advisorPageController);
             controller.initializeMainInformation();
             if (request instanceof GeneralRequestForm) {
                 controller.setTitleLabel("ใบคำร้องทั่วไป");
@@ -263,7 +264,6 @@ public class StudentRequestInfoController {
             notApproveController.setRequest(request);
             notApproveController.setStage(currentNotApprove);
             notApproveController.setBorderPane(borderPane);
-            scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
             currentNotApprove.setScene(scene);
             currentNotApprove.initModality(Modality.APPLICATION_MODAL);
             currentNotApprove.setTitle("Not Approve");
@@ -316,11 +316,11 @@ public class StudentRequestInfoController {
         Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
             @Override
             public String getThemeDarkPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+                return getClass().getResource("/ku/cs/styles/general-dark.css").toString();
             }
             @Override
             public String getThemeLightPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+                return getClass().getResource("/ku/cs/styles/general.css").toString();
             }
         });
     }

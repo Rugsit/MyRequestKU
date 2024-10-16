@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="382.0" prefWidth="458.0" styleClass="root" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.SettingController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="382.0" prefWidth="458.0" styleClass="root" stylesheets="@../styles/general.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.SettingController">
    <children>
       <Label layoutX="24.0" layoutY="14.0" prefHeight="90.0" prefWidth="153.0" text="ตั้งค่า">
          <font>
@@ -46,7 +46,28 @@
          <children>
             <VBox>
                <children>
-                  <Label styleClass="medium-font-size" text="ขนาดฟ้อน">
+                  <Label styleClass="medium-font-size" text="ฟอนต์">
+                     <font>
+                        <Font name="PrintAble4U Bold" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="fontChoiceBox" prefHeight="50.0" prefWidth="200.0">
+                     <styleClass>
+                        <String fx:value="choice-box-select" />
+                        <String fx:value="semi-medium-font-size" />
+                     </styleClass>
+                  </ChoiceBox>
+               </children>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label styleClass="medium-font-size" text="ขนาดฟอนต์">
                      <font>
                         <Font name="PrintAble4U Bold" size="24.0" />
                      </font>
@@ -65,26 +86,8 @@
                   </ChoiceBox>
                </children>
                <HBox.margin>
-                  <Insets right="20.0" />
+                  <Insets />
                </HBox.margin>
-            </VBox>
-            <VBox>
-               <children>
-                  <Label styleClass="medium-font-size" text="ฟ้อน">
-                     <font>
-                        <Font name="PrintAble4U Bold" size="24.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="fontChoiceBox" prefHeight="50.0" prefWidth="200.0">
-                     <styleClass>
-                        <String fx:value="choice-box-select" />
-                        <String fx:value="semi-medium-font-size" />
-                     </styleClass>
-                  </ChoiceBox>
-               </children>
             </VBox>
          </children>
       </HBox>

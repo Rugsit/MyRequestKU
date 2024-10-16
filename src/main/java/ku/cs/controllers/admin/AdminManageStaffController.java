@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -206,7 +207,9 @@ public class AdminManageStaffController {
                 controller.setCurrentControllPage(this);
                 currentPopupStage.setScene(scene);
                 currentPopupStage.initModality(Modality.APPLICATION_MODAL);
-                currentPopupStage.setTitle("Confirm");
+                currentPopupStage.setTitle("แก้ไขข้อมูล");
+                currentPopupStage.setResizable(false);
+                addImageToPopup(currentPopupStage);
                 currentPopupStage.show();
             }
         } catch (IOException ee) {
@@ -234,41 +237,15 @@ public class AdminManageStaffController {
                 controller.setCurrentControllpage(this);
                 controller.setRole(addStaffRole);
                 controller.setChoiceBox();
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentPopupStage.setScene(scene);
                 currentPopupStage.initModality(Modality.APPLICATION_MODAL);
-                currentPopupStage.setTitle("Confirm");
+                currentPopupStage.setTitle("เพิ่มข้อมูล");
+                currentPopupStage.setResizable(false);
+                addImageToPopup(currentPopupStage);
                 currentPopupStage.show();
             }
         } catch (IOException ee) {
             System.err.println(Arrays.toString(ee.getStackTrace()));
-        }
-    }
-
-    @FXML
-    protected void goToAdminManageUsers() {
-        try {
-            FXRouter.goTo("admin-manage-users", loginUser);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    protected void goToAdminManageFaculty() {
-        try {
-            FXRouter.goTo("admin-manage-faculty-department", loginUser);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    protected void goToUserProfile() {
-        try {
-            FXRouter.goTo("admin-user-profile", loginUser);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -279,5 +256,15 @@ public class AdminManageStaffController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void addImageToPopup(Stage currentPopupStage) {
+        Image logo16 = new Image(getClass().getResourceAsStream("/images/logos/application-logo16x16.png"));
+        Image logo32 = new Image(getClass().getResourceAsStream("/images/logos/application-logo32x32.png"));
+        Image logo48 = new Image(getClass().getResourceAsStream("/images/logos/application-logo48x48.png"));
+        Image logo64 = new Image(getClass().getResourceAsStream("/images/logos/application-logo64x64.png"));
+        Image logo128 = new Image(getClass().getResourceAsStream("/images/logos/application-logo128x128.png"));
+        Image logo500 = new Image(getClass().getResourceAsStream("/images/logos/application-logo500x500.png"));
+        currentPopupStage.getIcons().addAll(logo16, logo32, logo48, logo64, logo128, logo500);
     }
 }

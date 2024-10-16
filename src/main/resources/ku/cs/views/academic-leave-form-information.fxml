@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -275,42 +276,42 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </HBox>
-            <HBox fx:id="haveRegisterHBox" alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="200.0">
-               <children>
-                  <RadioButton fx:id="registerRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ข้าพเจ้าได้มีการลงทะเบียนเรียนไว้ในภาค">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="registerFirstSemester" mnemonicParsing="false" styleClass="medium-font-size" text="ต้น">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="group22" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="registerSecondSemester" mnemonicParsing="false" styleClass="medium-font-size" text="ปลาย" toggleGroup="$group22">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </RadioButton>
-                  <Label styleClass="medium-font-size" text="ปีการศึกษา (พ.ศ.)">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="registerYearTextField" prefHeight="34.0" prefWidth="150.0" styleClass="medium-font-size">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Label styleClass="medium-font-size" text="ดังนี้" />
-               </children>
+            <FlowPane fx:id="haveRegisterHBox">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
-            </HBox>
+               <children>
+                  <RadioButton fx:id="registerRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ข้าพเจ้าได้มีการลงทะเบียนเรียนไว้ในภาค">
+                     <FlowPane.margin>
+                        <Insets right="20.0" />
+                     </FlowPane.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="registerFirstSemester" mnemonicParsing="false" styleClass="medium-font-size" text="ต้น">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="group22" />
+                     </toggleGroup>
+                     <FlowPane.margin>
+                        <Insets right="10.0" />
+                     </FlowPane.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="registerSecondSemester" mnemonicParsing="false" styleClass="medium-font-size" text="ปลาย" toggleGroup="$group22">
+                     <FlowPane.margin>
+                        <Insets right="20.0" />
+                     </FlowPane.margin>
+                  </RadioButton>
+                  <Label styleClass="medium-font-size" text="ปีการศึกษา (พ.ศ.)">
+                     <FlowPane.margin>
+                        <Insets right="10.0" />
+                     </FlowPane.margin>
+                  </Label>
+                  <TextField fx:id="registerYearTextField" prefHeight="34.0" prefWidth="150.0" styleClass="medium-font-size">
+                     <FlowPane.margin>
+                        <Insets right="10.0" />
+                     </FlowPane.margin>
+                  </TextField>
+                  <Label styleClass="medium-font-size" text="ดังนี้" />
+               </children>
+            </FlowPane>
          </children>
       </VBox>
       <GridPane>

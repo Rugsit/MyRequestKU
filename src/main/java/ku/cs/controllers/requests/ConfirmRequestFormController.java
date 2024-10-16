@@ -8,7 +8,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.request.*;
-import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.request.approver.exception.ApproverException;
 import ku.cs.models.user.Advisor;
@@ -19,10 +18,6 @@ import ku.cs.services.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class ConfirmRequestFormController {
     private Datasource<RequestList> datasource;
@@ -141,11 +136,11 @@ public class ConfirmRequestFormController {
         Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
             @Override
             public String getThemeDarkPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+                return getClass().getResource("/ku/cs/styles/general-dark.css").toString();
             }
             @Override
             public String getThemeLightPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+                return getClass().getResource("/ku/cs/styles/general.css").toString();
             }
         });
     }

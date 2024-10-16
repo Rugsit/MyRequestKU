@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -140,6 +140,7 @@ public class MainInformationController {
             Pane pane = fxmlLoader.load();
             StudentRequestInfoController controller = fxmlLoader.getController();
             controller.setLoginUser((Student) loginUser);
+            controller.setAdvisorPageController(advisorPageController);
             controller.setRequest(request);
             controller.setBackPage(destination);
             controller.initialize();
@@ -281,10 +282,11 @@ public class MainInformationController {
                 notApproveController.setStage(currentNotApprove);
                 notApproveController.setAdvisorPageController(advisorPageController);
                 notApproveController.setBorderPane(borderPane);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentNotApprove.setScene(scene);
                 currentNotApprove.initModality(Modality.APPLICATION_MODAL);
-                currentNotApprove.setTitle("Not Approve");
+                currentNotApprove.setResizable(false);
+                currentNotApprove.setTitle("ไม่อนุมัติคำร้อง");
+                addImageToPopup(currentNotApprove);
                 currentNotApprove.show();
             }
     }
@@ -301,12 +303,22 @@ public class MainInformationController {
         Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
             @Override
             public String getThemeDarkPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+                return getClass().getResource("/ku/cs/styles/general-dark.css").toString();
             }
             @Override
             public String getThemeLightPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+                return getClass().getResource("/ku/cs/styles/general.css").toString();
             }
         });
+    }
+
+    private void addImageToPopup(Stage currentPopupStage) {
+        Image logo16 = new Image(getClass().getResourceAsStream("/images/logos/application-logo16x16.png"));
+        Image logo32 = new Image(getClass().getResourceAsStream("/images/logos/application-logo32x32.png"));
+        Image logo48 = new Image(getClass().getResourceAsStream("/images/logos/application-logo48x48.png"));
+        Image logo64 = new Image(getClass().getResourceAsStream("/images/logos/application-logo64x64.png"));
+        Image logo128 = new Image(getClass().getResourceAsStream("/images/logos/application-logo128x128.png"));
+        Image logo500 = new Image(getClass().getResourceAsStream("/images/logos/application-logo500x500.png"));
+        currentPopupStage.getIcons().addAll(logo16, logo32, logo48, logo64, logo128, logo500);
     }
 }

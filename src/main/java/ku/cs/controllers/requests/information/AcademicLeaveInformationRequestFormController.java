@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import ku.cs.controllers.advisor.AdvisorRequestsController;
 import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.controllers.student.StudentRequestsController;
@@ -95,7 +92,7 @@ public class AcademicLeaveInformationRequestFormController {
     @FXML
     private Label updateDateTextField;
     @FXML
-    private HBox haveRegisterHBox;
+    private FlowPane haveRegisterHBox;
 
     public void showData() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");

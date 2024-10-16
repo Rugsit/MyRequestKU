@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="560.0" styleClass="root-popup" stylesheets="@../styles/admin-page-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.approver.AddApproverController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="560.0" styleClass="root-popup" stylesheets="@../styles/general.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.approver.AddApproverController">
    <children>
       <Label fx:id="titleLabel" layoutX="45.0" layoutY="14.0" prefHeight="90.0" prefWidth="451.0" text="เพิ่มรายชื่อผู้อนุมัติ (คณะ)">
          <font>

@@ -3,20 +3,17 @@ package ku.cs.controllers.requests;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.models.request.RegisterRequestForm;
 import ku.cs.models.user.User;
 import ku.cs.services.SetTransition;
+import ku.cs.services.ShowPopupRequest;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class RegisterRequestFormController {
     User loginUser;
@@ -264,24 +261,7 @@ public class RegisterRequestFormController {
 
     @FXML
     private void showErrorPopup(IllegalArgumentException ee) {
-        try {
-            if (currentErrorStage == null || !currentErrorStage.isShowing()) {
-                currentErrorStage = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/error-page.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                ErrorGeneralRequestFormController errorGeneralRequestFormController = fxmlLoader.getController();
-                errorGeneralRequestFormController.setErrorMessage(ee.getMessage());
-                ErrorGeneralRequestFormController controller = fxmlLoader.getController();
-                controller.setStage(this.currentErrorStage);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
-                currentErrorStage.setScene(scene);
-                currentErrorStage.initModality(Modality.APPLICATION_MODAL);
-                currentErrorStage.setTitle("Error");
-                currentErrorStage.show();
-            }
-        } catch (IOException eee) {
-            System.err.println("Error: " + eee.getMessage());
-        }
+        ShowPopupRequest.showErrorPopup(ee.getMessage());
     }
 
     private RegisterRequestForm createRegisterForm() {
@@ -289,26 +269,7 @@ public class RegisterRequestFormController {
     }
 
     private void showConfirmPane(RegisterRequestForm registerRequestForm) {
-        try {
-            if (currentConfirmStage == null || !currentConfirmStage.isShowing()) {
-                currentConfirmStage = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/confirm-page.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-
-                ConfirmRequestFormController controller = fxmlLoader.getController();
-                controller.setStage(this.currentConfirmStage);
-                controller.setBorderPane(this.borderPane);
-                controller.setRequestForm(registerRequestForm);
-                controller.setLoginUser(loginUser);
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
-                currentConfirmStage.setScene(scene);
-                currentConfirmStage.initModality(Modality.APPLICATION_MODAL);
-                currentConfirmStage.setTitle("Confirm");
-                currentConfirmStage.show();
-            }
-        } catch (IOException ee) {
-            System.err.println("Error: " + ee.getMessage());
-        }
+        ShowPopupRequest.showConfirmPopup(this.borderPane, registerRequestForm, null, loginUser);
     }
 
     private void goToKU3Form(RegisterRequestForm registerRequestForm) {

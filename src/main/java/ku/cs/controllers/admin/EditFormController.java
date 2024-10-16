@@ -168,7 +168,7 @@ public class EditFormController implements ChangeThemeController {
         lastNameTextField.setText(currentUser.getLastname());
         userNameLabel.setText(currentUser.getUsername());
         userNameTextField.setText(currentUser.getUsername());
-        startPasswordTextField.setText("DEFAULT");
+        startPasswordTextField.setText(currentUser.getDefaultPassword());
         startPasswordLabel.setText(currentUser.getDefaultPassword());
         if (currentUser instanceof DepartmentUser) {
             departmentLabel.setText(((DepartmentUser)currentUser).getDepartment());
@@ -244,7 +244,7 @@ public class EditFormController implements ChangeThemeController {
                 currentUser.setLastname(lastNameTextField.getText());
                 currentUser.setUsername(userNameTextField.getText());
                 if (startPasswordTextField.getText().isEmpty()) {
-                    currentUser.setDefaultPassword("DEFAULT");
+                    currentUser.setDefaultPassword(currentUser.getDefaultPassword());
                 } else {
                     currentUser.setDefaultPassword(startPasswordTextField.getText());
                 }
@@ -309,11 +309,11 @@ public class EditFormController implements ChangeThemeController {
         Theme.getInstance().loadCssToPage(anchorPane, new PathGenerator() {
             @Override
             public String getThemeDarkPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+                return getClass().getResource("/ku/cs/styles/general-dark.css").toString();
             }
             @Override
             public String getThemeLightPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+                return getClass().getResource("/ku/cs/styles/general.css").toString();
             }
         });
     }
