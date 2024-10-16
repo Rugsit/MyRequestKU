@@ -1,6 +1,5 @@
 package ku.cs.controllers;
 
-import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,14 +10,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.transform.Translate;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import ku.cs.models.Session;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
-import ku.cs.models.user.exceptions.DateException;
 import ku.cs.services.Authentication;
 import ku.cs.services.SetTransition;
 import ku.cs.services.UserListFileDatasource;
@@ -28,22 +24,14 @@ import ku.cs.services.FXRouter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
-import java.util.Stack;
 
 public class LoginController {
     @FXML private TextField userNameTextField;
     @FXML private TextField passwordTextField;
     @FXML private Label errorLabel;
-    @FXML private Button selectAdminRoleButton;
-    @FXML private Button selectFacultyStaffRoleButton;
-    @FXML private Button selectDepartmentStaffRoleButton;
-    @FXML private Button selectAdviserRoleButton;
-    @FXML private Button selectStudentRoleButton;
     @FXML private Label aboutUsLabel;
     @FXML private Stage currentPopupStage;
     @FXML private ImageView backgroundImageView;
-    @FXML private ImageView nextBackgroundImageView;
     @FXML private Button loginButton;
 
     private Authentication authController;
