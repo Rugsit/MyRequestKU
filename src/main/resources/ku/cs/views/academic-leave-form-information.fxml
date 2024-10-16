@@ -276,7 +276,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </HBox>
-            <FlowPane>
+            <FlowPane fx:id="haveRegisterHBox">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>

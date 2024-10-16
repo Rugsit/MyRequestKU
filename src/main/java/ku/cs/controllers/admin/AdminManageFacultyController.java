@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -212,10 +213,11 @@ public class AdminManageFacultyController {
                 controller.showOldFacultyDepartmentData();
                 controller.setCurrentControllPage(this);
                 controller.setChoiceBox();
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
                 currentPopupStage.setScene(scene);
                 currentPopupStage.initModality(Modality.APPLICATION_MODAL);
-                currentPopupStage.setTitle("Confirm");
+                currentPopupStage.setResizable(false);
+                currentPopupStage.setTitle("แก้ไขข้อมูล");
+                addImageToPopup(currentPopupStage);
                 currentPopupStage.show();
             }
         } catch (IOException ee) {
@@ -232,23 +234,22 @@ public class AdminManageFacultyController {
         Tab tab = tabpane.getSelectionModel().getSelectedItem();
         String addFacultyDepartment = tab == facultyTab ? "faculty" : "department";
         try {
-            if (currentPopupStage == null || !currentPopupStage.isShowing()) {
-                currentPopupStage = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/add-" + addFacultyDepartment + ".fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
+            currentPopupStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ku/cs/views/add-" + addFacultyDepartment + ".fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
 
-                AddFormController controller = fxmlLoader.getController();
-                controller.setStage(currentPopupStage);
-                if (addFacultyDepartment.equals("faculty")) controller.setListForWrite(facultyList);
-                else controller.setListForWrite(departmentList);
-                controller.setCurrentControllpage(this);
-                controller.setChoiceBox();
-                scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
-                currentPopupStage.setScene(scene);
-                currentPopupStage.initModality(Modality.APPLICATION_MODAL);
-                currentPopupStage.setTitle("Confirm");
-                currentPopupStage.show();
-            }
+            AddFormController controller = fxmlLoader.getController();
+            controller.setStage(currentPopupStage);
+            if (addFacultyDepartment.equals("faculty")) controller.setListForWrite(facultyList);
+            else controller.setListForWrite(departmentList);
+            controller.setCurrentControllpage(this);
+            controller.setChoiceBox();
+            currentPopupStage.setScene(scene);
+            currentPopupStage.initModality(Modality.APPLICATION_MODAL);
+            currentPopupStage.setResizable(false);
+            currentPopupStage.setTitle("เพิ่มข้อมูล");
+            addImageToPopup(currentPopupStage);
+            currentPopupStage.show();
         } catch (IOException ee) {
             System.err.println("Error: " + ee.getMessage());
         }
@@ -261,5 +262,15 @@ public class AdminManageFacultyController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void addImageToPopup(Stage currentPopupStage) {
+        Image logo16 = new Image(getClass().getResourceAsStream("/images/logos/application-logo16x16.png"));
+        Image logo32 = new Image(getClass().getResourceAsStream("/images/logos/application-logo32x32.png"));
+        Image logo48 = new Image(getClass().getResourceAsStream("/images/logos/application-logo48x48.png"));
+        Image logo64 = new Image(getClass().getResourceAsStream("/images/logos/application-logo64x64.png"));
+        Image logo128 = new Image(getClass().getResourceAsStream("/images/logos/application-logo128x128.png"));
+        Image logo500 = new Image(getClass().getResourceAsStream("/images/logos/application-logo500x500.png"));
+        currentPopupStage.getIcons().addAll(logo16, logo32, logo48, logo64, logo128, logo500);
     }
 }

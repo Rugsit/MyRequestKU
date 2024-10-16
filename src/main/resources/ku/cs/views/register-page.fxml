@@ -23,11 +23,6 @@
       </ImageView>
       <HBox layoutX="123.0" layoutY="24.0" styleClass="hbox-container-login">
          <children>
-            <ImageView fitHeight="698.0" fitWidth="581.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/logos/login-register-ku.png" />
-               </image>
-            </ImageView>
             <VBox>
                <children>
                   <Label text="สร้างบัญชีผู้ใช้">
@@ -118,6 +113,11 @@
                   </Button>
                </children>
             </VBox>
+            <ImageView fitHeight="698.0" fitWidth="581.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/logos/login-register-ku.png" />
+               </image>
+            </ImageView>
          </children>
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

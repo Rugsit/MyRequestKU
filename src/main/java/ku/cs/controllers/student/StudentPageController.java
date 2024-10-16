@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -131,13 +132,13 @@ public class StudentPageController implements ParentController {
             SettingController controller = fxmlLoader.getController();
             controller.setMainAnchorPane(mainAnchorPane);
             controller.setStage(currentPopupStage);
-            controller.setMainCSS(getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString()
-                    , getClass().getResource("/ku/cs/styles/admin-page-style.css").toString());
+            controller.setMainCSS(getClass().getResource("/ku/cs/styles/general-dark.css").toString()
+                    , getClass().getResource("/ku/cs/styles/general.css").toString());
 
-            scene.getStylesheets().add(getClass().getResource("/ku/cs/styles/error-confirm-edit-page-style.css").toExternalForm());
             currentPopupStage.setScene(scene);
             currentPopupStage.initModality(Modality.APPLICATION_MODAL);
-            currentPopupStage.setTitle("Setting");
+            currentPopupStage.setTitle("ตั้งค่า");
+            addImageToPopup(currentPopupStage);
             currentPopupStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -148,12 +149,22 @@ public class StudentPageController implements ParentController {
         Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
             @Override
             public String getThemeDarkPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+                return getClass().getResource("/ku/cs/styles/general-dark.css").toString();
             }
             @Override
             public String getThemeLightPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+                return getClass().getResource("/ku/cs/styles/general.css").toString();
             }
         });
+    }
+
+    private void addImageToPopup(Stage currentPopupStage) {
+        Image logo16 = new Image(getClass().getResourceAsStream("/images/logos/application-logo16x16.png"));
+        Image logo32 = new Image(getClass().getResourceAsStream("/images/logos/application-logo32x32.png"));
+        Image logo48 = new Image(getClass().getResourceAsStream("/images/logos/application-logo48x48.png"));
+        Image logo64 = new Image(getClass().getResourceAsStream("/images/logos/application-logo64x64.png"));
+        Image logo128 = new Image(getClass().getResourceAsStream("/images/logos/application-logo128x128.png"));
+        Image logo500 = new Image(getClass().getResourceAsStream("/images/logos/application-logo500x500.png"));
+        currentPopupStage.getIcons().addAll(logo16, logo32, logo48, logo64, logo128, logo500);
     }
 }

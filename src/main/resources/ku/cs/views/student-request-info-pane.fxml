@@ -42,7 +42,7 @@
             <String fx:value="semi-medium-font-size" />
          </styleClass>
       </Button>
-      <Button fx:id="backButton" layoutX="910.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#onBackButtonClick" styleClass="back-button">
+      <Button fx:id="backButton" layoutX="910.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#onBackButtonClick" styleClass="back-button">
          <graphic>
             <ImageView fx:id="backImageView" fitHeight="50.0" fitWidth="45.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" styleClass="back-button">
                <image>
@@ -53,6 +53,9 @@
                </cursor>
             </ImageView>
          </graphic>
+         <padding>
+            <Insets bottom="5.0" left="7.0" right="7.0" top="5.0" />
+         </padding>
       </Button>
       <GridPane hgap="70.0" layoutX="29.0" layoutY="81.0" vgap="10.0">
         <columnConstraints>

@@ -14,7 +14,6 @@ import ku.cs.models.request.approver.FacultyApprover;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.PathGenerator;
 import ku.cs.services.Theme;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -166,11 +165,11 @@ public class EditApproverController {
         Theme.getInstance().loadCssToPage(anchorPane, new PathGenerator() {
             @Override
             public String getThemeDarkPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+                return getClass().getResource("/ku/cs/styles/general-dark.css").toString();
             }
             @Override
             public String getThemeLightPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+                return getClass().getResource("/ku/cs/styles/general.css").toString();
             }
         });
     }

@@ -33,7 +33,7 @@
             <String fx:value="confirm-desc" />
             <String fx:value="medium-font-size" />
          </styleClass></Label>
-      <GridPane layoutY="216.0" prefHeight="58.0" prefWidth="600.0">
+      <GridPane layoutY="216.0" maxHeight="38.4" prefHeight="58.0" prefWidth="600.0">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -42,12 +42,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button graphicTextGap="15.0" mnemonicParsing="false" onAction="#onConfirmClick" text="ตกลง" GridPane.columnIndex="1">
+            <Button graphicTextGap="15.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="38.4" text="ตกลง" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="27.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/icons/create-icon.png" />
                      </image>
@@ -58,7 +58,7 @@
                   <String fx:value="medium-font-size" />
                </styleClass>
             </Button>
-            <Button graphicTextGap="15.0" mnemonicParsing="false" onAction="#onEditClick" text="แก้ไข">
+            <Button graphicTextGap="15.0" maxHeight="38.4" mnemonicParsing="false" onAction="#onEditClick" prefHeight="38.4" text="แก้ไข">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>

@@ -69,7 +69,7 @@ public class UserProfileCardController{
 
         Platform.runLater(() -> {
             List<String> styleListString = anchorPane.getParent().getScene().getRoot().getStylesheets();
-            if (styleListString.isEmpty() || !styleListString.getFirst().contains("admin")) {
+            if (styleListString.isEmpty() || !styleListString.getFirst().contains("general")) {
                 updateStyle();
             }
         });
@@ -356,11 +356,11 @@ public class UserProfileCardController{
         Theme.getInstance().loadCssToPage(anchorPane, new PathGenerator() {
             @Override
             public String getThemeDarkPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style-dark.css").toString();
+                return getClass().getResource("/ku/cs/styles/general-dark.css").toString();
             }
             @Override
             public String getThemeLightPath() {
-                return getClass().getResource("/ku/cs/styles/admin-page-style.css").toString();
+                return getClass().getResource("/ku/cs/styles/general.css").toString();
             }
         });
     }
