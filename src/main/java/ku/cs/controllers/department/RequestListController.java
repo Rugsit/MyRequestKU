@@ -36,11 +36,6 @@ public class RequestListController implements Observer<HashMap<String, String>> 
     private UserListFileDatasource userDatasource;
     private UserList userList;
 
-    private final String BASE_COLOR = "#FFFFFF";
-    private final String HOVER_COLOR = "#a6a6a6";
-    private final String BASE_LABEL_COLOR = DefaultLabel.DEFAULT_LABEL_COLOR;
-    private final String DEFAULT_FONT = DefaultLabel.DEFAULT_FONT;
-    private final String FALLBACK_FONT = DefaultLabel.FALLBACK_FONT;
     private Session session;
     private Theme theme = Theme.getInstance();
     @FXML private Button switchThemeButton;
@@ -339,10 +334,6 @@ public class RequestListController implements Observer<HashMap<String, String>> 
             }
         });
         return column;
-    }
-    @FXML
-    private void goToSetting() {
-        
     }
 
     @Override

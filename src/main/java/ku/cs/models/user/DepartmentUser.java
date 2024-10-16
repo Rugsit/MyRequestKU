@@ -2,11 +2,8 @@ package ku.cs.models.user;
 
 import ku.cs.models.department.Department;
 import ku.cs.models.department.DepartmentList;
-import ku.cs.models.faculty.Faculty;
-import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.DepartmentListFileDatasource;
-import ku.cs.services.FacultyListFileDatasource;
 
 import java.util.UUID;
 
@@ -87,9 +84,6 @@ public class DepartmentUser extends FacultyUser {
             e.printStackTrace();
         }
     }
-//    private boolean isValidDepartment(String department){
-//        return true; //WAITING...
-//    }
     @Override
     public String toString() {
         return super.toString() + "," + department.toString();

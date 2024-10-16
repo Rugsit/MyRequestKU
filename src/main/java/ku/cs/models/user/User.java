@@ -3,12 +3,10 @@ package ku.cs.models.user;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import ku.cs.models.user.exceptions.*;
 import ku.cs.services.UserListFileDatasource;
-
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Random;
 import java.util.UUID;
-
 import static ku.cs.services.utils.DateTools.localDateTimeToFormatString;
 import static ku.cs.services.utils.DateTools.formatToLocalDateTime;
 import static ku.cs.services.utils.StringCompare.*;

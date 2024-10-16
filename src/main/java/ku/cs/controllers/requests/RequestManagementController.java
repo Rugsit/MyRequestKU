@@ -50,7 +50,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
     @FXML private HBox requestMenuHBox;
     private TableView<Approver> requestApproverTableView;
     private DefaultTableView<Approver> tableView;
-    @FXML private VBox mainEditorVBox;
     @FXML private VBox statusVBox;
     @FXML private VBox editorVBox;
     private DefaultLabel reqType,reqNisitId,reqName,reqCreateTime,reqTimestamp;
@@ -638,7 +637,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                 }
                 if(a.getStatus().equals("ไม่อนุมัติ"))haveReject = true;
             }
-            System.out.println(haveReject);
             //ADD APPROVER TO TABLE
             for(Approver a : filterApproverList.getApprovers()){
 
@@ -768,7 +766,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                     protected void handleClickEvent() {
                         button.setOnMouseClicked(e -> {
                             Approver approver = getTableView().getItems().get(getIndex());
-                            System.out.println("EDIT CLICK : " + approver.getName());
                             String popUpPath = "/ku/cs/views/edit-approver-pane.fxml";
                             try {
                                 if (currentPopupStage == null || !currentPopupStage.isShowing()) {
@@ -815,7 +812,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                     protected void handleClickEvent() {
                         button.setOnMouseClicked(e -> {
                             Approver approver = getTableView().getItems().get(getIndex());
-                            System.out.println("Signature CLICK : " + approver.getName());
                             onSignatureImageView(approver);
                         });
                     }
@@ -830,7 +826,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                     protected void handleClickEvent() {
                         button.setOnMouseClicked(e -> {
                             Approver approver = getTableView().getItems().get(getIndex());
-                            System.out.println("Approve CLICK : " + approver.getName());
                             onApproveApprover(approver);
                         });
                     }
@@ -1138,7 +1133,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
     private void initEditThisTier(){
         String approverStatus = selectedApprover.getStatus();
-        String statusImageFileName = "editor-approver-fallback.png";
         if (session.getUser() instanceof DepartmentUser) {
             switch (approverStatus){
                 case "รอภาควิชาดำเนินการ", "รออัปโหลด":
@@ -1168,7 +1162,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
 
     private void initEditThisTierException(String error){
-        String approverStatus = selectedApprover.getStatus();
         String statusImageFileName = "approver-reject-red-x.png";
         editorVBox.setAlignment(Pos.CENTER);
         editorVBox.setSpacing(15);
@@ -1564,7 +1557,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
 
     private void initEditFaculty(){
         String approverStatus = selectedApprover.getStatus();
-        String statusImageFileName = "editor-approver-fallback.png";
         switch (approverStatus){
             case "รอส่งคณะ":
                 initEditFacultyWaitForSend();
@@ -1693,7 +1685,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             @Override
             protected void handleAcceptButton(){
                 getAcceptButton().setOnMouseClicked(e -> {
-                    System.out.println("Accept button clicked");
                     onApproveApproverConfirm(approver);
                     mainStackPane.getChildren().removeLast();
                 });
@@ -1701,7 +1692,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             @Override
             protected void handleDeclineButton(){
                 getDeclineButton().setOnMouseClicked(e -> {
-                    System.out.println("Decline button clicked");
                     mainStackPane.getChildren().removeLast();
                 });
             }
@@ -1777,7 +1767,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                 @Override
                 protected void handleAcceptButton(){
                     getAcceptButton().setOnMouseClicked(e -> {
-                        System.out.println("Accept button clicked");
                         onSendToFacultyConfirm();
                         mainStackPane.getChildren().removeLast();
                     });
@@ -1785,7 +1774,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                 @Override
                 protected void handleDeclineButton(){
                     getDeclineButton().setOnMouseClicked(e -> {
-                        System.out.println("Decline button clicked");
                         mainStackPane.getChildren().removeLast();
                     });
                 }
@@ -1835,7 +1823,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                 @Override
                 protected void handleAcceptButton(){
                     getAcceptButton().setOnMouseClicked(e -> {
-                        System.out.println("Accept button clicked");
                         onRequestApproveConfirm();
                         mainStackPane.getChildren().removeLast();
                     });
@@ -1843,7 +1830,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                 @Override
                 protected void handleDeclineButton(){
                     getDeclineButton().setOnMouseClicked(e -> {
-                        System.out.println("Decline button clicked");
                         mainStackPane.getChildren().removeLast();
                     });
                 }

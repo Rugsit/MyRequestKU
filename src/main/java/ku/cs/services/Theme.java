@@ -13,7 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Theme implements Subject<HashMap<String,String>>{
-    private static Theme instance;
     private static Theme theme;
     private HashMap<String,String> themeList;
     private ArrayList<Observer> observers;
