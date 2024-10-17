@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="658.0" styleClass="root" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.information.NotApproveController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="658.0" styleClass="root-popup" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.information.NotApproveController">
    <children>
       <Label fx:id="headerNotApprove" layoutX="29.0" layoutY="14.0" prefHeight="90.0" prefWidth="600.0" text="กรุณากรอกเหตุผลที่ปฏิเสธคำร้อง" textAlignment="CENTER">
          <font>
@@ -44,5 +44,11 @@
             </Button>
          </children>
       </HBox>
+      <Label fx:id="reasonLabel" alignment="TOP_LEFT" layoutX="33.0" layoutY="119.0" minHeight="214.0" prefWidth="589.0" visible="false" wrapText="true">
+         <styleClass>
+            <String fx:value="medium-font-size" />
+            <String fx:value="text-area-copycat" />
+         </styleClass>
+      </Label>
    </children>
 </AnchorPane>

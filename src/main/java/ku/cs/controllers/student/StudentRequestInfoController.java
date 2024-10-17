@@ -77,6 +77,7 @@ public class StudentRequestInfoController {
 
     @FXML
     public void initialize() {
+        SetTransition.setButtonBounce(seeReject);
         SetTransition.setButtonBounce(seeInformationButton);
         SetTransition.setButtonBounce(backButton);
         tableView = new DefaultTableView<>(requestLogTableView);
@@ -276,7 +277,8 @@ public class StudentRequestInfoController {
             notApproveController.setBorderPane(borderPane);
             currentNotApprove.setScene(scene);
             currentNotApprove.initModality(Modality.APPLICATION_MODAL);
-            currentNotApprove.setTitle("Not Approve");
+            currentNotApprove.setTitle("เหตุผลที่ถูกปฏิเสธคำร้อง");
+            addImageToPopup(currentNotApprove);
             currentNotApprove.show();
         }
     }
@@ -399,5 +401,15 @@ public class StudentRequestInfoController {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void addImageToPopup(Stage currentPopupStage) {
+        Image logo16 = new Image(getClass().getResourceAsStream("/images/logos/application-logo16x16.png"));
+        Image logo32 = new Image(getClass().getResourceAsStream("/images/logos/application-logo32x32.png"));
+        Image logo48 = new Image(getClass().getResourceAsStream("/images/logos/application-logo48x48.png"));
+        Image logo64 = new Image(getClass().getResourceAsStream("/images/logos/application-logo64x64.png"));
+        Image logo128 = new Image(getClass().getResourceAsStream("/images/logos/application-logo128x128.png"));
+        Image logo500 = new Image(getClass().getResourceAsStream("/images/logos/application-logo500x500.png"));
+        currentPopupStage.getIcons().addAll(logo16, logo32, logo48, logo64, logo128, logo500);
     }
 }

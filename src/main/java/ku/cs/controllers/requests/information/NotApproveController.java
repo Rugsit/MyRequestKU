@@ -41,6 +41,8 @@ public class NotApproveController {
     private Button agreeClickButton;
     @FXML
     private AdvisorPageController advisorPageController;
+    @FXML
+    private Label reasonLabel;
 
     @FXML
     public void initialize() {
@@ -69,9 +71,9 @@ public class NotApproveController {
     private void setUpUI() {
         if (request.getStatusNext().equals("คำร้องถูกปฏิเสธ")) {
             agreeClickButton.setVisible(false);
-            reason.setMouseTransparent(true);
-            reason.setFocusTraversable(false);
-            reason.setText(request.getReasonForNotApprove());
+            reason.setVisible(false);
+            reasonLabel.setVisible(true);
+            reasonLabel.setText(request.getReasonForNotApprove());
             headerNotApprove.setText("เหตุผลที่ถูกปฏิเสธคำร้อง");
             anchorPane.requestFocus();
         }
