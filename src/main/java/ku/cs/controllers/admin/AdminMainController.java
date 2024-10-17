@@ -183,7 +183,6 @@ public class AdminMainController implements ParentController {
             Pane pane = fxmlLoader.load();
             DashBoardController controller = fxmlLoader.getController();
             controller.setLoginUser(loginUser);
-//            controller.setParentController(this);
             controller.initializeDashBoard();
             borderPane.setCenter(pane);
         } catch (IOException e) {

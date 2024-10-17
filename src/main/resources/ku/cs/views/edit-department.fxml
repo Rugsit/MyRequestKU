@@ -162,7 +162,11 @@
             </HBox>
          </children>
       </VBox>
-      <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="401.0" layoutY="357.0" prefHeight="66.0" prefWidth="304.0" styleClass="error-label" text="error" visible="false" wrapText="true" />
+      <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="401.0" layoutY="357.0" prefHeight="66.0" prefWidth="304.0" text="error" visible="false" wrapText="true">
+         <styleClass>
+            <String fx:value="error-label" />
+            <String fx:value="medium-font-size" />
+         </styleClass></Label>
       <HBox alignment="BOTTOM_RIGHT" layoutX="505.0" layoutY="384.0" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Button fx:id="saveButton" focusTraversable="false" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onAcceptClick" text="ตกลง">

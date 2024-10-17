@@ -105,8 +105,12 @@
          </graphic>
       </Button>
       <Line endX="222.0" layoutX="142.0" layoutY="96.0" startX="222.0" startY="319.9999694824219" styleClass="line" />
-      <Label fx:id="errorLabel" alignment="CENTER_RIGHT" layoutX="378.0" layoutY="431.0" prefHeight="26.0" prefWidth="326.0" styleClass="error-label" text="error" visible="false" />
-      <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="400.0" layoutY="350.0" prefHeight="66.0" prefWidth="315.0" styleClass="error-label" text="error" visible="false" wrapText="true" />
+      <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="402.0" layoutY="360.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="66.0" prefWidth="315.0" text="error" visible="false" wrapText="true">
+         <styleClass>
+            <String fx:value="error-label" />
+            <String fx:value="medium-font-size" />
+         </styleClass>
+      </Label>
       <VBox layoutX="378.0" layoutY="115.0" prefWidth="326.0">
          <children>
             <Label text="คณะ">

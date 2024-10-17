@@ -141,7 +141,6 @@ public class DefaultSearchBox<T> extends VBox {
     }
     //FOR OVERRIDING
     protected void searchAction(){
-        System.out.println("searchAction");
     }
     protected void initStyle(){
         mainHBox.setSpacing(10);

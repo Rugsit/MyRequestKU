@@ -5,8 +5,6 @@ import ku.cs.models.request.approver.exception.ApproverException;
 import ku.cs.models.request.approver.exception.ApproverRoleException;
 import ku.cs.models.request.approver.exception.ApproverStatusException;
 import ku.cs.models.request.approver.exception.ApproverTierException;
-
-import java.util.Comparator;
 import java.util.UUID;
 
 public class Approver implements Comparable<Approver> {
@@ -57,12 +55,6 @@ public class Approver implements Comparable<Approver> {
         this.firstname = firstname;
         this.lastname = lastname;
     }
-    //Comparator
-    public static Comparator<Approver> requestUUIDComparator = new Comparator<>() {
-        public int compare(Approver a1, Approver a2) {
-            return a1.getRequestUUID().compareTo(a2.getRequestUUID());
-        }
-    };
 
     public UUID getUUID() {
         return uuid;

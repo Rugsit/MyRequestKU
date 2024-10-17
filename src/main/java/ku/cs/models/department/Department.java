@@ -189,6 +189,7 @@ public class Department implements Comparable<Department>{
         return departmentRequests;
     }
 
+    // มีการใช้งานครับในหน้า DashBoardController บรรทัดที่ 91 ครับ
     public int getRequestsCount() {
         return getRequests().getRequests().size();
     }

@@ -89,7 +89,11 @@
          </graphic>
       </Button>
       <Line endX="219.20001220703125" layoutX="127.0" layoutY="103.0" startX="-100.0" styleClass="line" />
-      <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="57.0" layoutY="439.0" prefHeight="66.0" prefWidth="304.0" styleClass="error-label" text="error" visible="false" wrapText="true" />
+      <Label fx:id="errorLabel" alignment="BOTTOM_RIGHT" layoutX="57.0" layoutY="439.0" prefHeight="66.0" prefWidth="304.0" text="error" visible="false" wrapText="true">
+         <styleClass>
+            <String fx:value="error-label" />
+            <String fx:value="medium-font-size" />
+         </styleClass></Label>
       <HBox alignment="BOTTOM_RIGHT" layoutX="26.0" layoutY="472.0" prefHeight="100.0" prefWidth="338.0">
          <children>
             <Button fx:id="saveButton" focusTraversable="false" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onAcceptFacultyDepartmentClick" text="ตกลง">

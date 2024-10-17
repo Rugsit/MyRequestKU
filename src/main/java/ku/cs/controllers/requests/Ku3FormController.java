@@ -28,8 +28,6 @@ public class Ku3FormController {
 
     // FXML Component
     @FXML
-    private Stage currentConfirmStage;
-    @FXML
     private CheckBox part1Checkbox;
     @FXML
     private CheckBox part2CheckBox;
@@ -50,8 +48,6 @@ public class Ku3FormController {
     @FXML
     private TextField campusTextField;
     @FXML
-    private Stage currentErrorStage;
-    @FXML
     private VBox subjectVbox;
     @FXML
     private VBox subjectDropVbox;
@@ -61,8 +57,6 @@ public class Ku3FormController {
     private VBox prototypePart2Vbox;
     @FXML
     public BorderPane borderPane;
-
-
     @FXML
     private Button removePart1Button;
     @FXML
@@ -71,7 +65,6 @@ public class Ku3FormController {
     private Button removePart2Button;
     @FXML
     private Button addPart2Button;
-
     @FXML
     private Button createFormButton;
     @FXML

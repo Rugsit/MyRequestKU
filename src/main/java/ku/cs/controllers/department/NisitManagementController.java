@@ -32,20 +32,11 @@ import ku.cs.services.Observer;
 import ku.cs.services.Theme;
 import ku.cs.services.utils.DateTools;
 import ku.cs.views.components.*;
-
 import java.util.*;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.locks.Lock;
 
 public class NisitManagementController implements Observer<HashMap<String, String>> {
     @FXML private Label pageTitleLabel;
     @FXML private StackPane mainStackPane;
-
-    @FXML private VBox nisitTableVBox;
-    @FXML private HBox tableHeaderHBox;
 
     @FXML private Label tableViewLabel;
     @FXML private TableView<User> nisitTableView;
@@ -391,7 +382,6 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
         Class<?>[] notifyClass = {TextFieldStack.class,UploadImageStack.class};
         theme.notifyObservers(theme.getTheme(),notifyClass);
         editMode = !editMode;
-        System.out.println(editMode);
         boolean editable = editMode;
         String editButtonColor = editable ? "#ABFFA4" : "#FFA4A4";
         String editButtonHoverColor = editable ? "#80BF7A" : "#E19494";
@@ -676,12 +666,10 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                     protected void handleClickEvent() {
                         button.setOnMouseClicked(e -> {
                             User user = getTableView().getItems().get(getIndex());
-                            System.out.println("DeleteButton clicked for item: " + user.getId() + " " + user.getName());
                             mainStackPane.getChildren().add(new ConfirmStack("ยืนยัน","คุณต้องการลบใช่มั้ย"){
                                 @Override
                                 protected void handleAcceptButton(){
                                     getAcceptButton().setOnMouseClicked(e -> {
-                                        System.out.println("Accept button clicked");
                                         mainStackPane.getChildren().removeLast();
                                         onDeleteButton(user);
                                     });
@@ -689,7 +677,6 @@ public class NisitManagementController implements Observer<HashMap<String, Strin
                                 @Override
                                 protected void handleDeclineButton(){
                                     getDeclineButton().setOnMouseClicked(e -> {
-                                        System.out.println("Decline button clicked");
                                         mainStackPane.getChildren().removeLast();
                                     });
                                 }

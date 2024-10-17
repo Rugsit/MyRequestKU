@@ -9,10 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -20,13 +17,19 @@ import ku.cs.controllers.advisor.AdvisorPageController;
 import ku.cs.controllers.advisor.AdvisorStudentRequestsController;
 import ku.cs.controllers.requests.information.*;
 import ku.cs.models.request.*;
+import ku.cs.models.request.approver.Approver;
 import ku.cs.models.user.Student;
 import ku.cs.services.*;
 import ku.cs.views.components.DefaultTableView;
+import ku.cs.views.components.PDFViewPopup;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class StudentRequestInfoController {
@@ -57,6 +60,14 @@ public class StudentRequestInfoController {
     private Button backButton;
     @FXML
     private AnchorPane mainAnchorPane;
+    @FXML
+    private ChoiceBox<Approver> approverChoiceBox;
+    @FXML
+    private StackPane mainStackPane;
+    @FXML
+    private Button showPDFButton;
+    @FXML
+    private VBox approverPDFVbox;
 
     private AdvisorPageController advisorPageController;
 
@@ -66,7 +77,6 @@ public class StudentRequestInfoController {
 
     @FXML
     public void initialize() {
-
         SetTransition.setButtonBounce(seeInformationButton);
         SetTransition.setButtonBounce(backButton);
         tableView = new DefaultTableView<>(requestLogTableView);
@@ -166,7 +176,6 @@ public class StudentRequestInfoController {
     }
 
     public void onBackButtonClick() {
-        // test
         if (backPage != null && backPage.equalsIgnoreCase("advisorStudentRequest")) {
             goToAdvisorPage();
         } else {
@@ -206,6 +215,7 @@ public class StudentRequestInfoController {
 
     public void setRequest(Request request) {
         this.request = request;
+        initApproverChoose();
     }
 
     public void setBorderPane(BorderPane borderPane) {
@@ -307,6 +317,7 @@ public class StudentRequestInfoController {
 
     public void setBackButtonVisible(boolean status) {
         backButton.setVisible(status);
+        approverPDFVbox.setVisible(status);
         if (!backButton.isVisible()) {
             updateStyle();
         }
@@ -323,5 +334,70 @@ public class StudentRequestInfoController {
                 return getClass().getResource("/ku/cs/styles/general.css").toString();
             }
         });
+    }
+
+    private void initApproverChoose() {
+        approverChoiceBox.getItems().clear();
+        approverChoiceBox.getItems().addAll(request.getApproverList().getApprovers());
+        approverChoiceBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Approver object) {
+                if (object != null) {
+                    return object.getName() + " (" + object.getRole() + ")";
+                } else {
+                    return "";
+                }
+
+            }
+
+            @Override
+            public Approver fromString(String string) {
+                return null;
+            }
+        });
+
+        approverChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue.getSignatureFile().equalsIgnoreCase("no-image")) {
+                    showPDFButton.setDisable(true);
+                } else {
+                    showPDFButton.setDisable(false);
+                }
+            }
+        });
+    }
+
+    @FXML
+    private void showPDF() {
+        Approver approver = approverChoiceBox.getValue();
+        try {
+            PDFDatasource datasource = new PDFDatasource();
+            File pdfFile = datasource.getPDFFile(approver.getSignatureFile());
+            if(pdfFile!=null){
+                mainStackPane.getChildren().add(new PDFViewPopup(pdfFile){
+                    @Override
+                    protected void initPopupView(){
+                        super.initPopupView();
+                        titleLabel.changeText("ลายเซ็น");
+                    }
+                    @Override
+                    protected void handleFirstButton(){
+                        firstButton.setOnMouseClicked(e -> {
+                            datasource.downloadFile(approver.getSignatureFile());
+                        });
+                    }
+                    @Override
+                    protected void handleSecondButton(){
+                        secondButton.setOnMouseClicked(e ->{
+                            mainStackPane.getChildren().removeLast();
+                            mainStackPane.setVisible(false);
+                        });
+                    }
+                });
+                mainStackPane.setVisible(true);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

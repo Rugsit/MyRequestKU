@@ -1,17 +1,9 @@
 package ku.cs.controllers.requests.information;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import ku.cs.controllers.advisor.AdvisorRequestsController;
-import ku.cs.controllers.student.StudentRequestInfoController;
-import ku.cs.models.request.AcademicLeaveRequestForm;
 import ku.cs.models.request.GeneralRequestForm;
 import ku.cs.models.request.Request;
 import ku.cs.models.user.Advisor;
@@ -19,17 +11,12 @@ import ku.cs.models.user.Student;
 import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
-import ku.cs.services.SetTransition;
 import ku.cs.services.UserListFileDatasource;
-
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 public class GeneralInformaitonRequestFormController {
     private GeneralRequestForm request;
     private User loginUser;
-    private String backPage;
 
     @FXML
     private Label advisorIdTextField;
@@ -50,8 +37,6 @@ public class GeneralInformaitonRequestFormController {
     private Label facultyTextField;
     @FXML
     private Label gmailTextField;
-    @FXML
-    private ToggleGroup group1;
     @FXML
     private Label idTextField;
     @FXML
@@ -86,8 +71,6 @@ public class GeneralInformaitonRequestFormController {
     private TextField telTextField;
     @FXML
     private Label updateDateTextField;
-    @FXML
-    private ScrollPane scrollPane;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -166,8 +149,5 @@ public class GeneralInformaitonRequestFormController {
 
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
-    }
-    public void setBackPage(String backPage) {
-        this.backPage = backPage;
     }
 }

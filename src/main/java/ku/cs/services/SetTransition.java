@@ -5,16 +5,20 @@ import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableRow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
-import java.awt.*;
-
 public class SetTransition {
+    public static SetTransition setTransition;
+    private Timeline timeline;
+
+    public static final SetTransition getInstance() {
+        if (setTransition == null) {
+            setTransition = new SetTransition();
+        }
+        return setTransition;
+    }
     public static void setButtonBounce(Button button) {
         button.setOnMousePressed(event -> {
             ScaleTransition scaleUp = new ScaleTransition(Duration.millis(200), button);
@@ -35,7 +39,10 @@ public class SetTransition {
     public void setSlideImageShow(ImageView imageView, String[] imagePaths) {
         final int[] currentImageIndex = {0};
         // Create a Timeline to switch images
-        Timeline slideshow = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
+        if (timeline != null) {
+            return;
+        }
+        timeline = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), imageView);
             fadeOut.setFromValue(1.0);  // Fade in from 0% opacity
             fadeOut.setToValue(0.0);    // Fade to 100% opacity
@@ -50,22 +57,15 @@ public class SetTransition {
             });
             fadeOut.play(); // Start fade-out
         }));
-        slideshow.setCycleCount(Timeline.INDEFINITE);
-        slideshow.play(); // Start the slideshow
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play(); // Start the slideshow
     }
 
-    public void setClickChangeColor(Button button, String newColor, String newTextFill) {
-        String prevStyle = button.getStyle();
-        ImageView prevImage = (ImageView) button.getGraphic();
-        button.setOnMousePressed(event -> {
-            button.setStyle(button.getStyle() + "-fx-text-fill: " + newTextFill  + ";" + "-fx-background-color:" + newColor + ";");
-        });
+    public Timeline getTimeline() {
+        return timeline;
+    }
 
-        // ตั้งค่าให้กลับเป็นขนาดเดิมเมื่อปล่อยปุ่ม
-        button.setOnMouseReleased(event -> {
-            button.setStyle(prevStyle);
-            button.setGraphic(prevImage);
-        });
-
+    public void setTimeline(Timeline timeline) {
+        this.timeline = timeline;
     }
 }

@@ -3,9 +3,6 @@ package ku.cs.models.user;
 import ku.cs.models.user.exceptions.PasswordException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.UUID;
 
 public interface Identifiable {

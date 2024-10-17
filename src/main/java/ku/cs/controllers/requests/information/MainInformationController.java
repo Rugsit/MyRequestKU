@@ -36,8 +36,6 @@ public class MainInformationController {
     @FXML
     private ScrollPane scrollPane;
     @FXML
-    private HBox subjectHbox;
-    @FXML
     private Label titleLabel;
     @FXML
     private BorderPane borderPane;
@@ -162,7 +160,6 @@ public class MainInformationController {
             GeneralInformaitonRequestFormController controller = fxmlLoader.getController();
             controller.setLoginUser(loginUser);
             controller.setRequest(request);
-            controller.setBackPage(backPage);
             controller.setBorderPane(borderPane);
             controller.showData();
             scrollPane.setContent(pane);
@@ -180,7 +177,6 @@ public class MainInformationController {
             RegisterInformationRequestFormController controller = fxmlLoader.getController();
             controller.setLoginUser(loginUser);
             controller.setRequest(request);
-            controller.setBackPage(backPage);
             controller.setBorderPane(borderPane);
             controller.showData();
             scrollPane.setContent(pane);
@@ -198,7 +194,6 @@ public class MainInformationController {
             AcademicLeaveInformationRequestFormController controller = fxmlLoader.getController();
             controller.setLoginUser(loginUser);
             controller.setRequest(request);
-            controller.setBackPage(backPage);
             controller.setBorderPane(borderPane);
             controller.showData();
             scrollPane.setContent(pane);
@@ -216,7 +211,6 @@ public class MainInformationController {
             Ku1InformationRequestFormController controller = fxmlLoader.getController();
             controller.setLoginUser(loginUser);
             controller.setRequest(request);
-            controller.setBackPage(backPage);
             controller.setBorderPane(borderPane);
             controller.showData();
             scrollPane.setContent(pane);
@@ -234,7 +228,6 @@ public class MainInformationController {
             Ku3InformationRequestFormController controller = fxmlLoader.getController();
             controller.setLoginUser(loginUser);
             controller.setRequest(request);
-            controller.setBackPage(backPage);
             controller.setBorderPane(borderPane);
             controller.showData();
             scrollPane.setContent(pane);

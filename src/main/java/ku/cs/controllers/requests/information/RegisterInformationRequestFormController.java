@@ -1,16 +1,10 @@
 package ku.cs.controllers.requests.information;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import ku.cs.controllers.advisor.AdvisorRequestsController;
-import ku.cs.controllers.student.StudentRequestInfoController;
-import ku.cs.models.request.GeneralRequestForm;
 import ku.cs.models.request.RegisterRequestForm;
 import ku.cs.models.request.Request;
 import ku.cs.models.user.Advisor;
@@ -19,15 +13,11 @@ import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.UserListFileDatasource;
-
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 public class RegisterInformationRequestFormController {
     private RegisterRequestForm request;
     private User loginUser;
-    private String backPage;
 
     @FXML
     private HBox approveButtonHbox;
@@ -39,8 +29,6 @@ public class RegisterInformationRequestFormController {
     private Label advisorIdTextField;
     @FXML
     private Label advisorTextField;
-    @FXML
-    private VBox buttonCOntainerVbox;
     @FXML
     private Label createDateTextField;
     @FXML
@@ -81,8 +69,6 @@ public class RegisterInformationRequestFormController {
     private RadioButton registerBelowNineRadio;
     @FXML
     private RadioButton registerRadio;
-    @FXML
-    private ScrollPane scrollPane;
     @FXML
     private RadioButton secondSemesRadio;
     @FXML
@@ -179,13 +165,5 @@ public class RegisterInformationRequestFormController {
 
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
-    }
-
-    public void setBackPage(String backPage) {
-        this.backPage = backPage;
-    }
-
-    public void setVisibleApproveButton() {
-        approveButtonHbox.setVisible(true);
     }
 }

@@ -131,7 +131,7 @@ public class Faculty implements Comparable<Faculty>{
         }
         return requests;
     }
-
+    // มีการใช้งานครับในหน้า DashBoardController บรรทัดที่ 89 ครับ
     public int getRequestsCount() {
         return getRequests().getRequests().size();
     }

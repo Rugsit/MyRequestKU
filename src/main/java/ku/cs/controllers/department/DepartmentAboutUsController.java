@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import ku.cs.controllers.AboutUsController;
 import ku.cs.models.Session;
@@ -24,7 +23,7 @@ import java.util.HashMap;
 
 public class DepartmentAboutUsController implements Observer<HashMap<String, String>> {
     @FXML private AnchorPane mainAnchorPane;
-    @FXML private StackPane mainStackPane;//FOR MANUAL PDF VIEW
+    //FOR MANUAL PDF POPUP VIEW use mainStackPane from FXML
     @FXML private Label pageTitleLabel;
     private Session session;
     private SidebarController sidebarController;

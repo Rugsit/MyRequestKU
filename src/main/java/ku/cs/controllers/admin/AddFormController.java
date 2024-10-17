@@ -15,11 +15,7 @@ import ku.cs.models.faculty.FacultyList;
 import ku.cs.models.user.*;
 import ku.cs.models.user.exceptions.UserException;
 import ku.cs.services.*;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class AddFormController{
@@ -55,14 +51,6 @@ public class AddFormController{
     @FXML
     private ChoiceBox<String> facultyChoiceBox;
     @FXML
-    private Label facultyLabel;
-    @FXML
-    private Label nameLabel;
-    @FXML
-    private Label departmentLabel;
-    @FXML
-    private Label advisorIdLabel;
-    @FXML
     private TextField advisorIdTextField;
     @FXML
     private TextField firstNameTextField;
@@ -72,10 +60,6 @@ public class AddFormController{
     private TextField userNameTextField;
     @FXML
     private TextField startPassword;
-    @FXML
-    private Label startPasswordLabel;
-    @FXML
-    private Label userNameLabel;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -195,13 +179,10 @@ public class AddFormController{
 
     @FXML
     public void onAcceptClick() {
-        UUID uuid = UUID.randomUUID();
-//        LocalDateTime date = LocalDateTime.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");
         Datasource<UserList> datasource = new UserListFileDatasource("data", currentRole+".csv");
         try {
-            if (facultyChoiceBox.getValue() == null) throw new UserException("กรุณาเลือกคณะ");
-            if (departmentChoiceBox != null && departmentChoiceBox.getValue() == null) throw new UserException("กรุณาเลือกภาควิชา");
+            if (facultyChoiceBox.getValue() == null || facultyChoiceBox.getValue().isEmpty()) throw new UserException("กรุณาเลือกคณะ");
+            if (facultyChoiceBox.getValue() != null && departmentChoiceBox != null && (departmentChoiceBox.getValue() == null || departmentChoiceBox.getValue().isEmpty())) throw new UserException("กรุณาเลือกภาควิชา");
             if (currentRole.equals("faculty-staff")) {
                 FacultyUser facultyUser = new FacultyUser("0000000000", userNameTextField.getText(), "faculty-staff", firstNameTextField.getText(), lastNameTextField.getText(), "0001-01-01:00:00:00", "fscixxa@ku.th", startPassword.getText().isEmpty() ? "DEFAULT" : startPassword.getText(), facultyChoiceBox.getValue());
                 if (!startPassword.getText().isEmpty()) {

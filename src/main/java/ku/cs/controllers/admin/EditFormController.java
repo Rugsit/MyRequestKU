@@ -44,8 +44,6 @@ public class EditFormController implements ChangeThemeController {
     @FXML
     private Label departmentNameLabel;
     @FXML
-    private TextField facultyTextField;
-    @FXML
     private TextField facultyNameTextField;
     @FXML
     private TextField facultyIdTextField;

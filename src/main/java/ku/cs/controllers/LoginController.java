@@ -41,7 +41,6 @@ public class LoginController {
 
     @FXML
     private void initialize() {
-        SetTransition transition = new SetTransition();
         SetTransition.setButtonBounce(loginButton);
         final String[] imagePaths = {
                 getClass().getResource("/images/backgrounds/background-login1.jpg").toString(),
@@ -54,7 +53,7 @@ public class LoginController {
         Image image = new Image(imagePaths[currentImageIndex]);
         backgroundImageView.setImage(image);
 
-        transition.setSlideImageShow(backgroundImageView, imagePaths);
+        SetTransition.getInstance().setSlideImageShow(backgroundImageView, imagePaths);
 
         errorLabel.setText("");
         authController = new Authentication();
@@ -98,6 +97,9 @@ public class LoginController {
                         showError("ไม่สามารถบันทึกเวลาในการเข้าใช้ได้");
                     }
                     hideError();
+                    SetTransition.getInstance().getTimeline().stop();
+                    SetTransition.getInstance().setTimeline(null);
+
                     if (loginUser.getRole().equalsIgnoreCase("faculty-staff")) {goToFacultyManage();}
                     else if (loginUser.getRole().equalsIgnoreCase("admin")) {goToAdminManage();}
                     else if (loginUser.getRole().equalsIgnoreCase("student")){onStudentButtonClicked();}
@@ -156,6 +158,8 @@ public class LoginController {
     @FXML
     protected void goToRegister() {
         try {
+            SetTransition.getInstance().getTimeline().stop();
+            SetTransition.getInstance().setTimeline(null);
             FXRouter.goTo("register");
         } catch (
                 IOException e) {

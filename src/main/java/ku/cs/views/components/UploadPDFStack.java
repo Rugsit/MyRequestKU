@@ -5,7 +5,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
-import ku.cs.services.ImageDatasource;
 import ku.cs.services.Observer;
 import ku.cs.services.PDFDatasource;
 import ku.cs.services.Theme;

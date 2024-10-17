@@ -1,16 +1,10 @@
 package ku.cs.controllers.requests.information;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import ku.cs.controllers.advisor.AdvisorRequestsController;
-import ku.cs.controllers.student.StudentRequestInfoController;
-import ku.cs.controllers.student.StudentRequestsController;
 import ku.cs.models.request.AcademicLeaveRequestForm;
-import ku.cs.models.request.GeneralRequestForm;
 import ku.cs.models.request.Request;
 import ku.cs.models.user.Advisor;
 import ku.cs.models.user.Student;
@@ -18,31 +12,21 @@ import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.UserListFileDatasource;
-
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 
 public class AcademicLeaveInformationRequestFormController {
     private AcademicLeaveRequestForm request;
     private User loginUser;
-    private String backPage;
 
     @FXML
     private Label subjectHaveRegister;
-    @FXML
-    private HBox approveButtonHbox;
     @FXML
     private VBox subjectVbox;
     @FXML
     private HBox subjectHbox;
     @FXML
     private BorderPane borderPane;
-    @FXML
-    private ScrollPane scrollPane;
-    @FXML
-    private VBox OutterVbox;
     @FXML
     private Label addressTextArea;
     @FXML
@@ -166,10 +150,6 @@ public class AcademicLeaveInformationRequestFormController {
         this.borderPane = borderPane;
     }
 
-    public void setBackPage(String backPage) {
-        this.backPage = backPage;
-    }
-
     private HBox deepCopyHBox(HBox hbox, String subjectId, String subjectAdvisor) {
         int countTextField = 0;
         HBox newHbox = new HBox();
@@ -205,9 +185,5 @@ public class AcademicLeaveInformationRequestFormController {
             }
         }
         return newHbox;
-    }
-
-    public void setVisibleApproveButton() {
-        approveButtonHbox.setVisible(true);
     }
 }

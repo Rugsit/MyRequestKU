@@ -130,7 +130,6 @@ public class DefaultButton extends Button implements Observer<HashMap<String,Str
     }
     protected void handleClickEvent(){
         button.setOnMouseClicked(e -> {
-            System.out.println(buttonName + "clicked!");
         });
     }
     public void changeText(String text){
