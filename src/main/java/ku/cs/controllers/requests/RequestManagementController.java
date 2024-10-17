@@ -1767,7 +1767,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
     }
     private void onSendToFacultyButton(){
         try {
-            mainStackPane.getChildren().add(new ConfirmStack("ยันยัน","คุณต้องการส่งหาคณะใช่มั้ย ถ้าส่งแล้วคำร้องจะถูกส่งไปให้คณะจัดการต่อ"){
+            mainStackPane.getChildren().add(new ConfirmStack("ยันยัน","คุณต้องการส่งหาคณะใช่หรือไม่ ถ้าส่งแล้วคำร้องจะถูกส่งไปให้คณะจัดการต่อ"){
                 @Override
                 protected void initialize(){
                     super.initialize();
@@ -1823,7 +1823,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             }else{
                 message = "คำร้องของคุณจะถูกอนุมัติและสิ้นสุดการดำเนินการ โดยข้ามการอนุมัติในระดับคณะ";
             }
-            mainStackPane.getChildren().add(new ConfirmStack("ยันยัน",message + " คุณต้องการอนุมัติคำร้องนี้ใช่มั้ย"){
+            mainStackPane.getChildren().add(new ConfirmStack("ยันยัน",message + " คุณต้องการอนุมัติคำร้องนี้ใช่หรือไม่"){
                 @Override
                 protected void initialize(){
                     super.initialize();
