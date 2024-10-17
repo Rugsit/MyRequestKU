@@ -54,7 +54,7 @@ public class Request {
         setStatusNow(statusNow);
         setStatusNext(statusNext);
         setReasonForNotApprove(reasonForNotApprove);
-        approvers = new ApproverList();
+        approvers = getApproverList();
         requireTier = new HashMap<>();
         Datasource<UserList> datasource = new UserListFileDatasource("data", "student.csv");
         UserList userList = datasource.readData();
@@ -197,6 +197,8 @@ public class Request {
     }
 
     public ApproverList getApproverList() {
+        Datasource<ApproverList> approverDatasource = new ApproverListFileDatasource("request-approver");
+        this.approvers = approverDatasource.readData();
         return approvers.getApproverList(uuid);
     }
 

@@ -814,3 +814,28 @@
     -fx-pref-height: 30;
 }
 /*User profile card style*/
+
+.choice-box-select-pdf .arrow {
+    -fx-background-color: #ffffff; /* สีของลูกศรลง */
+}
+
+.choice-box-select-pdf {
+    -fx-cursor: hand;
+    -fx-background-color: #353435;
+    -fx-border-radius: 5;
+    -fx-border-width: 0px;
+
+}
+.choice-box-select-pdf:focused {
+    -fx-border-width: 1px;
+    -fx-border-color: white;
+}
+
+.choice-box-select-pdf .context-menu {
+    -fx-background-color: #353435;
+}
+
+.choice-box-select-pdf .menu-item:focused {
+    -fx-background-color: #000000;
+    -fx-cursor: hand;
+}
