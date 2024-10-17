@@ -102,7 +102,7 @@ public class GeneralRequestForm extends Request{
         Pattern pattern = Pattern.compile("^[0-9]{10}$");
         Matcher matcher = pattern.matcher(tel);
         if (!matcher.find()) {
-            throw new IllegalArgumentException("กรุณากรอกเบอร์โทรให้ถูกต้อง");
+            throw new IllegalArgumentException("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง");
         }
         this.tel = tel;
     }

@@ -1,13 +1,9 @@
 package ku.cs.controllers.requests.information;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import ku.cs.controllers.advisor.AdvisorRequestsController;
-import ku.cs.controllers.student.StudentRequestInfoController;
 import ku.cs.models.request.Ku1AndKu3RequestForm;
 import ku.cs.models.request.Request;
 import ku.cs.models.user.Advisor;
@@ -16,16 +12,12 @@ import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.Datasource;
 import ku.cs.services.UserListFileDatasource;
-
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class Ku3InformationRequestFormController {
     private Ku1AndKu3RequestForm request;
     private User loginUser;
-    private String backPage;
 
     @FXML
     private Label advisorIdTextField;
@@ -57,8 +49,6 @@ public class Ku3InformationRequestFormController {
     private VBox prototypePart1Vbox;
     @FXML
     private VBox prototypePart2Vbox;
-    @FXML
-    private ScrollPane scrollPane;
     @FXML
     private RadioButton secondRadio;
     @FXML
@@ -145,9 +135,6 @@ public class Ku3InformationRequestFormController {
         this.borderPane = borderPane;
     }
 
-    public void setBackPage(String backPage) {
-        this.backPage = backPage;
-    }
 
 
     private VBox deepCopyVbox(VBox vbox, ArrayList<String> data) {

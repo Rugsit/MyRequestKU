@@ -56,7 +56,6 @@ public class SetTransition {
                 fadeIn.play(); // Play fade-in after the image changes
             });
             fadeOut.play(); // Start fade-out
-            System.out.println("test");
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play(); // Start the slideshow

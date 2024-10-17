@@ -26,8 +26,6 @@ public class Ku1FormController {
 
     // FXML Component
     @FXML
-    private Stage currentConfirmStage;
-    @FXML
     private TextField telTextField;
     @FXML
     private RadioButton firstRadio;
@@ -44,22 +42,15 @@ public class Ku1FormController {
     @FXML
     private TextField campusTextField;
     @FXML
-    private Stage currentErrorStage;
-    @FXML
     private BorderPane borderPane;
     @FXML
     private VBox subjectVbox;
     @FXML
     private VBox prototypeVbox;
     @FXML
-    private TextField teacherTextField;
-
-
-    @FXML
     private Button removeButton;
     @FXML
     private Button addButton;
-
     @FXML
     private Button createFormButton;
     @FXML

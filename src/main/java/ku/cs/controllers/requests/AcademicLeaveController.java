@@ -24,10 +24,6 @@ public class AcademicLeaveController {
 
     // FXML Component
     @FXML
-    private Stage currentConfirmStage;
-    @FXML
-    private Stage currentErrorStage;
-    @FXML
     private BorderPane borderPane;
     @FXML
     private TextArea addressTextArea;
@@ -167,10 +163,6 @@ public class AcademicLeaveController {
             subjectVbox.getChildren().removeLast();
             amountSubject--;
         }
-    }
-
-    public void setErrorStage(Stage currentErrorStage) {
-        this.currentErrorStage = currentErrorStage;
     }
 
     @FXML

@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import ku.cs.models.request.GeneralRequestForm;
 import ku.cs.models.user.User;
 import ku.cs.services.SetTransition;
@@ -17,10 +16,6 @@ import java.io.IOException;
 public class GeneralRequestFormController{
     private User loginUser;
     // FXML Component
-    @FXML
-    private Stage currentConfirmStage;
-    @FXML
-    private Stage currentErrorStage;
     @FXML
     private CheckBox changeNameCheckBox;
     @FXML
