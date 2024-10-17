@@ -215,7 +215,7 @@ public class UserProfileCardController{
             String savedImageName = imageDatasource.saveImage();
             if ( savedImageName != null && !savedImageName.equals("no-image") ) {
                 if (isChanged) changedData += " และ";
-                changedData += "รูปโปรไฟล์";
+                changedData += "รูปโพรไฟล์";
                 isChanged = true;
                 loginUser.setAvatar(savedImageName);
             }

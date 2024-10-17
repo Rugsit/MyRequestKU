@@ -25,7 +25,6 @@ public class SquareImage extends CropImage{
             cropHeight = height;
         }
         double yOffset = (height - cropHeight) / 2;
-        //crop 1:1 keep aspect width:width at center height
         WritableImage cropped = new WritableImage((int)cropWidth, (int)cropHeight);
         PixelReader pixelReader = image.getPixelReader();
         cropped.getPixelWriter().setPixels(0, 0, (int)cropWidth, (int)cropHeight, pixelReader, 0, (int)yOffset);

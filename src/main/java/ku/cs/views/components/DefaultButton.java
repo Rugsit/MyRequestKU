@@ -159,7 +159,6 @@ public class DefaultButton extends Button implements Observer<HashMap<String,Str
     public Button getButton(){
         return button;
     }
-    //FOR THEME UPDATE ONLY
     protected void updateTextSize(HashMap<String, String> data){
         if(!observeTextSize)return;
         Font curFont = button.getFont();

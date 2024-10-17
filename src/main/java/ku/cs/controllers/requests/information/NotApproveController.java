@@ -90,7 +90,7 @@ public class NotApproveController {
             try {
                 approver.setStatus("ไม่อนุมัติ");
             } catch (ApproverStatusException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
             requestListDatasource.appendToLog(targetRequest);
             targetRequest.setStatusNow("ปฏิเสธโดยอาจารย์ที่ปรึกษา");

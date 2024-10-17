@@ -4,18 +4,14 @@ import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.request.approver.exception.ApproverException;
 import ku.cs.models.user.Student;
-import ku.cs.models.user.User;
 import ku.cs.models.user.UserList;
 import ku.cs.services.ApproverListFileDatasource;
 import ku.cs.services.Datasource;
-import ku.cs.services.RequestListFileDatasource;
 import ku.cs.services.UserListFileDatasource;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.UUID;
 
 public class Request {
@@ -33,9 +29,6 @@ public class Request {
     private ApproverList approvers;
     private HashMap<String, HashMap<String, Integer>> requireTier;
     private String reasonForNotApprove;
-
-
-    public Request() {}
 
     public Request(String uuid, String ownerUUID, String name, String nisitId, String timeStampLastUpdate, String timeStampCreateForm, String requestType, String statusNow, String statusNext, String reasonForNotApprove){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss");

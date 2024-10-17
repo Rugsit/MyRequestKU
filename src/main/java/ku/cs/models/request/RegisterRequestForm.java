@@ -1,7 +1,6 @@
 package ku.cs.models.request;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
@@ -88,7 +87,6 @@ public class RegisterRequestForm extends Request{
             throw new IllegalArgumentException("กรุณากรอกปีการศึกษา และต้องเป็นตัวเลขเท่านั้น");
         }
         if (semesterYearInt <= 0 || semesterYearInt > currentDate.getYear() + 543) {
-            System.out.println(currentDate.getYear());
             throw new IllegalArgumentException("ปีการศึกษาจะต้องมากกว่า 0 และไม่มากกว่าปีปัจจุบัน");
         }
         this.semesterYear = semesterYearInt;
@@ -124,10 +122,6 @@ public class RegisterRequestForm extends Request{
 
     public void setRegisterLessThan9(boolean registerLessThan9) {
         this.registerLessThan9 = registerLessThan9;
-    }
-
-    public void setLatePayment(boolean latePayment) {
-        this.latePayment = latePayment;
     }
 
     public void setLatePaymentSemester(String latePaymentSemester) {

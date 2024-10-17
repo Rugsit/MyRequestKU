@@ -77,7 +77,6 @@ public class AdvisorStudentListController {
             throw new IllegalStateException("advisorPageController has not been set.");
         }
         loadStudents();
-        System.out.println(advisorPageController.getAdvisorUUID());
     }
 
     private void loadStudents() {

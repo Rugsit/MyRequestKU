@@ -36,7 +36,7 @@ public class SidebarController implements Observer<HashMap<String,String>> {
         this.session = session;
         this.curPage = curPage;
         this.width = 260;
-        this.height = MainApplication.windowHeight;//720
+        this.height = MainApplication.windowHeight;
         initVBox();
         initButton();
         setMount(0,0);
@@ -122,7 +122,6 @@ public class SidebarController implements Observer<HashMap<String,String>> {
             }
         };
         miniProfile.mount(0,460);
-        //The VBox bypass child mount location but still need
 
         HBox lineEnd = new HBox(aboutUsButton);
         HBox.setMargin(aboutUsButton, new Insets(0,0,20,0));

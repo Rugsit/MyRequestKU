@@ -88,7 +88,6 @@ public class ChangePasswordController {
 
     @FXML
     private void onExitClick() {
-        System.out.println("Exit button clicked");
         if (stage != null) {
             stage.close();
         }

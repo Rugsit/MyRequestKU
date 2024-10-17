@@ -45,9 +45,6 @@ public class AdminManageStaffController {
     private Label test;
 
     public void initialize() {
-        System.out.println(test.getStyleClass());
-
-
         SetTransition.setButtonBounce(addButton);
 
         Label placeHolder = new Label("ไม่พบข้อมูล");

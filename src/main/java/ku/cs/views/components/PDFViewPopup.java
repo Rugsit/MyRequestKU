@@ -34,7 +34,6 @@ public class PDFViewPopup extends BlankPopupStack{
         mainBox.setAlignment(Pos.CENTER);
         mainBox.setSpacing(10);
         mainBox.setStyle("-fx-background-color: white;-fx-background-radius: 50");
-        //TITLE
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
         titleLabel = new DefaultLabel("");
@@ -43,7 +42,6 @@ public class PDFViewPopup extends BlankPopupStack{
         mainBox.getChildren().add(container);
         VBox.setMargin(container,new Insets(10,0,0,0));
 
-        //PDF ScrollPane
         scrollPane = new ScrollPane();
         scrollPane.setMaxWidth(900);
         scrollPane.setMaxHeight(450);

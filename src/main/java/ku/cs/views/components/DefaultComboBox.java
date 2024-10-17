@@ -72,7 +72,6 @@ public abstract class DefaultComboBox<T> extends ComboBox<T> implements Observer
         setStringExtractor();
         setComboBoxStyle();
         comboBox.setPlaceholder(new Text("ไม่มีข้อมูล"));
-        //FOR SUB CELLS
         comboBox.setCellFactory(listView -> new ListCell<>(){
             @Override
             protected void updateItem(T item, boolean empty) {
@@ -85,7 +84,6 @@ public abstract class DefaultComboBox<T> extends ComboBox<T> implements Observer
                 }
             }
         });
-        //FOR MAIN BUTTON CELL
         comboBox.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(T item, boolean empty) {
@@ -109,7 +107,7 @@ public abstract class DefaultComboBox<T> extends ComboBox<T> implements Observer
         onLoadFontSize = fontSize;
 
     }
-    //FOR THEME UPDATE ONLY
+
     private void updateFontSize(double fontSize){
         double tmpFontSize = onLoadFontSize;
         changeFontSize(fontSize);

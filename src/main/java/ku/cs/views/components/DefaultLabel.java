@@ -70,7 +70,7 @@ public class DefaultLabel extends Label implements Observer<HashMap<String,Strin
         label.setText(text);
         onLoadFontSize = fontSize;
     }
-    //FOR THEME UPDATE ONLY
+
     private void changeFontSize(double fontSize){
         Font curFont = label.getFont();
         FontWeight curFontWeight = currrentFontWeight(curFont);

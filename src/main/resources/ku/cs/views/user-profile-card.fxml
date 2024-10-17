@@ -229,7 +229,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </HBox>
-                  <Button alignment="BASELINE_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#onUploadImageButtonClicked" text="อัปโหลดรูปโปรไฟล์">
+                  <Button alignment="BASELINE_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#onUploadImageButtonClicked" text="อัปโหลดรูปโพรไฟล์">
                      <font>
                         <Font size="14.0" />
                      </font>

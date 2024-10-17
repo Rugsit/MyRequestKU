@@ -161,7 +161,6 @@ public class DashBoardController {
                     lastModified = modified;
                     Platform.runLater(() -> {
                         updatePage();
-                        System.out.println("CSV file has been modified!");
                         // สามารถโหลดข้อมูลใหม่หรืออัปเดต UI ได้ที่นี่
                     });
                 }

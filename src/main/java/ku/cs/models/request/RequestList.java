@@ -1,7 +1,5 @@
 package ku.cs.models.request;
 
-import ku.cs.models.user.UserList;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
