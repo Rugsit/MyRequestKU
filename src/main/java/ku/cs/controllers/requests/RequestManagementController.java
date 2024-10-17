@@ -590,7 +590,7 @@ public class RequestManagementController implements Observer<HashMap<String, Str
             @Override
             protected void updateItem(Approver approver, boolean empty) {
                 super.updateItem(approver, empty);
-                if (approver != null || !empty) {
+                if (!empty && approver != null) {
                     if (approver.getDisableView()) {
                         setDisable(true);
                     } else {
