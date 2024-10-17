@@ -211,7 +211,7 @@ public class DashBoardController {
         }if (facultyRequestTab.isSelected()) {
             showTableAmountUser(facultyRequestTab);
         }if (departmentRequestTab.isSelected()) {
-            showTableAmountUser(facultyRequestTab);
+            showTableAmountUser(departmentRequestTab);
         }
         UserListFileDatasource userDatasource = new UserListFileDatasource("data", "admin.csv");
         UserList userList = userDatasource.readAllUser();
