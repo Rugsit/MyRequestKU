@@ -195,7 +195,7 @@
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </ChoiceBox>
-                                    <Button fx:id="showPDFButton" mnemonicParsing="false" onAction="#showPDF" prefHeight="45.0" text="เปิดไฟล์ที่ลงนาม">
+                                    <Button fx:id="showPDFButton" disable="true" mnemonicParsing="false" onAction="#showPDF" prefHeight="45.0" text="เปิดไฟล์ที่ลงนาม">
                                        <graphic>
                                           <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
