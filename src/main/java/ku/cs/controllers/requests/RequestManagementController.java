@@ -804,7 +804,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                 Image deleteButtonImage = new Image(getClass().getResourceAsStream("/images/pages/department/department-staff-request/edit-approver-icon-blue.png"));
                 editBT.changeBackgroundRadius(20);
                 editBT.setImage(deleteButtonImage,40,40);
-                if(haveReject)editBT.getButton().setDisable(true);
 
                 //SIGNATURE BUTTON
                 DefaultButton signatureBT = new DefaultButton(signatureButton,"transparent", "#e0e0e0", "#000000"){
@@ -833,7 +832,6 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                 Image approveButtonImage = new Image(getClass().getResourceAsStream("/images/pages/department/department-staff-request/approve-approver-green-icon.png"));
                 approveBT.changeBackgroundRadius(20);
                 approveBT.setImage(approveButtonImage,40,40);
-                if(haveReject)approveBT.getButton().setDisable(true);
 
             }
             @Override
@@ -843,6 +841,16 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                     setGraphic(null); // No content for empty cells
                 } else {
                     Approver approver = getTableView().getItems().get(getIndex());
+                    //MAKE ENABLE BY DEFAULT
+                    editButton.setDisable(false);
+                    signatureButton.setDisable(false);
+                    approveButton.setDisable(false);
+                    //CHECK REJECT
+                    if(haveReject){
+                        editButton.setDisable(true);
+                        approveButton.setDisable(true);
+                    }
+                    //HANDLE DEPARTMENT OR FACULTY
                     if (session.getUser() instanceof DepartmentUser) {
                         if (approver.getTier().equals(ApproverTiers.ADVISOR.toString()) || approver.getTier().equals(ApproverTiers.FACULTY.toString())) {
                             editButton.setDisable(true);
@@ -854,10 +862,12 @@ public class RequestManagementController implements Observer<HashMap<String, Str
                             approveButton.setDisable(true);
                         }
                     }
+                    //CHECK NO-IMAGE
                     if(approver.getSignatureFile().equals("no-image")){
                         signatureButton.setDisable(true);
                         approveButton.setDisable(true);
                     }
+                    //CHECK COMPLETE
                     if(approver.getStatus().equals("เรียบร้อย")){
                         editButton.setDisable(true);
                         approveButton.setDisable(true);
