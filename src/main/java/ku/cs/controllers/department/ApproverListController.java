@@ -7,10 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ku.cs.controllers.requests.approver.AddApproverController;
@@ -19,10 +16,7 @@ import ku.cs.models.Session;
 import ku.cs.models.request.approver.Approver;
 import ku.cs.models.request.approver.ApproverList;
 import ku.cs.models.user.DepartmentUser;
-import ku.cs.services.ApproverListFileDatasource;
-import ku.cs.services.FXRouter;
-import ku.cs.services.Observer;
-import ku.cs.services.Theme;
+import ku.cs.services.*;
 import ku.cs.views.components.*;
 import java.io.IOException;
 import java.util.HashMap;
@@ -63,6 +57,8 @@ public class ApproverListController implements Observer<HashMap<String, String>>
     private DepartmentUser loginUser;
     @FXML
     private TextField searchTextField;
+    @FXML
+    private AnchorPane mainAnchorPane;
     private Session session;
     private Theme theme = Theme.getInstance();
 
@@ -77,6 +73,7 @@ public class ApproverListController implements Observer<HashMap<String, String>>
 
     @FXML
     public void initialize() {
+        updateStyle();
         theme.clearObservers();
         initRouteData();
         loginUser = (DepartmentUser) session.getUser();
@@ -258,5 +255,18 @@ public class ApproverListController implements Observer<HashMap<String, String>>
     @Override
     public void update(HashMap<String, String> data) {
         mainStackPane.setStyle(mainStackPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/general-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/general.css").toString();
+            }
+        });
     }
 }

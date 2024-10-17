@@ -77,6 +77,7 @@ public class FacultyApproverController implements Observer<HashMap<String, Strin
 
     @FXML
     public void initialize() {
+        updateStyle();
         Theme.getInstance().clearObservers();
         approverTable = new DefaultTableView<>(approverTableView){
             @Override
@@ -259,5 +260,18 @@ public class FacultyApproverController implements Observer<HashMap<String, Strin
     @Override
     public void update(HashMap<String, String> data) {
         mainAnchorPane.setStyle(mainAnchorPane.getStyle()+"-fx-background-color: " + data.get("secondary") + ";");
+    }
+
+    public void updateStyle() {
+        Theme.getInstance().loadCssToPage(mainAnchorPane, new PathGenerator() {
+            @Override
+            public String getThemeDarkPath() {
+                return getClass().getResource("/ku/cs/styles/general-dark.css").toString();
+            }
+            @Override
+            public String getThemeLightPath() {
+                return getClass().getResource("/ku/cs/styles/general.css").toString();
+            }
+        });
     }
 }

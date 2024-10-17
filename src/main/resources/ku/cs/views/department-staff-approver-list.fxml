@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.department.ApproverListController">
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.department.ApproverListController">
    <children>
       <StackPane fx:id="mainStackPane" prefHeight="720.0" prefWidth="1280.0">
          <children>
@@ -25,8 +25,12 @@
                      <font>
                         <Font name="Arial Bold" size="48.0" />
                      </font>
+                     <styleClass>
+                        <String fx:value="header" />
+                        <String fx:value="large-font-size" />
+                     </styleClass>
                   </Label>
-                  <Button fx:id="backButton" layoutX="38.0" layoutY="35.0" mnemonicParsing="false" text="ย้อนกลับ">
+                  <Button fx:id="backButton" layoutX="38.0" layoutY="35.0" mnemonicParsing="false" styleClass="medium-font-size" text="ย้อนกลับ">
                      <font>
                         <Font name="Arial" size="18.0" />
                      </font>
@@ -38,12 +42,12 @@
                      </styleClass></TableView>
                   <HBox fx:id="tableHeaderHBox" alignment="CENTER_LEFT" layoutX="53.0" layoutY="110.0" prefHeight="47.0" prefWidth="806.0">
                      <children>
-                        <Label fx:id="tableViewLabel" text="รายชื่อผู้อนุมัติ">
+                        <Label fx:id="tableViewLabel" styleClass="semi-large-font-size" text="รายชื่อผู้อนุมัติ">
                            <font>
                               <Font name="Arial Bold" size="40.0" />
                            </font>
                         </Label>
-                        <Button fx:id="addApproverButton" mnemonicParsing="false" onAction="#onAddApproverButtonClicked" text="เพิ่มผู้อนุมัติ">
+                        <Button fx:id="addApproverButton" mnemonicParsing="false" onAction="#onAddApproverButtonClicked" styleClass="medium-font-size" text="เพิ่มผู้อนุมัติ">
                            <font>
                               <Font name="Arial" size="24.0" />
                            </font>
@@ -64,13 +68,17 @@
                               <Image url="@../../../images/icons/search-icon.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="searchTextField" prefHeight="51.0" prefWidth="270.0" promptText="ค้นหา" styleClass="searchTextField">
+                        <TextField fx:id="searchTextField" prefHeight="51.0" prefWidth="270.0" promptText="ค้นหา">
                            <font>
                               <Font size="18.0" />
                            </font>
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
+                           <styleClass>
+                              <String fx:value="searchTextField" />
+                              <String fx:value="medium-font-size" />
+                           </styleClass>
                         </TextField>
                      </children>
                      <padding>
