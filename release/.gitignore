@@ -1,0 +1,15 @@
+*
+!.gitignore
+!\data/
+!\data/**
+!\release/
+!\release/UML/
+!\release/UML/**
+!\data\images\
+!\data\requests/
+!\data\requests/signatures/
+!\data\requests/signatures/**
+!*.csv
+!*.png
+!*.pdf
+!*.jar
