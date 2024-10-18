@@ -2,9 +2,8 @@
 !.gitignore
 !\data/
 !\data/**
-!\release/
-!\release/UML/
-!\release/UML/**
+!UML/
+!UML/**
 !\data\images\
 !\data\requests/
 !\data\requests/signatures/
