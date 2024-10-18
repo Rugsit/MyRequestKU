@@ -142,6 +142,8 @@
 2. หากต้องการข้อมูลเริ่มต้นเพื่อทดสอบให้นำ directory data (เก็บข้อมูลเริ่มต้น) ใน directory release มาไว้ใน directory เดียวกันกับ jar file
 3. คลิกที่ jar file เพื่อเปิดใช้งานโปรแกรมได้เลย หรือใช้คำสั่ง java -jar ชื่อไฟล์.jar
 
+[![how-to-use](https://github.com/punsnx/project-extended-resources/blob/592e789c290ee15c6f2d78f6ab3ebe4937635c52/cs211-myrequestku-how-to-install-and-run-program.png)]
+
 ## ตัวอย่างข้อมูลผู้ใช้ระบบ (username, password)
 | บทบาท (role)       | ชื่อผู้ใช้ (username) | รหัสผ่าน (password) |
 |--------------------| ---------------- | ----------------- |
