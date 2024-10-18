@@ -18,10 +18,12 @@ import ku.cs.models.user.UserList;
 import ku.cs.services.Authentication;
 import ku.cs.services.SetTransition;
 import ku.cs.services.UserListFileDatasource;
-import ku.cs.views.components.DefaultLabel;
 import ku.cs.services.FXRouter;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -29,7 +31,6 @@ public class LoginController {
     @FXML private TextField userNameTextField;
     @FXML private TextField passwordTextField;
     @FXML private Label errorLabel;
-    @FXML private Label aboutUsLabel;
     @FXML private Stage currentPopupStage;
     @FXML private ImageView backgroundImageView;
     @FXML private Button loginButton;
@@ -214,6 +215,21 @@ public class LoginController {
         } catch (
                 IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    protected void onManualClicked(){
+        try {
+            Desktop.getDesktop().browse(new URI("https://drive.google.com/file/d/1hBjVRs7fHdEZCDpgPNTzE7ATCbnJsCV3/view"));
+        } catch (IOException | URISyntaxException e) {
+            System.err.println("""
+                    Error opening link to manual.
+                    You can access the manual with
+                    https://kasets.art/OJleZt
+                    or
+                    https://drive.google.com/file/d/1hBjVRs7fHdEZCDpgPNTzE7ATCbnJsCV3/view
+                    """);
         }
     }
 

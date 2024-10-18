@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -17,7 +18,7 @@
    <children>
       <ImageView fx:id="backgroundImageView" fitHeight="720.0" fitWidth="1280.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../../../../Downloads/background-login1.jpg" />
+            <Image url="@../../../images/backgrounds/background-login1.jpg" />
          </image>
       </ImageView>
       <HBox layoutX="166.0" layoutY="64.0" prefHeight="100.0" styleClass="hbox-container-login">
@@ -87,10 +88,13 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Label fx:id="aboutUsLabel" alignment="CENTER" focusTraversable="false" prefHeight="18.0" prefWidth="386.0" styleClass="manual" text="คู่มือการใช้งาน">
+                  <Label fx:id="manualLabel" alignment="CENTER" focusTraversable="false" onMouseClicked="#onManualClicked" prefHeight="18.0" prefWidth="386.0" styleClass="manual" text="คู่มือการใช้งาน">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Label>
                </children>
             </VBox>
