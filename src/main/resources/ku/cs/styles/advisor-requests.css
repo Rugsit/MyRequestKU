@@ -4,13 +4,17 @@
 
 .signOut {
     -fx-underline: true;
-    -fx-text-fill: #0000FF;
+    -fx-text-fill: #2C67FF;
     -fx-font-size: 18;
     -fx-alignment: center;
 }
 
+.profile-button {
+    -fx-background-color: transparent;
+}
+
 .tabName{
-    -fx-font-size: 18;
+    -fx-font-size: 20px;
     -fx-alignment: center;
     -fx-font-weight: bold;
 }
@@ -34,4 +38,10 @@
 
 .requestsTable {
     -fx-font-size: 18;
+}
+
+.about-us {
+    -fx-text-fill: #909194;
+    -fx-cursor: hand;
+    -fx-font-size: 18px;
 }

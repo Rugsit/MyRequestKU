@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="708.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.UserProfileCardController">
+    <children>
+      <Pane prefHeight="494.0" prefWidth="708.0" styleClass="ProfileCard">
+         <children>
+            <ImageView fx:id="profilePictureImageView" fitHeight="194.0" fitWidth="158.0" layoutX="31.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+            <Line endX="336.0" layoutX="353.0" layoutY="98.0" startX="-130.0" stroke="#9f9f9f" />
+            <Label fx:id="nameLabel" alignment="BOTTOM_LEFT" layoutX="230.0" layoutY="4.0" prefHeight="88.0" prefWidth="431.0" text="NameLabel">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="StudentName" />
+                  <String fx:value="semi-large-font-size" />
+               </styleClass>
+            </Label>
+            <VBox layoutX="230.0" layoutY="126.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <ImageView fx:id="userTypeIconImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/icons/bag-icon.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label id="profileCardInfo" fx:id="userTypeLabel" styleClass="semi-medium-font-size" text="userTypeLabel">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <ImageView fx:id="emailIconImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/icons/email-icon.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <TextField fx:id="emailTextField" editable="false" focusTraversable="false" prefWidth="218.0" text="test">
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="emailTextField" />
+                              <String fx:value="semi-medium-font-size" />
+                           </styleClass>
+                        </TextField>
+                        <Button fx:id="emailEditButton" alignment="BASELINE_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#onEmailEditButtonClicked" prefHeight="27.0" prefWidth="27.0" styleClass="editEmailButton">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/icons/pencil-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="emailSaveButton" alignment="BASELINE_LEFT" defaultButton="true" disable="true" focusTraversable="false" mnemonicParsing="false" onAction="#onEmailSaveButtonClicked" prefHeight="27.0" prefWidth="27.0" styleClass="saveEmailButton" textFill="WHITE" visible="false">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/icons/approved-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="cancelEmailEditButton" alignment="BASELINE_LEFT" cancelButton="true" disable="true" focusTraversable="false" mnemonicParsing="false" onAction="#onCancelEmailEditButtonClicked" prefHeight="27.0" prefWidth="27.0" styleClass="cancelEditEmailButton" visible="false">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/icons/rejected-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <GridPane hgap="20.0" vgap="20.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <ImageView fx:id="facultyIconImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/icons/faculty-profile-icon.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label id="profileCardInfo" fx:id="facultyLabel" styleClass="semi-medium-font-size" text="facultyLabel">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1">
+                           <children>
+                              <ImageView fx:id="departmentIconImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/icons/student-icon.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label id="profileCardInfo" fx:id="departmentLabel" prefHeight="30.0" prefWidth="170.0" styleClass="semi-medium-font-size" text="departmentLabel">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
+                           <children>
+                              <ImageView fx:id="idIconImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/icons/card-icon.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label id="profileCardInfo" fx:id="idLabel" styleClass="semi-medium-font-size" text="idLabel">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <ImageView fx:id="advisorIconImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/icons/advisor-icon.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label id="profileCardInfo" fx:id="advisorLabel" styleClass="semi-medium-font-size" text="advisorLabel">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </GridPane>
+               </children>
+            </VBox>
+            <VBox layoutX="31.0" layoutY="241.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Label id="profileCardInfo" styleClass="semi-medium-font-size" text="User:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label id="profileCardInfo" fx:id="usernameLabel" styleClass="semi-medium-font-size" text="userLabel">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Button alignment="BASELINE_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#onUploadImageButtonClicked" text="อัปโหลดรูปโพรไฟล์">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/icons/upload-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="uploadImageButton" />
+                        <String fx:value="semi-medium-font-size" />
+                     </styleClass>
+                  </Button>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Button fx:id="editPasswordButton" alignment="BASELINE_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#onEditPasswordButtonClicked" prefHeight="30.0" text="แก้ไขรหัสผ่าน">
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/icons/pencil-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="editPasswordButton" />
+                              <String fx:value="semi-medium-font-size" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="cancelEditPasswordButton" alignment="CENTER" cancelButton="true" focusTraversable="false" minHeight="27.0" minWidth="34.0" mnemonicParsing="false" onAction="#onCancelEditPasswordButtonClicked" prefHeight="27.0" prefWidth="35.0" styleClass="cancelEditEmailButton" visible="false">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/icons/rejected-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <HBox>
+                           <children>
+                              <PasswordField fx:id="newPasswordTextField" disable="true" editable="false" promptText="รหัสผ่านใหม่" visible="false">
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="passwordTextField" />
+                                    <String fx:value="semi-medium-font-size" />
+                                 </styleClass>
+                              </PasswordField>
+                              <PasswordField fx:id="confirmNewPasswordTextField" disable="true" editable="false" promptText="ยืนยันรหัสผ่านใหม่อีกครั้ง" visible="false">
+                                 <styleClass>
+                                    <String fx:value="passwordTextField" />
+                                    <String fx:value="semi-medium-font-size" />
+                                 </styleClass></PasswordField>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <PasswordField fx:id="oldPasswordTextField" disable="true" editable="false" maxWidth="300.0" promptText="กรุณาใส่รหัสผ่านเก่า" visible="false">
+                     <styleClass>
+                        <String fx:value="passwordTextField" />
+                        <String fx:value="semi-medium-font-size" />
+                     </styleClass></PasswordField>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" layoutX="205.0" layoutY="416.0">
+               <children>
+                  <Label fx:id="notificationLabel" prefHeight="27.0" textFill="#eb0909">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="errorLabel" />
+                        <String fx:value="semi-medium-font-size" />
+                     </styleClass>
+                  </Label>
+                  <HBox alignment="BOTTOM_CENTER" prefWidth="467.0">
+                     <children>
+                        <Button alignment="BASELINE_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#onSaveButtonClicked" prefHeight="27.0" text="บันทึก">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/icons/request-status-approved.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="saveButton" />
+                              <String fx:value="semi-medium-font-size" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+    </children>
+</AnchorPane>

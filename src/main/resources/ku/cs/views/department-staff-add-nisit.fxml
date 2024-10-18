@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.department.AddNisitController">
+   <children>
+      <StackPane fx:id="mainStackPane" prefHeight="720.0" prefWidth="1280.0">
+         <children>
+            <Pane prefHeight="720.0" prefWidth="1280.0">
+               <children>
+                  <HBox alignment="CENTER" layoutX="828.0" layoutY="100.0" prefHeight="133.0" prefWidth="427.0" style="-fx-spacing: 20;">
+                     <children>
+                        <Button fx:id="addNisitButton" contentDisplay="TOP" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" text="เพิ่มนิสิต">
+                           <font>
+                              <Font name="Arial" size="24.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/pages/department/department-staff-approver/icon-add-person-black.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="addNisitCSVButton" contentDisplay="TOP" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" text="CSV">
+                           <font>
+                              <Font name="Arial" size="24.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/pages/department/department-staff-approver/icon-add-person-black.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label fx:id="pageTitleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="47.0" prefHeight="55.0" prefWidth="1281.0" text="เพิ่มข้อมูลนิสิต" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial Bold" size="48.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="backButton" layoutX="48.0" layoutY="45.0" mnemonicParsing="false" text="ย้อนกลับ">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Button>
+                  <VBox fx:id="nisitTableVBox" layoutX="40.0" layoutY="126.0" prefHeight="553.0" prefWidth="779.0">
+                     <children>
+                        <HBox fx:id="tableHeaderHBox" alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="806.0">
+                           <children>
+                              <Label fx:id="tableViewLabel" prefHeight="47.0" prefWidth="322.0" text="รายชื่อนิสิต">
+                                 <font>
+                                    <Font name="Arial Bold" size="40.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="671.0" style="-fx-spacing: 10;">
+                                 <children>
+                                    <Button fx:id="saveNisitListButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="save">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="resetNisitListButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="reset">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <TableView fx:id="nisitTableView" prefHeight="508.0" prefWidth="848.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0" text="C1" />
+                              <TableColumn prefWidth="75.0" text="C2" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="nisitEditorVBox" alignment="TOP_CENTER" layoutX="828.0" layoutY="240.0" prefHeight="343.0" prefWidth="427.0" />
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

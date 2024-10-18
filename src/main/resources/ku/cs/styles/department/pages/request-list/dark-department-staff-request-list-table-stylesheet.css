@@ -1,0 +1,82 @@
+.table-view {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: transparent;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-font-weight: Bold;
+    -fx-font-size: 28;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+}
+
+.table-view .table-cell{
+    -fx-alignment: CENTER;
+    -fx-border-color: transparent;
+    -fx-font-size: 20;
+}
+
+.table-row-cell  {
+    -fx-background-color: transparent;
+}
+
+
+.table-row-cell:filled {
+    -fx-background-insets: 10 0 10 0; /* Create spacing effect padding! */
+    -fx-padding: 10 0 10 0;
+    -fx-background-radius: 20;
+    -fx-background-color: black;
+}
+.table-row-cell:filled .table-cell{
+    -fx-text-fill: white;
+}
+.table-row-cell:filled:selected {
+    -fx-background-color: #242424;
+}
+.table-row-cell:filled:hover {
+    -fx-background-color: #343434;
+    -fx-cursor: HAND;
+}
+
+
+/*SCROLL BAR*/
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+    -fx-pref-width: 15;
+}
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+.table-view .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-color:  #e0e0e0;
+    -fx-background-radius: 20;
+}
+.table-view .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color:  #e0e0e0;
+    -fx-background-radius: 20;
+}
+.table-view .virtual-flow .scroll-bar:vertical .thumb:hover{
+    -fx-background-color:  #cbcbcb;
+    -fx-cursor: HAND;
+}
+.table-view .virtual-flow .scroll-bar:horizontal .thumb:hover{
+    -fx-background-color:  #cbcbcb;
+    -fx-cursor: HAND;
+}

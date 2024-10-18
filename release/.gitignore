@@ -1,0 +1,14 @@
+*
+!.gitignore
+!\data/
+!\data/**
+!UML/
+!UML/**
+!\data\images\
+!\data\requests/
+!\data\requests/signatures/
+!\data\requests/signatures/**
+!*.csv
+!*.png
+!*.pdf
+!*.jar

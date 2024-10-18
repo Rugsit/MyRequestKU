@@ -9,180 +9,190 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.department.NisitAdvisorManagementController">
    <children>
-      <Label fx:id="pageTitleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="47.0" prefHeight="55.0" prefWidth="1281.0" text="จัดการนิสิตในความดูแลของอาจารย์ที่ปรึกษา" textAlignment="CENTER">
-         <font>
-            <Font name="Arial Bold" size="48.0" />
-         </font>
-      </Label>
-      <Button fx:id="backButton" layoutX="48.0" layoutY="45.0" mnemonicParsing="false" text="ย้อนกลับ">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </Button>
-      <VBox fx:id="allTableVBox" layoutX="53.0" layoutY="115.0" prefHeight="560.0" prefWidth="886.0">
+      <StackPane fx:id="mainStackPane" prefHeight="720.0" prefWidth="1280.0">
          <children>
-            <VBox fx:id="nisitTableVBox" prefHeight="280.0" prefWidth="886.0">
+            <Pane prefHeight="720.0" prefWidth="1280.0">
                <children>
-                  <HBox fx:id="nisitTableHeaderHBox" alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="886.0">
+                  <Label fx:id="pageTitleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="47.0" prefHeight="55.0" prefWidth="1281.0" text="จัดการนิสิตในความดูแลของอาจารย์ที่ปรึกษา" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial Bold" size="48.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="backButton" layoutX="48.0" layoutY="45.0" mnemonicParsing="false" text="ย้อนกลับ">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Button>
+                  <VBox fx:id="allTableVBox" layoutX="53.0" layoutY="109.0" prefHeight="600.0" prefWidth="800.0">
                      <children>
-                        <Label fx:id="nisitTableViewLabel" text="นิสิต">
+                        <VBox fx:id="nisitTableVBox" prefHeight="300.0" prefWidth="800.0">
+                           <children>
+                              <HBox fx:id="nisitTableHeaderHBox" alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="886.0">
+                                 <children>
+                                    <Label fx:id="nisitTableViewLabel" prefHeight="47.0" prefWidth="354.0" text="นิสิต">
+                                       <font>
+                                          <Font name="Arial Bold" size="40.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="nisitTableView" prefHeight="300.0" prefWidth="886.0">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="C1" />
+                                    <TableColumn prefWidth="75.0" text="C2" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="advisorTableVBox" prefHeight="300.0" prefWidth="886.0">
+                           <children>
+                              <HBox fx:id="advisorTableHeaderHBox" alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="886.0">
+                                 <children>
+                                    <Label fx:id="advisorTableViewLabel" prefHeight="47.0" prefWidth="369.0" text="อาจารย์ที่ปรึกษา">
+                                       <font>
+                                          <Font name="Arial Bold" size="40.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="advisorTableView" prefHeight="300.0" prefWidth="886.0">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="C1" />
+                                    <TableColumn prefWidth="75.0" text="C2" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="showNisitVBox" alignment="TOP_CENTER" layoutX="896.0" layoutY="111.0" prefHeight="290.0" prefWidth="333.0">
+                     <children>
+                        <ImageView fx:id="nisitImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                        <HBox fx:id="nisitNameHBox" prefHeight="21.0" prefWidth="333.0">
+                           <children>
+                              <Label fx:id="nisitNamePrefixLabel" text="ชื่อ" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="nisitNameLabel" text="ชื่อนิสิต" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="21.0" prefWidth="333.0">
+                           <children>
+                              <Label fx:id="nisitIdPrefixLabel" text="รหัสนิสิต" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="nisitIdLabel" text="รหัสนิสิต" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="21.0" prefWidth="333.0">
+                           <children>
+                              <Label fx:id="nisitAdvisorNamePrefixLabel" text="อาจารย์ที่ปรึกษา" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="nisitAdvisorNameLabel" text="อาจารย์ชื่อที่ปรึกษา" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="21.0" prefWidth="333.0">
+                           <children>
+                              <Label fx:id="nisitAdvisorIdPrefixLabel" text="รหัสอาจารย์" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="nisitAdvisorIdLabel" text="รหัสอาจารย์" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="showAdvisorVBox" alignment="TOP_CENTER" layoutX="897.0" layoutY="448.0" prefHeight="278.0" prefWidth="333.0">
+                     <children>
+                        <ImageView fx:id="advisorImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                        <HBox fx:id="advisorNameHBox" prefHeight="21.0" prefWidth="333.0">
+                           <children>
+                              <Label fx:id="advisorNamePrefixLabel" text="อาจารย์ที่ปรึกษา" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="advisorNameLabel" text="อาจารย์ชื่อที่ปรึกษา" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="21.0" prefWidth="333.0">
+                           <children>
+                              <Label fx:id="advisorIdPrefixLabel" text="รหัสอาจารย์" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="advisorIdLabel" text="รหัสอาจารย์" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" layoutX="891.0" layoutY="401.0" prefHeight="48.0" prefWidth="342.0">
+                     <children>
+                        <Button fx:id="changeAdvisorButton" alignment="CENTER" mnemonicParsing="false" text="เปลี่ยนอาจารย์ที่ปรึกษา">
                            <font>
-                              <Font name="Arial Bold" size="40.0" />
+                              <Font name="Arial" size="24.0" />
                            </font>
-                        </Label>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/pages/department/department-staff-approver/icon-add-person-black.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </HBox>
-                  <TableView fx:id="nisitTableView" prefHeight="233.0" prefWidth="886.0">
-                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="75.0" text="C2" />
-                     </columns>
-                  </TableView>
                </children>
-            </VBox>
-            <VBox fx:id="advisorTableVBox" prefHeight="280.0" prefWidth="886.0">
-               <children>
-                  <HBox fx:id="advisorTableHeaderHBox" alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="886.0">
-                     <children>
-                        <Label fx:id="advisorTableViewLabel" text="อาจารย์ที่ปรึกษา">
-                           <font>
-                              <Font name="Arial Bold" size="40.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <TableView fx:id="advisorTableView" prefHeight="233.0" prefWidth="886.0">
-                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="75.0" text="C2" />
-                     </columns>
-                  </TableView>
-               </children>
-            </VBox>
+            </Pane>
          </children>
-      </VBox>
-      <VBox fx:id="showNisitVBox" alignment="TOP_CENTER" layoutX="943.0" layoutY="105.0" prefHeight="290.0" prefWidth="333.0">
-         <children>
-            <ImageView fx:id="nisitImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
-            <HBox fx:id="nisitNameHBox" prefHeight="21.0" prefWidth="333.0">
-               <children>
-                  <Label fx:id="nisitNamePrefixLabel" text="ชื่อ" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="nisitNameLabel" text="ชื่อนิสิต" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="21.0" prefWidth="333.0">
-               <children>
-                  <Label fx:id="nisitIdPrefixLabel" text="รหัสนิสิต" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="nisitIdLabel" text="รหัสนิสิต" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="21.0" prefWidth="333.0">
-               <children>
-                  <Label fx:id="nisitAdvisorNamePrefixLabel" text="อาจารย์ที่ปรึกษา" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="nisitAdvisorNameLabel" text="อาจารย์ชื่อที่ปรึกษา" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="21.0" prefWidth="333.0">
-               <children>
-                  <Label fx:id="nisitAdvisorIdPrefixLabel" text="รหัสอาจารย์" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="nisitAdvisorIdLabel" text="รหัสอาจารย์" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <VBox fx:id="showAdvisorVBox" alignment="TOP_CENTER" layoutX="944.0" layoutY="442.0" prefHeight="278.0" prefWidth="333.0">
-         <children>
-            <ImageView fx:id="advisorImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
-            <HBox fx:id="advisorNameHBox" prefHeight="21.0" prefWidth="333.0">
-               <children>
-                  <Label fx:id="advisorNamePrefixLabel" text="อาจารย์ที่ปรึกษา" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="advisorNameLabel" text="อาจารย์ชื่อที่ปรึกษา" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="21.0" prefWidth="333.0">
-               <children>
-                  <Label fx:id="advisorIdPrefixLabel" text="รหัสอาจารย์" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="advisorIdLabel" text="รหัสอาจารย์" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <HBox alignment="CENTER" layoutX="938.0" layoutY="395.0" prefHeight="48.0" prefWidth="342.0">
-         <children>
-            <Button fx:id="changeAdvisorButton" alignment="CENTER" mnemonicParsing="false" text="เปลี่ยนอาจารย์ที่ปรึกษา">
-               <font>
-                  <Font name="Arial" size="24.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/pages/department/department-staff-approver/icon-add-person-black.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-      </HBox>
+      </StackPane>
    </children>
 </AnchorPane>

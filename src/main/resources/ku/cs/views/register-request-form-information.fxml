@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<VBox prefWidth="850.0" styleClass="vbox-in-scroll-pane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.information.RegisterInformationRequestFormController">
+   <children>
+      <VBox prefWidth="834.0">
+         <children>
+            <HBox>
+               <children>
+                  <Label styleClass="medium-font-size" text="วันที่สร้างใบคำร้อง:">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="createDateTextField" styleClass="medium-font-size" text="2024/7/01 16.55">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label styleClass="medium-font-size" text="วันที่อัปเดตล่าสุด:">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="updateDateTextField" styleClass="medium-font-size" text="2024/7/02 07.30" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label styleClass="medium-font-size" text="ชื่อ">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="nameTextField" styleClass="medium-font-size" text="นายเมมโมรี่โฟม">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label styleClass="medium-font-size" text="นามสกุล">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="surnameTextField" styleClass="medium-font-size" text="รักนอน">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label styleClass="medium-font-size" text="รหัสนิสิต">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="idTextField" styleClass="medium-font-size" text="6610407777" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label styleClass="medium-font-size" text="คณะ">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="facultyTextField" styleClass="medium-font-size" text="วิทยาศาสตร์">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label styleClass="medium-font-size" text="ภาควิชา">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="departmentTextField" styleClass="medium-font-size" text="วิทยาการคอมพิวเตอร์">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label styleClass="medium-font-size" text="อีเมล">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="gmailTextField" styleClass="medium-font-size" text="memoryfoam.ru@ku.th" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label styleClass="medium-font-size" text="ชื่ออาจารย์ที่ปรึกษา">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="advisorTextField" styleClass="medium-font-size" text="ผศ.ดร.โพลีเอสเตอร์ นอนไม่พอ">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label styleClass="medium-font-size" text="รหัสอาจารย์ที่ปรึกษา">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="advisorIdTextField" styleClass="medium-font-size" text="D1438">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <Line endX="725.29296875" startX="-100.0">
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin>
+            </Line>
+            <Label styleClass="semi-large-font-size" text="ความประสงค์">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Label>
+            <RadioButton fx:id="lateRegistrationRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ลงทะเบียนเรียนล่าช้า หรือ รักษาสถานภาพนิสิตล่าช้า ( มีกรอก KU1 เพิ่มเติม )">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="group1" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="addDropRadio" mnemonicParsing="false" prefHeight="34.0" prefWidth="730.0" styleClass="medium-font-size" text="เพิ่มหรือถอนรายวิชาล่าช้า ( มีกรอก KU3 เพิ่มเติม )" toggleGroup="$group1">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </RadioButton>
+            <VBox fx:id="above22Vbox" prefHeight="151.0" prefWidth="834.0">
+               <children>
+                  <RadioButton fx:id="registerRadio" mnemonicParsing="false" prefHeight="34.0" prefWidth="853.0" styleClass="medium-font-size" text="ลงทะเบียนเกิน 22 หน่วยกิตสำหรับภาคต้นหรือภาคปลาย หรือลงทะเบียนเกิน 7 หน่วยกิต สำหรับภาคฤดูร้อน" toggleGroup="$group1" wrapText="true">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <Label styleClass="medium-font-size" text="( มีกรอก KU3 เพิ่มเติม )">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label styleClass="medium-font-size" text="ภาค">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <RadioButton fx:id="firstSemesRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ต้น">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="group2" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="secondSemesRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ปลาย" toggleGroup="$group2">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="summerSemesRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ฤดูร้อน" toggleGroup="$group2">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <Label styleClass="medium-font-size" text="ปีการศึกษา (พ.ศ.)">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="yearTextField" styleClass="medium-font-size" />
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label styleClass="medium-font-size" text="จาก">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="oldCredit" prefHeight="31.0" prefWidth="51.0" styleClass="medium-font-size" />
+                        <Label styleClass="medium-font-size" text="หน่วยกิต">
+                           <HBox.margin>
+                              <Insets left="10.0" right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label styleClass="medium-font-size" text="เป็น">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="newCredit" prefHeight="31.0" prefWidth="51.0" styleClass="medium-font-size">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label styleClass="medium-font-size" text="หน่วยกิต" />
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </VBox>
+            <RadioButton fx:id="registerBelowNineRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ลงทะเบียนต่ำกว่า 9 หน่วยกิต" toggleGroup="$group1">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </RadioButton>
+            <VBox fx:id="latePaymentVbox" prefHeight="94.0" prefWidth="834.0">
+               <children>
+                  <RadioButton fx:id="latePaymentRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ผ่อนผันค่าธรรมเนียมการศึกษา" toggleGroup="$group1">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label styleClass="medium-font-size" text="ภาค">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <RadioButton fx:id="latePayFirstSemesRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ต้น">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="group3" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="latePaySecondSemesRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ปลาย" toggleGroup="$group3">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="latePaySummerSemesRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ฤดูร้อน" toggleGroup="$group3">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <Label styleClass="medium-font-size" text="ปีการศึกษา (พ.ศ.)">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="latePayYearTextField" styleClass="medium-font-size" />
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox fx:id="transferFacultyVbox">
+               <children>
+                  <RadioButton fx:id="transferFalRadio" mnemonicParsing="false" styleClass="medium-font-size" text="ย้ายคณะ หรือเปลี่ยนสาขาวิชา" toggleGroup="$group1">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+                     <children>
+                        <Label styleClass="medium-font-size" text="จาก">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="oldFalTextField" alignment="TOP_LEFT" prefWidth="280.0" wrapText="true">
+                           <styleClass>
+                              <String fx:value="medium-font-size" />
+                              <String fx:value="text-field-copycat" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label styleClass="medium-font-size" text="เป็น">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="newFalTextField" alignment="TOP_LEFT" prefWidth="280.0" wrapText="true">
+                           <styleClass>
+                              <String fx:value="medium-font-size" />
+                              <String fx:value="text-field-copycat" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets right="5.0" />
+         </VBox.margin>
+      </VBox>
+      <VBox prefWidth="100.0">
+         <children>
+            <Label styleClass="medium-font-size" text="เนื่องจาก">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="otherTextArea" alignment="TOP_LEFT" minHeight="200.0" prefWidth="856.0" wrapText="true">
+               <styleClass>
+                  <String fx:value="text-area-copycat" />
+                  <String fx:value="medium-font-size" />
+               </styleClass>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </VBox>
+      <VBox fx:id="buttonCOntainerVbox" alignment="BOTTOM_RIGHT">
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="15.0" />
+   </padding>
+</VBox>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="988.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.student.StudentRequestInfoController">
+   <children>
+      <Label layoutX="375.0" layoutY="17.0" text="รายละเอียดใบคำร้อง">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <styleClass>
+            <String fx:value="header" />
+            <String fx:value="large-font-size" />
+         </styleClass>
+      </Label>
+      <TableView fx:id="requestLogTableView" layoutX="29.0" layoutY="304.0" prefHeight="392.0" prefWidth="931.0" styleClass="semi-medium-font-size">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Button fx:id="seeReject" graphicTextGap="10.0" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#seeRejectReason" prefHeight="45.0" text="ดูเหตุผลที่ถูกปฏิเสธคำร้อง" visible="false">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <styleClass>
+            <String fx:value="view-reject-reason-button" />
+            <String fx:value="semi-medium-font-size" />
+         </styleClass>
+      </Button>
+      <Button fx:id="backButton" layoutX="910.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#onBackButtonClick" styleClass="back-button">
+         <graphic>
+            <ImageView fx:id="backImageView" fitHeight="50.0" fitWidth="45.0" onMouseClicked="#onBackButtonClick" pickOnBounds="true" preserveRatio="true" styleClass="back-button">
+               <image>
+                  <Image url="@../../../images/icons/back-icon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </graphic>
+         <padding>
+            <Insets bottom="5.0" left="7.0" right="7.0" top="5.0" />
+         </padding>
+      </Button>
+      <GridPane hgap="70.0" layoutX="29.0" layoutY="81.0" vgap="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="498.3999816894531" minWidth="-Infinity" prefWidth="498.3999816894531" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label styleClass="medium-font-size" text="วันที่ยื่นคำร้อง">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="createdDateLabel" styleClass="medium-font-size" text="createdDate" GridPane.columnIndex="1">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label styleClass="medium-font-size" text="ประเภทใบคำร้อง" GridPane.rowIndex="1">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="requestTypeLabel" styleClass="medium-font-size" text="requestType" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label styleClass="medium-font-size" text="สถานะปัจจุบัน" GridPane.rowIndex="2">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fx:id="statusIconImageView" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/icons/request-status-in-progress.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Button fx:id="requestStatus1" maxHeight="35.0" maxWidth="234.0" minHeight="35.0" minWidth="234.0" mnemonicParsing="false" mouseTransparent="true" prefHeight="35.0" prefWidth="234.0" text="status1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <styleClass>
+                        <String fx:value="RequestStatus" />
+                        <String fx:value="small-font-size" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="requestStatus2" maxHeight="35.0" maxWidth="234.0" minHeight="35.0" minWidth="234.0" mnemonicParsing="false" mouseTransparent="true" prefHeight="35.0" prefWidth="234.0" text="status2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="RequestStatus" />
+                        <String fx:value="small-font-size" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </HBox>
+            <Label styleClass="medium-font-size" text="หมายเลขคำร้อง" GridPane.rowIndex="3">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="requestNumberLabel" styleClass="medium-font-size" text="requestNumber" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <VBox alignment="TOP_RIGHT" layoutX="490.0" layoutY="79.0" prefWidth="434.0">
+         <children>
+            <HBox fx:id="buttonHbox" alignment="TOP_RIGHT" prefHeight="46.0" prefWidth="434.0">
+               <children>
+                  <Button fx:id="seeInformationButton" graphicTextGap="10.0" mnemonicParsing="false" onAction="#seeInformation" prefHeight="45.0" text="ดูข้อมูลคำร้อง">
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/icons/white-request-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <styleClass>
+                        <String fx:value="info-button" />
+                        <String fx:value="semi-medium-font-size" />
+                     </styleClass>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="115.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox fx:id="approverPDFVbox" alignment="TOP_RIGHT">
+               <children>
+                  <HBox alignment="CENTER_RIGHT">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <VBox>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <children>
+                              <Label styleClass="semi-medium-font-size" text="เลือกผู้อนุมัติ">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <ChoiceBox fx:id="approverChoiceBox" prefHeight="45.0" prefWidth="208.0">
+                                       <styleClass>
+                                          <String fx:value="choice-box-select-pdf" />
+                                          <String fx:value="semi-medium-font-size" />
+                                       </styleClass>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </ChoiceBox>
+                                    <Button fx:id="showPDFButton" disable="true" mnemonicParsing="false" onAction="#showPDF" prefHeight="45.0" text="เปิดไฟล์ที่ลงนาม">
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../images/icons/pdf-sign-icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="semi-medium-font-size" />
+                                          <String fx:value="info-button" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <StackPane fx:id="mainStackPane" layoutX="-2.0" layoutY="-1.0" maxHeight="720.0" maxWidth="994.0" prefHeight="720.0" prefWidth="994.0" visible="false" />
+   </children>
+</AnchorPane>

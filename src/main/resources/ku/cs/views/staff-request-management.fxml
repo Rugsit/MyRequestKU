@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.requests.RequestManagementController">
+   <children>
+      <StackPane fx:id="mainStackPane" prefHeight="720.0" prefWidth="1280.0">
+         <children>
+            <Pane prefHeight="720.0" prefWidth="1280.0">
+               <children>
+                  <Button fx:id="backButton" layoutX="28.0" layoutY="25.0" mnemonicParsing="false" text="ย้อนกลับ">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="pageTitleLabel" layoutX="397.0" layoutY="32.0" text="จัดการผู้อนุมัติ (ภาควิชา)">
+                     <font>
+                        <Font name="Arial Bold" size="48.0" />
+                     </font>
+                  </Label>
+                  <VBox fx:id="dataVBox" layoutX="36.0" layoutY="93.0" prefHeight="589.0" prefWidth="787.0">
+                     <children>
+                        <VBox fx:id="requestInfoVBox" prefHeight="192.0" prefWidth="787.0" />
+                        <HBox fx:id="requestMenuHBox" prefHeight="64.0" prefWidth="787.0" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="mainEditorVBox" layoutX="829.0" layoutY="93.0" prefHeight="589.0" prefWidth="423.0">
+                     <children>
+                        <VBox fx:id="statusVBox" prefHeight="470.0" prefWidth="423.0" />
+                        <VBox fx:id="editorVBox" prefHeight="589.0" prefWidth="423.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

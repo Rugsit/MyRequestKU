@@ -1,84 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@../styles/login-register-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onKeyPressed" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: transparent;" styleClass="root" stylesheets="@../styles/login-register-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.LoginController">
    <children>
-      <ImageView fitHeight="698.0" fitWidth="581.0" layoutX="116.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backgroundImageView" fitHeight="720.0" fitWidth="1280.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/logos/login-register-ku.png" />
+            <Image url="@../../../images/backgrounds/background-login1.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="697.0" layoutY="115.0" text="เข้าสู่ระบบ">
-         <font>
-            <Font name="System Bold" size="40.0" />
-         </font>
-      </Label>
-      <Label layoutX="697.0" layoutY="193.0" text="คุณต้องการจะลงทะเบียนหรือไม่ ?">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="userNameTextField" layoutX="697.0" layoutY="240.0" prefHeight="49.0" prefWidth="386.0" promptText="ชื่อผู้ใช้" styleClass="loginTextField" />
-      <CheckBox layoutX="697.0" layoutY="396.0" mnemonicParsing="false" styleClass="saveDataCheckBox" text="บันทึกข้อมูลการเข้าสู่ระบบ" />
-      <Button layoutX="696.0" layoutY="486.0" mnemonicParsing="false" onAction="#OnLoginButtonClick" prefHeight="75.0" prefWidth="386.0" styleClass="loginButton" text="เข้าสู่ระบบ">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <PasswordField layoutX="697.0" layoutY="318.0" prefHeight="50.0" prefWidth="386.0" promptText="รหัสผ่าน">
-         <styleClass>
-            <String fx:value="loginTextField" />
-            <String fx:value="passwordTextField" />
-         </styleClass>
-      </PasswordField>
-      <Button layoutX="1035.0" layoutY="325.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0" styleClass="seenPasswordButton">
-         <graphic>
-            <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+      <HBox layoutX="166.0" layoutY="64.0" prefHeight="100.0" styleClass="hbox-container-login">
+         <padding>
+            <Insets bottom="50.0" left="20.0" right="50.0" top="50.0" />
+         </padding>
+         <children>
+            <ImageView fitHeight="531.0" fitWidth="492.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/icons/eye-icon.png" />
+                  <Image url="@../../../images/logos/login-register-ku.png" />
                </image>
             </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="selectAdminRoleButton" layoutX="1118.0" layoutY="193.0" mnemonicParsing="false" onAction="#goToAdminManage" prefHeight="37.0" prefWidth="128.0" styleClass="loginButton" text="ผู้ดูแลระบบ" visible="false">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="selectFacultyStaffRoleButton" layoutX="1118.0" layoutY="241.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="128.0" styleClass="loginButton" text="เจ้าหน้าที่คณะ" visible="false">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="selectDepartmentStaffRoleButton" layoutX="1118.0" layoutY="291.0" mnemonicParsing="false" onAction="#goToDepartmentManage" prefHeight="37.0" prefWidth="128.0" styleClass="loginButton" text="เจ้าหน้าที่ภาควิชา" visible="false">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="selectAdviserRoleButton" layoutX="1118.0" layoutY="338.0" mnemonicParsing="false" onAction="#goToAdvisorManage" prefHeight="37.0" prefWidth="128.0" styleClass="loginButton" text="อาจารย์ที่ปรึกษา" visible="false">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="selectStudentRoleButton" layoutX="1118.0" layoutY="388.0" mnemonicParsing="false" onAction="#onStudentButtonClicked" prefHeight="37.0" prefWidth="128.0" styleClass="loginButton" text="นิสิต" visible="false">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button layoutX="914.0" layoutY="186.0" mnemonicParsing="false" onAction="#goToRegister" styleClass="registerLabel" text="ลงทะเบียน">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+            <VBox alignment="CENTER_LEFT" prefWidth="386.0">
+               <children>
+                  <Label focusTraversable="false" styleClass="login-header" text="เข้าสู่ระบบ">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="BASELINE_LEFT">
+                     <children>
+                        <Label focusTraversable="false" styleClass="desc-login" text="คุณต้องการจะลงทะเบียนหรือไม่ ?">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#goToRegister" styleClass="registerLabel" text="ลงทะเบียน">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <TextField fx:id="userNameTextField" prefHeight="50.0" promptText="ชื่อผู้ใช้" styleClass="loginTextField">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <PasswordField fx:id="passwordTextField" prefHeight="50.0" promptText="รหัสผ่าน">
+                     <styleClass>
+                        <String fx:value="loginTextField" />
+                        <String fx:value="passwordTextField" />
+                     </styleClass>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </PasswordField>
+                  <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" prefHeight="27.0" prefWidth="386.0" styleClass="warningLabel" text="ErrorLabel" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </Label>
+                  <Button fx:id="loginButton" focusTraversable="false" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="75.0" prefWidth="386.0" styleClass="loginButton" text="เข้าสู่ระบบ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label fx:id="manualLabel" alignment="CENTER" focusTraversable="false" onMouseClicked="#onManualClicked" prefHeight="18.0" prefWidth="386.0" styleClass="manual" text="คู่มือการใช้งาน">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
