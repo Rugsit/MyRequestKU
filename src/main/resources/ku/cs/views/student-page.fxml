@@ -62,9 +62,6 @@
                <VBox.margin>
                   <Insets bottom="10.0" top="20.0" />
                </VBox.margin>
-               <image>
-                  <Image url="@../../../images/users/side-bar-profile.png" />
-               </image>
             </ImageView>
                 <Label fx:id="tabAccountNameLabel" alignment="CENTER" contentDisplay="CENTER" prefWidth="292.0" text="Label" textAlignment="CENTER">
                     <font>

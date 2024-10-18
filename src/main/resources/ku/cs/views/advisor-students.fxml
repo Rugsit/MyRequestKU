@@ -76,9 +76,6 @@
                      </cursor>
                      <graphic>
                         <ImageView fx:id="tabProfilePicImageView" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" styleClass="profileImage">
-                           <image>
-                              <Image url="@../../../images/users/side-bar-profile.png" />
-                           </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

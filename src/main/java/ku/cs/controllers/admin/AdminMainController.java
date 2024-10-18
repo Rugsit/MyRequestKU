@@ -68,18 +68,6 @@ public class AdminMainController implements ParentController {
         userList = ((UserListFileDatasource)datasource).readAllUser();
         nameLabel.setText(loginUser.getName());
 
-        try {
-            String viewPath = "/ku/cs/views/admin-profile-pane.fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(viewPath));
-            Pane pane = fxmlLoader.load();
-            AdminProfileController controller = fxmlLoader.getController();
-            controller.setLoginUser(loginUser);
-            controller.showDataOnCard();
-            borderPane.setCenter(pane);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         gotoProfilePage();
         loadProfile();
     }

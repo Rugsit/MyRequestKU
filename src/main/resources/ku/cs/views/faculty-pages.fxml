@@ -74,9 +74,6 @@
                      <VBox.margin>
                         <Insets bottom="10.0" top="20.0" />
                      </VBox.margin>
-                     <image>
-                        <Image url="@../../../images/users/side-bar-profile.png" />
-                     </image>
                   </ImageView>
                   <Label fx:id="tabAccountNameLabel" maxWidth="250.0" prefWidth="250.0" text="นายเมมโมรี่โฟม รักนอน">
                      <font>

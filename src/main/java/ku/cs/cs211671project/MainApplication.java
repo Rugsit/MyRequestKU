@@ -68,7 +68,6 @@ public class MainApplication extends Application {
         FXRouter.when("department-aboutus", viewPath + "department-aboutus.fxml");
 
         FXRouter.when("choose-request-form", viewPath + "choose-request-form-page.fxml");
-        FXRouter.when("test", viewPath + "test-datasource.fxml");
 
         FXRouter.when("request-management", viewPath + "staff-request-management.fxml");
 
