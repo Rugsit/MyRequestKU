@@ -21,6 +21,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://www.figma.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/> </a> 
 &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://gluonhq.com/products/scene-builder/" target="_blank" rel="noreferrer"> <img src="https://github.com/user-attachments/assets/cb2196ea-db7d-4a2d-a888-d6dbee6549c8" alt="scenebuilder" width="40" height="40"/> </a> 
+&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 
 ## Showcase
@@ -28,6 +30,9 @@
 ![myrequestkuimg1](https://github.com/user-attachments/assets/b9d1858e-6209-420c-8dff-ee50b6e380e4)
 ![myrequestkuimg2](https://github.com/user-attachments/assets/8bfa4bb9-863e-42f2-adeb-046086ccc205)
 ![myrequestkuimg3](https://github.com/user-attachments/assets/405103a9-224c-4458-b7ea-0ff475579962)
+
+## โปรแกรมนี้คืออะไร ?
+เป็นโปรแกรมที่มีจุดมุ่งหมายหลัก เพื่ออำนวยความสะดวกแก่ผู้ใช้งานในเรื่องของการบริหารจัดการคำร้อง ในเรื่องของการส่งคำร้องหรือดูข้อมูลคำร้องต่าง ๆ ให้ทำได้โดยง่ายและสะดวกต่อผู้ใช้ ครอบคลุมทุกส่วนทุกกระบวนการการส่งคำร้องตั้งแต่สร้างจนถึงการอนุมัติและปฏิเสธ
 
 ## วิธีการติดตั้งและรันโปรแกรม
 #### อธิบาย directory ของโปรเจกต์ที่เกี่ยวข้องกับวิธีการติดตั้งและรันโปรแกรม
