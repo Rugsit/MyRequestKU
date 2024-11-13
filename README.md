@@ -1,6 +1,6 @@
 # CS211 Project ภาคต้น 2567
 
-## ชื่อทีม runtime-error
+## ชื่อทีม runtime-error ทดสอบ
 
 ### สมาชิกในทีม
 | รหัสนิสิต  | ชื่อ-นามสกุล (ชื่อเล่น)    | GitHub username |
