@@ -23,6 +23,12 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 
+## Showcase
+![myrequestkuimg4](https://github.com/user-attachments/assets/9d21d55e-4dc7-4ab6-afa4-09f9497faa62)
+![myrequestkuimg1](https://github.com/user-attachments/assets/b9d1858e-6209-420c-8dff-ee50b6e380e4)
+![myrequestkuimg2](https://github.com/user-attachments/assets/8bfa4bb9-863e-42f2-adeb-046086ccc205)
+![myrequestkuimg3](https://github.com/user-attachments/assets/405103a9-224c-4458-b7ea-0ff475579962)
+
 ## วิธีการติดตั้งและรันโปรแกรม
 #### อธิบาย directory ของโปรเจกต์ที่เกี่ยวข้องกับวิธีการติดตั้งและรันโปรแกรม
 1. data เก็บข้อมูล Mock-Data เริ่มต้น
