@@ -1,11 +1,27 @@
 
 <h1 align="center">
   <br>
- <img src="https://github.com/user-attachments/assets/b1eda41d-2c0f-45cb-839a-81b6ae4f0d2e" alt="" width="200">
+ <img src="https://github.com/user-attachments/assets/b1eda41d-2c0f-45cb-839a-81b6ae4f0d2e" alt="" width="200" class="margin-bottom: 15px;">
   <br>
   <span style="">CS211 Project MyRequestKU</span>
   <br>
 </h1>
+
+<p align="center">
+    <b>โปรเจกต์นี้เป็นส่วนหนึ่งของ รายวิชา 01418211 - การสร้างซอฟต์แวร์ (Software Construction)</b> <br>
+    <b>ภาคการศึกษาที่ 1 ปีการศึกษา 2567</b> <br>
+</p>
+
+<p align="center">
+<a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://www.figma.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/> </a> 
+&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
 
 ## วิธีการติดตั้งและรันโปรแกรม
 #### อธิบาย directory ของโปรเจกต์ที่เกี่ยวข้องกับวิธีการติดตั้งและรันโปรแกรม
