@@ -1,7 +1,7 @@
 
-<h1 align="center">
+<h1 align="center" class="margin-bottom: 15px;">
   <br>
- <img src="https://github.com/user-attachments/assets/b1eda41d-2c0f-45cb-839a-81b6ae4f0d2e" alt="" width="200" class="margin-bottom: 15px;">
+ <img src="https://github.com/user-attachments/assets/b1eda41d-2c0f-45cb-839a-81b6ae4f0d2e" alt="" width="200" >
   <br>
   <span style="">CS211 Project MyRequestKU</span>
   <br>
