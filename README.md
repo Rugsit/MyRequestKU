@@ -42,12 +42,23 @@
 4. release/UML เก็บข้อมูล UML-Diagram ของคลาสภายในโปรเจกต์
 
 #### อธิบายวิธีการติดตั้ง และวิธีการรันโปรแกรม
-1. เลือก jar file ใน directory release ที่ตรงกับระบบปฏิบัติการของคุณ
-2. หากต้องการข้อมูลเริ่มต้นเพื่อทดสอบให้นำ directory data (เก็บข้อมูลเริ่มต้น) ใน directory release มาไว้ใน directory เดียวกันกับ jar file
-3. คลิกที่ jar file เพื่อเปิดใช้งานโปรแกรมได้เลย หรือใช้คำสั่ง java -jar ชื่อไฟล์.jar
-4. หรือถ้าหากไม่อยากทำ 3 ข้อด้านบนให้คลิกที่ https://github.com/Rugsit/MyRequestKU/releases/tag/4.0.0
+* ด้วยการ clone repository
+1. Clone repository นี้ลงในเครื่องของตนเอง
+2. เลือก jar file ใน directory release ที่ตรงกับระบบปฏิบัติการของคุณ
+3. หากต้องการข้อมูลเริ่มต้นเพื่อทดสอบให้นำ directory data (เก็บข้อมูลเริ่มต้น) ใน directory release มาไว้ใน directory เดียวกันกับ jar file
+4. คลิกที่ jar file เพื่อเปิดใช้งานโปรแกรมได้เลย หรือใช้คำสั่ง java -jar ชื่อไฟล์.jar
+5. หรือถ้าหากไม่อยากทำ 3 ข้อด้านบนให้คลิกที่ https://github.com/Rugsit/MyRequestKU/releases/tag/4.0.0
 
 ![how-to-use](https://github.com/punsnx/project-extended-resources/blob/592e789c290ee15c6f2d78f6ab3ebe4937635c52/cs211-myrequestku-how-to-install-and-run-program.png)
+
+
+* ด้วยการโหลดจาก releases
+1. กดเลือกไปที่ releases ด้านขวาของ repository
+2. กดที่ไฟล์ zip เพื่อ download ไฟล์ และแตกไฟล์ใน directory ที่ต้องการ
+3. เลือก jar file ใน directory release ที่ตรงกับระบบปฏิบัติการของคุณ
+4. หากไม่ต้องการข้อมูลเริ่มต้นเพื่อทดสอบให้ลบ directory data
+5. คลิกที่ jar file เพื่อเปิดใช้งานโปรแกรมได้เลย หรือใช้คำสั่ง java -jar ชื่อไฟล์.jar
+![image](https://github.com/user-attachments/assets/f81d4796-2c41-4d5a-8520-b7dd1f75d43b)
 
 ## คู่มือการใช้งาน
 - สามารถคลิกที่
